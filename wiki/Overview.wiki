@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary Overview and installation instructions
 #labels xproc
 
 = Overview =
@@ -12,4 +12,11 @@ Add your content here.  Format your content with:
 = Dependencies =
 
 
-= Install =
+= Installation =
+
+
+= Testing =
+
+
+
+= License =
