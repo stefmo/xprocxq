@@ -100,26 +100,45 @@
         <xproc-saxon dest="result/xproc_result_1.xml"
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
-                     xproc="file:test/xproc/testsuite/helloworld_1.xml"/>
+                     xproc="file:test/xproc/basic/helloworld_1.xml"/>
 
         <xproc-saxon dest="result/xproc_result_1_1.xml"
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
-                     xproc="file:test/xproc/testsuite/helloworld_1_1.xml"/>
+                     xproc="file:test/xproc/basic/helloworld_1_1.xml"/>
                      
         <xproc-saxon dest="result/xproc_result_2.xml"
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
-                     xproc="file:test/xproc/testsuite/helloworld_2.xml"/>
+                     xproc="file:test/xproc/basic/helloworld_2.xml"/>
         
         <xproc-saxon dest="result/xproc_result_3.xml"
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
-                     xproc="file:test/xproc/testsuite/helloworld_3.xml"/>
+                     xproc="file:test/xproc/basic/helloworld_3.xml"/>
         
     </target>
     
     
+    <!-- ===================================================== -->
+    <!-- compile xquery extensio                               -->
+    <!-- ===================================================== -->
+    <target name="compile" description="compile xquery java extension">
+        
+        <!-- compile in netbeans for now
+
+    <javac destdir="lib" includes="src/java/*.java" source="1.5" srcdir="src/java">
+            <classpath path="lib/saxon/saxon8-ant.jar:lib/saxon/saxon8-dom.jar:lib/saxon/saxon8-dom4j.jar:lib/saxon/saxon8-jdom.jar:lib/saxon/saxon8-sql.jar:lib/saxon/saxon8-xom.jar:lib/saxon/saxon8-xpath.jar:lib/saxon/saxon8-xqj.jar:lib/saxon/saxon8.jar:lib/saxon/saxon8sa-jaxp.jar:lib/saxon/saxon8sa-qc.jar:lib/saxon/saxon8sa.jar:lib/saxon"/>
+    </javac>
+
+    //-->
+        
+    </target>    
+    
+    
+    <!-- ===================================================== -->
+    <!-- clean                                                 -->
+    <!-- ===================================================== -->    
     <target name="clean">
         <delete dir="result"/>
         <mkdir dir="result"/>
@@ -204,19 +223,6 @@
     </macrodef>
     
     
-    <!-- ===================================================== -->
-    <!-- compile xquery extensio                               -->
-    <!-- ===================================================== -->
-    <target name="compile" description="compile xquery java extension">
-        
-        <!-- compile in netbeans for now
 
-    <javac destdir="lib" includes="src/java/*.java" source="1.5" srcdir="src/java">
-            <classpath path="lib/saxon/saxon8-ant.jar:lib/saxon/saxon8-dom.jar:lib/saxon/saxon8-dom4j.jar:lib/saxon/saxon8-jdom.jar:lib/saxon/saxon8-sql.jar:lib/saxon/saxon8-xom.jar:lib/saxon/saxon8-xpath.jar:lib/saxon/saxon8-xqj.jar:lib/saxon/saxon8.jar:lib/saxon/saxon8sa-jaxp.jar:lib/saxon/saxon8sa-qc.jar:lib/saxon/saxon8sa.jar:lib/saxon"/>
-    </javac>
-
-    //-->
-        
-    </target>
     
 </project>
