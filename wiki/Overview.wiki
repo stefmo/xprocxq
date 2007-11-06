@@ -1,5 +1,7 @@
-#summary README
+#summary Overview
 #labels xproc
+
+
 
 Name: Xproc.xq
 Version: v.0.0.1
@@ -9,7 +11,7 @@ Date: 06 Nov 2007
 xproc.xq: XQuery implementation of W3C XProc Specification
 
 
-= Deps =
+== Deps ==
 
     Saxon-SA (www.saxonica.com)
 
@@ -18,7 +20,7 @@ xproc.xq: XQuery implementation of W3C XProc Specification
     eXist (exist.sourceforge.net)
 
 
-= Distro =
+== Distro ==
 
 Note that this section is remarking on what we will want in the future... items may not yet exist.
 
@@ -51,18 +53,18 @@ src/
     Contains XQuery source files and entry point for using xproc.xq
 
 
-= Usage =
+== Usage ==
 
     TBA
 
-= Installation =
+== Installation ==
 
     TBA
 
-= Feedback =
+== Feedback ==
 
 Please post questions and comments about this implementation to [http://code.google.com/p/xprocxq/issues/list Issues]
 
-= License =
+== License ==
 
 This software is subject to the terms of the Mozilla Public License (MPL) v1.1, a copy of which can be obtained here http://www.mozilla.org/MPL/
