@@ -1,5 +1,77 @@
-xproc.xq: XQuery implementation of XProc Processor
+xproc.xq: XQuery implementation of XProc Processor v.0.0.1
 
-Jim Fuller
+Author: James Fuller (james.fuller.2007@gmail.com)
+Date:06 Nov 2007
+
+
+Xproc.xq is a bootstrap implementation of the W3C XProc Specification.
+
+
+Table of Contents
+1. Deps
+2. Distro
+3. Usage
+4. Install
+5. Feedback
+6. License
+
+
+1. Deps
+
+    Saxon-SA (www.saxonica.com)
+
+    or
+
+    eXist (exist.sourceforge.net)
+
+
+2. Distro
+
+Note that this section is remarking on what we will want in the future... items may not yet exist.
+
+The distribution consists of:
+
+README
+    This document.
+
+VERSION
+    A summary of the distribution version.
+
+RELEASE
+    
+build.xml
+    For testing and building distro
+
+bin/
+    Contains xproc run script
+
+etc/
+    Contains misc artifacts
+
+lib/
+    Contain 3rd party deps
+
+test/
+    Contains Xquery Unit Tests, XML Pipeline Unit Tests
+
+src/
+    Contains XQuery source files and entry point for using xproc.xq
+
+
+3. Usage
+
+    TBA
+
+4. Installation
+
+    TBA
+
+5. Feedback
+
+Please post questions and comments about this implementation to http://code.google.com/p/xprocxq/issues/list.
+
+6. License
+
+This software is subject to the terms of the Mozilla Public License (MPL) v1.1, a copy of which can be obtained here http://www.mozilla.org/MPL/
 
 
