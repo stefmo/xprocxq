@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+<project name="xproc.xq" basedir=".">
+    <description></description>
+    
+    <!-- saxon properties -->
+    <property name="jar.saxon" location="lib/saxon/saxon8.jar"/>
+    <property name="dir.saxon" location="lib/saxon"/>
+    <property name="dir.java.function" location="lib"/>
+    
+    <!-- ===================================================== -->
+    <!-- unit test unit comp                                   -->
+    <!-- ===================================================== -->
+    <target name="test-comp" description="test comp unit tests">
+        
+        <xquery-saxon dest="result/comp.xml"
+                      query="test/xquery/comp.xq"
+                      input="file:test/data/test.xml"/>
+        
+        <xslt-saxon dest="result/result-comp-test.html"
+                    style="etc/test.xsl"
+                    xml="result/comp.xml"/>
+        
+    </target>
+    
+    <!-- ===================================================== -->
+    <!-- unit test ext                                         -->
+    <!-- ===================================================== -->
+    <target name="test-ext" description="test ext unit tests">
+        
+        <xquery-saxon dest="result/ext.xml"
+                      query="test/xquery/ext.xq"
+                      input="file:test/data/test.xml"/>
+        
+        <xslt-saxon dest="result/result-ext-test.html"
+                    style="etc/test.xsl"
+                    xml="result/ext.xml"/>
+        
+    </target>
+    
+    <!-- ===================================================== -->
+    <!-- unit test unit test suite ;)                          -->
+    <!-- ===================================================== -->
+    <target name="test-test" description="test baseline unit tests">
+        
+        <xquery-saxon dest="result/baseline.xml"
+                      query="test/xquery/baseline.xq"
+                      input="file:test/data/test.xml"/>
+        
+        <xslt-saxon dest="result/result-baseline-test.html"
+                    style="etc/test.xsl"
+                    xml="result/baseline.xml"/>
+        
+    </target>
+    
+    <!-- ===================================================== -->
+    <!-- unit test xproc.xq engine                             -->
+    <!-- ===================================================== -->
+    <target name="test-std" description="run std xquery unit tests">
+        
+        <xquery-saxon dest="result/std.xml"
+                      query="test/xquery/std.xq"
+                      input="file:test/data/test.xml"/>
+        
+        <xslt-saxon dest="result/result-std-test.html"
+                    style="etc/test.xsl"
+                    xml="result/std.xml"/>
+        
+    </target>
+    
+    
+    <!-- ===================================================== -->
+    <!-- unit test xproc.xq engine                             -->
+    <!-- ===================================================== -->
+    <target name="test-core" description="run core xquery unit tests">
+        
+        <xquery-saxon dest="result/core.xml"
+                      query="test/xquery/core.xq"
+                      input="file:test/data/test.xml"/>
+        
+        <xslt-saxon dest="result/result-core-test.html"
+                    style="etc/test.xsl"
+                    xml="result/core.xml"/>
+        
+    </target>
+    
+    
+    <!-- ===================================================== -->
+    <!-- run all xquery unit tests                             -->
+    <!-- ===================================================== -->
+    <target name="test-all-xquery" depends="clean,test-test,test-core,test-std,test-comp,test-ext"  
+            description="run all xquery tests">
+        
+    </target>
+    
+    <!-- ===================================================== -->
+    <!-- xproc.xq Hello World xproc unit tests                 -->
+    <!-- ===================================================== -->
+    <target name="xproc-helloworld-test" depends="clean"  description="run xproc.xq on basic helloworld.xml xproc">
+        
+        <xproc-saxon dest="result/xproc_result_1.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/testsuite/helloworld_1.xml"/>
+
+        <xproc-saxon dest="result/xproc_result_1_1.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/testsuite/helloworld_1_1.xml"/>
+                     
+        <xproc-saxon dest="result/xproc_result_2.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/testsuite/helloworld_2.xml"/>
+        
+        <xproc-saxon dest="result/xproc_result_3.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/testsuite/helloworld_3.xml"/>
+        
+    </target>
+    
+    
+    <target name="clean">
+        <delete dir="result"/>
+        <mkdir dir="result"/>
+    </target>
+    
+    <macrodef name="xslt-saxon">
+        <attribute name="dest"/>
+        <attribute name="style"/>
+        <attribute name="xml"/>
+        
+        <sequential>
+            <java classname="net.sf.saxon.Transform"
+                  fork="true"
+                  failonerror="false"
+                  maxmemory="256m"
+                  append="true"
+                  output="@{dest}/">
+                
+                <arg line="@{xml} @{style} "/>
+                <classpath>
+                    <pathelement location="${dir.saxon}"/>
+                    <fileset dir="${dir.saxon}">
+                        <include name="saxon8.jar"/>
+                    </fileset>
+                </classpath>          
+            </java>
+        </sequential>
+    </macrodef>
+    
+    
+    
+    <macrodef name="xquery-saxon">
+        <attribute name="dest"/>
+        <attribute name="input"/>
+        <attribute name="query"/>
+        
+        <sequential>
+            <java classname="net.sf.saxon.Query"
+                  fork="true"
+                  failonerror="false"
+                  maxmemory="256m"
+                  append="true"
+                  output="@{dest}/"
+            >
+                
+                <arg line="-sa -s @{input} @{query}"/>
+                <classpath>
+                    <pathelement location="${dir.java.function}"/>
+                    <pathelement location="${dir.saxon}"/>
+                    <fileset dir="${dir.saxon}">
+                        <include name="saxon8sa.jar"/>
+                    </fileset>
+                </classpath>
+            </java>
+        </sequential>
+    </macrodef>
+    
+    <macrodef name="xproc-saxon">
+        <attribute name="dest"/>
+        <attribute name="input"/>
+        <attribute name="query"/>
+        <attribute name="xproc"/>
+        
+        <sequential>
+            <java classname="net.sf.saxon.Query"
+                  fork="true"
+                  failonerror="false"
+                  maxmemory="256m"
+                  append="true"
+                  output="@{dest}/">
+                
+                <arg line="-sa -s @{input} @{query} +xproc=@{xproc} +stdin=@{input}"/>
+                <classpath>
+                    <pathelement location="${dir.java.function}"/>
+                    <pathelement location="${dir.saxon}"/>
+                    <fileset dir="${dir.saxon}">
+                        <include name="saxon8sa.jar"/>
+                    </fileset>
+                </classpath>                        
+            </java>
+        </sequential>
+    </macrodef>
+    
+    
+    <!-- ===================================================== -->
+    <!-- compile xquery extensio                               -->
+    <!-- ===================================================== -->
+    <target name="compile" description="compile xquery java extension">
+        
+        <!-- compile in netbeans for now
+
+    <javac destdir="lib" includes="src/java/*.java" source="1.5" srcdir="src/java">
+            <classpath path="lib/saxon/saxon8-ant.jar:lib/saxon/saxon8-dom.jar:lib/saxon/saxon8-dom4j.jar:lib/saxon/saxon8-jdom.jar:lib/saxon/saxon8-sql.jar:lib/saxon/saxon8-xom.jar:lib/saxon/saxon8-xpath.jar:lib/saxon/saxon8-xqj.jar:lib/saxon/saxon8.jar:lib/saxon/saxon8sa-jaxp.jar:lib/saxon/saxon8sa-qc.jar:lib/saxon/saxon8sa.jar:lib/saxon"/>
+    </javac>
+
+    //-->
+        
+    </target>
+    
+</project>

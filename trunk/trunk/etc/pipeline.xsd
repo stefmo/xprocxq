@@ -1,0 +1,627 @@
+<?xml version='1.0'?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.w3.org/2007/03/xproc" elementFormDefault="qualified" xmlns:p="http://www.w3.org/2007/03/xproc">
+ 
+ <import namespace="http://www.w3.org/XML/1998/namespace"/>
+ 
+ <complexType name="anyProc">
+  <sequence>
+   <any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+  </sequence>
+  <attribute ref="xml:id" use="optional"/>
+
+  <attribute ref="xml:base" use="optional"/>
+  <attribute ref="p:extension-prefixes" use="optional" form="qualified"/>
+  <anyAttribute namespace="##other" processContents="lax"/>
+ </complexType>
+
+  <element name="component" type="p:componentType" abstract="true"/>
+ 
+ <element name="extra" abstract="true">
+  <annotation>
+   <documentation>Temporary mechanism to allow for extension with
+non-components -- give them p:extra as their subst. group heads.</documentation>
+
+  </annotation>
+ </element>
+
+  <complexType name="componentType">
+   <complexContent>
+    <extension base="p:anyProc">
+     <attribute name="name" type="NCName" use="optional"/>     
+    </extension>
+   </complexContent>
+  </complexType>
+
+  <element name="step" type="p:stepType" abstract="true" substitutionGroup="p:component"/>
+ 
+ <group name="subPipe">
+  <sequence>
+   <element ref="p:component"/>
+   <choice minOccurs="0" maxOccurs="unbounded">
+    <element ref="p:component"/>
+    <element ref="p:extra"/>
+    <element ref="p:doc"/>
+
+   </choice>
+  </sequence>
+ </group>
+
+  <complexType name="stepType">
+   <complexContent>
+    <restriction base="p:componentType">
+      <sequence>
+       <choice minOccurs="0" maxOccurs="unbounded">        
+        <element ref="p:input"/>
+
+        <element ref="p:output"/>
+        <element ref="p:option"/>
+        <element ref="p:import-parameter"/>
+        <element ref="p:parameter"/>
+        <element ref="p:extra"/>
+        <element ref="p:doc"/>
+       </choice>
+       <group ref="p:subPipe" minOccurs="0"/>
+      </sequence>
+
+      <anyAttribute namespace="##other" processContents="lax"/>
+    </restriction>
+   </complexContent>
+  </complexType>
+
+  <element name="atomicStep" abstract="true" substitutionGroup="p:step">
+   <complexType>
+    <complexContent>
+    <restriction base="p:stepType">
+
+      <sequence>
+       <choice minOccurs="0" maxOccurs="unbounded">
+        <element ref="p:input"/>
+        <element ref="p:option"/>
+        <element ref="p:import-parameter"/>
+        <element ref="p:parameter"/>
+        <element ref="p:extra"/>
+        <element ref="p:doc"/>
+       </choice>
+
+      </sequence>
+      <anyAttribute namespace="##other" processContents="lax"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+  </element>
+
+  <element name="compoundStep" abstract="true" substitutionGroup="p:step"/>
+
+  <element name="binding" abstract="true"/> 
+
+  <attribute name="extension-prefixes">
+
+   <simpleType>
+    <list itemType="NCName"/>
+   </simpleType>
+  </attribute>
+ 
+ <element name="doc">
+  <complexType>
+   <complexContent>
+    <restriction base="p:anyProc">
+     <sequence>
+
+      <any processContents="lax"/>
+     </sequence>
+     <anyAttribute namespace="##other" processContents="lax"/>
+    </restriction>
+   </complexContent>
+  </complexType>
+ </element>
+
+ <element name="pipeline">
+
+  <complexType>
+   <complexContent>
+    <restriction base="p:componentType">
+     <sequence>
+      <choice minOccurs="0" maxOccurs="unbounded">        
+       <element ref="p:input"/>
+       <element ref="p:output"/>
+       <element ref="p:import"/>
+       <element ref="p:declare-step"/>
+
+       <element ref="p:parameter"/>
+       <element ref="p:extra"/>
+       <element ref="p:doc"/>
+      </choice>
+      <group ref="p:subPipe" minOccurs="0"/>
+     </sequence>
+     <anyAttribute namespace="##other" processContents="lax"/>
+    </restriction>
+   </complexContent>
+
+  </complexType>
+ </element>
+
+ <element name="input">
+  <complexType>
+   <complexContent>
+    <restriction base="p:anyProc">
+     <choice minOccurs="0" maxOccurs="unbounded">
+      <element ref="p:binding"/>
+
+      <element ref="p:doc"/>
+      <element ref="p:extra"/>
+     </choice>
+     <attribute name="port" type="NCName" use="required"/>
+     <attribute name="sequence" type="p:yORn" use="optional" default="no"/>
+     <attribute name="select" type="p:XPath" use="optional"/>
+     <anyAttribute namespace="##other" processContents="lax"/>
+    </restriction>
+   </complexContent>
+
+  </complexType>
+ </element>
+
+ <element name="pipe" substitutionGroup="p:binding">
+  <complexType>
+   <complexContent>
+    <restriction base="p:anyProc">
+     <sequence>
+      <element ref="p:doc" minOccurs="0"/>
+
+     </sequence>
+     <attribute name="step" type="NCName" use="required"/>
+     <attribute name="port" type="NCName" use="required"/>
+     <anyAttribute namespace="##other" processContents="lax"/>
+    </restriction>
+   </complexContent>
+  </complexType>
+ </element>
+
+ <element name="document" substitutionGroup="p:binding">
+  <complexType>
+   <complexContent>
+    <restriction base="p:anyProc">
+     <sequence>
+      <element ref="p:doc" minOccurs="0"/>
+     </sequence>
+     <attribute name="href" type="anyURI" use="required"/>
+     <anyAttribute namespace="##other" processContents="lax"/>
+
+    </restriction>
+   </complexContent>
+  </complexType>
+ </element>
+
+ <element name="inline" substitutionGroup="p:binding">
+  <complexType>
+   <complexContent>
+    <restriction base="p:anyProc">
+
+     <sequence>
+      <any namespace="##any" processContents="lax"/>
+     </sequence>
+     <anyAttribute namespace="##other" processContents="lax"/>
+    </restriction>
+   </complexContent>
+  </complexType>
+ </element>
+
+ <element name="iteration-source">
+  <complexType>
+   <complexContent>
+    <restriction base="p:anyProc">
+     <choice minOccurs="0" maxOccurs="unbounded">
+      <element ref="p:binding"/>
+      <element ref="p:doc"/>
+     </choice>
+     <attribute name="select" type="p:XPath" use="optional"/>
+
+     <anyAttribute namespace="##other" processContents="lax"/>
+    </restriction>
+   </complexContent>
+  </complexType>
+ </element>
+
+ <element name="viewport-source">
+  <complexType>
+   <complexContent>
+
+    <restriction base="p:anyProc">
+     <sequence>
+      <element ref="p:doc" minOccurs="0"/>
+      <element ref="p:binding"/>
+      <element ref="p:doc" minOccurs="0"/>
+     </sequence>
+     <attribute name="match" type="p:XPath" use="required"/>
+     <anyAttribute namespace="##other" processContents="lax"/>
+    </restriction>
+
+   </complexContent>
+  </complexType>
+ </element>
+
+ <element name="output">
+  <complexType>
+   <complexContent>
+    <restriction base="p:anyProc">
+     <choice minOccurs="0" maxOccurs="unbounded">
+
+      <element ref="p:binding"/>
+      <element ref="p:doc"/>
+     </choice>
+     <attribute name="port" type="NCName" use="required"/>
+     <attribute name="sequence" type="p:yORn" use="optional" default="no"/>
+     <attribute name="default" use="optional" default="no" type="p:yORn"/>
+     <anyAttribute namespace="##other" processContents="lax"/>
+    </restriction>
+   </complexContent>
+
+  </complexType>
+ </element>
+
+ <element name="parameter" type="p:poType"/>
+ <element name="option" type="p:poType"/>
+
+ <complexType name="poType">
+  <complexContent>
+   <restriction base="p:anyProc">
+    <sequence>
+
+     <element ref="p:doc" minOccurs="0"/>
+     <sequence minOccurs="0">
+      <element ref="p:binding"/>
+      <element ref="p:doc" minOccurs="0"/>
+     </sequence>
+    </sequence>
+    <attribute name="name" type="string" use="required"/>
+    <attribute name="required" use="optional" default="no" type="p:yORn"/>
+    <attribute name="value" type="string" use="optional"/>
+
+    <attribute name="select" type="p:XPath" use="optional"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
+   </restriction>
+  </complexContent>
+  </complexType>
+
+ <element name="import-parameter">
+  <complexType>
+   <complexContent>
+
+    <restriction base="p:anyProc">
+     <sequence>
+      <element ref="p:doc" minOccurs="0"/>
+     </sequence>
+     <attribute name="name" type="string" use="required"/>
+     <anyAttribute namespace="##other" processContents="lax"/>
+    </restriction>
+   </complexContent>   
+  </complexType>
+
+ </element>
+
+ <element name="for-each" substitutionGroup="p:component">
+  <complexType>
+   <complexContent>
+    <restriction base="p:componentType">
+     <sequence>
+      <element ref="p:doc" minOccurs="0"/>
+      <sequence minOccurs="0">
+
+       <element ref="p:iteration-source"/>
+       <element ref="p:doc" minOccurs="0"/>
+      </sequence>
+      <sequence minOccurs="0">
+       <choice>
+        <element ref="p:output"/>
+        <element ref="p:parameter"/>
+       </choice>
+       <choice minOccurs="0" maxOccurs="unbounded">
+
+       <element ref="p:output"/>
+       <element ref="p:parameter"/>
+       <element ref="p:extra"/>
+       <element ref="p:doc"/>
+      </choice>
+      </sequence>
+      <group ref="p:subPipe" minOccurs="0"/>
+     </sequence>
+     <attribute name="select" type="p:XPath" use="optional"/>
+
+     <anyAttribute namespace="##other" processContents="lax"/>
+    </restriction>
+   </complexContent>
+  </complexType>
+ </element>
+
+ <element name="viewport" substitutionGroup="p:component">
+  <complexType>
+   <complexContent>
+
+    <restriction base="p:componentType">
+     <sequence>
+      <sequence minOccurs="0">
+       <element ref="p:doc" minOccurs="0"/>
+       <element ref="p:viewport-source"/>
+      </sequence>
+      <element ref="p:output"/>
+      <choice minOccurs="0" maxOccurs="unbounded">
+       <element ref="p:parameter"/>
+
+       <element ref="p:extra"/>
+       <element ref="p:doc"/>
+      </choice>
+      <group ref="p:subPipe" minOccurs="0"/>
+     </sequence>
+     <attribute name="match" type="p:XPath" use="required"/>
+     <anyAttribute namespace="##other" processContents="lax"/>
+    </restriction>
+   </complexContent>
+
+  </complexType>
+ </element>
+
+ <element name="choose" substitutionGroup="p:component">
+  <complexType>
+   <complexContent>
+    <restriction base="p:componentType">
+     <sequence>
+      <element ref="p:doc" minOccurs="0"/>
+
+      <sequence minOccurs="0">
+       <element ref="p:xpath-context"/>
+       <element ref="p:doc" minOccurs="0"/>
+      </sequence>
+      <sequence minOccurs="0">
+       <element ref="p:when"/>
+       <choice minOccurs="0" maxOccurs="unbounded">
+       <element ref="p:when"/>
+       <element ref="p:doc"/>
+
+      </choice>
+      </sequence>
+      <sequence minOccurs="0">
+       <element ref="p:otherwise"/>
+       <element ref="p:doc" minOccurs="0"/>
+      </sequence>
+     </sequence>
+     <anyAttribute namespace="##other" processContents="lax"/>
+    </restriction>
+
+   </complexContent>
+  </complexType>
+ </element>
+
+ <element name="when">
+  <complexType>
+   <complexContent>
+    <restriction base="p:componentType">
+     <sequence>
+
+      <element ref="p:doc" minOccurs="0"/>
+      <sequence minOccurs="0">
+       <element ref="p:xpath-context"/>
+       <element ref="p:doc" minOccurs="0"/>
+      </sequence>
+      <sequence minOccurs="0">
+       <choice>
+        <element ref="p:output"/>
+        <element ref="p:parameter"/>
+
+       </choice>
+       <choice minOccurs="0" maxOccurs="unbounded">
+       <element ref="p:output"/>
+       <element ref="p:parameter"/>
+       <element ref="p:extra"/>
+       <element ref="p:doc"/>
+      </choice>
+      </sequence>
+      <group ref="p:subPipe" minOccurs="0"/>
+
+     </sequence>
+     <attribute name="name" use="prohibited"/>
+     <attribute name="test" type="p:XPath" use="required"/>
+     <anyAttribute namespace="##other" processContents="lax"/>
+    </restriction>
+   </complexContent>
+  </complexType>
+ </element>
+
+ <element name="otherwise">
+  <complexType>
+   <complexContent>
+    <restriction base="p:componentType">
+     <sequence>
+      <choice minOccurs="0" maxOccurs="unbounded">
+       <element ref="p:output"/>
+       <element ref="p:parameter"/>
+       <element ref="p:extra"/>
+
+       <element ref="p:doc"/>
+      </choice>
+      <group ref="p:subPipe" minOccurs="0"/>
+     </sequence>
+     <attribute name="name" use="prohibited"/>
+     <anyAttribute namespace="##other" processContents="lax"/>
+    </restriction>
+   </complexContent>
+  </complexType>
+
+ </element>
+ 
+ <element name="xpath-context">
+  <complexType>
+   <complexContent>
+    <restriction base="p:anyProc">
+     <sequence>
+      <element ref="p:doc" minOccurs="0"/>
+      <sequence minOccurs="0">
+       <element ref="p:binding"/>
+
+       <element ref="p:doc" minOccurs="0"/>
+      </sequence>
+     </sequence>
+     <anyAttribute namespace="##other" processContents="lax"/>
+    </restriction>
+   </complexContent>   
+  </complexType>
+ </element>
+
+ <element name="group" substitutionGroup="p:component">
+
+  <complexType>
+   <complexContent>
+    <restriction base="p:componentType">
+     <sequence>
+      <choice minOccurs="0" maxOccurs="unbounded">
+       <element ref="p:output"/>
+       <element ref="p:parameter"/>
+       <element ref="p:extra"/>
+       <element ref="p:doc"/>
+
+      </choice>
+      <group ref="p:subPipe" minOccurs="0"/>
+     </sequence>
+     <anyAttribute namespace="##other" processContents="lax"/>
+    </restriction>
+   </complexContent>
+  </complexType>
+ </element>
+
+ <element name="try" substitutionGroup="p:component">
+  <complexType>
+   <complexContent>
+    <restriction base="p:componentType">
+     <sequence>
+      <element ref="p:doc" minOccurs="0"/>
+      <element ref="p:group"/>
+      <element ref="p:doc" minOccurs="0"/>
+      <element ref="p:catch"/>
+
+      <element ref="p:doc" minOccurs="0"/>
+     </sequence>
+     <anyAttribute namespace="##other" processContents="lax"/>
+    </restriction>
+   </complexContent>
+  </complexType>
+ </element>
+
+ <element name="catch">
+
+  <complexType>
+   <complexContent>
+    <restriction base="p:componentType">
+     <sequence>
+      <choice minOccurs="0" maxOccurs="unbounded">
+       <element ref="p:output"/>
+       <element ref="p:parameter"/>
+       <element ref="p:extra"/>
+       <element ref="p:doc"/>
+
+      </choice>
+      <group ref="p:subPipe" minOccurs="0"/>
+     </sequence>
+     <anyAttribute namespace="##other" processContents="lax"/>
+    </restriction>
+   </complexContent>
+  </complexType>
+ </element>
+
+ <element name="identity" substitutionGroup="p:atomicStep"/>
+ <element name="join-sequences" substitutionGroup="p:atomicStep"/>
+ <element name="load" substitutionGroup="p:atomicStep"/>
+ <element name="store" substitutionGroup="p:atomicStep"/>
+ <element name="subsequence" substitutionGroup="p:atomicStep"/>
+ <element name="xinclude" substitutionGroup="p:atomicStep"/>
+ <element name="xslt" substitutionGroup="p:atomicStep"/>
+ <element name="serialise" substitutionGroup="p:atomicStep"/>
+ <element name="parse" substitutionGroup="p:atomicStep"/>
+
+ <element name="http-request" substitutionGroup="p:atomicStep"/>
+ <element name="relax-ng-validate" substitutionGroup="p:atomicStep"/>
+ <element name="xinclude-from-sequence" substitutionGroup="p:atomicStep"/>
+ <element name="xml-schema-validate" substitutionGroup="p:atomicStep"/>
+ <element name="xslt-2.0" substitutionGroup="p:atomicStep"/>
+ <element name="xquery" substitutionGroup="p:atomicStep"/>
+
+ <element name="delete" substitutionGroup="p:atomicStep"/>
+ <element name="insert" substitutionGroup="p:atomicStep"/>
+
+ <element name="label-elements" substitutionGroup="p:atomicStep"/>
+ <element name="ns-rename" substitutionGroup="p:atomicStep"/>
+ <element name="rename" substitutionGroup="p:atomicStep"/>
+ <element name="replace" substitutionGroup="p:atomicStep"/>
+ <element name="set-attributes" substitutionGroup="p:atomicStep"/>
+ <element name="unwrap" substitutionGroup="p:atomicStep"/>
+ <element name="wrap" substitutionGroup="p:atomicStep"/>
+
+
+ <element name="declare-step">
+
+  <complexType>
+   <complexContent>
+    <restriction base="p:anyProc">
+     <sequence>
+      <choice minOccurs="0" maxOccurs="unbounded">        
+       <element ref="p:input"/>
+       <element ref="p:output"/>
+       <element ref="p:option"/>
+       <element ref="p:parameter"/>
+
+       <element ref="p:extra"/>
+       <element ref="p:doc"/>
+      </choice>
+     </sequence>
+     <attribute name="type" type="QName" use="required"/>
+     <anyAttribute namespace="##other" processContents="lax"/>
+    </restriction>
+   </complexContent>
+  </complexType>
+
+ </element>
+
+ <element name="pipeline-library">
+  <complexType>
+   <complexContent>
+    <restriction base="p:anyProc">
+     <sequence>
+      <choice minOccurs="0" maxOccurs="unbounded">        
+       <element ref="p:import"/>
+       <element ref="p:declare-step"/>
+
+       <element ref="p:pipeline"/>
+       <element ref="p:extra"/>
+       <element ref="p:doc"/>
+      </choice>
+     </sequence>
+     <attribute name="namespace" type="anyURI" use="optional"/>
+     <anyAttribute namespace="##other" processContents="lax"/>
+    </restriction>
+   </complexContent>
+
+  </complexType>
+ </element>
+
+ <element name="import">
+  <complexType>
+   <sequence>
+    <element ref="p:doc" minOccurs="0"/>
+   </sequence>
+   <attribute name="href" type="string" use="required"/>
+
+  </complexType>
+ </element>
+
+ <simpleType name="yORn">
+  <restriction base="token">
+   <enumeration value="yes"/>
+   <enumeration value="no"/>
+  </restriction>
+ </simpleType>
+
+ <simpleType name="XPath">
+  <restriction base="string"/>
+ </simpleType>
+ 
+ <simpleType name="step-name">
+  <union memberTypes="NCName QName"/>
+ </simpleType>
+</schema>
