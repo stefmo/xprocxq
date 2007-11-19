@@ -64,3 +64,5 @@ src/
 Please post questions and comments about this implementation to [http://code.google.com/p/xprocxq/issues/list Issues]
 
 == License ==
+
+Xproc.xq is released under Mozilla Public License (MPL) v1.1, of which a copy is included in this distribution in the LICENSE file.
