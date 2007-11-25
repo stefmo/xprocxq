@@ -1,0 +1,13 @@
+XProc Tests
+
+I am in the process of converting my testsuite
+
+extension: XProc.net (e.g. xproc.xq own extensions) tests
+optional: W3C XProc optional step tests
+required: W3C XProc standard step tests
+
+the top level helloworld xproc's are very simple tests used during initial development
+
+
+
+
