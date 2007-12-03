@@ -2,7 +2,10 @@
 <project name="xproc.xq" basedir=".">
     <description></description>
     
-    <!-- saxon properties -->
+    <!-- ===================================================== -->
+    <!-- dep properties                                        -->
+    <!-- ===================================================== -->
+    <!-- note: adjust for your xquery processor -->
     <property name="jar.saxon" location="lib/saxon/saxon8.jar"/>
     <property name="dir.saxon" location="lib/saxon"/>
     <property name="dir.java.function" location="lib"/>
@@ -82,7 +85,7 @@
                     xml="result/core.xml"/>
         
     </target>
-
+    
     
     <!-- ===================================================== -->
     <!-- unit test step-seq engine                             -->
@@ -107,9 +110,9 @@
             description="run all xquery tests">
         
     </target>
-
     
-       
+    
+    
     <!-- ===================================================== -->
     <!-- xproc.xq sorting xproc unit tests                     -->
     <!-- ===================================================== -->
@@ -119,26 +122,27 @@
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
                      xproc="file:test/xproc/basic/ordering/inputordering1.xml"/>
-
+        
     </target>
     
     
-                 
+    
     <!-- ===================================================== -->
     <!-- xproc.xq Hello World xproc unit tests                 -->
     <!-- ===================================================== -->
-    <target name="xproc-helloworld-test" depends="clean"  description="run xproc.xq on basic helloworld.xml xproc">
+    <target name="xproc-helloworld-test" depends="clean"  
+            description="run xproc on basic helloworld.xml xproc">
         
         <xproc-saxon dest="result/xproc_result_1.xml"
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
                      xproc="file:test/xproc/basic/helloworld_1.xml"/>
-
+        
         <xproc-saxon dest="result/xproc_result_1_1.xml"
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
                      xproc="file:test/xproc/basic/helloworld_1_1.xml"/>
-                     
+        
         <xproc-saxon dest="result/xproc_result_2.xml"
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
@@ -153,9 +157,10 @@
     
     
     <!-- ===================================================== -->
-    <!-- compile xquery extensio                               -->
+    <!-- compile saxon xquery extension                        -->
     <!-- ===================================================== -->
-    <target name="compile" description="compile xquery java extension">
+    <!-- TODO: update to compile this at some point            -->
+    <target name="saxon-compile" description="compile xquery java extension">
         
         <!-- compile in netbeans for now
 
@@ -176,6 +181,11 @@
         <mkdir dir="result"/>
     </target>
     
+    
+    <!-- ===================================================== -->
+    <!-- MACRODEFS                                             -->
+    <!-- ===================================================== -->    
+
     <macrodef name="xslt-saxon">
         <attribute name="dest"/>
         <attribute name="style"/>
@@ -228,6 +238,7 @@
         </sequential>
     </macrodef>
     
+    
     <macrodef name="xproc-saxon">
         <attribute name="dest"/>
         <attribute name="input"/>
@@ -253,8 +264,5 @@
             </java>
         </sequential>
     </macrodef>
-    
-    
-
     
 </project>
