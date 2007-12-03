@@ -17,14 +17,18 @@ Table of Contents
 
 1. Deps
 
+Currently to run unit tests and build stuff, xproc.xq is firmly dependent on Saxon-SA ... yes that is the one you
+buy ;) The plan is to have support for eXist and Saxon-B at some point soon.
+
     Saxon-SA (www.saxonica.com) (NOTE: only support SAXON at the moment)
+        (Saxon requires one to compile something)
 
     or
 
     eXist (exist.sourceforge.net)
 
 
-Note: will require Apache Ant to unit test and build
+Note: will also require Apache Ant to unit test and build associated artifacts
 
 
 2. Distro
