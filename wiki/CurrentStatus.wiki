@@ -1,12 +1,11 @@
 = Right Now =
 
-I am just about ready to commit the bulk of v.5 which represents the first version of xproc.xq that 'does stuff.
+3/12/2007 I am just about ready to commit the bulk of v.5 which represents the first version of xproc.xq that 'does stuff. Perhaps in time to announce whilst XML 2007 is running ;)
 
 
 = Limitations =
 
 There are so many to list .... so I will just list the major ones
-
 
 * very limited std step library
 
@@ -15,3 +14,4 @@ There are so many to list .... so I will just list the major ones
 * no command line entry point
 
 * have yet to remove dependency with Saxon-SA (though our targets are Saxon-B and eXist)
+
