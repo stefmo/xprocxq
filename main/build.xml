@@ -82,16 +82,48 @@
                     xml="result/core.xml"/>
         
     </target>
+
+    
+    <!-- ===================================================== -->
+    <!-- unit test step-seq engine                             -->
+    <!-- ===================================================== -->
+    <target name="test-step-seq" description="run core xquery unit tests">
+        
+        <xquery-saxon dest="result/step-seq.xml"
+                      query="test/xquery/step-seq.xq"
+                      input="file:test/data/test.xml"/>
+        
+        <xslt-saxon dest="result/result-step-seq-test.html"
+                    style="etc/test.xsl"
+                    xml="result/step-seq.xml"/>
+        
+    </target>
     
     
     <!-- ===================================================== -->
     <!-- run all xquery unit tests                             -->
     <!-- ===================================================== -->
-    <target name="test-all-xquery" depends="clean,test-test,test-core,test-std,test-comp,test-ext"  
+    <target name="test-all-xquery" depends="clean,test-test,test-core,test-step-seq,test-std,test-comp,test-ext"  
             description="run all xquery tests">
         
     </target>
+
     
+       
+    <!-- ===================================================== -->
+    <!-- xproc.xq sorting xproc unit tests                     -->
+    <!-- ===================================================== -->
+    <target name="xproc-ordering-test" depends="clean"  description="run xproc.xq on basic helloworld.xml xproc">
+        
+        <xproc-saxon dest="result/xproc_order_result_1.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/ordering/inputordering1.xml"/>
+
+    </target>
+    
+    
+                 
     <!-- ===================================================== -->
     <!-- xproc.xq Hello World xproc unit tests                 -->
     <!-- ===================================================== -->

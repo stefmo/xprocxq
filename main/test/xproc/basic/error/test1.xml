@@ -1,0 +1,11 @@
+ <p:pipeline name="helloworld"
+            xmlns:p="http://www.w3.org/ns/xproc">
+    <p:input port="a"/>
+
+    <p:identity name="test1"/>
+
+    <p:count name="test2">
+       <p:input port="a"/>
+    </p:count>
+
+ </p:pipeline>
