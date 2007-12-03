@@ -15,4 +15,20 @@ import module namespace ext = "http://xproc.net/xproc/ext"
     <expected>ext entry point executed</expected>
 </test>
 
+<test>
+    <name>run successful ext:pre-step test</name>
+    <result>
+    {test:assertXMLEqual(ext:pre-step(<test/>),<test/>)}
+    </result>
+    <expected>true</expected>
+</test>
+
+<test>
+    <name>run successful ext:post-step test</name>
+    <result>
+    {test:assertXMLEqual(ext:post-step(<test/>),<test/>)}
+    </result>
+    <expected>true</expected>
+</test>
+
 </testsuite>

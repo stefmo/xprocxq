@@ -18,7 +18,7 @@ import module namespace std = "http://xproc.net/xproc/std"
 import module namespace ext = "http://xproc.net/xproc/ext"
                         at "../../src/xquery/ext.xqm";
 
-<testsuite title="Step Sequence XQuery Unit Tests" desc="Test the step sequence of XProc.xq">
+<testsuite title="Step Sequence XQuery Unit Tests" desc="Test the parsing and ordering of pipeline steps with XProc.xq">
 
 <test>
     <name>pipeline sort 1: fix natural ordering</name>
@@ -126,7 +126,7 @@ return $sortsteps
 </test>
 
 <test>
-    <name>pipeline parse test: test parse1</name>
+    <name>pipeline parse test: test parsing</name>
     <result>
 {
 
@@ -154,7 +154,7 @@ let $pipeline :=
     </p:count>
 
  </p:pipeline>
-return xproc:parse1($pipeline)
+return xproc:parse($pipeline)
 
 }
 
@@ -163,7 +163,7 @@ return xproc:parse1($pipeline)
 </test>
 
 <test>
-    <name>pipeline parse test2: now eval parse1</name>
+    <name>pipeline full eval test: now eval parse and built code</name>
     <result>
 {
 
@@ -192,7 +192,7 @@ let $pipeline :=
     </p:identity>
 
  </p:pipeline>
-return xproc:eval(xproc:build(xproc:parse1(xproc:preparse($pipeline))),<test/>)
+return xproc:eval(xproc:build(xproc:parse(xproc:preparse($pipeline))),<test/>)
 
 }
 

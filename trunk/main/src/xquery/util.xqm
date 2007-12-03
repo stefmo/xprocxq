@@ -88,14 +88,15 @@ declare function util:step-fold ($sequence as item()*, $operation, $start-value 
 
 
 (: -------------------------------------------------------------------------- :)
-
+(: this will do something someday :)
 declare function util:evalstep ($stepname as xs:string, $function as xs:string ) {
-fn:true()
+    fn:true()
 };
 
-(: -------------------------------------------------------------------------- :)
 
-(: this does a topo sort for us :)
+
+(: -------------------------------------------------------------------------- :)
+(: topological sorting of pipeline steps, based on inputs :)
 
 declare function util:pipeline-step-sort($unsorted, $sorted )   {
     if (empty($unsorted))      
