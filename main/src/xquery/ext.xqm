@@ -12,13 +12,13 @@ declare function ext:main() as xs:string {
 };
 
 
-declare variable $ext:pre :=saxon:function("ext:pre", 1);
-declare variable $ext:post :=saxon:function("ext:post", 1);
+declare variable $ext:pre :=saxon:function("ext:pre-step", 1);
+declare variable $ext:post :=saxon:function("ext:post-step", 1);
 
-declare function ext:pre($seq as item()* ) as item()* {
+declare function ext:pre-step($seq as item()* ) as item()* {
     $seq
 };
 
-declare function ext:post($seq as item()* ) as item()* {
+declare function ext:post-step($seq as item()* ) as item()* {
     $seq
 };

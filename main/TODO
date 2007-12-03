@@ -1,0 +1,9 @@
+TODO: remove util:step for top level input/outputs
+
+TODO: generate pipeline.xq which contains $std:step and arity for each function
+
+TODO: I would like to remove all extraneous namespaces in src/xquery/xproc.xq
+
+TODO: define end result wrapping xml element
+
+
