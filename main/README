@@ -43,7 +43,9 @@ VERSION     A summary of the distribution version.
 
 RELEASE     current release version
     
-build.xml   For testing and building distro
+build.xml   Apache Ant build file For testing and customizing distro
+
+properties.xml Contains properties used by Apache Ant build file
 
 bin/    Contains xproc run script
 
