@@ -66,14 +66,14 @@ import module namespace std = "http://xproc.net/xproc/std"
                         at "src/xquery/std.xqm";
 import module namespace ext = "http://xproc.net/xproc/ext"
                         at "src/xquery/ext.xqm";
-let $O0 := (<test/>,<test/>)
-let $steps := (saxon:function("std:identity", 1),saxon:function("std:count", 1)) 
-return 
-    util:step-fold($steps, saxon:function("util:evalstep", 2),$O0)
-
-'))
+let $O0 := (<test/>,<end/>) '),
+    xproc:geninput($xproc),fn:string('let $steps := ($ext:pre,'),
+    xproc:genstep1($xproc),fn:string('$ext:post)'),
+    fn:string('return 
+        util:step-fold($steps, saxon:function("util:evalstep", 2),$O0)
+')
+)
 };
-
 
 
 declare function xproc:geninput($steps as item()) {
@@ -86,8 +86,7 @@ return
 declare function xproc:genoutput($steps as item()) {
 for $step at $count in $steps/p:pipeline/*[fn:name()='p:output']
 return 
-     fn:string(concat('let $PO',$count,' := "primary output" '))
-   
+     fn:string(concat('let $PO',$count,' := "primary output" '))   
 };
 
 
@@ -100,6 +99,14 @@ return
     )                            
 };
 
+
+declare function xproc:genstep1($steps as item()) {
+for $step in $steps/p:*
+return
+    (
+     fn:string(concat('$std:',$step/fn:local-name(),','))
+    )                            
+};
 
 declare function xproc:post() { 
      fn:string('let $I0 := $O2 return $I0')                

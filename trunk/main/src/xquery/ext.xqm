@@ -10,3 +10,15 @@ declare namespace err="http://www.w3.org/ns/xproc-error";
 declare function ext:main() as xs:string {
     "ext entry point executed"
 };
+
+
+declare variable $ext:pre :=saxon:function("ext:pre", 1);
+declare variable $ext:post :=saxon:function("ext:post", 1);
+
+declare function ext:pre($seq as item()* ) as item()* {
+    $seq
+};
+
+declare function ext:post($seq as item()* ) as item()* {
+    $seq
+};
