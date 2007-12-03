@@ -27,8 +27,14 @@ declare function xproc:main() as xs:string {
 };
 
 
+declare function xproc:preparse($xproc as item()){
+    let $sortsteps := <p:pipeline>{util:pipeline-step-sort($xproc/node(),())}</p:pipeline>
+    return $sortsteps
+};
+
 (: Parse XProc XML :)
 declare function xproc:parse($xproc as item()) {
+
    (fn:string('import module namespace xproc = "http://xproc.net/xproc"
                         at "src/xquery/xproc.xqm";
 import module namespace comp = "http://xproc.net/xproc/comp"
@@ -45,6 +51,29 @@ let $O0 := <test/> '),
     xproc:genoutput($xproc),
     xproc:post())
 };
+
+
+(: Parse XProc XML :)
+declare function xproc:parse1($xproc as item()) {
+
+   (fn:string('import module namespace xproc = "http://xproc.net/xproc"
+                        at "src/xquery/xproc.xqm";
+import module namespace comp = "http://xproc.net/xproc/comp"
+                        at "src/xquery/comp.xqm";
+import module namespace util = "http://xproc.net/xproc/util"
+                        at "src/xquery/util.xqm";
+import module namespace std = "http://xproc.net/xproc/std"
+                        at "src/xquery/std.xqm";
+import module namespace ext = "http://xproc.net/xproc/ext"
+                        at "src/xquery/ext.xqm";
+let $O0 := (<test/>,<test/>)
+let $steps := (saxon:function("std:identity", 1),saxon:function("std:count", 1)) 
+return 
+    util:step-fold($steps, saxon:function("util:evalstep", 2),$O0)
+
+'))
+};
+
 
 
 declare function xproc:geninput($steps as item()) {
@@ -79,17 +108,13 @@ declare function xproc:post() {
 
 (: Build Run Tree :)
 declare function xproc:build($parsetree) {
-fn:string-join($parsetree,'')
+    fn:string-join($parsetree,'')
 };
 
 
 (: Eval Run Tree :)
 declare function xproc:eval($runtree,$stdin){
-
-util:xquery($runtree) 
-
-
-
+    util:xquery($runtree) 
 };
 
 

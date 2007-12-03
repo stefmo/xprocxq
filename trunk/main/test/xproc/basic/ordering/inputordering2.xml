@@ -1,0 +1,16 @@
+ <p:pipeline name="helloworld"
+            xmlns:p="http://www.w3.org/ns/xproc">
+    <p:input port="std-input" primary="true"/>
+    <p:output port="std-output" primary="true"/>
+    
+    <p:count name="step2">
+       <p:input port="test1-output"/>
+       <p:output port="std-output"/>
+    </p:count>
+    
+    <p:identity name="step1">
+        <p:input port="std-input"/>
+        <p:output port="test1-output"/>
+    </p:identity>
+
+ </p:pipeline>

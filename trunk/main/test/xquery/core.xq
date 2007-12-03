@@ -1,5 +1,10 @@
 xquery version "1.0" encoding "UTF-8";
 
+(: XProc Namespace Declaration :)
+declare namespace p="http://www.w3.org/ns/xproc";
+declare namespace c="http://www.w3.org/ns/xproc-step";
+declare namespace err="http://www.w3.org/ns/xproc-error";
+
 import module namespace test = "http://xproc.net/test"
                         at "../../test/xquery/test.xqm";
 import module namespace xproc = "http://xproc.net/xproc"
@@ -91,7 +96,7 @@ import module namespace ext = "http://xproc.net/xproc/ext"
 <test>
     <name>test parsing xproc and building run tree</name>
     <result>
-    {let $parsetree := xproc:parse(fn:doc('../xproc/testsuite/helloworld_1.xml'))
+    {let $parsetree := xproc:parse(fn:doc('../xproc/basic/helloworld_1.xml'))
      let $runtree := xproc:build($parsetree)
      return
          $runtree
@@ -248,17 +253,17 @@ import module namespace ext = "http://xproc.net/xproc/ext"
     <expected>1</expected>
 </test>
 
-
+<!--
 <test>
-    <name>playing around with util:sum</name>
+    <name>testing util:function</name>
     <result>
     {
-    util:sum((1,2,3,4))
+        util:call(util:function('std:count', 1),<test/>)
     }
     </result>
-    <expected>10</expected>
+    <expected>1</expected>
 </test>
-
+//-->
 
 <test>
     <name>testing util:call</name>

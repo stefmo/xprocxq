@@ -18,6 +18,8 @@ declare function util:help() as xs:string {
 };
 
 
+(: -------------------------------------------------------------------------- :)
+
 (: TODO: all of the below functions need to add exist eval function :)
 
 
@@ -35,6 +37,12 @@ declare function util:call($func,$a){
     saxon:call($func,$a)
 };
 
+(:
+declare function util:function($func,$arity){
+    saxon:function($func, $arity)
+};
+:)
+
 
 declare function util:evalXPATH($xpathstring, $xml){
     $xml/saxon:evaluate($xpathstring)
@@ -45,6 +53,9 @@ declare function util:xquery($exp as xs:string) as item()*{
 let $a := func:compileQuery($exp)
 return func:query($a)
 };
+
+
+(: -------------------------------------------------------------------------- :)
 
 
 declare function util:map($func, $seqA as item()*, $seqB as item()*) 
@@ -69,25 +80,34 @@ as item()* {
 };
 
 
-declare function util:numeric-fold ($sequence as xs:double*, $operation, $start-value as xs:double) {
+declare function util:step-fold ($sequence as item()*,$operation, $start-value as item()*) {
      if (empty($sequence)) then $start-value
-                           else util:numeric-fold(remove($sequence, 1), 
+                           else util:step-fold(remove($sequence, 1), 
                                           $operation,
-                                          util:call($operation, $start-value, $sequence[1]))
+                                          util:call($sequence[1], $start-value))
 };
 
 
-declare function util:plus ($a as xs:double, $b as xs:double) {$a + $b};
+(: -------------------------------------------------------------------------- :)
 
+declare function util:evalstep ($stepname as xs:string, $function as xs:string ) {
+fn:true()
+};
 
-declare function util:times ($a as xs:double, $b as xs:double) {$a * $b};
+(: -------------------------------------------------------------------------- :)
 
+(: this does a topo sort for us :)
 
-declare function util:sum ($sequence as xs:double*) as xs:double {
-   util:numeric-fold($sequence, saxon:function('util:plus', 2), 0)
+declare function util:pipeline-step-sort($unsorted, $sorted )   {
+    if (empty($unsorted))      
+       then $sorted 
+    else
+       let $allnodes := $unsorted [ every $step in p:input/p:pipe/@step 
+                                                    satisfies $step = $sorted/@name]
+       return 
+           util:pipeline-step-sort( $unsorted except $allnodes, 
+                                            ($sorted, $allnodes) )
 };
 
 
-declare function util:product ($sequence as xs:double*) as xs:double {
-   util:numeric-fold($sequence, saxon:function('util:times', 2), 1)
-};
+(: -------------------------------------------------------------------------- :)

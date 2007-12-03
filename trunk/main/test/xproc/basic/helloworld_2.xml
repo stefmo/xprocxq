@@ -4,13 +4,13 @@
             xmlns:err="http://www.w3.org/ns/xproc-error">
     
     <p:input port="src">
-        <p:document href = "file://../data/test.xml" />
+        <p:document href = "file://../../data/test.xml" />
     </p:input>
-    
+  
     <p:output port="result"/>
     
-    <p:identity/>
+    <p:identity name="step1"/>
     
-    <p:count/>
+    <p:count name="step2"/>
     
 </p:pipeline>
