@@ -6,10 +6,8 @@
     <!-- dep properties                                        -->
     <!-- ===================================================== -->
     <!-- note: adjust for your xquery processor -->
-    <property name="jar.saxon" location="lib/saxon/saxon8.jar"/>
-    <property name="dir.saxon" location="lib/saxon"/>
-    <property name="dir.java.function" location="lib"/>
-    
+    <xmlproperty file="properties.xml"/>
+       
     <!-- ===================================================== -->
     <!-- unit test unit comp                                   -->
     <!-- ===================================================== -->
@@ -201,8 +199,8 @@
                 
                 <arg line="@{xml} @{style} "/>
                 <classpath>
-                    <pathelement location="${dir.saxon}"/>
-                    <fileset dir="${dir.saxon}">
+                    <pathelement location="${p.dir.lib.saxon}"/>
+                    <fileset dir="${p.dir.lib.saxon}">
                         <include name="saxon8.jar"/>
                     </fileset>
                 </classpath>          
@@ -228,9 +226,9 @@
                 
                 <arg line="-sa -s @{input} @{query}"/>
                 <classpath>
-                    <pathelement location="${dir.java.function}"/>
-                    <pathelement location="${dir.saxon}"/>
-                    <fileset dir="${dir.saxon}">
+                    <pathelement location="${p.dir.lib.saxon-ext}"/>
+                    <pathelement location="${p.dir.lib.saxon}"/>
+                    <fileset dir="${p.dir.lib.saxon}">
                         <include name="saxon8sa.jar"/>
                     </fileset>
                 </classpath>
@@ -255,9 +253,9 @@
                 
                 <arg line="-sa -s @{input} @{query} +xproc=@{xproc} +stdin=@{input}"/>
                 <classpath>
-                    <pathelement location="${dir.java.function}"/>
-                    <pathelement location="${dir.saxon}"/>
-                    <fileset dir="${dir.saxon}">
+                    <pathelement location="${p.dir.lib.saxon-ext}"/>
+                    <pathelement location="${p.dir.lib.saxon}"/>
+                    <fileset dir="${p.dir.lib.saxon}">
                         <include name="saxon8sa.jar"/>
                     </fileset>
                 </classpath>                        
