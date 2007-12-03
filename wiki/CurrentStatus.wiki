@@ -2,7 +2,7 @@
 
 3/12/2007 I am just about ready to commit the bulk of v.5 which represents the first version of xproc.xq that 'does stuff. Perhaps in time to announce whilst XML 2007 is running ;)
 
-= ToDo =
+= TODO =
 
 The source code [http://xprocxq.googlecode.com/svn/trunk/main/TODO TODO] file is the best place to find this information out for now.
 
