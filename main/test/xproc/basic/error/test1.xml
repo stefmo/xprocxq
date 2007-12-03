@@ -5,7 +5,7 @@
     <p:identity name="test1"/>
 
     <p:count name="test2">
-       <p:input port="a"/>
+       <p:input name="" port="a"/>
     </p:count>
 
  </p:pipeline>
