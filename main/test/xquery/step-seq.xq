@@ -172,32 +172,54 @@ let $pipeline :=
             xmlns:p="http://www.w3.org/ns/xproc">
 
 <util:step name="helloworld">
-  <p:input name="std-input" port="std-input"/>
-  <p:output name="std-output" port="std-output"/>
+  <p:input port="std-input"/>
+  <p:output port="std-output"/>
 </util:step>
 
-    <p:identity name="step1">
-       <p:input port="step1"/>
+    <p:count name="step2">
+       <p:input port="step2-input">
+              <p:pipe step="step1" port="step1-output"/>
+       </p:input>
        <p:output port="step2-output"/>
+    </p:count>
+
+
+    <p:identity name="step1">
+        <p:input port="step1-input">
+              <p:pipe step="helloworld" port="std-input"/>
+        </p:input>
+        <p:output port="step1-output"/>
     </p:identity>
 
-    <p:count name="step2">
-        <p:input port="step2"/>
-    </p:count>
-
-    <p:count name="step3">
-        <p:input port="std-input"/>
-        <p:output port="test1-output"/>
-    </p:count>
-
  </p:pipeline>
-return xproc:eval(xproc:parse1($pipeline),<test/>)
+return xproc:eval(xproc:build(xproc:parse1(xproc:preparse($pipeline))),<test/>)
 
 }
 
 </result>
 <expected></expected>
 </test>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!--
 <test>

@@ -56,7 +56,7 @@ return func:query($a)
 
 
 (: -------------------------------------------------------------------------- :)
-
+(: All the useful FP functions ... all dependent on xquery eval() call :)
 
 declare function util:map($func, $seqA as item()*, $seqB as item()*) 
 as item()* {
@@ -67,7 +67,6 @@ as item()* {
     	return
         	util:call($func, $a, $b)
 };
-
 
 declare function util:filter($func, $seq as item()*) 
 as item()* {
@@ -80,11 +79,11 @@ as item()* {
 };
 
 
-declare function util:step-fold ($sequence as item()*,$operation, $start-value as item()*) {
+declare function util:step-fold ($sequence as item()*, $operation, $start-value as item()*) {
      if (empty($sequence)) then $start-value
                            else util:step-fold(remove($sequence, 1), 
                                           $operation,
-                                          util:call($sequence[1], $start-value))
+                                          util:call( $sequence[1], $start-value))
 };
 
 

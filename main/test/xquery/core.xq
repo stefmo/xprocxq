@@ -342,4 +342,15 @@ let $O0 := <test/> let $PI1 := "primary input" let $I1 := $O0 let $O1 := util:ca
     <expected>1</expected>
 </test>
 
+
+<test>
+    <name>testing subsequence</name>
+    <result>
+    {let $steps := (<step><name>test1</name><func>saxon:function("std:identity", 1)</func></step>,<step><name>test2</name><func>saxon:function("std:count", 1)</func></step>) 
+     return $steps[1]/func/text()}
+    </result>
+    <expected></expected>
+</test>
+
+
 </testsuite>

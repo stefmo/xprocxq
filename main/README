@@ -17,11 +17,14 @@ Table of Contents
 
 1. Deps
 
-    Saxon-SA (www.saxonica.com)
+    Saxon-SA (www.saxonica.com) (NOTE: only support SAXON at the moment)
 
     or
 
     eXist (exist.sourceforge.net)
+
+
+Note: will require Apache Ant to unit test and build
 
 
 2. Distro
@@ -59,10 +62,15 @@ src/    Contains XQuery source files
 
 5. Feedback
 
-Please post questions and comments about this implementation to http://code.google.com/p/xprocxq/issues/list.
+    Please post questions and comments about this implementation to http://code.google.com/p/xprocxq/issues/list.
 
 6. License
 
-Xproc.xq is released under Mozilla Public License (MPL) v1.1, of which a copy is included in this distribution in the LICENSE file.
+    Xproc.xq is released under Mozilla Public License (MPL) v1.1, of which a copy is included in this distribution in the LICENSE file.
 
 
+7. Contact / Copyright
+
+    james.fuller.2007@gmail.com
+
+    James Fuller Copyright 2007
