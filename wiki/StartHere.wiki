@@ -1,0 +1,18 @@
+= Getting xquery.xq =
+
+So far I have not released any packaged version ... so your only method is checking out from subversion.
+
+
+= Dependency =
+
+Most up to date dependencies is contained in the source code [http://xprocxq.googlecode.com/svn/trunk/main/README README]
+
+Generally, one needs an XQuery processor (Saxon-SA currently) and Ant to run the build file tests.
+
+= Setting up =
+
+Since xproc.xq is still very experimental all one can really do is check out from source control and run the various Ant targets 
+
+= What next =
+
+well, its all about play at the moment ;)
