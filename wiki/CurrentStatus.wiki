@@ -1,5 +1,3 @@
-#summary This page lists out current development status of xproc.xq
-
 = Right Now =
 
 I am just about ready to commit the bulk of v.5 which represents the first version of xproc.xq that 'does stuff.
@@ -17,4 +15,3 @@ There are so many to list .... so I will just list the major ones
 * no command line entry point
 
 * have yet to remove dependency with Saxon-SA (though our targets are Saxon-B and eXist)
-
