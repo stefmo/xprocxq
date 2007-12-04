@@ -61,7 +61,7 @@ There are so many to list .... so I will just list the major ones
 
   * no command line entry point
 
-  * have yet to remove dependency with Saxon-SA (though our targets are Saxon-B and eXist)
+  * have yet to remove dependency with [http://www.saxonica.com Saxon-SA] (though our targets are Saxon-B and eXist)
 
 Note: Looking at the current trunk/TODO file will help you determine what I am focusing on for now.
 
