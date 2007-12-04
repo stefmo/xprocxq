@@ -1,10 +1,16 @@
-= Right Now =
+= Status =
 
 3/12/2007 I am just about ready to commit the bulk of v.5 which represents the first version of xproc.xq that 'does stuff. Perhaps in time to announce whilst XML 2007 is running ;)
 
+= Changelog =
+
+
+Check out the [http://xprocxq.googlecode.com/svn/trunk/main/ChangeLog Changelog] included in the source code. This file is  not always up to date in trunk but will reflect reality for tag releases.
+
+
 = TODO =
 
-The source code [http://xprocxq.googlecode.com/svn/trunk/main/TODO TODO] file is the best place to find this information out for now.
+The source code [http://xprocxq.googlecode.com/svn/trunk/main/TODO TODO] file is the best place to find this information.
 
 
 = Limitations =
@@ -56,3 +62,25 @@ There are so many to list .... so I will just list the major ones
   * no command line entry point
 
   * have yet to remove dependency with Saxon-SA (though our targets are Saxon-B and eXist)
+
+Note: Looking at the current trunk/TODO file will help you determine what I am focusing on for now.
+
+
+= When will feature X be done or xproc.xq be compliant ? =
+
+There is a real desire to get to XProc v1.0 compliance, but I am generally pessimistic that I will be able to get to this. There are all sorts of issues, some that have been surmounted, some I have yet to even engage with yet.
+
+As for knowing a 'road map' or what features will be done in what order, this is a bit too hard to know. I know I will require at least one major refactor before hitting v1.0 ... I have also encountered at least 2 or 3 real 'deal breakers' to compliance that I was unaware of before I started. 
+
+If I had a road map, in plan view it would be
+
+  * (re) implement options
+  * (re) implement xproc logic structures
+  * finish standard steps implementations
+  * finish optional steps implementations
+  * ensure static error checking is working properly
+  * ensure dynamic error checking is working propery
+  * expand existing testsuite to include more exotic corner cases
+
+so you can see, lots to do ;)
+
