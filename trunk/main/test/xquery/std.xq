@@ -56,4 +56,21 @@ import module namespace std = "http://xproc.net/xproc/std"
     <expected>false</expected>
 </test>
 
+
+<test>
+    <name>run failed p:wrap test</name>
+    <result>
+    {test:assertXMLEqual(std:wrap(<test/>,"wrap","/test"),(<a><test/></a>))}
+    </result>
+    <expected>false</expected>
+</test>
+
+<test>
+    <name>run succes p:wrap test</name>
+    <result>
+    {test:assertXMLEqual(std:wrap(<test/>,"aaaa","/test"),(<aaaa><test/></aaaa>))}
+    </result>
+    <expected>true</expected>
+</test>
+
 </testsuite>
