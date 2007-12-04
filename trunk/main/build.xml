@@ -210,6 +210,17 @@
         <mkdir dir="result"/>
     </target>
     
+
+    <!-- ===================================================== -->
+    <!-- generate svn changelog                                -->
+    <!-- ===================================================== -->    
+    <target name="svn.changelog">
+
+        <!-- svn log -xml -verbose | xsltproc etc/svn2cl-0.9/svn2cl.xsl - > ChangeLog  //-->
+        
+    </target>
+
+    
     
     <!-- ===================================================== -->
     <!-- MACRODEFS                                             -->
