@@ -73,14 +73,16 @@ import module namespace std = "http://xproc.net/xproc/std"
     <expected>false</expected>
 </test>
 
+<!--
 <test>
-<!-- TODO: needs some though this one, and highlights the need for a deeper option handling //--> 
+ TODO: needs some though this one, and highlights the need for a deeper option handling 
     <name>run success p:wrap test with new namespaced wrap element</name>
     <result>
     {test:assertXMLEqual(std:wrap(<test/>,"newnamespace:wrap_el","/"),(<newnamespace:wrap_el><test/></newnamespace:wrap_el>))}
     </result>
     <expected>true</expected>
 </test>
+//--> 
 
 <test>
     <name>run success p:wrap test</name>
