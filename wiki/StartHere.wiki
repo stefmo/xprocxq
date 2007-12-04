@@ -7,16 +7,15 @@ So far I have not released any packaged version ... so your only method is check
 
 Most up to date definition of dependencies is contained in the source code [http://xprocxq.googlecode.com/svn/trunk/main/README README]
 
-Step 1: Generally, one needs an XQuery processor (Saxon-SA currently) to be run from the commandline. This XQuery processor needs to be supported by xproc.xq. 
+*I*: Generally, one needs an XQuery processor (Saxon-SA currently) to be run from the commandline. This XQuery processor needs to be supported by xproc.xq. 
 
-Step 2: Will require [http://ant.apache.org Apache Ant] to run the build file tests.
+*II*: For now, one will require [http://ant.apache.org Apache Ant] to run unit tests and compile associated artifacts.
 
-Step 3: Run the saxon-compile Ant Target, to compile the small extension currently required for Saxon
+*III*: Run the saxon-compile Ant Target, to compile the small extension currently required for Saxon-SA
 
-Step 4: Amend your local [http://xprocxq.googlecode.com/svn/trunk/main/properties.xml properties.xml] to reflect your setup and where your xquery jars are.
+*IV*: Amend your local [http://xprocxq.googlecode.com/svn/trunk/main/properties.xml properties.xml] to reflect your setup and where your xquery jars are.
 
-There is no specific build process as of yet with xproc.xq, though I may create an optimization process if support of a single XQuery is all that is needed.
-
+It is not required to build xproc.xq itself, the Ant build is there for facilitating building of related extensions and running of unit tests
 
 = Running xproc.xq =
 
