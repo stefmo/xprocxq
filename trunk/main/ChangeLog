@@ -27,3 +27,98 @@
 	  unk/main/test/xproc/testsuite/helloworld_3.xml: added simple
 	  helloworld type xproc
 
+2007-11-06 21:20  James.Fuller.2007
+
+	* unk/main/README, unk/main/nbproject: changed license back to
+	  Mozilla ;)
+
+2007-11-06 21:18  James.Fuller.2007
+
+	* unk/main/LICENSE: changed license back to Mozilla ;)
+
+2007-11-06 21:11  James.Fuller.2007
+
+	* unk/main/LICENSE: change license to new BSD license
+
+2007-11-06 21:09  James.Fuller.2007
+
+	* unk/main/README: change license to new BSD license
+
+2007-11-06 15:18  James.Fuller.2007
+
+	* unk/main/build.xml: refactor basic tests
+
+2007-11-06 15:17  James.Fuller.2007
+
+	* unk/main/test/xproc/basic,
+	  unk/main/test/xproc/basic/helloworld_1.xml,
+	  unk/main/test/xproc/basic/helloworld_1_1.xml,
+	  unk/main/test/xproc/basic/helloworld_2.xml,
+	  unk/main/test/xproc/basic/helloworld_3.xml,
+	  unk/main/test/xproc/testsuite/helloworld_1.xml,
+	  unk/main/test/xproc/testsuite/helloworld_1_1.xml,
+	  unk/main/test/xproc/testsuite/helloworld_2.xml,
+	  unk/main/test/xproc/testsuite/helloworld_3.xml: refactor basic
+	  tests
+
+2007-11-06 15:17  James.Fuller.2007
+
+	* unk/main/test/xproc/ndw: refactor basic tests
+
+2007-11-06 15:14  James.Fuller.2007
+
+	* unk/main/README: added basic README
+
+2007-11-06 15:11  James.Fuller.2007
+
+	* unk/main/README: added basic README
+
+2007-11-06 14:59  James.Fuller.2007
+
+	* unk/main, unk/trunk:
+
+2007-11-06 14:57  James.Fuller.2007
+
+	* unk/branches, unk/tags, unk/trunk, unk/trunk/README,
+	  unk/trunk/bin, unk/trunk/bin/xproc, unk/trunk/build.xml,
+	  unk/trunk/catalog.xml, unk/trunk/etc,
+	  unk/trunk/etc/pipeline-library.xml, unk/trunk/etc/pipeline.xsd,
+	  unk/trunk/etc/test.xsl, unk/trunk/lib, unk/trunk/nbproject,
+	  unk/trunk/nbproject/ide-file-targets.xml,
+	  unk/trunk/nbproject/project.xml, unk/trunk/src,
+	  unk/trunk/src/net, unk/trunk/src/net/xproc,
+	  unk/trunk/src/net/xproc/saxon,
+	  unk/trunk/src/net/xproc/saxon/evalXQuery.java,
+	  unk/trunk/src/trash, unk/trunk/src/trash/test1.xsd,
+	  unk/trunk/src/xquery, unk/trunk/src/xquery/comp.xqm,
+	  unk/trunk/src/xquery/const.xqm, unk/trunk/src/xquery/ext.xqm,
+	  unk/trunk/src/xquery/std.xqm, unk/trunk/src/xquery/util.xqm,
+	  unk/trunk/src/xquery/xproc.xq, unk/trunk/src/xquery/xproc.xqm,
+	  unk/trunk/test, unk/trunk/test/data,
+	  unk/trunk/test/data/test.xml, unk/trunk/test/result.html,
+	  unk/trunk/test/xproc, unk/trunk/test/xproc/ndw,
+	  unk/trunk/test/xproc/ndw/choose-001.xml,
+	  unk/trunk/test/xproc/ndw/count-001.xml,
+	  unk/trunk/test/xproc/ndw/delete-001.xml,
+	  unk/trunk/test/xproc/ndw/err-d0011-001.xml,
+	  unk/trunk/test/xproc/ndw/matchingdocuments-001.xml,
+	  unk/trunk/test/xproc/ndw/rename-001.xml,
+	  unk/trunk/test/xproc/ndw/validrng-001.xml,
+	  unk/trunk/test/xproc/ndw/xinclude-001.xml,
+	  unk/trunk/test/xproc/ndw/xslt-001.xml,
+	  unk/trunk/test/xproc/testsuite,
+	  unk/trunk/test/xproc/testsuite/extension,
+	  unk/trunk/test/xproc/testsuite/helloworld_1.xml,
+	  unk/trunk/test/xproc/testsuite/helloworld_1_1.xml,
+	  unk/trunk/test/xproc/testsuite/helloworld_2.xml,
+	  unk/trunk/test/xproc/testsuite/helloworld_3.xml,
+	  unk/trunk/test/xproc/testsuite/optional,
+	  unk/trunk/test/xproc/testsuite/required,
+	  unk/trunk/test/xproc/testsuite/required/001.identity.xml,
+	  unk/trunk/test/xproc/testsuite/required/002.w3c-examples.xml,
+	  unk/trunk/test/xproc/testsuite/required/003.choose.xml,
+	  unk/trunk/test/xquery, unk/trunk/test/xquery/baseline.xq,
+	  unk/trunk/test/xquery/comp.xq, unk/trunk/test/xquery/core.xq,
+	  unk/trunk/test/xquery/ext.xq, unk/trunk/test/xquery/std.xq,
+	  unk/trunk/test/xquery/test.xqm:
+
