@@ -68,7 +68,7 @@ Note: Looking at the current trunk/TODO file will help you determine what I am f
 
 = When will feature X be done or xproc.xq be compliant ? =
 
-There is a real desire to get to XProc v1.0 compliance, but I am generally pessimistic that I will be able to get to this. There are all sorts of issues, some that have been surmounted, some I have yet to even engage with yet.
+There is a real desire to get to XProc v1.0 compliance, but I am generally pessimistic that I will be able to get to this. There are all sorts of issues, some that have been surmounted, some I have yet to even engage with yet (but known from the start).
 
 As for knowing a 'road map' or what features will be done in what order, this is a bit too hard to know. I know I will require at least one major refactor before hitting v1.0 ... I have also encountered at least 2 or 3 real 'deal breakers' to compliance that I was unaware of before I started. 
 
@@ -83,4 +83,3 @@ If I had a road map, in plan view it would be
   * expand existing testsuite to include more exotic corner cases
 
 so you can see, lots to do ;)
-
