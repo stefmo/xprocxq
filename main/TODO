@@ -7,3 +7,5 @@ TODO: I would like to remove all extraneous namespaces in src/xquery/xproc.xq
 TODO: define end result wrapping xml element
 
 TODO: add license reference to all source files
+
+TODO: isInteger assertion is not 'real' ... depends on typing and throws an error

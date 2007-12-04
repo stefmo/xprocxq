@@ -168,5 +168,12 @@ let $O0 := <test/> let $PI1 := "primary input" let $I1 := $O0 let $O1 := util:ca
     <expected></expected>
 </test>
 
+<test>
+    <name>testing util:timing</name>
+    <result>
+    {test:assertIsInteger(util:timing())} 
+    </result>
+    <expected>true</expected>
+</test>
 
 </testsuite>

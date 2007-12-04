@@ -28,6 +28,10 @@ declare function test:assertIntegerEqual($a as xs:integer, $b as xs:integer) as 
   fn:boolean($a=$b) 
 };
 
+declare function test:assertIsInteger($a as xs:integer) as xs:boolean {  
+ fn:true()
+};
+
 declare function test:assertStringContain($a as xs:string, $b as xs:string) as xs:boolean {
     fn:contains($a, $b)
 };

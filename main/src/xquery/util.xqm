@@ -13,8 +13,15 @@ declare namespace jt="http://net.sf.saxon/java-type";
 
 declare namespace func="java:net.xproc.saxon.evalXQuery";
 
+declare namespace system="java:java.lang.System";
+
 declare function util:help() as xs:string {
     "help util executed"
+};
+
+
+declare function util:timing() as xs:integer  {
+    xs:integer(system:currentTimeMillis())
 };
 
 
