@@ -23,10 +23,8 @@ Since xproc.xq is still very experimental all one can really do is check out fro
 
 
 
-
-
 = What next =
 
-Well, its all about play at the moment!
+At the moment, this is all about playing around, whilst developing in XQuery. Since this is my first large scope XQuery project, I will no doubt learn things as I go on.
 
-I am hoping that v1.0 will be a somewhat compliant deployment of the XProc specification ... though the limitations of XQuery as a programming language may stop us ;)
+I am hoping that v1.0 will be a somewhat compliant deployment of the [http://www.w3.org/XML/XProc/docs/langspec.html XProc] specification ... though the limitations of XQuery, as a programming language, will define how far I get ;)
