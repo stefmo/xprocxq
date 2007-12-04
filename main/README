@@ -21,14 +21,13 @@ Currently to run unit tests and build stuff, xproc.xq is firmly dependent on Sax
 buy ;) The plan is to have support for eXist and Saxon-B at some point soon.
 
     Saxon-SA (www.saxonica.com) (NOTE: only support SAXON at the moment)
-        (Saxon requires one to compile something)
+        (Saxon requires one to compile an extension, using ant build.xml)
 
-    or
-
-    eXist (exist.sourceforge.net)
-
-
-Note: will also require Apache Ant to unit test and build associated artifacts
+I plan to support Saxon-B and eXist (exist.sourceforge.net) and any other XQuery processor 
+that has support for first class functions and an eval extension ;)
+   
+Note: One will also require Apache Ant to unit test and build associated artifacts via the supplied
+build.xml file
 
 
 2. Distro
