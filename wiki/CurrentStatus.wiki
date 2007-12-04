@@ -13,9 +13,9 @@ There are so many to list .... so I will just list the major ones
 
   * very limited std step library
 
-  * util:step wraps top level inputs and outputs
+  * non-standard util:step wraps top level inputs and outputs, as a intermediate hack to make step ordering work
 
-  * must explicitly define input connections in XProc XML and strange non-standard util:step  
+  * must explicitly define input connections in XProc XML
 
 {{{
  <p:pipeline name="helloworld"
