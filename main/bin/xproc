@@ -1,6 +1,10 @@
-should execute src/xquery/xproc.xq 
+TODO: write a variety of run wrappers for each xquery implementation supported
 
-java -jar saxon8.jar src/xquery/xproc/xq
+should execute src/xquery/xproc.xq on on a supplied xproc file
+
+for saxon the invokation maybe something like
+
+java -jar saxon8.jar src/xquery/xproc/xq somexproc.xpp 
  
 
 

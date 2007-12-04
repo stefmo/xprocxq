@@ -1,5 +1,5 @@
 <!-- Generates html version of Unit Test results //-->
-<!-- Note: uses XSLT 2.0  //-->
+<!-- TODO: uses XSLT 2.0 at the moment //-->
 <xsl:stylesheet
  xmlns:xsl='http://www.w3.org/1999/XSL/Transform'
  xmlns:fn='http://www.w3.org/2003/05/xpath-functions'

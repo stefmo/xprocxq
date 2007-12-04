@@ -60,15 +60,40 @@ import module namespace std = "http://xproc.net/xproc/std"
 <test>
     <name>run failed p:wrap test</name>
     <result>
-    {test:assertXMLEqual(std:wrap(<test/>,"wrap","/test"),(<a><test/></a>))}
+    {test:assertXMLEqual(std:wrap(<test/>,"wrap","/"),(<a><test/></a>))}
     </result>
     <expected>false</expected>
 </test>
 
 <test>
-    <name>run succes p:wrap test</name>
+    <name>run failed p:wrap test due to incorrect xpath</name>
     <result>
-    {test:assertXMLEqual(std:wrap(<test/>,"aaaa","/test"),(<aaaa><test/></aaaa>))}
+    {test:assertXMLEqual(std:wrap(<test/>,"a","/a/test/b"),(<a><test/></a>))}
+    </result>
+    <expected>false</expected>
+</test>
+
+<test>
+<!-- TODO: needs some though this one, and highlights the need for a deeper option handling //--> 
+    <name>run success p:wrap test with new namespaced wrap element</name>
+    <result>
+    {test:assertXMLEqual(std:wrap(<test/>,"newnamespace:wrap_el","/"),(<newnamespace:wrap_el><test/></newnamespace:wrap_el>))}
+    </result>
+    <expected>true</expected>
+</test>
+
+<test>
+    <name>run success p:wrap test</name>
+    <result>
+        {test:assertXMLEqual(std:wrap(<test/>,"aaaa","/"),(<aaaa><test/></aaaa>))}
+    </result>
+    <expected>true</expected>
+</test>
+
+<test>
+    <name>run success p:wrap test</name>
+    <result>
+        {test:assertXMLEqual(std:wrap(<test><a><c>test</c></a></test>,"aaaa","test/a"),(<aaaa><a><c>test</c></a></aaaa>))}
     </result>
     <expected>true</expected>
 </test>
