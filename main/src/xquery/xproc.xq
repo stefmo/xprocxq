@@ -26,15 +26,17 @@ declare variable $xproc as item() external;
 (: load in stdin xml :)
 declare variable $stdin as item() external;
 
-let $start-time := util:timing()
+(: XProc Processing :)
 
-    (: STEP Ia: sort and decorate parse tree :)
+    let $start-time := util:timing()
+
+    (: STEP Ia: sort parse tree :)
     let $preparse := xproc:preparse($xproc/p:pipeline)
 
-    (: STEP Ib: run parse tree, report any static errors :)
+    (: STEP Ib: generate parse tred :)
     let $parsetree := xproc:parse($preparse)
 
-    (: STEP II: build run tree, continue reporting any static errors :)
+    (: STEP II: build run tree, reporting any static errors :)
     let $runtree := xproc:build($parsetree)
 
     (: STEP III: execute run tree, reporting any dynamic errors :)
