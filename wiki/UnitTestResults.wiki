@@ -2,9 +2,9 @@
 
 There are 2 types of unit tests used for xproc.xq
 
-* XQuery unit tests: These test xquery code base themselves using my homegrown XQuery Unit Testing Suite [http://xprocxq.googlecode.com/svn/trunk/main/test/xquery/test.xqm test.xqm]
+  * XQuery unit tests: These test xquery code base themselves using my homegrown XQuery Unit Testing Suite [http://xprocxq.googlecode.com/svn/trunk/main/test/xquery/test.xqm test.xqm]
 
-* XProc functional tests: These run xproc.xq against a couple of sets of actual XProc XML Pipelines
+  * XProc functional tests: These run xproc.xq against a couple of sets of actual XProc XML Pipelines
 
 All unit tests are controlled by Apache Ant ... I could have just as well used make or something else; the thinking here is that most of the XQuery processors of interest are written in Java.
 
