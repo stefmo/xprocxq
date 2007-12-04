@@ -1,18 +1,17 @@
-Name: Xproc.xq
-Version: v.0.0.1
+xproc.xq v.5                            
+
+xproc.xq is a bootstrap implementation of W3C XProc Specification, written in xquery
+
+TOC
+ 1. Deps
+ 2. Distro
+ 3. Usage
+ 4. Install
+ 5. Feedback
+ 6. License
+
 Author: James Fuller (james.fuller.2007@gmail.com)
-Date: 06 Nov 2007
-
-xproc.xq: XQuery implementation of W3C XProc Specification
-
-
-Table of Contents
-1. Deps
-2. Distro
-3. Usage
-4. Install
-5. Feedback
-6. License
+Date: 04 Dec 2007
 
 
 1. Deps

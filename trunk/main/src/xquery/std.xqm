@@ -23,8 +23,10 @@ declare function std:count($seq as item()* ) as xs:integer {
 };
 
 declare function std:wrap($seq as item(),$option-wrap as xs:string,$option-match as xs:string ) as item() {
+    let $v :=document{$seq}
+    return
     element {$option-wrap} {
-        $seq
+         util:evalXPATH($option-match,$v)
     }
 };
 

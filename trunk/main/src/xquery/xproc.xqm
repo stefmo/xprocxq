@@ -86,7 +86,7 @@ return
 
 (: Generate xquery steps sequence :)
 declare function xproc:genstep($steps as item()) {
-for $step in $steps/p:*
+for $step in $steps/p:*[fn:not(fn:name()='p:documentation')] (: note: ignore top level p:documentation elements :)
 return
     (
      fn:string(concat('$std:',$step/fn:local-name(),','))
