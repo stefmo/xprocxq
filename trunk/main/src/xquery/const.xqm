@@ -12,10 +12,10 @@ declare variable $const:NS_XPROC_EXT := "http://xproc.net/ns/xproc/ex";
 declare variable $const:NS_XPROC_ERR_EXT := "http://xproc.net/ns/errors";
 
 (: Version :)
-declare variable $const:version :="0.0.01";
+declare variable $const:version :="0.5";
 
 (: Product Version :)
-declare variable $const:product-version :="0.0.01";
+declare variable $const:product-version :="0.5";
 
 (: Product Name :)
 declare variable $const:product-name :="xproc.xq";
@@ -23,6 +23,13 @@ declare variable $const:product-name :="xproc.xq";
 (: Vendor :)
 declare variable $const:vendor :="James Fuller";
 
+(: Language :)
+declare variable $const:language :="en";
+
 (: Vendor-uri :)
 declare variable $const:vendor-uri :="http://www.xproc.net/xproc.xq";
+
+(: XPATH Version :)
+declare variable $const:xpath-version :="2.0";
+
 
