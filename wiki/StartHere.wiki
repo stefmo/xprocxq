@@ -37,18 +37,28 @@ This build file builds the single java extension needed for Saxon-SA. Past that,
 it is mostly a unit test runner for firing off XQuery and XProc tests.
 Main targets:
 
- saxon-compile             compile xquery java extension
- test-all-xquery           run all xquery tests
- test-comp                 test comp unit tests
- test-core                 run core xquery unit tests
- test-ext                  test ext unit tests
- test-opt                  run optional xquery unit tests
- test-std                  run std xquery unit tests
- test-step-seq             run core xquery unit tests
- test-test                 test baseline unit tests
- xproc-documentation-test  run xproc.xq on basic documentation xproc
- xproc-helloworld-test     run xproc on basic helloworld.xml xproc
- xproc-ordering-test       run xproc.xq on basic ordering xproc
- xproc-perf-test           run xproc.xq for basic performance testing
+ saxon-compile             compile xquery java extension\
 
-So, once you have 
+ test-all-xquery           run all xquery tests
+
+ test-comp                 test comp unit tests
+
+ test-core                 run core xquery unit tests
+
+ test-ext                  test ext unit tests
+
+ test-opt                  run optional xquery unit tests
+
+ test-std                  run std xquery unit tests
+
+ test-step-seq             run core xquery unit tests
+
+ test-test                 test baseline unit tests
+
+ xproc-documentation-test  run xproc.xq on basic documentation xproc
+
+ xproc-helloworld-test     run xproc on basic helloworld.xml xproc
+
+ xproc-ordering-test       run xproc.xq on basic ordering xproc
+
+ xproc-perf-test           run xproc.xq for basic performance testing
