@@ -1,36 +1,54 @@
 = Getting xquery.xq =
 
-So far I have not released any packaged version ... so your only method of getting xproc.xq is checking out from [http://code.google.com/p/xprocxq/source subversion].
+So far I have not released any packaged version of xproc.xq ... so your only method of getting xproc.xq is checking out from [http://code.google.com/p/xprocxq/source subversion].
 
-
-{
+{{{
 # Non-members may svn check out a read-only working copy anonymously over HTTP.
 svn checkout http://xprocxq.googlecode.com/svn/trunk/ xprocxq-read-only
-}
+}}}
 
 
 = Installation and Dependencies =
 
 Most up to date definition of dependencies is contained in the source code [http://xprocxq.googlecode.com/svn/trunk/main/README README]
 
-*I*: Generally, one needs an XQuery processor (Saxon-SA currently) to be run from the commandline. This XQuery processor needs to be supported by xproc.xq. 
+*I*: One needs an XQuery processor (only Saxon-SA currently supported) to run xproc.xq.
 
 *II*: For now, one will require [http://ant.apache.org Apache Ant] to run unit tests and compile associated artifacts.
 
-*III*: Run the saxon-compile Ant Target, to compile the small extension currently required for Saxon-SA
+*III*: Run the saxon-compile Ant Target, to compile the small extension currently required for Saxon-SA (or compile manually)
 
-*IV*: Amend your local [http://xprocxq.googlecode.com/svn/trunk/main/properties.xml properties.xml] to reflect your setup and where your xquery jars are.
-
-It is not required to build xproc.xq itself, the Ant build is there for facilitating building of related extensions and running of unit tests
-
-= Running xproc.xq =
-
-Since xproc.xq is still very experimental all one can really do is check out from source control and run the various Ant targets.
+*IV*: Amend your local [http://xprocxq.googlecode.com/svn/trunk/main/properties.xml properties.xml] to reflect your setup and where your Xquery processor jars are.
 
 
+= Usage =
 
-= What next =
+*warning:* xproc.xq does very little at this moment in time
 
-At the moment, this is all about playing around, whilst developing in XQuery. Since this is my first large scope XQuery project, I will no doubt learn things as I go on.
+in fact, it is not possible to run it without SAXON-SA and ANT, and even then, you are just running some pretty specific unit tests.
 
-I am hoping that v1.0 will be a somewhat compliant deployment of the [http://www.w3.org/XML/XProc/docs/langspec.html XProc] specification ... though the limitations of XQuery, as a programming language, will define how far I get ;)
+to get Ant targets, run Apache Ant with -projecthelp switch  
+
+> ant -projecthelp
+
+Buildfile: build.xml
+
+This build file builds the single java extension needed for Saxon-SA. Past that,
+it is mostly a unit test runner for firing off XQuery and XProc tests.
+Main targets:
+
+ saxon-compile             compile xquery java extension
+ test-all-xquery           run all xquery tests
+ test-comp                 test comp unit tests
+ test-core                 run core xquery unit tests
+ test-ext                  test ext unit tests
+ test-opt                  run optional xquery unit tests
+ test-std                  run std xquery unit tests
+ test-step-seq             run core xquery unit tests
+ test-test                 test baseline unit tests
+ xproc-documentation-test  run xproc.xq on basic documentation xproc
+ xproc-helloworld-test     run xproc on basic helloworld.xml xproc
+ xproc-ordering-test       run xproc.xq on basic ordering xproc
+ xproc-perf-test           run xproc.xq for basic performance testing
+
+So, once you have 
