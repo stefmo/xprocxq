@@ -1,10 +1,12 @@
 xquery version "1.0" encoding "UTF-8";
 
+(: Module Imports :)
 import module namespace test = "http://xproc.net/test"
                         at "../../test/xquery/test.xqm";
 import module namespace comp = "http://xproc.net/xproc/comp"
                         at "../../src/xquery/comp.xqm";
 
+(: -------------------------------------------------------------------------- :)
 
 <testsuite title="XProc Component XQuery Unit Tests" desc="Test the XProc.xq components XQuery functions">
 
@@ -37,7 +39,7 @@ import module namespace comp = "http://xproc.net/xproc/comp"
     <result>
     {comp:product-version()}
     </result>
-    <expected>0.0.01</expected>
+    <expected>0.5</expected>
 </test>
 
 <test>
@@ -61,7 +63,18 @@ import module namespace comp = "http://xproc.net/xproc/comp"
     <result>
     {comp:version()}
     </result>
-    <expected>0.0.01</expected>
+    <expected>0.5</expected>
+</test>
+
+
+<test>
+    <name>run p:xpath-version</name>
+    <result>
+    {comp:xpath-version()}
+    </result>
+    <expected>2.0</expected>
 </test>
 
 </testsuite>
+
+(: -------------------------------------------------------------------------- :)

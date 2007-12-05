@@ -4,21 +4,14 @@
 <p:pipeline-library xmlns:p ="http://www.w3.org/ns/xproc" 
                     xmlns:ext ="http://xproc.net/xproc/ext"
                     xmlns:xproc = "http://xproc.net/xproc"
-                    name="xproc-library">
+                    name="xproc--standard-library">
 <!--
 
     xproc:arity = total number of possible inputs and options
 
 //-->
 
-   <p:declare-step type="util:step" name="step" xproc:arity="2">
-      <p:input port="input" primary="true"/>
-   </p:declare-step>
    
-   <p:declare-step type="util:step" name="step" xproc:arity="2">
-      <p:input port="input" primary="true"/>
-   </p:declare-step>
-
    <p:declare-step type="p:compare" name="compare" xproc:arity="3">
       <p:input port="source" primary="true"/>
       <p:input port="alternate"/>

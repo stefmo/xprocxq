@@ -1,3 +1,5 @@
+TODO:  xproc:genstep() has $std hard coded, step namespace prefix needs to be determined by pipeline markup
+
 TODO: remove non-standard util:step for top level input/outputs
 
 TODO: refactor option handling, as we have can have nested elements (such as p:namespaces)

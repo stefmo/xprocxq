@@ -7,18 +7,19 @@ declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
 
-(: Saxon Namespace Declaration :)
+(: Other Namespace Declaration :)
 declare namespace saxon="http://saxon.sf.net/";
 declare namespace jt="http://net.sf.saxon/java-type";
-
 declare namespace func="java:net.xproc.saxon.evalXQuery";
-
 declare namespace system="java:java.lang.System";
+
+(: -------------------------------------------------------------------------- :)
 
 declare function util:help() as xs:string {
     "help util executed"
 };
 
+(: -------------------------------------------------------------------------- :)
 
 declare function util:timing() as xs:integer  {
     xs:integer(system:currentTimeMillis())
@@ -26,7 +27,6 @@ declare function util:timing() as xs:integer  {
 
 
 (: -------------------------------------------------------------------------- :)
-
 (: TODO: all of the below functions need to add exist eval function :)
 
 
@@ -63,7 +63,7 @@ return func:query($a)
 
 
 (: -------------------------------------------------------------------------- :)
-(: All the useful FP functions ... all dependent on xquery eval() call :)
+(: All those useful FP functions ... all dependent on xquery eval() call :)
 
 declare function util:map($func, $seqA as item()*, $seqB as item()*) 
 as item()* {
@@ -90,14 +90,21 @@ declare function util:step-fold ($sequence as item()*, $operation, $start-value 
      if (empty($sequence)) then $start-value
                            else util:step-fold(remove($sequence, 1), 
                                           $operation,
-                                          util:call( $sequence[1], $start-value))
+                                          util:call($operation, $sequence[1], $start-value))
 };
 
 
 (: -------------------------------------------------------------------------- :)
-(: this will do something someday :)
-declare function util:evalstep ($stepname as xs:string, $function as xs:string ) {
-    fn:true()
+(: evaluate the step, throwing dynamic errors and writing output along the way :)
+declare function util:evalstep ($step,$value) {
+    util:call( $step, $value)
+};
+
+
+(: -------------------------------------------------------------------------- :)
+(: test folding the step with a different function :)
+declare function util:printstep ($step,$value) {
+    util:call( $step, $value)
 };
 
 

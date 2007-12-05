@@ -1,8 +1,10 @@
 xquery version "1.0" encoding "UTF-8";
 
+(: Module Imports :)
 import module namespace test = "http://xproc.net/test"
                         at "../../test/xquery/test.xqm";
 
+(: -------------------------------------------------------------------------- :)
 
 <testsuite title="Test Unit Tests" desc="This test suite tests the actual Unit Testing package itself ;) e.g. XProc Unit Testing suite">
 
@@ -105,3 +107,5 @@ import module namespace test = "http://xproc.net/test"
 
 
 </testsuite>
+
+(: -------------------------------------------------------------------------- :)

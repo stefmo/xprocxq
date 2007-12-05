@@ -1,80 +1,96 @@
-xproc.xq v.5                            
+This is xproc.xq v.5                                      
+------------------------------
 
 xproc.xq is a bootstrap implementation of W3C XProc Specification, written in xquery
 
-TOC
- 1. Deps
- 2. Distro
- 3. Usage
- 4. Install
- 5. Feedback
- 6. License
-
-Author: James Fuller (james.fuller.2007@gmail.com)
-Date: 04 Dec 2007
+xproc.xq is Copyright (C) 2007, James Fuller (jim.fuller@webcomposite.com).
 
 
-1. Deps
+LICENSE INFORMATION
+-------------------
 
-Currently to run unit tests and build stuff, xproc.xq is firmly dependent on Saxon-SA ... yes that is the one you
+xproc.xq is released under Mozilla Public License (MPL) v1.1, of which a copy is included 
+in this distribution, under a file named LICENSE.
+
+
+PREREQUISITES
+-------------
+
+To run unit tests and build stuff, xproc.xq is firmly dependent on Saxon-SA ... yes that is the one you
 buy ;).
 
     Saxon-SA (www.saxonica.com) (NOTE: only support SAXON at the moment)
-        (Saxon requires one to compile an extension, using ant build.xml)
+        (Saxon requires you to compile an extension, using supplied build file)
 
 I plan to support Saxon-B and eXist (exist.sourceforge.net) and any other XQuery processor 
-that has support for first class functions and an eval extension ;)
+that has support for first class functions and an eval extension, though will be focusing on 
+Saxon-SA for the time being.
    
-Note: One will also require Apache Ant to unit test and build associated artifacts via the supplied
-build.xml file
+Note: Apache Ant is useful for building associated artifacts via the supplied
+build.xml file, as well as running unit tests
 
 
-2. Distro
-
-Note that this section is remarking on what we will want in the future... items may not yet exist.
+INSTRUCTIONS
+------------
 
 The distribution consists of:
 
-README      This document.
+    README      This document.
 
-VERSION     A summary of the distribution version.
+    VERSION     A summary of the distribution version.
 
-RELEASE     current release version
-    
-build.xml   Apache Ant build file For testing and customizing distro
+    RELEASE     current release version
 
-properties.xml Contains properties used by Apache Ant build file
+    ChangeLog   generated svn changelog
 
-bin/    Contains xproc run script
+    build.xml   Apache Ant build file For testing and customizing distro
 
-etc/    Contains misc artifacts
+    properties.xml properties used by the Apache Ant build file
 
-lib/    Contain 3rd party deps
+    bin/    xproc run script
 
-test/   Contains Xquery Unit Tests, XML Pipeline Unit Tests
+    etc/    misc artifacts
 
-src/    Contains XQuery source files
+    lib/    3rd party deps, this directory is empty for the time being
 
+    test/   Xquery Unit Tests & XProc Unit Tests
 
-3. Usage
+    src/    XQuery source files
 
-    TBD
+When the distro matures a little bit, you will simply be able to execute a run 
+wrapper, under the bin directory.
 
-4. Installation
-
-    TBD
-
-5. Feedback
-
-    Please post questions and comments about this implementation to http://code.google.com/p/xprocxq/issues/list.
-
-6. License
-
-    Xproc.xq is released under Mozilla Public License (MPL) v1.1, of which a copy is included in this distribution in the LICENSE file.
+For now, all one can really do is execute XQuery Unit tests from the Apache Ant build file.
 
 
-7. Contact / Copyright
+NOTES
+-----
 
-    james.fuller.2007@gmail.com
+xproc.xq is ALPHA software ... its also heavily dependent on SAXON-SA currently. 
 
-    James Fuller Copyright 2007
+It currently implements a very small subset of the XML WG XProc current draft and 
+has a few non-standard conventions ... to make things work.
+
+
+CHANGES
+-------
+
+Check out the Changelog file which is from time to time, generated from svn history
+
+
+TODO
+----
+
+Check out the TODO file and issues list 
+
+
+
+WEBSITES
+--------
+
+
+
+MAILING LISTS
+-------------
+
+

@@ -13,6 +13,8 @@ import module namespace util = "http://xproc.net/xproc/util"
                         at "../xquery/util.xqm";
 import module namespace std = "http://xproc.net/xproc/std"
                         at "../xquery/std.xqm";
+import module namespace opt = "http://xproc.net/xproc/opt"
+                        at "../xquery/opt.xqm";
 import module namespace ext = "http://xproc.net/xproc/ext"
                         at "../xquery/ext.xqm";
 import module namespace comp = "http://xproc.net/xproc/comp"
@@ -20,12 +22,14 @@ import module namespace comp = "http://xproc.net/xproc/comp"
 import module namespace xproc = "http://xproc.net/xproc"
                         at "../xquery/xproc.xqm";
 
+(: Module Vars :)
 (: load in xproc xml :)
 declare variable $xproc as item() external;
 
 (: load in stdin xml :)
 declare variable $stdin as item() external;
 
+(: -------------------------------------------------------------------------- :)
 (: XProc Processing :)
 
     let $start-time := util:timing()
@@ -53,3 +57,4 @@ declare variable $stdin as item() external;
         $serialized_result
         }
     </c:result>
+(: -------------------------------------------------------------------------- :)

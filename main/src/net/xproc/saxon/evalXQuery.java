@@ -19,6 +19,13 @@ import net.sf.saxon.value.Value;
 
 public class evalXQuery {
 
+/**
+
+ * Created/Inspired by Michael Kay of www.saxonica.co
+ * modified by Jim Fuller 5/12/2007
+
+ */
+
 
 /**
      * Compile a string containing a source query
