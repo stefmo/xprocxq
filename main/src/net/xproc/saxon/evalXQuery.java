@@ -21,7 +21,7 @@ public class evalXQuery {
 
 /**
 
- * Created/Inspired by Michael Kay of www.saxonica.co
+ * Created/Inspired by Michael Kay of www.saxonica.com via saxon.sourceforge.net help list
  * modified by Jim Fuller 5/12/2007
 
  */
