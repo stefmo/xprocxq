@@ -3,8 +3,6 @@ This is xproc.xq v.5
 
 xproc.xq is a bootstrap implementation of W3C XProc Specification, written in xquery
 
-xproc.xq is the Copyright (C) 2007 of James Fuller (jim.fuller@webcomposite.com).
-
 
 LICENSE INFORMATION
 -------------------
@@ -88,9 +86,20 @@ Check out the TODO file and issues list
 WEBSITES
 --------
 
+xproc.xq 
+http://code.google.com/p/xprocxq/
+
+W3C XML Working Group lastest XProc draft
+http://www.w3.org/XML/XProc/docs/langspec.html
 
 
 MAILING LISTS
 -------------
 
 
+
+
+COPYRIGHT
+---------
+
+xproc.xq is the Copyright (C) 2007 of James Fuller (jim.fuller@webcomposite.com).
