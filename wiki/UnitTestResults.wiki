@@ -21,7 +21,7 @@ _Note: The XProc functional tests are further split into my own basic tests and 
 
 [http://xprocxq.googlecode.com/svn/trunk/main/reports/result-std-test.html XProc Standard Step Unit Tests]: tests the standard steps 
 
-[http://xprocxq.googlecode.com/svn/trunk/main/reports/result-comp-test.html XProc Optional Step Unit Tests]: tests optional steps
+[http://xprocxq.googlecode.com/svn/trunk/main/reports/result-opt-test.html XProc Optional Step Unit Tests]: tests optional steps
 
 [http://xprocxq.googlecode.com/svn/trunk/main/reports/result-ext-test.html Extension Step Unit Tests]: test extension steps added by xproc.xq
 
