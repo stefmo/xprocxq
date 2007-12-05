@@ -13,17 +13,19 @@ _Note: The XProc functional tests are further split into my own basic tests and 
 
 = Latest commited XQuery Unit Test results =
 
-[http://xprocxq.googlecode.com/svn/trunk/main/reports/result-baseline-test.html Baseline Tests]
+[http://xprocxq.googlecode.com/svn/trunk/main/reports/result-baseline-test.html Baseline Unit Tests]
 
-[http://xprocxq.googlecode.com/svn/trunk/main/reports/result-core-test.html Core xproc.xq Tests]
+[http://xprocxq.googlecode.com/svn/trunk/main/reports/result-core-test.html Core xproc.xq Unit Tests]
 
-[http://xprocxq.googlecode.com/svn/trunk/main/reports/result-step-seq-test.html Step ordering Tests]
+[http://xprocxq.googlecode.com/svn/trunk/main/reports/result-step-seq-test.html Step ordering Unit Tests]
 
-[http://xprocxq.googlecode.com/svn/trunk/main/reports/result-std-test.html Standard Step Tests]
+[http://xprocxq.googlecode.com/svn/trunk/main/reports/result-std-test.html XProc Standard Step Unit Tests]
 
-[http://xprocxq.googlecode.com/svn/trunk/main/reports/result-ext-test.html Extension Step Tests]
+[http://xprocxq.googlecode.com/svn/trunk/main/reports/result-comp-test.html XProc Optional Step Unit Tests]
 
-[http://xprocxq.googlecode.com/svn/trunk/main/reports/result-comp-test.html Component Tests]
+[http://xprocxq.googlecode.com/svn/trunk/main/reports/result-ext-test.html Extension Step Unit Tests]
+
+[http://xprocxq.googlecode.com/svn/trunk/main/reports/result-comp-test.html Component Unit Tests]
 
 = Latest commited XProc Unit Test results =
 
