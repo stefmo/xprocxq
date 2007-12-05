@@ -1,6 +1,12 @@
 = Getting xquery.xq =
 
-So far I have not released any packaged version ... so your only method is checking out from [http://code.google.com/p/xprocxq/source subversion].
+So far I have not released any packaged version ... so your only method of getting xproc.xq is checking out from [http://code.google.com/p/xprocxq/source subversion].
+
+
+{{{
+# Non-members may svn check out a read-only working copy anonymously over HTTP.
+svn checkout http://xprocxq.googlecode.com/svn/trunk/ xprocxq-read-only
+}}}
 
 
 = Installation and Dependencies =
