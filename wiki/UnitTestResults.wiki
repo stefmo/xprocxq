@@ -8,7 +8,7 @@ There are 2 types of unit tests used for xproc.xq
 
 All unit tests are controlled by Apache Ant ... I could have just as well used make or something else; the thinking here is that most of the XQuery processors of interest are written in Java.
 
-_Note: The XProc functional tests are further split into my own basic tests and I have started an area of unit tests which are converted into Norman Walsh's XProc TestSuite format._
+_Note: The XProc functional tests are further split into my own basic tests and I have started an area of unit tests which are converted into Norman Walsh's XProc [http://tests.xproc.org/ Test Suite]._
 
 
 = Latest committed XQuery Unit Test results =
