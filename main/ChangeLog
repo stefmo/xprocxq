@@ -1,3 +1,121 @@
+2007-12-04 21:04  James.Fuller.2007
+
+	* unk/main/reports/result-baseline-test.html,
+	  unk/main/reports/result-comp-test.html,
+	  unk/main/reports/result-core-test.html,
+	  unk/main/reports/result-ext-test.html,
+	  unk/main/reports/result-std-test.html,
+	  unk/main/reports/result-step-seq-test.html: added html mime type
+	  to svn prop
+
+2007-12-04 21:00  James.Fuller.2007@gmail.com
+
+	* unk/main/ChangeLog, unk/main/reports, unk/main/reports/README,
+	  unk/main/reports/result-baseline-test.html,
+	  unk/main/reports/result-comp-test.html,
+	  unk/main/reports/result-core-test.html,
+	  unk/main/reports/result-ext-test.html,
+	  unk/main/reports/result-std-test.html,
+	  unk/main/reports/result-step-seq-test.html,
+	  unk/main/test/xquery/std.xq: added reports for unit test
+	  snapshots and various reports
+
+2007-12-04 20:45  James.Fuller.2007@gmail.com
+
+	* unk/main/ChangeLog, unk/main/build.xml: added changelog
+
+2007-12-04 20:01  James.Fuller.2007@gmail.com
+
+	* unk/main/README, unk/main/TODO, unk/main/bin/xproc,
+	  unk/main/build.xml, unk/main/etc/config.xml,
+	  unk/main/etc/pipeline-library.xml, unk/main/etc/pipeline.xsd,
+	  unk/main/etc/test.xsl, unk/main/properties.xml,
+	  unk/main/src/xquery/std.xqm, unk/main/src/xquery/xproc.xqm,
+	  unk/main/test/result.html,
+	  unk/main/test/xproc/basic/documentation,
+	  unk/main/test/xproc/basic/documentation/documentation.xml,
+	  unk/main/test/xproc/basic/documentation/documentation_1.xml,
+	  unk/main/test/xproc/basic/error/repeatedelements.xml,
+	  unk/main/test/xproc/basic/performance,
+	  unk/main/test/xproc/basic/performance/perf.xml,
+	  unk/main/test/xquery/std.xq: cleaning up before v.5 commit
+
+2007-12-04 20:00  James.Fuller.2007@gmail.com
+
+	* unk/main/src/trash: cleaning up before v.5 commit
+
+2007-12-04 15:33  James.Fuller.2007@gmail.com
+
+	* unk/main/src/xquery/std.xqm, unk/main/src/xquery/xproc.xq,
+	  unk/main/test/xquery/std.xq: adding more steps, refactoring how
+	  to manage options
+
+2007-12-04 15:05  James.Fuller.2007@gmail.com
+
+	* unk/main/README, unk/main/TODO, unk/main/build.xml,
+	  unk/main/src/xquery/const.xqm, unk/main/src/xquery/util.xqm,
+	  unk/main/src/xquery/xproc.xq,
+	  unk/main/test/xproc/basic/ordering/inputordering3.xml,
+	  unk/main/test/xquery/core.xq, unk/main/test/xquery/test.xqm:
+	  added some rough timing mechanisms, and some more simple xproc
+	  examples
+
+2007-12-04 08:40  James.Fuller.2007@gmail.com
+
+	* unk/main/README, unk/main/TODO: alpha commit ... please ignore
+	  still has old cruft
+
+2007-12-03 20:04  James.Fuller.2007@gmail.com
+
+	* unk/main/README: alpha commit ... please ignore still has old
+	  cruft
+
+2007-12-03 19:48  James.Fuller.2007@gmail.com
+
+	* unk/main/build.xml, unk/main/properties.xml: alpha commit ...
+	  please ignore still has old cruft
+
+2007-12-03 19:17  James.Fuller.2007@gmail.com
+
+	* unk/main/README, unk/main/bin/xproc: alpha commit ... please
+	  ignore still has old cruft
+
+2007-12-03 18:59  James.Fuller.2007@gmail.com
+
+	* unk/main/build.xml: alpha commit ... please ignore still has old
+	  cruft
+
+2007-12-03 18:56  James.Fuller.2007@gmail.com
+
+	* unk/main/test/xproc/README,
+	  unk/main/test/xproc/basic/error/test1.xml,
+	  unk/main/test/xproc/basic/helloworld_1_1_1.xml,
+	  unk/main/test/xproc/testsuite/README: alpha commit ... please
+	  ignore still has old cruft
+
+2007-12-03 18:27  James.Fuller.2007@gmail.com
+
+	* unk/main/TODO, unk/main/src/xquery/ext.xqm,
+	  unk/main/src/xquery/util.xqm, unk/main/src/xquery/xproc.xq,
+	  unk/main/src/xquery/xproc.xqm,
+	  unk/main/test/xproc/basic/ordering/inputordering1.xml,
+	  unk/main/test/xquery/core.xq, unk/main/test/xquery/ext.xq,
+	  unk/main/test/xquery/step-seq.xq: alpha commit ... please ignore
+	  still has old cruft
+
+2007-12-03 15:05  James.Fuller.2007@gmail.com
+
+	* unk/main/README, unk/main/src/xquery/ext.xqm,
+	  unk/main/src/xquery/std.xqm, unk/main/src/xquery/util.xqm,
+	  unk/main/src/xquery/xproc.xqm, unk/main/test/xquery/core.xq,
+	  unk/main/test/xquery/step-seq.xq: pre-alpha commit ... please
+	  ignore still has old cruft
+
+2007-12-03 08:13  James.Fuller.2007@gmail.com
+
+	* unk/main/README, unk/main/bin/xproc, unk/main/etc/test.xsl: final
+	  pre-alpha commit ... please ignore
+
 2007-12-03 08:09  James.Fuller.2007@gmail.com
 
 	* unk/main, unk/main/build.xml, unk/main/lib,
