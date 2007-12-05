@@ -1,5 +1,5 @@
-<!-- contains build properties that one should customize to reflect their own setup//-->
-<!-- TODO: need to refactor at some point //-->
+<!-- mostly contains locations of dependencies, one should customize to reflect their own setup//-->
+<!-- TODO: probably need to refactor at some point //-->
 <p>
 <dir>
     <lib>

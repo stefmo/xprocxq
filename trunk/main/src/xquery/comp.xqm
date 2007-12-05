@@ -2,14 +2,18 @@ xquery version "1.0" encoding "UTF-8";
 
 module namespace comp = "http://xproc.net/xproc/comp";
 
+(: Module Imports :)
 import module namespace const = "http://xproc.net/xproc/const"
                         at "../xquery/const.xqm";
 
+(: -------------------------------------------------------------------------- :)
 
 declare function comp:main() as xs:string {
     "comp entry executed"
 };
 
+
+(: -------------------------------------------------------------------------- :)
 
 declare function comp:episode() as xs:string {
     "A23afe23r2q34fq"
@@ -35,3 +39,8 @@ declare function comp:version() as xs:string {
     $const:version
 };
 
+declare function comp:xpath-version() as xs:string {
+    $const:xpath-version
+};
+
+(: -------------------------------------------------------------------------- :)

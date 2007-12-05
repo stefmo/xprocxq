@@ -5,6 +5,8 @@ declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
 
+(: Module Imports :)
+
 import module namespace test = "http://xproc.net/test"
                         at "../../test/xquery/test.xqm";
 import module namespace xproc = "http://xproc.net/xproc"
@@ -17,6 +19,8 @@ import module namespace std = "http://xproc.net/xproc/std"
                         at "../../src/xquery/std.xqm";
 import module namespace ext = "http://xproc.net/xproc/ext"
                         at "../../src/xquery/ext.xqm";
+
+(: -------------------------------------------------------------------------- :)
 
 <testsuite title="Step Sequence XQuery Unit Tests" desc="Test the parsing and ordering of pipeline steps with XProc.xq">
 
@@ -275,5 +279,6 @@ return $sortsteps
 
 //-->
 
-
 </testsuite>
+
+(: -------------------------------------------------------------------------- :)

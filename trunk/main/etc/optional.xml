@@ -1,0 +1,10 @@
+<!-- contains XProc standard and optional step definitions //-->
+<!-- TODO: decide if xproc.xq own extensions live in config.xml or in seperate config file//-->
+<?xml version="1.0" encoding="UTF-8"?>
+<p:pipeline-library xmlns:p ="http://www.w3.org/ns/xproc" 
+                    xmlns:ext ="http://xproc.net/xproc/ext"
+                    xmlns:xproc = "http://xproc.net/xproc"
+                    name="xproc-optional-library">
+
+
+</p:pipeline-library>

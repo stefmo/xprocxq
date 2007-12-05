@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <project name="xproc.xq" basedir=".">
-    <description></description>
+    <description>This build file builds the single java extension needed for Saxon-SA. Past that,
+it is mostly a unit test runner for firing off XQuery and XProc tests.</description>
     
     <!-- ===================================================== -->
     <!-- dep properties                                        -->
@@ -54,7 +55,7 @@
     </target>
     
     <!-- ===================================================== -->
-    <!-- unit test xproc.xq engine                             -->
+    <!-- unit test xproc.xq standard steps                     -->
     <!-- ===================================================== -->
     <target name="test-std" description="run std xquery unit tests">
         
@@ -65,6 +66,22 @@
         <xslt-saxon dest="result/result-std-test.html"
                     style="etc/test.xsl"
                     xml="result/std.xml"/>
+        
+    </target>
+    
+    
+    <!-- ===================================================== -->
+    <!-- unit test xproc.xq optional steps                     -->
+    <!-- ===================================================== -->
+    <target name="test-opt" description="run optional xquery unit tests">
+        
+        <xquery-saxon dest="result/opt.xml"
+                      query="test/xquery/opt.xq"
+                      input="file:test/data/test.xml"/>
+        
+        <xslt-saxon dest="result/result-opt-test.html"
+                    style="etc/test.xsl"
+                    xml="result/opt.xml"/>
         
     </target>
     
@@ -104,7 +121,7 @@
     <!-- ===================================================== -->
     <!-- run all xquery unit tests                             -->
     <!-- ===================================================== -->
-    <target name="test-all-xquery" depends="clean,test-test,test-core,test-step-seq,test-std,test-comp,test-ext"  
+    <target name="test-all-xquery" depends="clean,test-test,test-core,test-step-seq,test-std,test-opt,test-comp,test-ext"  
             description="run all xquery tests">
         
     </target>

@@ -10,7 +10,6 @@ declare namespace err="http://www.w3.org/ns/xproc-error";
 
 declare copy-namespaces no-preserve, inherit;
 
-
 (: Module Imports :)
 import module namespace const = "http://xproc.net/xproc/const"
                         at "../xquery/const.xqm";
@@ -18,11 +17,14 @@ import module namespace util = "http://xproc.net/xproc/util"
                         at "../xquery/util.xqm";
 import module namespace std = "http://xproc.net/xproc/std"
                         at "../xquery/std.xqm";
+import module namespace opt = "http://xproc.net/xproc/opt"
+                        at "../xquery/opt.xqm";
 import module namespace ext = "http://xproc.net/xproc/ext"
                         at "../xquery/ext.xqm";
 import module namespace comp = "http://xproc.net/xproc/comp"
                         at "../xquery/comp.xqm";
 
+(: -------------------------------------------------------------------------- :)
 
 declare function xproc:main() as xs:string {
     "main xproc.xq executed"
@@ -96,6 +98,7 @@ return
 
 (: -------------------------------------------------------------------------- :)
 (: Build Run Tree :)
+(: TODO: this needs to be refactored, working with strings is not ideal with XML! :)
 declare function xproc:build($parsetree) {
     fn:string-join($parsetree,'')
 };
@@ -113,7 +116,6 @@ declare function xproc:eval($runtree,$stdin){
 declare function xproc:output($evalresult){
     $evalresult
 };
-
 
 (: -------------------------------------------------------------------------- :)
 
