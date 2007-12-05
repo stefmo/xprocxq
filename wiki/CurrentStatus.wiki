@@ -1,6 +1,9 @@
 = Status =
 
-3/12/2007 I am just about ready to commit the bulk of v.5 which represents the first version of xproc.xq that 'does stuff. Perhaps in time to announce whilst XML 2007 is running ;)
+5/12/2007 still 'getting' things together for v.5, I have been working for a while 'off' the google code repository and want to ensure that I have got the main bulk of code right, as a foundation for the future.
+
+currently, this means refactoring things like options, inputs/outputs ... they were hacks in my prototype efforts, and the xquery was just so ugly, it would cause embarrassing questions to be asked ;)
+  
 
 = Changelog =
 
