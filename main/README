@@ -79,7 +79,8 @@ Check out the Changelog file which is from time to time, generated from svn hist
 TODO
 ----
 
-Check out the TODO file and issues list 
+Check out the issues list http://code.google.com/p/xprocxq/issues/list or TODO file
+contained in the distribution.
 
 
 
@@ -104,5 +105,4 @@ xprocxq@googlegroups.com
 COPYRIGHT
 ---------
 
-
-xproc.xq is the Copyright (C) 2007 of James Fuller (jim.fuller@webcomposite.com), All rights reserved.
+xproc.xq and related material is the Copyright (C) 2007 of James Fuller (jim.fuller@webcomposite.com), All rights reserved.
