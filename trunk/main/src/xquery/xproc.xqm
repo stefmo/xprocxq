@@ -63,7 +63,7 @@ let $O0 := (<test/>,<end/>) '),
     fn:string('$ext:post,"metadata")'),
 
     fn:string('return 
-        util:step-fold($steps, saxon:function("util:evalstep", 3),$O0)')
+        util:step-fold($steps, saxon:function("xproc:evalstep", 3),$O0)')
 )
 };
 
@@ -120,3 +120,18 @@ declare function xproc:output($evalresult){
 (: -------------------------------------------------------------------------- :)
 
 
+(: -------------------------------------------------------------------------- :)
+(: evaluate the step, throwing dynamic errors and writing output along the way :)
+declare function xproc:evalstep ($step,$meta,$primary-input) {
+
+(: 
+
+    step: step-function
+    primary-input: primary input
+    inputs:
+    outputs:
+    options:
+:)
+    util:call( $step, $primary-input)
+
+};

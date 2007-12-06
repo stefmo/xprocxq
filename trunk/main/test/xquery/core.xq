@@ -153,7 +153,7 @@ import module namespace std = "http://xproc.net/xproc/std"&#xD;
 import module namespace ext = "http://xproc.net/xproc/ext"&#xD;
                         at "src/xquery/ext.xqm";&#xD;
 let $O0 := (&lt;test/&gt;,&lt;end/&gt;)  let $steps := ($ext:pre, $std:count, $std:identity, $std:count, $ext:post) return &#xD;
-        util:step-fold($steps, saxon:function("util:evalstep", 3),$O0)</expected>
+        util:step-fold($steps, saxon:function("xproc:evalstep", 3),$O0)</expected>
 </test>
 
 <test>
@@ -218,10 +218,7 @@ let $O0 := <test/> let $PI1 := "primary input" let $I1 := $O0 let $O1 := util:ca
 <test>
     <name>testing fn:trace</name>
     <result>
-    {
-
-
-} 
+  
     </result>
     <expected>true</expected>
 </test>
