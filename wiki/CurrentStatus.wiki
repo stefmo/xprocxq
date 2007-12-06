@@ -72,7 +72,7 @@ _Note: Looking at the current trunk/TODO file will help you determine what I am 
 
 = When will feature X be done or xproc.xq be compliant with W3C spec ? =
 
-I have a real desire to get xproc.xq to XProc v1.0 compliance, but using XQuery means I am  generally pessimistic. There are all sorts of issues, some that have been surmounted, some I have yet to even engage with yet (but known from the start).
+I have a real desire to get xproc.xq to XProc v1.0 compliance, but using XQuery means I am  somewhat limited. There are all sorts of issues, some that have been surmounted, some I have yet to even engage with yet (but known from the start).
 
 Once I have worked through all of XProc primary components and logic structure then I will be able to comment more about the more exotic edge cases.
 
