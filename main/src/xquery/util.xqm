@@ -35,14 +35,20 @@ declare function util:eval($exp as xs:string) as item()*{
 };
 
 
+declare function util:call($func,$a){
+    saxon:call($func,$a)
+};
+
+
 declare function util:call($func,$a,$b){
     saxon:call($func,$a,$b)
 };
 
 
-declare function util:call($func,$a){
-    saxon:call($func,$a)
+declare function util:call($func,$a,$b,$c){
+    saxon:call($func,$a,$b,$c)
 };
+
 
 (:
 declare function util:function($func,$arity){
@@ -86,24 +92,26 @@ as item()* {
 };
 
 
+(: -------------------------------------------------------------------------- :)
+
 declare function util:step-fold ($sequence as item()*, $operation, $start-value as item()*) {
      if (empty($sequence)) then $start-value
-                           else util:step-fold(remove($sequence, 1), 
+                           else util:step-fold(remove(remove($sequence, 1),1), 
                                           $operation,
-                                          util:call($operation, $sequence[1], $start-value))
+                                          util:call($operation, $sequence[1], $sequence[2], $start-value))
 };
 
 
 (: -------------------------------------------------------------------------- :)
 (: evaluate the step, throwing dynamic errors and writing output along the way :)
-declare function util:evalstep ($step,$value) {
+declare function util:evalstep ($step,$meta,$value) {
     util:call( $step, $value)
 };
 
 
 (: -------------------------------------------------------------------------- :)
 (: test folding the step with a different function :)
-declare function util:printstep ($step,$value) {
+declare function util:printstep ($step,$meta,$value) {
     util:call( $step, $value)
 };
 

@@ -56,14 +56,14 @@ let $O0 := (<test/>,<end/>) '),
 
     xproc:geninput($xproc),
 
-    fn:string('let $steps := ($ext:pre,'),
+    fn:string('let $steps := ($ext:pre,"metadata",'),
     
-    xproc:genstep($xproc),
+    xproc:gensteps($xproc),
 
-    fn:string('$ext:post)'),
+    fn:string('$ext:post,"metadata")'),
 
     fn:string('return 
-        util:step-fold($steps, saxon:function("util:evalstep", 2),$O0)')
+        util:step-fold($steps, saxon:function("util:evalstep", 3),$O0)')
 )
 };
 
@@ -87,11 +87,11 @@ return
 
 
 (: Generate xquery steps sequence :)
-declare function xproc:genstep($steps as item()) {
+declare function xproc:gensteps($steps as item()) {
 for $step in $steps/p:*[fn:not(fn:name()='p:documentation')] (: note: ignore top level p:documentation elements :)
 return
     (
-     fn:string(concat('$std:',$step/fn:local-name(),','))
+     fn:string(concat('$std:',$step/fn:local-name(),',"metadata",'))
     )                            
 };
 

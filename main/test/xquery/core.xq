@@ -153,7 +153,7 @@ import module namespace std = "http://xproc.net/xproc/std"&#xD;
 import module namespace ext = "http://xproc.net/xproc/ext"&#xD;
                         at "src/xquery/ext.xqm";&#xD;
 let $O0 := (&lt;test/&gt;,&lt;end/&gt;)  let $steps := ($ext:pre, $std:count, $std:identity, $std:count, $ext:post) return &#xD;
-        util:step-fold($steps, saxon:function("util:evalstep", 2),$O0)</expected>
+        util:step-fold($steps, saxon:function("util:evalstep", 3),$O0)</expected>
 </test>
 
 <test>
@@ -161,9 +161,9 @@ let $O0 := (&lt;test/&gt;,&lt;end/&gt;)  let $steps := ($ext:pre, $std:count, $s
     <result>
     {
     let $O0 := (<test/>)  
-    let $steps := ($ext:pre, $std:count, $std:identity, $std:count, $ext:post) 
+    let $steps := ($ext:pre,"metadata", $std:count,"metadata", $std:identity,"metadata", $std:count,"metadata", $ext:post,"metadata") 
     return
-        util:step-fold($steps, saxon:function("util:printstep", 2),$O0) 
+        util:step-fold($steps, saxon:function("util:printstep", 3),$O0) 
     }
     </result>
     <expected></expected>
@@ -180,7 +180,7 @@ let $O0 := (&lt;test/&gt;,&lt;end/&gt;)  let $steps := ($ext:pre, $std:count, $s
 
 
 <test>
-    <name>more representative util:xquery test</name>
+    <name>old util:xquery test</name>
     <result>
     {util:xquery('import module namespace xproc = "http://xproc.net/xproc"
                         at "src/xquery/xproc.xqm";
