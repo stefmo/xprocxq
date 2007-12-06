@@ -215,6 +215,19 @@ let $O0 := <test/> let $PI1 := "primary input" let $I1 := $O0 let $O1 := util:ca
     <expected>true</expected>
 </test>
 
+<test>
+    <name>testing fn:trace</name>
+    <result>
+    {
+
+
+} 
+    </result>
+    <expected>true</expected>
+</test>
+
+
+
 </testsuite>
 
 (: -------------------------------------------------------------------------- :)

@@ -253,7 +253,7 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                   fork="true"
                   failonerror="false"
                   maxmemory="256m"
-                  append="true"
+                  append="false"
                   output="@{dest}/">
                 
                 <arg line="@{xml} @{style} "/>
@@ -279,7 +279,7 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                   fork="true"
                   failonerror="false"
                   maxmemory="256m"
-                  append="true"
+                  append="false"
                   output="@{dest}/"
             >
                 
@@ -307,7 +307,7 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                   fork="true"
                   failonerror="false"
                   maxmemory="256m"
-                  append="true"
+                  append="false"
                   output="@{dest}/">
                 
                 <arg line="-sa -s @{input} @{query} +xproc=@{xproc} +stdin=@{input}"/>
