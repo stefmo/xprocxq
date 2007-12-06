@@ -102,21 +102,7 @@ declare function util:step-fold ($sequence as item()*, $operation, $primary-inpu
 };
 
 
-(: -------------------------------------------------------------------------- :)
-(: evaluate the step, throwing dynamic errors and writing output along the way :)
-declare function util:evalstep ($step,$meta,$primary-input) {
 
-(: 
-
-    step: step-function
-    primary-input: primary input
-    inputs:
-    outputs:
-    options:
-:)
-    util:call( $step, $primary-input)
-
-};
 
 
 (: -------------------------------------------------------------------------- :)
