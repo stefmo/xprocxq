@@ -1,9 +1,2 @@
-Reports generated here are taken  from time to time and commited to svn repository.
+Reports generated here are taken from results/ which are generated and not put into repository
 
-XQuery Unit Tests
-
-XProc Unit Tests
-
-Perf Tests
-
-Style Reports
