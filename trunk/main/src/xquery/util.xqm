@@ -94,18 +94,28 @@ as item()* {
 
 (: -------------------------------------------------------------------------- :)
 
-declare function util:step-fold ($sequence as item()*, $operation, $start-value as item()*) {
-     if (empty($sequence)) then $start-value
+declare function util:step-fold ($sequence as item()*, $operation, $primary-input as item()*) {
+     if (empty($sequence)) then $primary-input
                            else util:step-fold(remove(remove($sequence, 1),1), 
                                           $operation,
-                                          util:call($operation, $sequence[1], $sequence[2], $start-value))
+                                          util:call($operation, $sequence[1], $sequence[2], $primary-input))
 };
 
 
 (: -------------------------------------------------------------------------- :)
 (: evaluate the step, throwing dynamic errors and writing output along the way :)
-declare function util:evalstep ($step,$meta,$value) {
-    util:call( $step, $value)
+declare function util:evalstep ($step,$meta,$primary-input) {
+
+(: 
+
+    step: step-function
+    primary-input: primary input
+    inputs:
+    outputs:
+    options:
+:)
+    util:call( $step, $primary-input)
+
 };
 
 
