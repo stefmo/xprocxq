@@ -14,11 +14,11 @@
        <p:output port="step2-output"/>
     </p:identity>
 
-    <p:count name="step3">
+    <p:count1 name="step3">
         <p:input port="step3-input">
               <p:pipe step="step2" port="step2-output"/>
        </p:input>
-    </p:count>
+    </p:count1>
 
     <p:count name="step1">
         <p:input port="step1-input">

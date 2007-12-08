@@ -224,6 +224,14 @@ let $O0 := <test/> let $PI1 := "primary input" let $I1 := $O0 let $O1 := util:ca
 </test>
 
 
+<test>
+    <name>testing util:try</name>
+    <result>
+    {util:try(1 div 0)}
+    </result>
+    <expected>error occurred</expected>
+</test>
+
 
 </testsuite>
 

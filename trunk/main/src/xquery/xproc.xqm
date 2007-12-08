@@ -52,7 +52,7 @@ import module namespace std = "http://xproc.net/xproc/std"
                         at "src/xquery/std.xqm";
 import module namespace ext = "http://xproc.net/xproc/ext"
                         at "src/xquery/ext.xqm";
-let $O0 := (<test/>,<end/>) '),
+let $O0 := <test/>  '),
 
     fn:string('let $steps := ("pre step",$ext:pre,'),    
     xproc:gensteps($xproc),
@@ -115,14 +115,14 @@ declare function xproc:output($evalresult){
 
 (: -------------------------------------------------------------------------- :)
 (: runtime evaluation of xproc steps; throwing dynamic errors and writing output along the way :)
-declare function xproc:evalstep ($step,$meta,$state) as xs:anyAtomicType* {
+declare function xproc:evalstep ($step,$name,$state) as xs:anyAtomicType* {
 
 (: 
     step: step-function
     meta: sequence containing input and output
 :)
 
-       (util:call( $step, $state[1]),"metadata")
+       (util:call( $step, $state[1]),"output results")
 };
 (: -------------------------------------------------------------------------- :)
 
