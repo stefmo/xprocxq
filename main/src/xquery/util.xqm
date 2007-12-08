@@ -25,34 +25,47 @@ declare function util:timing() as xs:integer  {
     xs:integer(system:currentTimeMillis())
 };
 
+(: -------------------------------------------------------------------------- :)
+
+declare function util:try($arg1){
+    saxon:try($arg1,"test")
+};
+
 
 (: -------------------------------------------------------------------------- :)
-(: TODO: all of the below functions need to add exist eval function :)
-
 
 declare function util:eval($exp as xs:string) as item()*{
     saxon:eval(saxon:expression($exp))
 };
 
+(: -------------------------------------------------------------------------- :)
+
 
 declare function util:call($func,$a){
+util:try(
     saxon:call($func,$a)
-};
+)};
 
 
 declare function util:call($func,$a,$b){
+util:try(
     saxon:call($func,$a,$b)
-};
+)};
 
 
 declare function util:call($func,$a,$b,$c){
+util:try(
     saxon:call($func,$a,$b,$c)
-};
+)};
+
 
 declare function util:call($func,$a,$b,$c,$d){
+util:try(
     saxon:call($func,$a,$b,$c)
-};
+)};
 
+
+(: -------------------------------------------------------------------------- :)
 
 (:
 declare function util:function($func,$arity){
@@ -60,15 +73,18 @@ declare function util:function($func,$arity){
 };
 :)
 
+(: -------------------------------------------------------------------------- :)
 
 declare function util:evalXPATH($xpathstring, $xml){
     $xml/saxon:evaluate($xpathstring)
 };
 
+(: -------------------------------------------------------------------------- :)
 
 declare function util:xquery($exp as xs:string) as item()*{
-let $a := func:compileQuery($exp)
-return func:query($a)
+    let $a := func:compileQuery($exp)
+    return 
+        func:query($a)
 };
 
 
@@ -95,8 +111,6 @@ as item()* {
 			()
 };
 
-
-(: -------------------------------------------------------------------------- :)
 
 declare function util:step-fold ($sequence as item()*, $operation, $state as xs:anyAtomicType*) {
      if (empty($sequence)) then $state
