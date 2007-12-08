@@ -161,7 +161,7 @@ let $O0 := (&lt;test/&gt;,&lt;end/&gt;)  let $steps := ($ext:pre, $std:count, $s
     <result>
     {
     let $O0 := (<test/>)  
-    let $steps := ($ext:pre,"metadata", $std:count,"metadata", $std:identity,"metadata", $std:count,"metadata", $ext:post,"metadata") 
+    let $steps := ("pre step" ,$ext:pre, "step1",$std:count,"step2", $std:identity,"step3", $std:count,"post step", $ext:post) 
     return
         util:step-fold($steps, saxon:function("util:printstep", 3),($O0,"")) 
     }

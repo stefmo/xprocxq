@@ -54,23 +54,15 @@ import module namespace ext = "http://xproc.net/xproc/ext"
                         at "src/xquery/ext.xqm";
 let $O0 := (<test/>,<end/>) '),
 
-    xproc:geninput($xproc),
-    fn:string('let $steps := ($ext:pre,"metadata",'),    
+    fn:string('let $steps := ("pre step",$ext:pre,'),    
     xproc:gensteps($xproc),
-    fn:string('$ext:post,"metadata")'),
+    fn:string('"post-step",$ext:post)'),
     fn:string('return util:step-fold($steps, saxon:function("xproc:evalstep", 3),($O0,""))')
 )
 };
 
 
 (: -------------------------------------------------------------------------- :)
-
-(: Generate input xquery statement :)
-declare function xproc:geninput($steps as item()) {
-for $step at $count in $steps/p:pipeline/*[fn:name()='p:input']
-return 
-     fn:string(concat('let $PI',$count,' := "primary input" '))   
-};
 
 
 (: Generate output xquery statement :)
@@ -80,13 +72,17 @@ return
      fn:string(concat('let $PO',$count,' := "primary output" '))   
 };
 
-
+    
 (: Generate xquery steps sequence :)
-declare function xproc:gensteps($steps as item()) {
+declare function xproc:gensteps($steps) {
 for $step in $steps/p:*[fn:not(fn:name()='p:documentation')] (: note: ignore top level p:documentation elements :)
 return
+    let $name := $step/@name
+    return
     (
-     fn:string(concat('$std:',$step/fn:local-name(),',"metadata",'))
+     fn:string(concat('"',$name,'",')),
+     fn:string(concat('$std:',$step/fn:local-name(),','))
+
     )                            
 };
 
@@ -111,7 +107,7 @@ declare function xproc:eval($runtree,$stdin){
 (: Serialize Eval Result :)
 (: TODO: link up xproc serialization params  :)
 declare function xproc:output($evalresult){
-    $evalresult
+    $evalresult[1]
 };
 
 (: -------------------------------------------------------------------------- :)
@@ -123,12 +119,10 @@ declare function xproc:evalstep ($step,$meta,$state) as xs:anyAtomicType* {
 
 (: 
     step: step-function
-    primary-io: sequence containing input and output
-    options: tba
-    parameters: tba
+    meta: sequence containing input and output
 :)
 
-       (util:call( $step, $state[1]),"","testoutput2","")
+       (util:call( $step, $state[1]),"metadata")
 };
 (: -------------------------------------------------------------------------- :)
 

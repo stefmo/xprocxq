@@ -54,7 +54,7 @@ declare variable $stdin as item() external;
     return
         <c:result xproc:ts="{current-dateTime()}" xproc:timing="{$end-time - $start-time}ms">
         {
-        $serialized_result
+            $serialized_result
         }
     </c:result>
 (: -------------------------------------------------------------------------- :)
