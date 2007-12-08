@@ -49,6 +49,10 @@ declare function util:call($func,$a,$b,$c){
     saxon:call($func,$a,$b,$c)
 };
 
+declare function util:call($func,$a,$b,$c,$d){
+    saxon:call($func,$a,$b,$c)
+};
+
 
 (:
 declare function util:function($func,$arity){
@@ -94,14 +98,18 @@ as item()* {
 
 (: -------------------------------------------------------------------------- :)
 
-declare function util:step-fold ($sequence as item()*, $operation, $primary-input as item()*) {
-     if (empty($sequence)) then $primary-input
-                           else util:step-fold(remove(remove($sequence, 1),1), 
-                                          $operation,
-                                          util:call($operation, $sequence[1], $sequence[2], $primary-input))
+declare function util:step-fold ($sequence as item()*, $operation, $state as xs:anyAtomicType*) {
+     if (empty($sequence)) then $state[1]
+                           else 
+                                let $newstate :=util:call($operation, 
+                                                           $sequence[1], 
+                                                           $sequence[2], 
+                                                           $state)
+                                return
+                                    util:step-fold(remove( remove($sequence, 1) ,1), 
+                                                   $operation,
+                                                   $newstate)
 };
-
-
 
 
 

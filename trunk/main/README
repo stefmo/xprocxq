@@ -14,8 +14,10 @@ in this distribution, under a file named LICENSE.
 PREREQUISITES
 -------------
 
-To run unit tests and build stuff, xproc.xq is firmly dependent on Saxon-SA ... yes that is the one you
-buy ;).
+To run unit tests and build stuff xproc.xq is completely dependent on Saxon-SA ... yes that is the one you
+buy. I recommend purchasing SAXON (if not just to support the heroic efforts of Michael Kay), but you will be
+disappointed if you do so just to run xproc.xq ;). 
+
 
     Saxon-SA (www.saxonica.com) (NOTE: only support SAXON at the moment)
         (Saxon requires you to compile an extension, using supplied build file)
@@ -55,7 +57,7 @@ The distribution consists of:
 
     src/    XQuery source files
 
-When the distro matures a little bit, you will simply be able to execute a run 
+When the distro matures a little bit, you will be able to execute a run 
 wrapper, under the bin directory.
 
 For now, all one can really do is execute XQuery Unit tests from the Apache Ant build file.
@@ -64,8 +66,8 @@ For now, all one can really do is execute XQuery Unit tests from the Apache Ant 
 NOTES
 -----
 
-xproc.xq is ALPHA software ... its also heavily dependent on SAXON-SA currently. 
-
+xproc.xq is ALPHA software ... its also completely dependent on SAXON-SA currently. 
+conventions
 It currently implements a very small subset of the XML WG XProc current draft and 
 has a few non-standard conventions ... to make things work.
 

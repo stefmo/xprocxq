@@ -32,14 +32,14 @@ declare function xproc:main() as xs:string {
 
 (: -------------------------------------------------------------------------- :)
 
-(: Preparse pipeline XML, sorting along the way :)
+(: Preparse pipeline XML, sorting along the way, throwing some static errors :)
 declare function xproc:preparse($xproc as item()){
     let $sortsteps := <p:pipeline>{util:pipeline-step-sort($xproc/node(),())}</p:pipeline>
     return $sortsteps
 };
 
 
-(: Parse pipeline XML, generating xquery code :)
+(: Parse pipeline XML, generating xquery code, throwing some static errors :)
 declare function xproc:parse($xproc as item()) {
 
    (fn:string('import module namespace xproc = "http://xproc.net/xproc"
@@ -55,15 +55,10 @@ import module namespace ext = "http://xproc.net/xproc/ext"
 let $O0 := (<test/>,<end/>) '),
 
     xproc:geninput($xproc),
-
-    fn:string('let $steps := ($ext:pre,"metadata",'),
-    
+    fn:string('let $steps := ($ext:pre,"metadata",'),    
     xproc:gensteps($xproc),
-
     fn:string('$ext:post,"metadata")'),
-
-    fn:string('return 
-        util:step-fold($steps, saxon:function("xproc:evalstep", 3),$O0)')
+    fn:string('return util:step-fold($steps, saxon:function("xproc:evalstep", 3),($O0,""))')
 )
 };
 
@@ -98,7 +93,7 @@ return
 
 (: -------------------------------------------------------------------------- :)
 (: Build Run Tree :)
-(: TODO: this needs to be refactored, working with strings is not ideal with XML! :)
+(: TODO: this needs to be refactored, working with strings is not the plan with XML! :)
 declare function xproc:build($parsetree) {
     fn:string-join($parsetree,'')
 };
@@ -106,6 +101,7 @@ declare function xproc:build($parsetree) {
 
 (: -------------------------------------------------------------------------- :)
 (: Eval Run Tree :)
+(: this function may throw some dynamic errors :)
 declare function xproc:eval($runtree,$stdin){
     util:xquery($runtree) 
 };
@@ -113,6 +109,7 @@ declare function xproc:eval($runtree,$stdin){
 
 (: -------------------------------------------------------------------------- :)
 (: Serialize Eval Result :)
+(: TODO: link up xproc serialization params  :)
 declare function xproc:output($evalresult){
     $evalresult
 };
@@ -121,17 +118,17 @@ declare function xproc:output($evalresult){
 
 
 (: -------------------------------------------------------------------------- :)
-(: evaluate the step, throwing dynamic errors and writing output along the way :)
-declare function xproc:evalstep ($step,$meta,$primary-input) {
+(: runtime evaluation of xproc steps; throwing dynamic errors and writing output along the way :)
+declare function xproc:evalstep ($step,$meta,$state) as xs:anyAtomicType* {
 
 (: 
-
     step: step-function
-    primary-input: primary input
-    inputs:
-    outputs:
-    options:
+    primary-io: sequence containing input and output
+    options: tba
+    parameters: tba
 :)
-    util:call( $step, $primary-input)
 
+       (util:call( $step, $state[1]),"","testoutput2","")
 };
+(: -------------------------------------------------------------------------- :)
+
