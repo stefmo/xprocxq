@@ -99,11 +99,11 @@ as item()* {
 (: -------------------------------------------------------------------------- :)
 
 declare function util:step-fold ($sequence as item()*, $operation, $state as xs:anyAtomicType*) {
-     if (empty($sequence)) then $state[1]
+     if (empty($sequence)) then $state
                            else 
                                 let $newstate :=util:call($operation, 
-                                                           $sequence[1], 
                                                            $sequence[2], 
+                                                           $sequence[1], 
                                                            $state)
                                 return
                                     util:step-fold(remove( remove($sequence, 1) ,1), 
