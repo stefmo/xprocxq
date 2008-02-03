@@ -1,3 +1,5 @@
+#summary For those who want to install and play with early alpha xproc.xq
+
 = Getting xquery.xq =
 
 So far I have not released any packaged version of xproc.xq ... so your only method of getting xproc.xq is checking out from [http://code.google.com/p/xprocxq/source subversion].
