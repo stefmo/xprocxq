@@ -2,7 +2,7 @@
 
 = Status =
 
-1/14/2008 still pending release of v.5, my free week for this is planned for Jan 21st.
+3/2/2008 hoping to get something released by the 18th / I am digesting changes in latest editor draft
 
 currently, this means I am still refactoring things like options, inputs/outputs ... they were hacks in my prototype efforts, and the xquery was just so ugly, it would cause embarrassing questions to be asked ;)
   
