@@ -1,3 +1,5 @@
+#summary From time to time I will be posting output of unit test runs
+
 = Latest committed XQuery Unit Test results =
 
 These test xquery code base themselves using my homegrown XQuery Unit Testing Suite [http://xprocxq.googlecode.com/svn/trunk/main/test/xquery/test.xqm test.xqm]
