@@ -1,3 +1,5 @@
+#summary Describes current 'state of play' with xproc.xq
+
 = Status =
 
 1/14/2008 still pending release of v.5, my free week for this is planned for Jan 21st.
