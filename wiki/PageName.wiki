@@ -1,6 +1,4 @@
 #summary useful resources and references
 
 
-* W3C Xproc specification editor draft 
-
-*
+  * W3C Xproc specification editor draft 
