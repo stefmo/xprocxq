@@ -35,9 +35,9 @@ declare variable $stdin as item() external;
     let $start-time := util:timing()
 
     (: STEP Ia: sort parse tree :)
-    let $preparse := xproc:preparse($xproc/p:pipeline)
+    let $preparse := xproc:preparse($xproc)
 
-    (: STEP Ib: generate parse tred :)
+    (: STEP Ib: generate parse tree :)
     let $parsetree := xproc:parse($preparse)
 
     (: STEP II: build run tree, reporting any static errors :)
@@ -53,8 +53,8 @@ declare variable $stdin as item() external;
 
     return
         <c:result xproc:ts="{current-dateTime()}" xproc:timing="{$end-time - $start-time}ms">
-        {
-            $serialized_result
-        }
-    </c:result>
+            {
+                $serialized_result
+            }
+        </c:result>
 (: -------------------------------------------------------------------------- :)
