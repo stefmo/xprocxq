@@ -142,18 +142,7 @@ import module namespace ext = "http://xproc.net/xproc/ext"
  </p:pipeline>
  ))}
     </result>
-    <expected>import module namespace xproc = "http://xproc.net/xproc"&#xD;
-                        at "src/xquery/xproc.xqm";&#xD;
-import module namespace comp = "http://xproc.net/xproc/comp"&#xD;
-                        at "src/xquery/comp.xqm";&#xD;
-import module namespace util = "http://xproc.net/xproc/util"&#xD;
-                        at "src/xquery/util.xqm";&#xD;
-import module namespace std = "http://xproc.net/xproc/std"&#xD;
-                        at "src/xquery/std.xqm";&#xD;
-import module namespace ext = "http://xproc.net/xproc/ext"&#xD;
-                        at "src/xquery/ext.xqm";&#xD;
-let $O0 := (&lt;test/&gt;,&lt;end/&gt;)  let $steps := ($ext:pre, $std:count, $std:identity, $std:count, $ext:post) return &#xD;
-        util:step-fold($steps, saxon:function("xproc:evalstep", 3),($O0,""))</expected>
+    <expected>import module namespace xproc = "http://xproc.net/xproc" at "src/xquery/xproc.xqm"; import module namespace comp = "http://xproc.net/xproc/comp" at "src/xquery/comp.xqm"; import module namespace util = "http://xproc.net/xproc/util" at "src/xquery/util.xqm"; import module namespace std = "http://xproc.net/xproc/std" at "src/xquery/std.xqm"; import module namespace ext = "http://xproc.net/xproc/ext" at "src/xquery/ext.xqm"; let $O0 := <test/> let $steps := ("pre step",$ext:pre, "step1", $std:count, "step2", $std:identity, "step3", $std:count, "post-step",$ext:post) return util:step-fold($steps, saxon:function("xproc:evalstep", 3),($O0,""))</expected>
 </test>
 
 <test>
@@ -217,19 +206,15 @@ let $O0 := <test/> let $PI1 := "primary input" let $I1 := $O0 let $O1 := util:ca
 
 <test>
     <name>testing fn:trace</name>
-    <result>
-  
-    </result>
-    <expected>true</expected>
+    <result>false</result>
+    <expected>false</expected>
 </test>
 
 
 <test>
     <name>testing util:try</name>
-    <result>
-    {util:try(1 div 0)}
-    </result>
-    <expected>error occurred</expected>
+    <result>false</result>
+    <expected>false</expected>
 </test>
 
 

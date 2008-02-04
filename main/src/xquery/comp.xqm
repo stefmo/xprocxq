@@ -6,6 +6,9 @@ module namespace comp = "http://xproc.net/xproc/comp";
 import module namespace const = "http://xproc.net/xproc/const"
                         at "../xquery/const.xqm";
 
+import module namespace util = "http://xproc.net/xproc/util"
+                        at "../../src/xquery/util.xqm";
+
 (: -------------------------------------------------------------------------- :)
 
 declare function comp:main() as xs:string {
@@ -16,7 +19,7 @@ declare function comp:main() as xs:string {
 (: -------------------------------------------------------------------------- :)
 
 declare function comp:episode() as xs:string {
-    "A23afe23r2q34fq"
+    util:random()
 };
 
 declare function comp:product-name() as xs:string {

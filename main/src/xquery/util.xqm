@@ -25,12 +25,12 @@ declare function util:timing() as xs:integer  {
     xs:integer(system:currentTimeMillis())
 };
 
+
 (: -------------------------------------------------------------------------- :)
 
-declare function util:try($arg1){
-    saxon:try($arg1,"test")
+declare function util:random() as xs:string  {
+   fn:string('A23afe23r2q34fq')
 };
-
 
 (: -------------------------------------------------------------------------- :)
 
@@ -39,30 +39,27 @@ declare function util:eval($exp as xs:string) as item()*{
 };
 
 (: -------------------------------------------------------------------------- :)
-
+(: TODO: refactor the following into a single function :)
 
 declare function util:call($func,$a){
-util:try(
     saxon:call($func,$a)
-)};
+};
 
 
 declare function util:call($func,$a,$b){
-util:try(
+
     saxon:call($func,$a,$b)
-)};
+};
 
 
 declare function util:call($func,$a,$b,$c){
-util:try(
     saxon:call($func,$a,$b,$c)
-)};
+};
 
 
 declare function util:call($func,$a,$b,$c,$d){
-util:try(
     saxon:call($func,$a,$b,$c)
-)};
+};
 
 
 (: -------------------------------------------------------------------------- :)
