@@ -6,6 +6,8 @@ import module namespace test = "http://xproc.net/test"
 import module namespace std = "http://xproc.net/xproc/std"
                         at "../../src/xquery/std.xqm";
 
+declare namespace c="http://www.w3.org/ns/xproc-step";
+
 (: -------------------------------------------------------------------------- :)
 
 <testsuite title="XProc Standard Step XQuery Unit Tests" desc="Test the XProc.xq standard step XQuery functions">
@@ -100,6 +102,14 @@ import module namespace std = "http://xproc.net/xproc/std"
         {test:assertXMLEqual(std:wrap(<test><a><c>test</c></a></test>,"aaaa","test/a"),(<aaaa><a><c>test</c></a></aaaa>))}
     </result>
     <expected>true</expected>
+</test>
+
+<test>
+    <name>run success p:compare test</name>
+    <result>
+    {std:compare((<test>test</test>,<test>test</test>))}
+    </result>
+    <expected><c:result>true</c:result></expected>
 </test>
 
 </testsuite>

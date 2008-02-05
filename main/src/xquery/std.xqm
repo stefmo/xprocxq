@@ -15,6 +15,7 @@ import module namespace util = "http://xproc.net/xproc/util"
 declare variable $std:identity :=saxon:function("std:identity", 1);
 declare variable $std:count :=saxon:function("std:count", 1);
 declare variable $std:wrap :=saxon:function("std:wrap", 3);
+declare variable $std:compare :=saxon:function("std:compare",1);
 
 (: -------------------------------------------------------------------------- :)
 
@@ -22,9 +23,12 @@ declare function std:identity($seq as item()* ) as item()* {
     $seq
 };
 
-
 declare function std:count($seq as item()* ) as xs:integer {
     fn:count($seq)
+};
+
+declare function std:compare($seq as item()*) as item()* {
+        <c:result>{fn:deep-equal($seq[1],$seq[2])}</c:result>
 };
 
 declare function std:wrap($seq as item(),$option-wrap as xs:string,$option-match as xs:string ) as item() {
@@ -34,6 +38,5 @@ declare function std:wrap($seq as item(),$option-wrap as xs:string,$option-match
          util:evalXPATH($option-match,$v)
     }
 };
-
 
 (: -------------------------------------------------------------------------- :)
