@@ -35,7 +35,7 @@ declare variable $stdin as item() external;
     let $start-time := util:timing()
 
     (: STEP Ia: sort parse tree :)
-    let $preparse := xproc:preparse($xproc)
+    let $preparse := xproc:preparse($xproc/p:pipeline)
 
     (: STEP Ib: generate parse tree :)
     let $parsetree := xproc:parse($preparse)

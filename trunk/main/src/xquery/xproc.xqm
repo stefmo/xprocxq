@@ -30,16 +30,16 @@ declare function xproc:main() as xs:string {
     "main xproc.xq executed"
 };
 
-(: -------------------------------------------------------------------------- :)
 
-(: Preparse pipeline XML, sorting along the way, throwing some static errors :)
+(: -------------------------------------------------------------------------- :)
+(: Preparse pipeline XML, sorting steps by input, throwing some static errors :)
 declare function xproc:preparse($xproc as item()){
     let $sortsteps := <p:pipeline>{util:pipeline-step-sort($xproc/node(),())}</p:pipeline>
     return $sortsteps
 };
 
 
-(: Parse pipeline XML, generating xquery code, throwing some static errors :)
+(: Parse pipeline XML, generating xquery code, throwing some static errors if neccesary :)
 declare function xproc:parse($xproc as item()) {
 
    (fn:string('import module namespace xproc = "http://xproc.net/xproc"
@@ -63,19 +63,10 @@ let $O0 := <test/>  '),
 
 
 (: -------------------------------------------------------------------------- :)
-
-
-(: Generate output xquery statement :)
-declare function xproc:genoutput($steps as item()) {
-for $step at $count in $steps/p:pipeline/*[fn:name()='p:output']
-return 
-     fn:string(concat('let $PO',$count,' := "primary output" '))   
-};
-
-    
 (: Generate xquery steps sequence :)
 declare function xproc:gensteps($steps) {
-for $step in $steps/p:*[fn:not(fn:name()='p:documentation')] (: note: ignore top level p:documentation elements :)
+for $step in $steps/p:*[fn:not(fn:name()='p:documentation')] 
+(: TODO: temp ignore of top level p:documentation elements, this feels a bit OUT OF BAND and needs refactoring :)
 return
     let $name := $step/@name
     return
@@ -89,7 +80,7 @@ return
 
 (: -------------------------------------------------------------------------- :)
 (: Build Run Tree :)
-(: TODO: this needs to be refactored, working with strings is not the plan with XML! :)
+(: TODO: this needs to be refactored. :)
 declare function xproc:build($parsetree) {
     fn:string-join($parsetree,'')
 };
@@ -110,8 +101,6 @@ declare function xproc:output($evalresult){
     $evalresult[1]
 };
 
-(: -------------------------------------------------------------------------- :)
-
 
 (: -------------------------------------------------------------------------- :)
 (: runtime evaluation of xproc steps; throwing dynamic errors and writing output along the way :)
@@ -122,7 +111,15 @@ declare function xproc:evalstep ($step,$name,$state) as xs:anyAtomicType* {
     meta: sequence containing input and output
 :)
 
-       (util:call( $step, $state[1]),"output results")
+        (: return a sequence, will replace TEMP OUTPUT  soon :)
+       (util:call( $step, $state[1]),"TEMP OUTPUT")
 };
+
 (: -------------------------------------------------------------------------- :)
+(: TODO: runtime reporting of xproc steps:)
+declare function xproc:reportstep ($step,$name,$state) as xs:anyAtomicType* {
+
+        (: return a sequence, will replace TEMP OUTPUT  soon :)
+       (util:call( $step, $state[1]),"TEMP OUTPUT")
+};
 
