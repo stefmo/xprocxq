@@ -1,4 +1,4 @@
- <p:pipeline name="helloworld"
+ <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
     <p:input port="std-input" primary="true"/>
     <p:output port="std-output" primary="true"/>
