@@ -1,15 +1,15 @@
- <p:pipeline name="helloworld"
+ <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:util = "http://xproc.net/xproc/util">
 
-<util:step name="helloworld">
+<util:step name="pipeline">
   <p:input port="std-input"/>
   <p:output port="std-output"/>
 </util:step>
 
     <p:identity name="step1">
         <p:input port="step1-input">
-              <p:pipe step="helloworld" port="std-input"/>
+              <p:pipe step="pipeline" port="std-input"/>
         </p:input>
         <p:output port="step1-output"/>
     </p:identity>
