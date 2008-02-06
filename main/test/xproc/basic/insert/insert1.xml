@@ -1,0 +1,15 @@
+<p:pipeline name="pipeline"
+	    xmlns:p="http://www.w3.org/ns/xproc">
+
+<p:input port="source" primary="true"/>
+<p:output port="result"/>
+
+<p:insert>
+  <p:input port="insertion">
+    <p:inline><p>New first paragraph</p></p:inline>
+  </p:input>
+  <p:option name="match" value="p"/>
+  <p:option name="position" value="first-child"/>
+</p:insert>
+
+</p:pipeline>
