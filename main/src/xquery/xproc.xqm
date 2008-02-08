@@ -82,6 +82,7 @@ return
 (: Build Run Tree :)
 (: TODO: this needs to be refactored. :)
 declare function xproc:build($parsetree) {
+
     fn:string-join($parsetree,'')
 };
 
@@ -90,6 +91,9 @@ declare function xproc:build($parsetree) {
 (: Eval Run Tree :)
 (: this function may throw some dynamic errors :)
 declare function xproc:eval($runtree,$stdin){
+
+trace($runtree, "xproc:eval runtree: "),
+
     util:xquery($runtree) 
 };
 
@@ -98,6 +102,9 @@ declare function xproc:eval($runtree,$stdin){
 (: Serialize Eval Result :)
 (: TODO: link up xproc serialization params  :)
 declare function xproc:output($evalresult){
+
+trace($evalresult, "xproc:output evalresult: "),
+
     $evalresult[1]
 };
 
@@ -106,20 +113,15 @@ declare function xproc:output($evalresult){
 (: runtime evaluation of xproc steps; throwing dynamic errors and writing output along the way :)
 declare function xproc:evalstep ($step,$name,$state) as xs:anyAtomicType* {
 
+trace($name, "name: "),trace($state[1],"state:"),
+
 (: 
     step: step-function
     meta: sequence containing input and output
 :)
 
         (: return a sequence, will replace TEMP OUTPUT  soon :)
-       (util:call( $step, $state[1]),"TEMP OUTPUT")
+       (util:call( $step, $state[1]),"test output")
 };
 
-(: -------------------------------------------------------------------------- :)
-(: TODO: runtime reporting of xproc steps:)
-declare function xproc:reportstep ($step,$name,$state) as xs:anyAtomicType* {
-
-        (: return a sequence, will replace TEMP OUTPUT  soon :)
-       (util:call( $step, $state[1]),"TEMP OUTPUT")
-};
 
