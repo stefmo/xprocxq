@@ -203,12 +203,8 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
         <xproc-saxon dest="result/xproc_result_2.xml"
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
-                     xproc="file:test/xproc/basic/helloworld_2.xml"/>
+                     xproc="file:test/xproc/basic/helloworld_1_1_1.xml"/>
         
-        <xproc-saxon dest="result/xproc_result_3.xml"
-                     query="src/xquery/xproc.xq"
-                     input="file:test/data/test.xml"
-                     xproc="file:test/xproc/basic/helloworld_3.xml"/>
         
     </target>
     
@@ -291,6 +287,7 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                   failonerror="false"
                   maxmemory="256m"
                   append="false"
+                  logError="true"
                   output="@{dest}/"
             >
                 
@@ -319,6 +316,7 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                   failonerror="false"
                   maxmemory="256m"
                   append="false"
+                  logError="true"
                   output="@{dest}/">
                 
                 <arg line="-sa -s @{input} @{query} +xproc=@{xproc} +stdin=@{input}"/>
