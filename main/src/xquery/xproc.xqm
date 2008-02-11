@@ -10,6 +10,7 @@ declare namespace err="http://www.w3.org/ns/xproc-error";
 
 declare copy-namespaces no-preserve, inherit;
 
+
 (: Module Imports :)
 import module namespace const = "http://xproc.net/xproc/const"
                         at "../xquery/const.xqm";
@@ -24,10 +25,22 @@ import module namespace ext = "http://xproc.net/xproc/ext"
 import module namespace comp = "http://xproc.net/xproc/comp"
                         at "../xquery/comp.xqm";
 
-(: -------------------------------------------------------------------------- :)
 
+(: -------------------------------------------------------------------------- :)
 declare function xproc:main() as xs:string {
     "main xproc.xq executed"
+};
+
+
+(: -------------------------------------------------------------------------- :)
+(: make all input/output bindings explicit :)
+declare function xproc:explicitbinding($xproc as item()){
+    let $explicitbinding := <p:pipeline>{
+        for $step in $xproc/node() 
+            return
+                 $step}
+    </p:pipeline>
+    return $explicitbinding
 };
 
 
@@ -92,7 +105,7 @@ declare function xproc:build($parsetree) {
 (: this function may throw some dynamic errors :)
 declare function xproc:eval($runtree,$stdin){
 
-trace($runtree, "xproc:eval runtree: "),
+(:trace($runtree, "xproc:eval runtree: "),:)
 
     util:xquery($runtree) 
 };
@@ -103,7 +116,7 @@ trace($runtree, "xproc:eval runtree: "),
 (: TODO: link up xproc serialization params  :)
 declare function xproc:output($evalresult){
 
-trace($evalresult, "xproc:output evalresult: "),
+(:trace($evalresult, "xproc:output evalresult: "),:)
 
     $evalresult[1]
 };
@@ -113,7 +126,7 @@ trace($evalresult, "xproc:output evalresult: "),
 (: runtime evaluation of xproc steps; throwing dynamic errors and writing output along the way :)
 declare function xproc:evalstep ($step,$name,$state) as xs:anyAtomicType* {
 
-trace($name, "name: "),trace($state[1],"state:"),
+(:trace($name, "name: "),trace($state[1],"state:"),:)
 
 (: 
     step: step-function

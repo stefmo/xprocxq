@@ -1,0 +1,7 @@
+<p:pipeline>
+  <p:identity>
+    <p:input port="source">
+      <p:empty/>
+    </p:input>
+  </p:identity>
+</p:pipeline>
