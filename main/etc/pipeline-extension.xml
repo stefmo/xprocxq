@@ -1,6 +1,3 @@
-<!-- contains XProc standard and optional step definitions //-->
-<!-- TODO: decide if xproc.xq own extensions live in config.xml or in seperate config file//-->
-<?xml version="1.0" encoding="UTF-8"?>
 <p:pipeline-library xmlns:p ="http://www.w3.org/ns/xproc" 
                     xmlns:ext ="http://xproc.net/xproc/ext"
                     xmlns:xproc = "http://xproc.net/xproc"
@@ -8,6 +5,10 @@
     
     
     <p:declare-step type="util:step" name="step" xproc:arity="2">
+        <p:input port="input" primary="true"/>
+    </p:declare-step>
+
+    <p:declare-step type="util:test-step" name="test-step" xproc:arity="2">
         <p:input port="input" primary="true"/>
     </p:declare-step>
     

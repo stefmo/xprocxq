@@ -1,7 +1,99 @@
-<!-- contains XProc standard and optional step definitions //-->
-<!-- TODO: decide if xproc.xq own extensions live in config.xml or in seperate config file//-->
-<?xml version="1.0" encoding="UTF-8"?>
 <p:pipeline-library xmlns:p ="http://www.w3.org/ns/xproc" 
                     name="xproc-optional-library">
-
+    
+    <p:declare-step type="p:exec">
+        <p:input port="source" primary="true" sequence="true"/>
+        <p:output port="result" primary="true"/>
+        <p:output port="errors"/>
+        <p:option name="command" required="true"/>                    <!-- string -->
+        <p:option name="args"/>                                       <!-- string -->
+        <p:option name="cwd"/>                                        <!-- string -->
+        <p:option name="source-is-xml" value="true"/>                 <!-- boolean -->
+        <p:option name="result-is-xml" value="true"/>                 <!-- boolean -->
+        <p:option name="wrap-result-lines" value="false"/>            <!-- boolean -->
+        <p:option name="errors-is-xml" value="false"/>                <!-- boolean -->
+        <p:option name="wrap-error-lines" value="false"/>             <!-- boolean -->
+        <p:option name="fix-slashes" value="false"/>                  <!-- boolean -->
+        <p:option name="byte-order-mark"/>                            <!-- boolean -->
+        <p:option name="cdata-section-elements"/>                     <!-- ListOfQNames -->
+        <p:option name="doctype-public"/>                             <!-- string -->
+        <p:option name="doctype-system"/>                             <!-- anyURI -->
+        <p:option name="encoding"/>                                   <!-- string -->
+        <p:option name="escape-uri-attributes"/>                      <!-- boolean -->
+        <p:option name="include-content-type"/>                       <!-- boolean -->
+        <p:option name="indent" value="false"/>                       <!-- boolean -->
+        <p:option name="media-type"/>                                 <!-- string -->
+        <p:option name="method" value="xml"/>                         <!-- QName -->
+        <p:option name="normalization-form"/>                         <!-- NormalizationForm -->
+        <p:option name="omit-xml-declaration"/>                       <!-- boolean -->
+        <p:option name="standalone"/>                                 <!-- "true" | "false" | "omit" -->
+        <p:option name="undeclare-prefixes"/>                         <!-- boolean -->
+        <p:option name="version" value="1.0"/>                        <!-- string -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:hash">
+        <p:input port="source" primary="true"/>
+        <p:output port="result"/>
+        <p:input port="parameters" kind="parameter"/>
+        <p:option name="value" required="true"/>                      <!-- string -->
+        <p:option name="algorithm" required="true"/>                  <!-- QName -->
+        <p:option name="match" required="true"/>                      <!-- XSLTMatchPattern -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:uuid">
+        <p:input port="source" primary="true"/>
+        <p:output port="result"/>
+        <p:option name="match" required="true"/>                      <!-- XSLTMatchPattern -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:validate-with-relax-ng">
+        <p:input port="source" primary="true"/>
+        <p:input port="schema"/>
+        <p:output port="result"/>
+        <p:option name="dtd-compatibility" value="false"/>            <!-- boolean -->
+        <p:option name="assert-valid" value="true"/>                  <!-- boolean -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:validate-with-schematron">
+        <p:input port="source" primary="true"/>
+        <p:input port="schema"/>
+        <p:output port="result"/>
+        <p:option name="assert-valid" value="true"/>                  <!-- boolean -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:validate-with-xml-schema">
+        <p:input port="source" primary="true"/>
+        <p:input port="schema" sequence="true"/>
+        <p:output port="result"/>
+        <p:option name="assert-valid" value="true"/>                  <!-- boolean -->
+        <p:option name="mode" value="strict"/>                        <!-- "strict" | "lax" -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:www-form-urldecode">
+        <p:output port="result"/>
+        <p:option name="value" required="true"/>                      <!-- string -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:www-form-urlencode">
+        <p:input port="source" primary="true"/>
+        <p:output port="result"/>
+        <p:input port="parameters" kind="parameter"/>
+        <p:option name="match" required="true"/>                      <!-- XSLTMatchPattern -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:xquery">
+        <p:input port="source" sequence="true" primary="true"/>
+        <p:input port="query"/>
+        <p:input port="parameters" kind="parameter" sequence="true"/>
+        <p:output port="result" sequence="true"/>
+    </p:declare-step>
+    
+    <p:declare-step type="p:xsl-formatter">
+        <p:input port="source"/>
+        <p:input port="parameters" kind="parameter" sequence="true"/>
+        <p:output port="result" primary="false"/>
+        <p:option name="uri" required="true"/>                        <!-- anyURI -->
+        <p:option name="content-type"/>                               <!-- string -->
+    </p:declare-step>
+    
 </p:pipeline-library>

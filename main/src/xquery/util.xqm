@@ -12,6 +12,7 @@ declare namespace saxon="http://saxon.sf.net/";
 declare namespace jt="http://net.sf.saxon/java-type";
 declare namespace func="java:net.xproc.saxon.evalXQuery";
 declare namespace system="java:java.lang.System";
+declare namespace math="http://exslt.org/math";
 
 (: -------------------------------------------------------------------------- :)
 
@@ -28,8 +29,8 @@ declare function util:timing() as xs:integer  {
 
 (: -------------------------------------------------------------------------- :)
 
-declare function util:random() as xs:string  {
-   fn:string('A23afe23r2q34fq')
+declare function util:random() as  xs:double  {
+   math:random()
 };
 
 (: -------------------------------------------------------------------------- :)

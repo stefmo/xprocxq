@@ -35,12 +35,38 @@ declare function xproc:main() as xs:string {
 (: -------------------------------------------------------------------------- :)
 (: make all input/output bindings explicit :)
 declare function xproc:explicitbinding($xproc as item()){
-    let $explicitbinding := <p:pipeline>{
-        for $step in $xproc/node() 
-            return
-                 $step}
+
+    let $explicitbinding := <p:pipeline xproc:parsed="true">{
+
+let $stdsteps := doc("../../etc/pipeline-standard.xml")/p:pipeline-library
+let $optsteps := doc("../../etc/pipeline-optional.xml")/p:pipeline-library
+let $extsteps := doc("../../etc/pipeline-extension.xml")/p:pipeline-library
+for $step in $xproc/node()
+let $stepname := local-name($step)
+let $uniqueid := concat($step/@name,':',fn:string(util:random()),':',fn:string(fn:current-time()))
+let $stdstep := $stdsteps/p:declare-step[contains(@type,$stepname)]
+where $stdsteps/p:declare-step[contains(@type,$stepname)] 
+   or $optsteps/p:declare-step[contains(@type,$stepname)] 
+   or $extsteps/p:declare-step[contains(@type,$stepname)] 
+         return
+
+        element {name($step)} { 
+
+attribute name {$uniqueid},
+(
+               for $binding in $stdstep/*
+                   return
+                        element {name($binding)}{attribute port {$binding/@port},
+                          <p:pipe step="pipeline-name" port="{$binding/@port}"/> 
+                        }
+ )                   
+                
+
+}
+}
     </p:pipeline>
-    return $explicitbinding
+    return 
+        $explicitbinding
 };
 
 

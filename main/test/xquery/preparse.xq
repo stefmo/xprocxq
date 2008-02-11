@@ -208,34 +208,22 @@ return xproc:eval(xproc:build(xproc:parse(xproc:preparse($pipeline))),<test/>)
 
 
 <test>
-    <name>eval explicit binding prepares</name>
+    <name>eval explicit binding prepares 1</name>
     <result>
 {
 
 let $pipeline :=
- <p:pipeline name="helloworld"
+ <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
 
   <p:input port="source"/>
-  <p:output port="std-output"/>
+  <p:output port="result"/>
 
-    <p:count name="step2">
-       <p:input port="step2-input">
-              <p:pipe step="step1" port="step1-output"/>
-       </p:input>
-       <p:output port="step2-output"/>
-    </p:count>
-
-
-    <p:identity name="step1">
-        <p:input port="step1-input">
-              <p:pipe step="helloworld" port="std-input"/>
-        </p:input>
-        <p:output port="step1-output"/>
-    </p:identity>
+    <p:count name="step2"/>
+    <p:identity name="step1"/>
 
  </p:pipeline>
-return xproc:explicitbinding($pipeline)
+ return xproc:explicitbinding($pipeline)
 
 }
 
@@ -245,74 +233,49 @@ return xproc:explicitbinding($pipeline)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
 <test>
-    <name>pipeline sort 3: fix natural ordering</name>
+    <name>eval explicit binding prepares 2</name>
     <result>
 {
-
-let $graph :=
- <p:pipeline name="helloworld"
+let $pipeline :=
+ <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
- 
-    <p:identity name="step2"/>
 
-    <p:count name="step3"/>
+  <p:input port="source"/>
+  <p:output port="result"/>
 
-    <p:count name="step1"/>
-
+    <p:identity/>
+    <p:count/>
+    <p:thisstepdoesnotexist/>
  </p:pipeline>
-let $sortsteps := <p:pipeline>{util:pipeline-step-sort($graph/node(),())}</p:pipeline>
-return $sortsteps
-
+ return xproc:explicitbinding($pipeline)
 }
-
 </result>
 <expected></expected>
 </test>
+
 
 
 <test>
-    <name>pipeline sort 4: fix natural ordering</name>
+    <name>eval explicit binding prepares 3 with optional and extension step</name>
     <result>
-{<p:pipeline name="helloworld"
-            xmlns:p="http://www.w3.org/ns/xproc"
-            xmlns:c="http://www.w3.org/ns/xproc-step"
-            xmlns:err="http://www.w3.org/ns/xproc-error">
-    
-    <p:input port="src">
-        <p:document href = "file://../data/test.xml" />
-    </p:input>
-    
-    <p:output port="result"/>
-    
-    <p:identity/>
-    
-    <p:count/>
-    
-</p:pipeline>
-}
+{
+let $pipeline :=
+ <p:pipeline name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc">
 
+  <p:input port="source"/>
+  <p:output port="result"/>
+
+    <p:uuid/>
+    <p:test-step/>
+    <p:thisstepdoesnotexist/>
+ </p:pipeline>
+ return xproc:explicitbinding($pipeline)
+}
 </result>
 <expected></expected>
 </test>
-
-//-->
 
 </testsuite>
 

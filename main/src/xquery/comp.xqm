@@ -19,7 +19,7 @@ declare function comp:main() as xs:string {
 (: -------------------------------------------------------------------------- :)
 
 declare function comp:episode() as xs:string {
-    util:random()
+   fn:string(util:random())
 };
 
 declare function comp:product-name() as xs:string {

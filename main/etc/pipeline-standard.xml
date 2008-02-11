@@ -1,37 +1,252 @@
-<!-- contains XProc standard and optional step definitions //-->
-<?xml version="1.0" encoding="UTF-8"?>
 <p:pipeline-library xmlns:p ="http://www.w3.org/ns/xproc" 
                     name="xproc-standard-library">
-   
-
-<p:declare-step type="p:compare" name="compare" xproc:status="implemented" xproc:arity="2">
-     <p:input port="source" primary="true"/>
-     <p:input port="alternate"/>
-     <p:output port="result" primary="false"/>
-     <p:option name="fail-if-not-equal" value="false"/>            <!-- boolean -->
-</p:declare-step>   
-
-   <p:declare-step type="p:count" name="count" xproc:arity="1">
-      <p:input port="source" sequence="true"/>
-      <p:output port="result"/>
-   </p:declare-step>
-
-   <p:declare-step type="p:error" name="error" xproc:arity="2">
-      <p:option name="code" required="true"/>
-      <p:option name="description" required="true"/>
-   </p:declare-step>
-
-   <p:declare-step type="p:identity" name="identity" xproc:arity="1">
-      <p:input port="source" sequence="true"/>
-      <p:output port="result" sequence="true"/>
-   </p:declare-step>
-
-   <p:declare-step type="p:wrap" name="wrap" xproc:arity="4">
-      <p:input port="source"/>
-      <p:output port="result"/>
-      <p:option name="wrapper" required="true"/>
-      <p:option name="match" required="true"/>
-      <p:option name="group-adjacent"/>
-   </p:declare-step>
-
+    
+    <p:declare-step type="p:add-attribute">
+        <p:input port="source"/>
+        <p:output port="result"/>
+        <p:option name="match" required="true"/>                      <!-- XSLTMatchPattern -->
+        <p:option name="attribute-name" required="true"/>             <!-- QName -->
+        <p:option name="attribute-value" required="true"/>            <!-- string -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:add-xml-base">
+        <p:input port="source"/>
+        <p:output port="result"/>
+        <p:option name="all" value="false"/>                          <!-- boolean -->
+        <p:option name="relative" value="true"/>                      <!-- boolean -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:compare">
+        <p:input port="source" primary="true"/>
+        <p:input port="alternate"/>
+        <p:output port="result" primary="false"/>
+        <p:option name="fail-if-not-equal" value="false"/>            <!-- boolean -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:count">
+        <p:input port="source" sequence="true"/>
+        <p:output port="result"/>
+    </p:declare-step>
+    
+    <p:declare-step type="p:delete">
+        <p:input port="source"/>
+        <p:output port="result"/>
+        <p:option name="match" required="true"/>                      <!-- XSLTMatchPattern -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:directory-list">
+        <p:output port="result"/>
+        <p:option name="path" value="."/>                             <!-- anyURI -->
+        <p:option name="include-filter"/>                             <!-- RegularExpression -->
+        <p:option name="exclude-filter"/>                             <!-- RegularExpression -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:error">
+        <p:input port="source"/>
+        <p:option name="code" required="true"/>                       <!-- QName -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:escape-markup">
+        <p:input port="source"/>
+        <p:output port="result"/>
+        <p:option name="cdata-section-elements"/>                     <!-- ListOfQNames -->
+        <p:option name="doctype-public"/>                             <!-- string -->
+        <p:option name="doctype-system"/>                             <!-- anyURI -->
+        <p:option name="encoding"/>                                   <!-- string -->
+        <p:option name="escape-uri-attributes"/>                      <!-- boolean -->
+        <p:option name="include-content-type"/>                       <!-- boolean -->
+        <p:option name="indent" value="false"/>                       <!-- boolean -->
+        <p:option name="media-type"/>                                 <!-- string -->
+        <p:option name="method" value="xml"/>                         <!-- QName -->
+        <p:option name="omit-xml-declaration"/>                       <!-- boolean -->
+        <p:option name="standalone"/>                                 <!-- "true" | "false" | "omit" -->
+        <p:option name="undeclare-prefixes"/>                         <!-- boolean -->
+        <p:option name="version" value="1.0"/>                        <!-- string -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:http-request">
+        <p:input port="source"/>
+        <p:output port="result"/>
+        <p:option name="byte-order-mark"/>                            <!-- boolean -->
+        <p:option name="cdata-section-elements"/>                     <!-- ListOfQNames -->
+        <p:option name="doctype-public"/>                             <!-- string -->
+        <p:option name="doctype-system"/>                             <!-- anyURI -->
+        <p:option name="encoding"/>                                   <!-- string -->
+        <p:option name="escape-uri-attributes"/>                      <!-- boolean -->
+        <p:option name="include-content-type"/>                       <!-- boolean -->
+        <p:option name="indent" value="false"/>                       <!-- boolean -->
+        <p:option name="media-type"/>                                 <!-- string -->
+        <p:option name="method" value="xml"/>                         <!-- QName -->
+        <p:option name="normalization-form"/>                         <!-- NormalizationForm -->
+        <p:option name="omit-xml-declaration"/>                       <!-- boolean -->
+        <p:option name="standalone"/>                                 <!-- "true" | "false" | "omit" -->
+        <p:option name="undeclare-prefixes"/>                         <!-- boolean -->
+        <p:option name="version" value="1.0"/>                        <!-- string -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:identity">
+        <p:input port="source" sequence="true"/>
+        <p:output port="result" sequence="true"/>
+    </p:declare-step>
+    
+    <p:declare-step type="p:insert">
+        <p:input port="source" primary="true"/>
+        <p:input port="insertion"/>
+        <p:output port="result"/>
+        <p:option name="match" value="/*"/>                           <!-- XSLTMatchPattern -->
+        <p:option name="position" required="true"/>                   <!-- "first-child" | "last-child" | "before" | "after" -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:label-elements">
+        <p:input port="source"/>
+        <p:output port="result"/>
+        <p:option name="attribute" value="xml:id"/>                   <!-- QName -->
+        <p:option name="prefix" value="_"/>                           <!-- string -->
+        <p:option name="suffix" value=""/>                            <!-- string -->
+        <p:option name="match" value="*"/>                            <!-- XSLTMatchPattern -->
+        <p:option name="scheme" value="count-elements"/>              <!-- QName -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:load">
+        <p:output port="result"/>
+        <p:option name="href" required="true"/>                       <!-- anyURI -->
+        <p:option name="dtd-validate"/>                               <!-- boolean -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:make-absolute-uris">
+        <p:input port="source"/>
+        <p:output port="result"/>
+        <p:option name="match" required="true"/>                      <!-- XSLTMatchPattern -->
+        <p:option name="base-uri"/>                                   <!-- anyURI -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:namespace-rename">
+        <p:input port="source"/>
+        <p:output port="result"/>
+        <p:option name="from"/>                                       <!-- anyURI -->
+        <p:option name="to"/>                                         <!-- anyURI -->
+        <p:option name="elements-only"/>                              <!-- boolean -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:pack">
+        <p:input port="source" sequence="true" primary="true"/>
+        <p:input port="alternate" sequence="true"/>
+        <p:output port="result" sequence="true"/>
+        <p:option name="wrapper" required="true"/>                    <!-- QName -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:parameters">
+        <p:input port="parameters" kind="parameter" primary="false" sequence="true"/>
+        <p:output port="result" sequence="true" primary="false"/>
+    </p:declare-step>
+    
+    <p:declare-step type="p:rename">
+        <p:input port="source"/>
+        <p:output port="result"/>
+        <p:option name="match" required="true"/>                      <!-- XSLTMatchPattern -->
+        <p:option name="new-name" required="true"/>                   <!-- QName -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:replace">
+        <p:input port="source" primary="true"/>
+        <p:input port="replacement"/>
+        <p:output port="result"/>
+        <p:option name="match" required="true"/>                      <!-- XSLTMatchPattern -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:set-attributes">
+        <p:input port="source" primary="true"/>
+        <p:input port="attributes"/>
+        <p:output port="result"/>
+        <p:option name="match" required="true"/>                      <!-- XSLTMatchPattern -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:sink">
+        <p:input port="source" sequence="true"/>
+    </p:declare-step>
+    
+    <p:declare-step type="p:split-sequence">
+        <p:input port="source" sequence="true"/>
+        <p:output port="matched" sequence="true" primary="true"/>
+        <p:output port="not-matched" sequence="true"/>
+        <p:option name="test" required="true"/>                       <!-- XPathExpression -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:store">
+        <p:input port="source"/>
+        <p:output port="result" primary="false"/>
+        <p:option name="href"/>                                       <!-- anyURI -->
+        <p:option name="byte-order-mark"/>                            <!-- boolean -->
+        <p:option name="cdata-section-elements"/>                     <!-- ListOfQNames -->
+        <p:option name="doctype-public"/>                             <!-- string -->
+        <p:option name="doctype-system"/>                             <!-- anyURI -->
+        <p:option name="encoding"/>                                   <!-- string -->
+        <p:option name="escape-uri-attributes"/>                      <!-- boolean -->
+        <p:option name="include-content-type"/>                       <!-- boolean -->
+        <p:option name="indent" value="false"/>                       <!-- boolean -->
+        <p:option name="media-type"/>                                 <!-- string -->
+        <p:option name="method" value="xml"/>                         <!-- QName -->
+        <p:option name="normalization-form"/>                         <!-- NormalizationForm -->
+        <p:option name="omit-xml-declaration"/>                       <!-- boolean -->
+        <p:option name="standalone"/>                                 <!-- "true" | "false" | "omit" -->
+        <p:option name="undeclare-prefixes"/>                         <!-- boolean -->
+        <p:option name="version" value="1.0"/>                        <!-- string -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:unescape-markup">
+        <p:input port="source"/>
+        <p:output port="result"/>
+        <p:option name="namespace"/>                                  <!-- anyURI -->
+        <p:option name="content-type" value="application/xml"/>       <!-- string -->
+        <p:option name="encoding"/>                                   <!-- string -->
+        <p:option name="charset"/>                                    <!-- string -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:string-replace">
+        <p:input port="source"/>
+        <p:output port="result"/>
+        <p:option name="match" required="true"/>                      <!-- XSLTMatchPattern -->
+        <p:option name="replace" required="true"/>                    <!-- XPathExpression -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:unwrap">
+        <p:input port="source"/>
+        <p:output port="result"/>
+        <p:option name="match" required="true"/>                      <!-- XSLTMatchPattern -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:wrap">
+        <p:input port="source"/>
+        <p:output port="result"/>
+        <p:option name="wrapper" required="true"/>                    <!-- QName -->
+        <p:option name="match" required="true"/>                      <!-- XSLTMatchPattern -->
+        <p:option name="group-adjacent"/>                             <!-- XPathExpression -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:wrap-sequence">
+        <p:input port="source" sequence="true"/>
+        <p:output port="result" sequence="true"/>
+        <p:option name="wrapper" required="true"/>                    <!-- QName -->
+        <p:option name="group-adjacent"/>                             <!-- XPathExpression -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:xinclude">
+        <p:input port="source"/>
+        <p:output port="result"/>
+        <p:option name="fixup-xml-base" value="false"/>               <!-- boolean -->
+        <p:option name="fixup-xml-lang" value="false"/>               <!-- boolean -->
+    </p:declare-step>
+    
+    <p:declare-step type="p:xslt">
+        <p:input port="source" sequence="true" primary="true"/>
+        <p:input port="stylesheet"/>
+        <p:input port="parameters" kind="parameter" sequence="true"/>
+        <p:output port="result" primary="true"/>
+        <p:output port="secondary" sequence="true"/>
+        <p:option name="initial-mode"/>                               <!-- QName -->
+        <p:option name="template-name"/>                              <!-- QName -->
+        <p:option name="output-base-uri"/>                            <!-- anyURI -->
+        <p:option name="version"/>                                    <!-- string -->
+    </p:declare-step>
+    
 </p:pipeline-library>
