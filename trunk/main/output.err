@@ -1,0 +1,34 @@
+xproc:eval runtree:  [1]: xs:string: import module namespace xproc = "http://xproc.net/xproc"
+                        at "src/xquery/xproc.xqm";
+import module namespace comp = "http://xproc.net/xproc/comp"
+                        at "src/xquery/comp.xqm";
+import module namespace util = "http://xproc.net/xproc/util"
+                        at "src/xquery/util.xqm";
+import module namespace std = "http://xproc.net/xproc/std"
+                        at "src/xquery/std.xqm";
+import module namespace ext = "http://xproc.net/xproc/ext"
+                        at "src/xquery/ext.xqm";
+let $O0 := <test/>  let $steps := ("pre step",$ext:pre,"",$std:count,"",$std:identity,"post-step",$ext:post)return util:step-fold($steps, saxon:function("xproc:evalstep", 3),($O0,""))
+name:  [1]: xs:string: pre step
+state: [1]: xdt:untypedAtomic: 
+name:  [1]: xs:string: 
+state: [1]: xs:string: pre step
+name:  [1]: xs:string: 
+state: [1]: xs:string: 
+name:  [1]: xs:string: post-step
+state: [1]: xs:string: 
+xproc:output evalresult:  [1]: xs:string: import module namespace xproc = "http://xproc.net/xproc"
+                        at "src/xquery/xproc.xqm";
+import module namespace comp = "http://xproc.net/xproc/comp"
+                        at "src/xquery/comp.xqm";
+import module namespace util = "http://xproc.net/xproc/util"
+                        at "src/xquery/util.xqm";
+import module namespace std = "http://xproc.net/xproc/std"
+                        at "src/xquery/std.xqm";
+import module namespace ext = "http://xproc.net/xproc/ext"
+                        at "src/xquery/ext.xqm";
+let $O0 := <test/>  let $steps := ("pre step",$ext:pre,"",$std:count,"",$std:identity,"post-step",$ext:post)return util:step-fold($steps, saxon:function("xproc:evalstep", 3),($O0,""))
+xproc:output evalresult:  [2]: xs:string: post-step
+xproc:output evalresult:  [3]: xs:string: 
+xproc:output evalresult:  [4]: xs:string: 
+xproc:output evalresult:  [5]: xs:string: test output

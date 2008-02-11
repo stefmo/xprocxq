@@ -22,7 +22,7 @@ import module namespace ext = "http://xproc.net/xproc/ext"
 
 (: -------------------------------------------------------------------------- :)
 
-<testsuite title="Step Sequence XQuery Unit Tests" desc="Test the parsing and ordering of pipeline steps with XProc.xq">
+<testsuite title="preparse XQuery Unit Tests" desc="Test the parsing and ordering of pipeline steps with XProc.xq">
 
 <test>
     <name>pipeline sort 1: fix natural ordering</name>
@@ -207,6 +207,41 @@ return xproc:eval(xproc:build(xproc:parse(xproc:preparse($pipeline))),<test/>)
 
 
 
+<test>
+    <name>eval explicit binding prepares</name>
+    <result>
+{
+
+let $pipeline :=
+ <p:pipeline name="helloworld"
+            xmlns:p="http://www.w3.org/ns/xproc">
+
+  <p:input port="source"/>
+  <p:output port="std-output"/>
+
+    <p:count name="step2">
+       <p:input port="step2-input">
+              <p:pipe step="step1" port="step1-output"/>
+       </p:input>
+       <p:output port="step2-output"/>
+    </p:count>
+
+
+    <p:identity name="step1">
+        <p:input port="step1-input">
+              <p:pipe step="helloworld" port="std-input"/>
+        </p:input>
+        <p:output port="step1-output"/>
+    </p:identity>
+
+ </p:pipeline>
+return xproc:explicitbinding($pipeline)
+
+}
+
+</result>
+<expected></expected>
+</test>
 
 
 

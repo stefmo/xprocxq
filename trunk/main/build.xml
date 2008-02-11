@@ -9,6 +9,8 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
     <!-- note: adjust for your xquery processor -->
     <xmlproperty file="properties.xml"/>
        
+    <property name="logonerror" value="false"/>
+    
     <!-- ===================================================== -->
     <!-- unit test unit comp                                   -->
     <!-- ===================================================== -->
@@ -103,17 +105,17 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
     
     
     <!-- ===================================================== -->
-    <!-- unit test step-seq engine                             -->
+    <!-- unit test preparse engine                             -->
     <!-- ===================================================== -->
-    <target name="test-step-seq" description="run core xquery unit tests">
+    <target name="test-preparse" description="run preparse xquery unit tests">
         
-        <xquery-saxon dest="result/step-seq.xml"
-                      query="test/xquery/step-seq.xq"
+        <xquery-saxon dest="result/preparse.xml"
+                      query="test/xquery/preparse.xq"
                       input="file:test/data/test.xml"/>
         
-        <xslt-saxon dest="result/result-step-seq-test.html"
+        <xslt-saxon dest="result/result-preparse-test.html"
                     style="etc/test.xsl"
-                    xml="result/step-seq.xml"/>
+                    xml="result/preparse.xml"/>
         
     </target>
     
@@ -121,7 +123,7 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
     <!-- ===================================================== -->
     <!-- run all xquery unit tests                             -->
     <!-- ===================================================== -->
-    <target name="test-all-xquery" depends="clean,test-test,test-core,test-step-seq,test-std,test-opt,test-comp,test-ext"  
+    <target name="test-all-xquery" depends="clean,test-test,test-core,test-preparse,test-std,test-opt,test-comp,test-ext"  
             description="run all xquery tests">
         
     </target>
@@ -260,7 +262,6 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                   fork="true"
                   failonerror="false"
                   maxmemory="256m"
-                  append="false"
                   output="@{dest}/">
                 
                 <arg line="@{xml} @{style} "/>
@@ -274,8 +275,7 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
         </sequential>
     </macrodef>
     
-    
-    
+
     <macrodef name="xquery-saxon">
         <attribute name="dest"/>
         <attribute name="input"/>
@@ -286,10 +286,7 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                   fork="true"
                   failonerror="false"
                   maxmemory="256m"
-                  append="false"
-                  logError="true"
-                  output="@{dest}/"
-            >
+                  output="@{dest}/">
                 
                 <arg line="-sa -s @{input} @{query}"/>
                 <classpath>
@@ -315,8 +312,6 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                   fork="true"
                   failonerror="false"
                   maxmemory="256m"
-                  append="false"
-                  logError="true"
                   output="@{dest}/">
                 
                 <arg line="-sa -s @{input} @{query} +xproc=@{xproc} +stdin=@{input}"/>
