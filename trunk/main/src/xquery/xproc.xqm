@@ -37,34 +37,54 @@ declare function xproc:main() as xs:string {
 declare function xproc:explicitbinding($xproc as item()){
 (:TODO: currently this is a test :)
 
-    let $explicitbinding := <p:pipeline xproc:parsed="true">{
+    let $explicitbinding := <p:pipeline name="{$xproc/@name}" xproc:preparsed="true">{
 
 let $stdsteps := doc("../../etc/pipeline-standard.xml")/p:library
 let $optsteps := doc("../../etc/pipeline-optional.xml")/p:library
 let $extsteps := doc("../../etc/pipeline-extension.xml")/p:library
+let $component := doc("../../etc/xproc-component.xml")/xproc:library
+
 for $step in $xproc/node()
+
 let $stepname := local-name($step)
 let $uniqueid := concat('#ANON',$step/@name,':',fn:string(util:random()),':',fn:string(fn:current-time()))
 let $stdstep := $stdsteps/p:declare-step[contains(@type,$stepname)]
 
-where $stdsteps/p:declare-step[contains(@type,$stepname)] 
-   or $optsteps/p:declare-step[contains(@type,$stepname)] 
-   or $extsteps/p:declare-step[contains(@type,$stepname)] 
-         return
+let $stdstepexists := exists($stdsteps/p:declare-step[contains(@type,$stepname)])
+let $optstepexists := exists($optsteps/p:declare-step[contains(@type,$stepname)])
+let $extstepexists := exists($extsteps/p:declare-step[contains(@type,$stepname)])
+let $compexists := exists($component/xproc:top-level-element[contains(@type,$stepname)])
+
+   return
+
+if($stdstepexists=true()  
+   or $optstepexists=true()
+   or $extstepexists=true()
+   or $compexists=true()
+) then
+
+    if (local-name($step)='input' or local-name($step)='output') then
 
         element {name($step)} { 
-
-attribute name {$uniqueid},
-(
+            attribute port {$step/@port},
+            <p:pipe step="{$xproc/@name}" port="bindtorightport"/> 
+        }
+        
+    else
+        element {name($step)} { 
+            attribute name {$uniqueid},
+            (
                for $binding in $stdstep/*[@primary='true']
                    return
                         element {name($binding)}{attribute port {$binding/@port},
-                          <p:pipe step="pipeline-name" port="{$binding/@port}"/> 
+                          <p:pipe step="bindtorighstep" port="{$binding/@port}"/> 
                         }
- )                   
-                
+            )                   
+        }
 
-}
+else 
+   <err:error message="static xproc error"/>
+
 }
     </p:pipeline>
     return 

@@ -15,40 +15,34 @@ declare namespace system="java:java.lang.System";
 declare namespace math="http://exslt.org/math";
 
 (: -------------------------------------------------------------------------- :)
-
 declare function util:help() as xs:string {
     "help util executed"
 };
 
 (: -------------------------------------------------------------------------- :)
-
 declare function util:timing() as xs:integer  {
     xs:integer(system:currentTimeMillis())
 };
 
 
 (: -------------------------------------------------------------------------- :)
-
 declare function util:random() as  xs:double  {
    math:random()
 };
 
 (: -------------------------------------------------------------------------- :)
-
 declare function util:eval($exp as xs:string) as item()*{
     saxon:eval(saxon:expression($exp))
 };
 
 (: -------------------------------------------------------------------------- :)
 (: TODO: refactor the following into a single function :)
-
 declare function util:call($func,$a){
     saxon:call($func,$a)
 };
 
 
 declare function util:call($func,$a,$b){
-
     saxon:call($func,$a,$b)
 };
 
@@ -64,7 +58,6 @@ declare function util:call($func,$a,$b,$c,$d){
 
 
 (: -------------------------------------------------------------------------- :)
-
 (:
 declare function util:function($func,$arity){
     saxon:function($func, $arity)
@@ -72,13 +65,11 @@ declare function util:function($func,$arity){
 :)
 
 (: -------------------------------------------------------------------------- :)
-
 declare function util:evalXPATH($xpathstring, $xml){
     $xml/saxon:evaluate($xpathstring)
 };
 
 (: -------------------------------------------------------------------------- :)
-
 declare function util:xquery($exp as xs:string) as item()*{
     let $a := func:compileQuery($exp)
     return 
@@ -88,7 +79,6 @@ declare function util:xquery($exp as xs:string) as item()*{
 
 (: -------------------------------------------------------------------------- :)
 (: All those useful FP functions ... all dependent on xquery eval() call :)
-
 declare function util:map($func, $seqA as item()*, $seqB as item()*) 
 as item()* {
 	if(count($seqA) != count($seqB)) then ()

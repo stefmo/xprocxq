@@ -1,0 +1,9 @@
+<xproc:library xmlns:p ="http://www.w3.org/ns/xproc" 
+                    xmlns:ext ="http://xproc.net/xproc/ext"
+                    xmlns:xproc = "http://xproc.net/xproc"
+                    name="xproc-components">
+    
+ <xproc:top-level-element type="input"/>
+ <xproc:top-level-element type="output"/>
+ 
+</xproc:library>
