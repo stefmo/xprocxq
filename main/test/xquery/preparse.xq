@@ -208,19 +208,20 @@ return xproc:eval(xproc:build(xproc:parse(xproc:preparse($pipeline))),<test/>)
 
 
 <test>
-    <name>eval explicit binding prepares 1</name>
+    <name>eval explicit binding prepares 1a</name>
+    <desc>test implicit stdin and stdout to top level bindings</desc>
     <result>
 {
 
 let $pipeline :=
- <p:pipeline name="pipeline"
+ <p:pipeline name="main"
             xmlns:p="http://www.w3.org/ns/xproc">
 
   <p:input port="source"/>
   <p:output port="result"/>
 
-    <p:count name="step2"/>
-    <p:identity name="step1"/>
+  <p:count/>
+  <p:identity/>
 
  </p:pipeline>
  return xproc:explicitbinding($pipeline)
@@ -232,9 +233,92 @@ let $pipeline :=
 </test>
 
 
+<test>
+    <name>eval explicit binding prepares 1b</name>
+    <desc>test implicit stdin and stdout to top level bindings</desc>
+    <result>
+{
+
+let $pipeline :=
+ <p:pipeline name="main"
+            xmlns:p="http://www.w3.org/ns/xproc">
+
+  <p:input port="source"/>
+  <p:output port="result"/>
+
+  <p:count name="step1"/>
+  <p:identity name="step2"/>
+
+ </p:pipeline>
+ return xproc:explicitbinding($pipeline)
+
+}
+
+</result>
+<expected></expected>
+</test>
+
 
 <test>
-    <name>eval explicit binding prepares 2</name>
+    <name>eval explicit binding prepares 1c</name>
+    <result>
+{
+let $pipeline :=
+ <p:pipeline name="main"
+            xmlns:p="http://www.w3.org/ns/xproc">
+
+  <p:input port="source"/>
+  <p:output port="result"/>
+
+    <p:identity>
+      <p:input port="source"/>
+      <p:output port="result"/>
+    </p:identity>
+
+    <p:count>
+      <p:input port="source"/>
+      <p:output port="result"/>
+    </p:count>
+
+ </p:pipeline>
+ return xproc:explicitbinding($pipeline)
+}
+</result>
+<expected></expected>
+</test>
+
+<test>
+    <name>eval explicit binding prepares 1d</name>
+    <result>
+{
+let $pipeline :=
+ <p:pipeline name="main"
+            xmlns:p="http://www.w3.org/ns/xproc">
+
+  <p:input port="source"/>
+  <p:output port="result"/>
+
+    <p:identity name="step1">
+      <p:input port="source"/>
+      <p:output port="result"/>
+    </p:identity>
+
+    <p:count name="step2">
+      <p:input port="source"/>
+      <p:output port="result"/>
+    </p:count>
+
+ </p:pipeline>
+ return xproc:explicitbinding($pipeline)
+}
+</result>
+<expected></expected>
+</test>
+
+
+
+<test>
+    <name>eval explicit binding prepares 2: non-existent step should throw error</name>
     <result>
 {
 let $pipeline :=
@@ -251,7 +335,7 @@ let $pipeline :=
  return xproc:explicitbinding($pipeline)
 }
 </result>
-<expected></expected>
+<expected>error</expected>
 </test>
 
 
@@ -269,7 +353,6 @@ let $pipeline :=
 
     <p:uuid/>
     <p:test-step/>
-    <p:thisstepdoesnotexist/>
  </p:pipeline>
  return xproc:explicitbinding($pipeline)
 }
