@@ -1,4 +1,4 @@
-<p:pipeline-library xmlns:p ="http://www.w3.org/ns/xproc" 
+<p:library xmlns:p ="http://www.w3.org/ns/xproc" 
                     xmlns:ext ="http://xproc.net/xproc/ext"
                     xmlns:xproc = "http://xproc.net/xproc"
                     name="xprocxq-extension-library">
@@ -12,4 +12,4 @@
         <p:input port="input" primary="true"/>
     </p:declare-step>
     
-</p:pipeline-library>
+</p:library>

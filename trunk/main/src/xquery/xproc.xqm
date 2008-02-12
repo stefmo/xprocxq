@@ -35,16 +35,18 @@ declare function xproc:main() as xs:string {
 (: -------------------------------------------------------------------------- :)
 (: make all input/output bindings explicit :)
 declare function xproc:explicitbinding($xproc as item()){
+(:TODO: currently this is a test :)
 
     let $explicitbinding := <p:pipeline xproc:parsed="true">{
 
-let $stdsteps := doc("../../etc/pipeline-standard.xml")/p:pipeline-library
-let $optsteps := doc("../../etc/pipeline-optional.xml")/p:pipeline-library
-let $extsteps := doc("../../etc/pipeline-extension.xml")/p:pipeline-library
+let $stdsteps := doc("../../etc/pipeline-standard.xml")/p:library
+let $optsteps := doc("../../etc/pipeline-optional.xml")/p:library
+let $extsteps := doc("../../etc/pipeline-extension.xml")/p:library
 for $step in $xproc/node()
 let $stepname := local-name($step)
-let $uniqueid := concat($step/@name,':',fn:string(util:random()),':',fn:string(fn:current-time()))
+let $uniqueid := concat('#ANON',$step/@name,':',fn:string(util:random()),':',fn:string(fn:current-time()))
 let $stdstep := $stdsteps/p:declare-step[contains(@type,$stepname)]
+
 where $stdsteps/p:declare-step[contains(@type,$stepname)] 
    or $optsteps/p:declare-step[contains(@type,$stepname)] 
    or $extsteps/p:declare-step[contains(@type,$stepname)] 
@@ -54,7 +56,7 @@ where $stdsteps/p:declare-step[contains(@type,$stepname)]
 
 attribute name {$uniqueid},
 (
-               for $binding in $stdstep/*
+               for $binding in $stdstep/*[@primary='true']
                    return
                         element {name($binding)}{attribute port {$binding/@port},
                           <p:pipe step="pipeline-name" port="{$binding/@port}"/> 

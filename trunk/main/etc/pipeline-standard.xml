@@ -1,9 +1,9 @@
-<p:pipeline-library xmlns:p ="http://www.w3.org/ns/xproc" 
+<p:library xmlns:p ="http://www.w3.org/ns/xproc" 
                     name="xproc-standard-library">
     
     <p:declare-step type="p:add-attribute">
-        <p:input port="source"/>
-        <p:output port="result"/>
+        <p:input port="source" primary="true"/>
+        <p:output port="result" primary="true"/>
         <p:option name="match" required="true"/>                      <!-- XSLTMatchPattern -->
         <p:option name="attribute-name" required="true"/>             <!-- QName -->
         <p:option name="attribute-value" required="true"/>            <!-- string -->
@@ -24,8 +24,8 @@
     </p:declare-step>
     
     <p:declare-step type="p:count">
-        <p:input port="source" sequence="true"/>
-        <p:output port="result"/>
+        <p:input port="source" primary="true" sequence="true"/>
+        <p:output port="result" primary="true"/>
     </p:declare-step>
     
     <p:declare-step type="p:delete">
@@ -85,8 +85,8 @@
     </p:declare-step>
     
     <p:declare-step type="p:identity">
-        <p:input port="source" sequence="true"/>
-        <p:output port="result" sequence="true"/>
+        <p:input port="source" primary="true" sequence="true"/>
+        <p:output port="result" primary="true" sequence="true"/>
     </p:declare-step>
     
     <p:declare-step type="p:insert">
@@ -249,4 +249,4 @@
         <p:option name="version"/>                                    <!-- string -->
     </p:declare-step>
     
-</p:pipeline-library>
+</p:library>

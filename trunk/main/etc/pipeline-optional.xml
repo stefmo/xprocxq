@@ -1,4 +1,4 @@
-<p:pipeline-library xmlns:p ="http://www.w3.org/ns/xproc" 
+<p:library xmlns:p ="http://www.w3.org/ns/xproc" 
                     name="xproc-optional-library">
     
     <p:declare-step type="p:exec">
@@ -96,4 +96,4 @@
         <p:option name="content-type"/>                               <!-- string -->
     </p:declare-step>
     
-</p:pipeline-library>
+</p:library>
