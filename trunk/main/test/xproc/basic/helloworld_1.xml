@@ -1,9 +1,8 @@
-<p:pipeline name="pipeline"
+ <p:pipeline name="main"
             xmlns:p="http://www.w3.org/ns/xproc"
-            xmlns:c="http://www.w3.org/ns/xproc-step"
-            xmlns:err="http://www.w3.org/ns/xproc-error">
-    
-    <p:identity name="step-identity"/>
-    <p:count name="step-count"/>
-    
-</p:pipeline>
+            xmlns:util = "http://xproc.net/xproc/util">
+
+  <p:count/>
+  <p:identity/>
+
+ </p:pipeline>
