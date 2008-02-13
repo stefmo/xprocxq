@@ -44,10 +44,10 @@ let $optsteps := doc("../../etc/pipeline-optional.xml")/p:library
 let $extsteps := doc("../../etc/pipeline-extension.xml")/p:library
 let $component := doc("../../etc/xproc-component.xml")/xproc:library
 
-for $step in $xproc/node()
+for $step at $count  in $xproc/node()
 
 let $stepname := local-name($step)
-let $uniqueid := concat('#ANON',$step/@name,':',fn:string(util:random()),':',fn:string(fn:current-time()))
+let $uniqueid := concat('!',$count,$step/@name,':',fn:string(1+util:random()),':',fn:string(fn:current-time()))
 let $stdstep := $stdsteps/p:declare-step[contains(@type,$stepname)]
 
 let $stdstepexists := exists($stdsteps/p:declare-step[contains(@type,$stepname)])
@@ -71,18 +71,35 @@ if($stdstepexists=true()
         }
         
     else
-        element {name($step)} { 
-            attribute name {$uniqueid},
-            (
-               for $binding in $stdstep/*[@primary='true']
-                   return
-                        element {name($binding)}{attribute port {$binding/@port},
-                          <p:pipe step="bindtorighstep" port="{$binding/@port}"/> 
-                        }
-            )                   
-        }
+
+    if ($step is $xproc/node()[last( )])
+    then
+
+           element {name($step)} { 
+                attribute name{$step/@name},attribute xproc:default-name {$uniqueid},
+                (
+                   for $binding in $stdstep/*[@primary='true']
+                       return
+                            element {name($binding)}{attribute port {$binding/@port},
+                              <p:pipe step="laststepbinding" port="{$binding/@port}"/> 
+                            }
+                )                   
+            }
+
+    else
+            element {name($step)} { 
+                attribute name{$step/@name},attribute xproc:default-name {$uniqueid},
+                (
+                   for $binding in $stdstep/*[@primary='true']
+                       return
+                            element {name($binding)}{attribute port {$binding/@port},
+                              <p:pipe step="bindtorighstep" port="{$binding/@port}"/> 
+                            }
+                )                   
+            }
 
 else 
+(: TODO: will need to replace this with an actual error call :)
    <err:error message="static xproc error"/>
 
 }
