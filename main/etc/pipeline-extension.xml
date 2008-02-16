@@ -2,7 +2,21 @@
                     xmlns:ext ="http://xproc.net/xproc/ext"
                     xmlns:xproc = "http://xproc.net/xproc"
                     name="xprocxq-extension-library">
-    
+
+    <p:declare-step type="ext:test" name="step" xproc:arity="2">
+        <p:input port="source" primary="true"/>
+        <p:output port="result" primary="true"/>
+    </p:declare-step>                        
+                        
+    <p:declare-step type="ext:pre" name="step" xproc:arity="2">
+        <p:input port="source" primary="true"/>
+        <p:output port="result" primary="true"/>
+    </p:declare-step>
+
+    <p:declare-step type="ext:post" name="step" xproc:arity="2">
+        <p:input port="source" primary="true"/>
+        <p:output port="result" primary="true"/>
+    </p:declare-step>
     
     <p:declare-step type="util:step" name="step" xproc:arity="2">
         <p:input port="input" primary="true"/>

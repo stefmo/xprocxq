@@ -11,4 +11,7 @@ declare namespace err="http://www.w3.org/ns/xproc-error";
 import module namespace util = "http://xproc.net/xproc/util"
                         at "../xquery/util.xqm";
 
+(: Module Vars :)
+declare variable  $opt:steps := doc("../../etc/pipeline-optional.xml")/p:library;
+
 (: -------------------------------------------------------------------------- :)

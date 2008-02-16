@@ -25,6 +25,45 @@ import module namespace ext = "http://xproc.net/xproc/ext"
 <testsuite title="preparse XQuery Unit Tests" desc="Test the parsing and ordering of pipeline steps with XProc.xq">
 
 <test>
+    <name>eval explicit naming preprocess</name>
+    <result>
+{
+
+let $pipeline :=
+ <p:pipeline name="main"
+            xmlns:p="http://www.w3.org/ns/xproc">
+
+  <p:input port="source" primary="true"/>
+  <p:output port="result" primary="true"/>
+
+  <p:identity/>
+
+  <p:count>
+    <p:input port="source">
+        <p:pipe step="test1" port="result"/>
+    </p:input>
+  </p:count>
+
+  <p:identity name="test1"/>
+
+  <p:identity>
+    <p:input port="source" primary="true">
+        <p:pipe step="test1" port="result"/>
+    </p:input>
+    <p:output port="result" primary="true"/>
+  </p:identity>
+
+ </p:pipeline>
+ return xproc:explicitnames($pipeline)
+
+}
+
+</result>
+<expected></expected>
+</test>
+
+
+<test>
     <name>pipeline sort 1: fix natural ordering</name>
     <result>
 {
@@ -187,7 +226,6 @@ let $pipeline :=
        <p:output port="step2-output"/>
     </p:count>
 
-
     <p:identity name="step1">
         <p:input port="step1-input">
               <p:pipe step="helloworld" port="std-input"/>
@@ -217,14 +255,14 @@ let $pipeline :=
  <p:pipeline name="main"
             xmlns:p="http://www.w3.org/ns/xproc">
 
-  <p:input port="source"/>
-  <p:output port="result"/>
+  <p:input port="source" primary="true"/>
+  <p:output port="result" primary="true"/>
 
   <p:count/>
   <p:identity/>
 
  </p:pipeline>
- return xproc:explicitbinding($pipeline)
+ return xproc:explicitnames($pipeline)
 
 }
 
@@ -250,7 +288,7 @@ let $pipeline :=
   <p:identity name="step2"/>
 
  </p:pipeline>
- return xproc:explicitbinding($pipeline)
+ return xproc:explicitnames($pipeline)
 
 }
 
@@ -281,7 +319,7 @@ let $pipeline :=
     </p:count>
 
  </p:pipeline>
- return xproc:explicitbinding($pipeline)
+ return xproc:explicitnames($pipeline)
 }
 </result>
 <expected></expected>
@@ -309,12 +347,44 @@ let $pipeline :=
     </p:count>
 
  </p:pipeline>
- return xproc:explicitbinding($pipeline)
+ return xproc:explicitnames($pipeline)
 }
 </result>
 <expected></expected>
 </test>
 
+<test>
+    <name>eval explicit binding prepares 1e</name>
+    <result>
+{
+let $pipeline :=
+ <p:pipeline name="main"
+            xmlns:p="http://www.w3.org/ns/xproc">
+
+  <p:input port="source" primary="true">
+    <p:pipe/>
+  </p:input>
+    
+  <p:output port="result" primary="true">
+    <p:pipe/>
+  </p:output>
+
+    <p:identity name="step1">
+      <p:input port="source"/>
+      <p:output port="result"/>
+    </p:identity>
+
+    <p:count name="step2">
+      <p:input port="source"/>
+      <p:output port="result"/>
+    </p:count>
+
+ </p:pipeline>
+ return xproc:explicitnames($pipeline)
+}
+</result>
+<expected></expected>
+</test>
 
 
 <test>
@@ -332,7 +402,7 @@ let $pipeline :=
     <p:count/>
     <p:thisstepdoesnotexist/>
  </p:pipeline>
- return xproc:explicitbinding($pipeline)
+ return xproc:explicitnames($pipeline)
 }
 </result>
 <expected>error</expected>
@@ -352,9 +422,9 @@ let $pipeline :=
   <p:output port="result"/>
 
     <p:uuid/>
-    <p:test-step/>
+    <ext:test/>
  </p:pipeline>
- return xproc:explicitbinding($pipeline)
+ return xproc:explicitnames($pipeline)
 }
 </result>
 <expected></expected>

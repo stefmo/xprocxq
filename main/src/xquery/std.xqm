@@ -12,11 +12,11 @@ import module namespace util = "http://xproc.net/xproc/util"
                         at "../xquery/util.xqm";
 
 (: Module Vars :)
+declare variable $std:steps := doc("../../etc/pipeline-standard.xml")/p:library;
 declare variable $std:identity :=saxon:function("std:identity", 1);
 declare variable $std:count :=saxon:function("std:count", 1);
 declare variable $std:wrap :=saxon:function("std:wrap", 3);
 declare variable $std:compare :=saxon:function("std:compare",1);
-
 (: -------------------------------------------------------------------------- :)
 
 declare function std:identity($seq as item()* ) as item()* {
