@@ -3,7 +3,7 @@
                     xmlns:xproc = "http://xproc.net/xproc"
                     name="xproc-components">
     
- <xproc:top-level-element type="input"/>
- <xproc:top-level-element type="output"/>
+ <xproc:top-level-element type="p:input"/>
+ <xproc:top-level-element type="p:output"/>
  
 </xproc:library>

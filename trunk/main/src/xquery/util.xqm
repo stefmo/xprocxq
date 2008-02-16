@@ -13,6 +13,7 @@ declare namespace jt="http://net.sf.saxon/java-type";
 declare namespace func="java:net.xproc.saxon.evalXQuery";
 declare namespace system="java:java.lang.System";
 declare namespace math="http://exslt.org/math";
+declare namespace xproc="http://xproc.net/xproc";
 
 (: -------------------------------------------------------------------------- :)
 declare function util:help() as xs:string {
@@ -120,7 +121,6 @@ declare function util:step-fold ($sequence as item()*, $operation, $state as xs:
 declare function util:printstep ($step,$meta,$value) {
     util:call( $step, $value)
 };
-
 
 
 (: -------------------------------------------------------------------------- :)
