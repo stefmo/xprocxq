@@ -36,7 +36,7 @@ declare function xproc:explicitbindings($xproc as item()){
 
 let $pipelinename := $xproc/@name
 
-let $explicitbindings := <p:pipeline name="{$pipelinename}">
+let $explicitbindings := <p:pipeline xmlns:xproc="http://xproc.net/xproc" name="{$pipelinename}">
 
 {
 
@@ -61,16 +61,29 @@ for $step at $count in $steps
     return
 
     (:std step element:)
-    if($stdstepexists=true() ) then
-        $step
+    if($stdstepexists=true() or $optstepexists=true() or $extstepexists=true() ) then
 
-    (:ext step element:)
-     else if($optstepexists=true() ) then
-        $step
+        element {$stepname} {
+             attribute name{$step/@name},attribute xproc:defaultname{$step/@xproc:defaultname},
+             (
 
-    (:ext step element:)
-     else if($extstepexists=true() ) then
-        $step
+                for $binding in $step/p:* 
+                    return
+                      element {name($binding)}{
+                         attribute port{$binding/@port},attribute primary{$binding/@primary},
+
+                        if (name($binding)='p:input' and not($binding/p:pipe) and not($xproc/*[$count - 1]/@*:defaultname)) then
+                            <p:pipe step="{$pipelinename}" port="{$xproc/p:input[@primary='true']/@port}"/> 
+                        else if (name($binding)='p:input' and not($binding/p:pipe)) then
+                            <p:pipe step="{$xproc/*[$count - 1]/@*:defaultname}" port="{$xproc/*[$count - 1]/p:output[@primary='true']/@port}"/> 
+
+                         else
+                            $binding/p:pipe
+                      }
+
+
+             )                   
+        }
 
     (: preparse xproc component :)
      else if ($compexists=true()) then
@@ -215,8 +228,7 @@ let $explicitnames :=
 (: -------------------------------------------------------------------------- :)
 (: Preparse pipeline XML, sorting steps by input, throwing some static errors :)
 declare function xproc:preparse($xproc as item()){
-    let $sortsteps := <p:pipeline>{util:pipeline-step-sort($xproc/node(),())}</p:pipeline>
-    return $sortsteps
+    xproc:explicitbindings(xproc:explicitnames($xproc))
 };
 
 

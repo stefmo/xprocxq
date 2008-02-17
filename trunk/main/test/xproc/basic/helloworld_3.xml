@@ -6,6 +6,7 @@
     <p:input port="src">
         <p:inline>
             <test/>
+            <test/>
         </p:inline>
     </p:input>
     

@@ -19,17 +19,17 @@ import module namespace ext = "http://xproc.net/xproc/ext"
 </test>
 
 <test>
-    <name>run successful ext:pre-step test</name>
+    <name>run successful ext:pre step test</name>
     <result>
-    {test:assertXMLEqual(ext:pre-step(<test/>),<test/>)}
+    {test:assertXMLEqual(ext:pre(<test/>),<test/>)}
     </result>
     <expected>true</expected>
 </test>
 
 <test>
-    <name>run successful ext:post-step test</name>
+    <name>run successful ext:post step test</name>
     <result>
-    {test:assertXMLEqual(ext:post-step(<test/>),<test/>)}
+    {test:assertXMLEqual(ext:post(<test/>),<test/>)}
     </result>
     <expected>true</expected>
 </test>
