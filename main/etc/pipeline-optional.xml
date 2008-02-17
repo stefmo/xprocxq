@@ -42,7 +42,7 @@
     
     <p:declare-step type="p:uuid">
         <p:input port="source" primary="true"/>
-        <p:output port="result"/>
+        <p:output port="result" primary="true"/>
         <p:option name="match" required="true"/>                      <!-- XSLTMatchPattern -->
     </p:declare-step>
     

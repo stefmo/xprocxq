@@ -25,7 +25,7 @@ import module namespace ext = "http://xproc.net/xproc/ext"
 <testsuite title="preparse XQuery Unit Tests" desc="Test the parsing and ordering of pipeline steps with XProc.xq">
 
 <test>
-    <name>eval explicit naming preprocess</name>
+    <name>eval explicit naming and binding preprocess</name>
     <result>
 {
 
@@ -54,7 +54,7 @@ let $pipeline :=
   </p:identity>
 
  </p:pipeline>
- return xproc:explicitnames($pipeline)
+ return xproc:explicitbindings(xproc:explicitnames($pipeline))
 
 }
 
@@ -262,7 +262,7 @@ let $pipeline :=
   <p:identity/>
 
  </p:pipeline>
- return xproc:explicitnames($pipeline)
+ return xproc:explicitbindings(xproc:explicitnames($pipeline))
 
 }
 
@@ -288,7 +288,7 @@ let $pipeline :=
   <p:identity name="step2"/>
 
  </p:pipeline>
- return xproc:explicitnames($pipeline)
+ return xproc:explicitbindings(xproc:explicitnames($pipeline))
 
 }
 
@@ -319,7 +319,7 @@ let $pipeline :=
     </p:count>
 
  </p:pipeline>
- return xproc:explicitnames($pipeline)
+ return xproc:explicitbindings(xproc:explicitnames($pipeline))
 }
 </result>
 <expected></expected>
@@ -347,7 +347,7 @@ let $pipeline :=
     </p:count>
 
  </p:pipeline>
- return xproc:explicitnames($pipeline)
+ return xproc:explicitbindings(xproc:explicitnames($pipeline))
 }
 </result>
 <expected></expected>
@@ -380,7 +380,7 @@ let $pipeline :=
     </p:count>
 
  </p:pipeline>
- return xproc:explicitnames($pipeline)
+ return xproc:explicitbindings(xproc:explicitnames($pipeline))
 }
 </result>
 <expected></expected>
@@ -402,7 +402,7 @@ let $pipeline :=
     <p:count/>
     <p:thisstepdoesnotexist/>
  </p:pipeline>
- return xproc:explicitnames($pipeline)
+ return xproc:explicitbindings(xproc:explicitnames($pipeline))
 }
 </result>
 <expected>error</expected>
@@ -424,7 +424,7 @@ let $pipeline :=
     <p:uuid/>
     <ext:test/>
  </p:pipeline>
- return xproc:explicitnames($pipeline)
+ return xproc:explicitbindings(xproc:explicitnames($pipeline))
 }
 </result>
 <expected></expected>
