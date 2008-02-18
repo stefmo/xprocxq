@@ -1,0 +1,10 @@
+ <p:pipeline name="main"
+            xmlns:p="http://www.w3.org/ns/xproc">
+
+  <p:input port="source" primary="true"/>
+  <p:output port="result" primary="true"/>
+
+  <p:identity/>
+  <p:identity/>
+
+ </p:pipeline>

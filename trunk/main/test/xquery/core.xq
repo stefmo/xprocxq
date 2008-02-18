@@ -145,19 +145,6 @@ import module namespace ext = "http://xproc.net/xproc/ext"
     <expected>import module namespace xproc = "http://xproc.net/xproc" at "src/xquery/xproc.xqm"; import module namespace comp = "http://xproc.net/xproc/comp" at "src/xquery/comp.xqm"; import module namespace util = "http://xproc.net/xproc/util" at "src/xquery/util.xqm"; import module namespace std = "http://xproc.net/xproc/std" at "src/xquery/std.xqm"; import module namespace ext = "http://xproc.net/xproc/ext" at "src/xquery/ext.xqm"; let $O0 := <test/> let $steps := ("pre step",$ext:pre, "step1", $std:count, "step2", $std:identity, "step3", $std:count, "post-step",$ext:post) return util:step-fold($steps, saxon:function("xproc:evalstep", 3),($O0,""))</expected>
 </test>
 
-<test>
-    <name>run xproc check-step function</name>
-    <result>
-    {
-    let $O0 := (<test/>)  
-    let $steps := ("pre step" ,$ext:pre, "step1",$std:count,"step2", $std:identity,"step3", $std:count,"post step", $ext:post) 
-    return
-        util:step-fold($steps, saxon:function("util:printstep", 3),($O0,"")) 
-    }
-    </result>
-    <expected></expected>
-</test>
-
 
 <test>
     <name>simple util:xquery test</name>
@@ -169,23 +156,28 @@ import module namespace ext = "http://xproc.net/xproc/ext"
 
 
 <test>
-    <name>old util:xquery test</name>
+    <name>complex util:xquery test</name>
     <result>
-    {util:xquery('import module namespace xproc = "http://xproc.net/xproc"
-                        at "src/xquery/xproc.xqm";
-import module namespace comp = "http://xproc.net/xproc/comp"
-                        at "src/xquery/comp.xqm";
-import module namespace util = "http://xproc.net/xproc/util"
-                        at "src/xquery/util.xqm";
-import module namespace std = "http://xproc.net/xproc/std"
-                        at "src/xquery/std.xqm";
-import module namespace ext = "http://xproc.net/xproc/ext"
-                        at "src/xquery/ext.xqm";
-let $O0 := <test/> let $PI1 := "primary input" let $I1 := $O0 let $O1 := util:call( saxon:function("std:identity", 1),$I1) let $I2 := $O1 let $O2 := util:call( saxon:function("std:count", 1),$I2) let $PO1 := "primary output" let $I0 := $O2 return $I0')}
+    {util:xquery('import module namespace xproc = "http://xproc.net/xproc"&#xD;
+                        at "src/xquery/xproc.xqm";&#xD;
+import module namespace util = "http://xproc.net/xproc/util"&#xD;
+                        at "src/xquery/util.xqm";&#xD;
+import module namespace std = "http://xproc.net/xproc/std"&#xD;
+                        at "src/xquery/std.xqm";&#xD;
+import module namespace ext = "http://xproc.net/xproc/ext"&#xD;
+                        at "src/xquery/ext.xqm";&#xD;
+let $I0 := <test>aaaaa</test>&#xD;
+let $pipeline := &lt;p:pipeline xmlns:xproc="http://xproc.net/xproc" xmlns:p="http://www.w3.org/ns/xproc" xproc:preparsed="true" name="main"&gt;&lt;p:input port="source" primary="true" xproc:stdin="true"&gt;&lt;p:pipe step="main" port="xproc:stdin"/&gt;&lt;/p:input&gt;&lt;p:output port="result" primary="true" xproc:stdout="true"&gt;&lt;p:pipe step="!0:main" port="result"/&gt;&lt;/p:output&gt;&lt;p:identity name="" xproc:defaultname="!3:main:"&gt;&lt;p:input port="source" primary="true"&gt;&lt;p:pipe step="main" port="source"/&gt;&lt;/p:input&gt;&lt;p:output port="result" primary="true"/&gt;&lt;/p:identity&gt;&lt;p:identity name="" xproc:defaultname="!4:main:"&gt;&lt;p:input port="source" primary="true"&gt;&lt;p:pipe step="!3:main:" port="result"/&gt;&lt;/p:input&gt;&lt;p:output port="result" primary="true"/&gt;&lt;/p:identity&gt;&lt;/p:pipeline&gt; &#xD;
+let $steps := ("!3:main:","!4:main:") 
+return util:step-fold($pipeline,
+                      $steps, 
+                      saxon:function("xproc:evalstep", 3),
+                      ($I0,""))
+')
+}
     </result>
-    <expected>1</expected>
+    <expected>???</expected>
 </test>
-
 
 <test>
     <name>testing subsequence</name>

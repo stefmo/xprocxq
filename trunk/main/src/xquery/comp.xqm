@@ -2,8 +2,6 @@ xquery version "1.0" encoding "UTF-8";
 
 module namespace comp = "http://xproc.net/xproc/comp";
 
-declare namespace xproc = "http://xproc.net/xproc";
-
 (: Module Imports :)
 import module namespace const = "http://xproc.net/xproc/const"
                         at "../xquery/const.xqm";
@@ -11,8 +9,7 @@ import module namespace const = "http://xproc.net/xproc/const"
 import module namespace util = "http://xproc.net/xproc/util"
                         at "../../src/xquery/util.xqm";
 
-(: Module Vars :)
-declare variable $comp:components := doc("../../etc/xproc-component.xml")/xproc:library;
+declare variable $comp:components := doc("../../etc/xproc-component.xml");
 
 (: -------------------------------------------------------------------------- :)
 

@@ -211,8 +211,12 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
                      xproc="file:test/xproc/basic/helloworld_1_1_1.xml"/>
- 
-                      
+                     
+         <xproc-saxon dest="result/xproc_result_1_2.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/helloworld_1_2.xml"/>
+
     </target>
     
     
