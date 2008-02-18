@@ -107,7 +107,7 @@ declare namespace c="http://www.w3.org/ns/xproc-step";
 <test>
     <name>run success p:compare test</name>
     <result>
-    {std:compare((<test>test</test>,<test>test</test>))}
+    {std:compare(<test>test</test>,<test>test</test>)}
     </result>
     <expected><c:result>true</c:result></expected>
 </test>

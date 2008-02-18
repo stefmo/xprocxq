@@ -90,6 +90,7 @@ as item()* {
         	util:call($func, $a, $b)
 };
 
+(: -------------------------------------------------------------------------- :)
 declare function util:filter($func, $seq as item()*) 
 as item()* {
 	for $i in $seq
@@ -100,18 +101,21 @@ as item()* {
 			()
 };
 
+(: -------------------------------------------------------------------------- :)
 
-declare function util:step-fold ($sequence as item()*, $operation, $state as xs:anyAtomicType*) {
-     if (empty($sequence)) then $state
+declare function util:step-fold ($pipeline,$steps as item()*, $operation, $primaryinput) {
+     if (empty($steps)) then $primaryinput
                            else 
-                                let $newstate :=util:call($operation, 
-                                                           $sequence[2], 
-                                                           $sequence[1], 
-                                                           $state)
-                                return
-                                    util:step-fold(remove( remove($sequence, 1) ,1), 
+                                    let $newinput := util:call($operation, 
+                                                              $steps[1], 
+                                                              $primaryinput,
+                                                              $pipeline)
+                           return
+                                    util:step-fold($pipeline,
+                                                   remove($steps, 1), 
                                                    $operation,
-                                                   $newstate)
+                                                   $newinput)
+
 };
 
 

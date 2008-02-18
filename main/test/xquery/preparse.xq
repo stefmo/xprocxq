@@ -25,6 +25,30 @@ import module namespace ext = "http://xproc.net/xproc/ext"
 <testsuite title="preparse XQuery Unit Tests" desc="Test the parsing and ordering of pipeline steps with XProc.xq">
 
 <test>
+    <name>simple preparse and parse example</name>
+    <result>
+{
+
+let $pipeline :=
+ <p:pipeline name="main"
+            xmlns:p="http://www.w3.org/ns/xproc">
+
+  <p:input port="source" primary="true"/>
+  <p:output port="result" primary="true"/>
+
+  <p:identity/>
+  <p:identity/>
+
+ </p:pipeline>
+ return xproc:parse(xproc:preparse($pipeline))
+
+}
+
+</result>
+<expected></expected>
+</test>
+
+<test>
     <name>eval explicit naming and binding preprocess</name>
     <result>
 {
@@ -177,10 +201,6 @@ let $pipeline :=
  <p:pipeline name="helloworld"
             xmlns:p="http://www.w3.org/ns/xproc">
 
-<util:step name="helloworld">
-  <p:input name="std-input" port="std-input"/>
-  <p:output name="std-output" port="std-output"/>
-</util:step>
 
     <p:identity name="step1">
        <p:input port="step1"/>
@@ -197,51 +217,13 @@ let $pipeline :=
     </p:count>
 
  </p:pipeline>
-return xproc:parse($pipeline)
+return xproc:parse(xproc:preparse($pipeline))
 
 }
 
 </result>
 <expected></expected>
 </test>
-
-<test>
-    <name>pipeline full eval test: now eval parse and built code</name>
-    <result>
-{
-
-let $pipeline :=
- <p:pipeline name="helloworld"
-            xmlns:p="http://www.w3.org/ns/xproc">
-
-<util:step name="helloworld">
-  <p:input port="std-input"/>
-  <p:output port="std-output"/>
-</util:step>
-
-    <p:count name="step2">
-       <p:input port="step2-input">
-              <p:pipe step="step1" port="step1-output"/>
-       </p:input>
-       <p:output port="step2-output"/>
-    </p:count>
-
-    <p:identity name="step1">
-        <p:input port="step1-input">
-              <p:pipe step="helloworld" port="std-input"/>
-        </p:input>
-        <p:output port="step1-output"/>
-    </p:identity>
-
- </p:pipeline>
-return xproc:eval(xproc:build(xproc:parse(xproc:preparse($pipeline))),<test/>)
-
-}
-
-</result>
-<expected></expected>
-</test>
-
 
 
 

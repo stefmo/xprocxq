@@ -1,9 +1,24 @@
-<p:pipeline name="pipeline"
-            xmlns:p="http://www.w3.org/ns/xproc"
-            xmlns:c="http://www.w3.org/ns/xproc-step"
-            xmlns:err="http://www.w3.org/ns/xproc-error">
-    
-    <p:count name="step2"/>
-    <p:identity name="step1"/>
-    
-</p:pipeline>
+ <p:pipeline name="main"
+            xmlns:p="http://www.w3.org/ns/xproc">
+
+  <p:input port="source" primary="true"/>
+  <p:output port="result" primary="true"/>
+
+  <p:identity/>
+
+  <p:count>
+    <p:input port="source">
+        <p:pipe step="test1" port="result"/>
+    </p:input>
+  </p:count>
+
+  <p:identity name="test1"/>
+
+  <p:identity>
+    <p:input port="source" primary="true">
+        <p:pipe step="test1" port="result"/>
+    </p:input>
+    <p:output port="result" primary="true"/>
+  </p:identity>
+
+ </p:pipeline>
