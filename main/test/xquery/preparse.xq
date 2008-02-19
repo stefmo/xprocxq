@@ -68,6 +68,10 @@ let $pipeline :=
     </p:input>
   </p:count>
 
+  <p:wrap>
+    <p:option name="wrapper" value="test"/>
+  </p:wrap>
+
   <p:identity name="test1"/>
 
   <p:identity>
@@ -78,7 +82,7 @@ let $pipeline :=
   </p:identity>
 
  </p:pipeline>
- return xproc:explicitbindings(xproc:explicitnames($pipeline))
+ return xproc:preparse($pipeline)
 
 }
 
