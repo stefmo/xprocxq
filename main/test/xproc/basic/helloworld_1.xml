@@ -1,8 +1,6 @@
  <p:pipeline name="main"
             xmlns:p="http://www.w3.org/ns/xproc"
             >
-
-
-  <p:identity/>
-
- </p:pipeline>
+                <p:someunknownelement/>
+                <p:identity/>
+        </p:pipeline>

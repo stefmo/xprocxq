@@ -32,7 +32,7 @@ declare function xproc:main() as xs:string {
 };
 
 (: -------------------------------------------------------------------------- :)
-(: make all input/output bindings explicit :)
+(: make all input/output pipe bindings to steps explicit :)
 declare function xproc:explicitbindings($xproc as item()){
 
 let $pipelinename := $xproc/@name
@@ -41,7 +41,7 @@ let $explicitbindings := <p:pipeline xmlns:xproc="http://xproc.net/xproc" name="
 
 {
 
-let $steps :=$xproc/node()
+let $steps :=$xproc/*
 
 for $step at $count in $steps
 
@@ -90,8 +90,12 @@ for $step at $count in $steps
      else if ($compexists=true()) then
         $step
 
+     else if (name($step)= 'err:error') then
+        $step
+
      else
-        <err:error message="static xproc error"/>
+     (:TODO: need to implement static error here:)
+        <err:error message="general static error thrown during explicit binding: "/>
 }
 
 </p:pipeline>
@@ -102,14 +106,14 @@ return
 };
 
 (: -------------------------------------------------------------------------- :)
-(: make all names explicit :)
+(: make all step and input/output pipe names explicit :)
 declare function xproc:explicitnames($xproc as item()){
 
 let $pipelinename := $xproc/@name
 
 let $explicitnames := 
 
-    let $steps :=$xproc/node()
+    let $steps :=$xproc/*
 
     for $step at $count in $steps
 
@@ -217,19 +221,30 @@ let $explicitnames :=
 		            <p:pipe step="" port=""/> 
 		        }
     else
+    (:TODO: need to implement static error here:)
+        <err:error message="general static error thrown during explicit naming: {name($step)} is an unknown element"/>
 
-    (: TODO: will need to replace this with an actual error call :)
-    <err:error message="static xproc error"/>
 
-    return 
-        <p:pipeline name="{$pipelinename}">{util:pipeline-step-sort($explicitnames,())}</p:pipeline>
+    return
+    (:apply a topological sort based on step names :)
+        <p:pipeline name="{$pipelinename}">
+            {util:pipeline-step-sort($explicitnames,())}
+        </p:pipeline>
 };
 
 
 (: -------------------------------------------------------------------------- :)
 (: Preparse pipeline XML, sorting steps by input, throwing some static errors :)
 declare function xproc:preparse($xproc as item()){
-    xproc:explicitbindings(xproc:explicitnames($xproc))
+
+let $preparse := xproc:explicitbindings(xproc:explicitnames($xproc))
+return
+    if (fn:not($preparse//err:error)) then     
+        $preparse
+    else
+        fn:error( QName("http://www.w3.org/ns/xproc-error", "XprocStaticError"), concat('preparse result: ',util:serialize($preparse,<xsl:output method="xml" omit-xml-declaration="yes" indent="no"/>)))
+
+    
 };
 
 
@@ -246,7 +261,7 @@ import module namespace ext = "http://xproc.net/xproc/ext"
                         at "src/xquery/ext.xqm";
 let $O0 := <test/>'),
 fn:string('
-let $pipeline :='),saxon:serialize($xproc,<xsl:output method="xml" omit-xml-declaration="yes" indent="no"/>),
+let $pipeline :='),util:serialize($xproc,<xsl:output method="xml" omit-xml-declaration="yes" indent="no"/>),
     fn:string('
 let $steps := ('),xproc:gensteps($xproc),fn:string('"")'),
     fn:string('return util:step-fold($pipeline,$steps, saxon:function("xproc:evalstep", 3),($O0,""))')
@@ -280,8 +295,7 @@ declare function xproc:build($parsetree) {
 (: Eval Run Tree :)
 (: this function may throw some dynamic errors :)
 declare function xproc:eval($runtree,$stdin){
-
-    util:xquery($runtree) 
+        util:xquery($runtree) 
 };
 
 

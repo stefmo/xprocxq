@@ -77,6 +77,10 @@ declare function util:xquery($exp as xs:string) as item()*{
         func:query($a)
 };
 
+(: -------------------------------------------------------------------------- :)
+declare function util:serialize($xproc,$output){
+     saxon:serialize($xproc,$output)
+};
 
 (: -------------------------------------------------------------------------- :)
 (: All those useful FP functions ... all dependent on xquery eval() call :)
