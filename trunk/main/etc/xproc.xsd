@@ -3,7 +3,7 @@
 
   <!-- This is schema version $Id: xproc.xsd,v 1.15 2008/02/08 19:58:44 NormanWalsh Exp $ -->
  
-
+ <import namespace="http://www.w3.org/XML/1998/namespace"/>
  
  <complexType name="anyProc">
   <sequence>
