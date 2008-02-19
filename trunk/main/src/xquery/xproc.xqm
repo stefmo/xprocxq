@@ -67,8 +67,8 @@ for $step at $count in $steps
         element {$stepname} {
              attribute name{$step/@name},attribute xproc:defaultname{$step/@xproc:defaultname},
              (
-
-                for $binding in $step/p:* 
+                (: generate bindings for input and output:)
+                for $binding in $step/p:*[name(.)='p:input' or name(.)='p:output']
                     return
                       element {name($binding)}{
                          attribute port{$binding/@port},attribute primary{$binding/@primary},
@@ -80,6 +80,12 @@ for $step at $count in $steps
 
                          else
                             $binding/p:pipe
+                      },
+                (: generate options:)
+                for $option in $step/p:option 
+                    return
+                      element {name($option)}{
+                           attribute name{$option/@name},attribute select{$option/@select},attribute value{$option/@value}
                       }
 
 
@@ -145,11 +151,18 @@ let $explicitnames :=
         element {$stepname} { 
              attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
              (
-                for $binding in $stdstep/p:* 
+                (: output bindings for input and output:)
+                for $binding in $stdstep/p:*[name(.)='p:input' or name(.)='p:output'] 
                     return
                       element {name($binding)}{
                          attribute port{$binding/@port},attribute primary{$binding/@primary},
                        $step/p:*[name()=name($binding)]/p:*
+                      },
+                (: output options:)
+                for $option in $stdstep/p:option 
+                    return
+                      element {name($option)}{
+                           attribute name{$option/@name},attribute select{$step/p:option[@name=$option/@name]/@select},attribute value{$step/p:option[@name=$option/@name]/@value}
                       }
 
              )                   
@@ -160,12 +173,19 @@ let $explicitnames :=
         element {$stepname} { 
              attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
              (
-                for $binding in $optstep/p:* 
+                (: output bindings for input and output:)
+                for $binding in $optstep/p:*[name(.)='p:input' or name(.)='p:output'] 
                     return
                       element {name($binding)}{
                          attribute port{$binding/@port},attribute primary{$binding/@primary},
                        $step/p:*[name()=name($binding)]/p:*
-                      }
+                      },
+                (: output options:)
+                for $option in $optstep/p:option 
+                    return
+                      element {name($option)}{
+                           attribute name{$option/@name},attribute select{$step/p:option[@name=$option/@name]/@select},attribute value{$step/p:option[@name=$option/@name]/@value}
+                    }
 
              )                   
         }
@@ -175,13 +195,19 @@ let $explicitnames :=
         element {$stepname} { 
              attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
              (
-                for $binding in $extstep/p:* 
+                (: output bindings for input and output:)
+                for $binding in $extstep/p:*[name(.)='p:input' or name(.)='p:output'] 
                     return
                       element {name($binding)}{
                          attribute port{$binding/@port},attribute primary{$binding/@primary},
                        $step/p:*[name()=name($binding)]/p:*
+                      },
+                (: output options:)
+                for $option in $extstep/p:option 
+                    return
+                      element {name($option)}{
+                           attribute name{$option/@name},attribute select{$step/p:option[@name=$option/@name]/@select},attribute value{$step/p:option[@name=$option/@name]/@value}
                       }
-
              )                   
         }
 
@@ -242,6 +268,7 @@ return
     if (fn:not($preparse//err:error)) then     
         $preparse
     else
+        (:TODO: throws a rudimentary xproc static error :)
         fn:error( QName("http://www.w3.org/ns/xproc-error", "XprocStaticError"), concat('preparse result: ',util:serialize($preparse,<xsl:output method="xml" omit-xml-declaration="yes" indent="no"/>)))
 
     
