@@ -1,11 +1,9 @@
  <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:util = "http://xproc.net/xproc/util">
-                
-<util:step name="pipeline">
-  <p:input port="std-input"/>
-  <p:output port="std-output"/>
-</util:step>
+
+  <p:input port="std-input" primary="true"/>
+  <p:output port="result" primary="true"/>
 
     <p:compare name="step1">
         <p:input port="alternate">
