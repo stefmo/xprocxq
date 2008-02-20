@@ -218,7 +218,7 @@ let $explicitnames :=
 		(:binds unconnected primary input to stdin:)
 		    if ($stepname='p:input' and $step/@primary='true' and not($step/p:*)) then
 
-		        element {$stepname} { 
+		        element {$stepname} {
 		            attribute port {$step/@port},
 		            attribute primary {'true'},
 		            attribute xproc:stdin {'true'},
@@ -338,7 +338,7 @@ declare function xproc:output($evalresult){
 (: runtime evaluation of xproc steps; throwing dynamic errors and writing output along the way :)
 declare function xproc:evalstep ($step,$primaryinput,$pipeline) {
 
-(: boy all this is ugly; generate function name :)
+(: TODO: boy all this is ugly; will need a refactor :)
 let $stepfunction := fn:local-name($pipeline/*[@xproc:defaultname=$step])
 
 let $stepfunc := fn:string(concat('import module namespace xproc = "http://xproc.net/xproc"
@@ -349,8 +349,8 @@ import module namespace std = "http://xproc.net/xproc/std"
                         at "src/xquery/std.xqm";
 import module namespace ext = "http://xproc.net/xproc/ext"
                         at "src/xquery/ext.xqm";','
-$std:',$stepfunction))
 
+$std:',$stepfunction))
 
     return (
         (:TODO:temporary hack to get around blank steps, which are caused by input/outputs and top level elements for now :)

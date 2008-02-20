@@ -2,6 +2,7 @@
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:ext = "http://xproc.net/xproc/ext"
             >
-                <ext:test/>
+                
                 <p:identity/>
+                
         </p:pipeline>

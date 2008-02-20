@@ -48,6 +48,39 @@ let $pipeline :=
 <expected></expected>
 </test>
 
+
+<test>
+    <name>simple preparse and parse example</name>
+    <result>
+{
+
+let $pipeline :=
+ <p:pipeline name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc">
+
+<p:input port="source" primary="true"/>
+<p:output port="result" primary="true"/>
+
+
+    <p:count name="step1">
+        <p:input port="source">
+              <p:pipe step="pipeline" port="source"/>
+        </p:input>
+        <p:output port="step1-output"/>
+    </p:count>
+
+    <p:identity/>
+
+ </p:pipeline>
+ return xproc:explicitnames($pipeline)
+
+}
+
+</result>
+<expected></expected>
+</test>
+
+
 <test>
     <name>eval explicit naming and binding preprocess</name>
     <result>
@@ -82,7 +115,7 @@ let $pipeline :=
   </p:identity>
 
  </p:pipeline>
- return xproc:preparse($pipeline)
+ return xproc:explicitnames($pipeline)
 
 }
 

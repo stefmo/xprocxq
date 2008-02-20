@@ -1,11 +1,9 @@
  <p:pipeline name="pipeline"
-            xmlns:p="http://www.w3.org/ns/xproc"
-            xmlns:util = "http://xproc.net/xproc/util">
+            xmlns:p="http://www.w3.org/ns/xproc">
 
-<util:step name="pipeline">
-  <p:input port="std-input"/>
-  <p:output port="std-output"/>
-</util:step>
+<p:input port="std-input" primary="true"/>
+<p:output port="result" primary="true"/>
+
 
     <p:identity name="step2">
        <p:input port="step2-input">
@@ -14,11 +12,11 @@
        <p:output port="step2-output"/>
     </p:identity>
 
-    <p:count1 name="step3">
+    <p:count name="step3">
         <p:input port="step3-input">
               <p:pipe step="step2" port="step2-output"/>
        </p:input>
-    </p:count1>
+    </p:count>
 
     <p:count name="step1">
         <p:input port="step1-input">
