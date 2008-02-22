@@ -54,10 +54,10 @@ declare variable $stdin as item() external;
     return
 document
    {
-        <c:result xproc:ts="{current-dateTime()}" xproc:timing="{$end-time - $start-time}ms">
+        <xproc:result xproc:ts="{current-dateTime()}" xproc:timing="{$end-time - $start-time}ms">
             {
                 $serialized_result
             }
-        </c:result>
+        </xproc:result>
     }
 (: -------------------------------------------------------------------------- :)

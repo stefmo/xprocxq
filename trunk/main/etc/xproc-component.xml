@@ -2,11 +2,11 @@
                xmlns:xproc = "http://xproc.net/xproc"
                name="xproc-components">
     
+    <xproc:root-element type="p:pipeline"/>
+                       
     <xproc:top-level-element type="p:input"/>
 
     <xproc:top-level-element type="p:output"/>
-    
-    <xproc:top-level-element type="p:pipeline"/>
     
     <xproc:top-level-element type="p:for-each"/>
     
@@ -18,7 +18,7 @@
     
     <xproc:top-level-element type="p:try"/>
     
-    <xproc:top-level-element type="p:log"/>
+    <xproc:top-level-element type="p:documentation"/>
     
     <xproc:top-level-element type="p:serialization"/>
     
@@ -27,6 +27,5 @@
     <xproc:top-level-element type="p:import"/>
     
     <xproc:top-level-element type="p:documentation"/>
-    
     
 </xproc:library>

@@ -176,7 +176,7 @@ return util:step-fold($pipeline,
 ')
 }
     </result>
-    <expected>???</expected>
+    <expected><test>aaaaa</test></expected>
 </test>
 
 <test>

@@ -17,14 +17,15 @@ declare variable $std:identity :=saxon:function("std:identity", 1);
 declare variable $std:count :=saxon:function("std:count", 1);
 declare variable $std:wrap :=saxon:function("std:wrap", 3);
 declare variable $std:compare :=saxon:function("std:compare",2);
+
 (: -------------------------------------------------------------------------- :)
 
 declare function std:identity($seq as item()* ) as item()* {
     $seq
 };
 
-declare function std:count($seq as item()* ) as xs:integer {
-    fn:count($seq)
+declare function std:count($seq as item()* ) as item()* {
+    <c:result>{fn:count($seq)}</c:result>
 };
 
 declare function std:compare($seq1 as item()*, $seq2 as item()*) as item()* {

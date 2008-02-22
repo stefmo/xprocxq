@@ -6,12 +6,6 @@
 
   <p:identity/>
 
-  <p:count>
-    <p:input port="source">
-        <p:pipe step="test1" port="result"/>
-    </p:input>
-  </p:count>
-
   <p:identity name="test1"/>
 
   <p:identity>

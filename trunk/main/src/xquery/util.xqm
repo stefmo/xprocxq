@@ -133,7 +133,6 @@ declare function util:printstep ($step,$meta,$value) {
 
 (: -------------------------------------------------------------------------- :)
 (: topological sorting of pipeline steps, based on inputs :)
-
 declare function util:pipeline-step-sort($unsorted, $sorted )   {
     if (empty($unsorted))      
        then $sorted 
