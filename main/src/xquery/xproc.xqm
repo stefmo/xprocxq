@@ -87,8 +87,6 @@ for $step at $count in $steps
                       element {name($option)}{
                            attribute name{$option/@name},attribute select{$option/@select},attribute value{$option/@value}
                       }
-
-
              )                   
         }
 

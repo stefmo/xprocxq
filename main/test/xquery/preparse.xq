@@ -24,6 +24,7 @@ import module namespace ext = "http://xproc.net/xproc/ext"
 
 <testsuite title="preparse XQuery Unit Tests" desc="Test the parsing and ordering of pipeline steps with XProc.xq">
 
+
 <test>
     <name>simple preparse and parse example</name>
     <result>
@@ -49,6 +50,7 @@ let $pipeline :=
 </test>
 
 
+
 <test>
     <name>simple preparse and parse example</name>
     <result>
@@ -61,25 +63,16 @@ let $pipeline :=
 <p:input port="source" primary="true"/>
 <p:output port="result" primary="true"/>
 
-
-    <p:count name="step1">
-        <p:input port="source">
-              <p:pipe step="pipeline" port="source"/>
-        </p:input>
-        <p:output port="step1-output"/>
-    </p:count>
-
+    <p:count/>
     <p:identity/>
 
  </p:pipeline>
- return xproc:explicitnames($pipeline)
-
+    return xproc:preparse($pipeline)
 }
 
 </result>
 <expected></expected>
 </test>
-
 
 <test>
     <name>eval explicit naming and binding preprocess</name>
