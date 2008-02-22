@@ -13,31 +13,57 @@ import module namespace util = "http://xproc.net/xproc/util"
 
 (: Module Vars :)
 declare variable $std:steps := doc("../../etc/pipeline-standard.xml")/p:library;
+
 declare variable $std:identity :=saxon:function("std:identity", 1);
 declare variable $std:count :=saxon:function("std:count", 1);
-declare variable $std:wrap :=saxon:function("std:wrap", 3);
-declare variable $std:compare :=saxon:function("std:compare",2);
+declare variable $std:wrap :=saxon:function("std:wrap", 1);
+declare variable $std:compare :=saxon:function("std:compare",1);
+declare variable $std:delete :=saxon:function("std:delete",1);
+declare variable $std:error :=saxon:function("std:error",1);
 
 (: -------------------------------------------------------------------------- :)
 
-declare function std:identity($seq as item()* ) as item()* {
-    $seq
+declare function std:identity($seq) as item() {
+    $seq[1]
 };
 
-declare function std:count($seq as item()* ) as item()* {
-    <c:result>{fn:count($seq)}</c:result>
+declare function std:count($seq) as item() {
+    <c:result>{fn:count($seq[1])}</c:result>
 };
 
-declare function std:compare($seq1 as item()*, $seq2 as item()*) as item()* {
-        <c:result>{fn:deep-equal($seq1,$seq2)}</c:result>
+declare function std:compare($seq) as item() {
+        <c:result>{fn:deep-equal($seq[1],$seq[2])}</c:result>
 };
 
-declare function std:wrap($seq as item()*,$option-wrap as xs:string,$option-match as xs:string ) as item() {
-    let $v :=document{$seq}
+declare function std:wrap($seq) as item() {
+
+let $v :=document{$seq[1]}
     return
-    element {$option-wrap} {
-         util:evalXPATH($option-match,$v)
+    element {$seq[4]/p:option[@name='wrapper']/@value} {
+         util:evalXPATH(fn:string($seq[4]/p:option[@name='match']/@value),$v)
     }
+};
+
+declare function std:delete($seq) as item() {
+
+let $v :=document{$seq[1]}
+let $delete := util:evalXPATH(fn:string($seq[4]/p:option[@name='match']/@value),$v)
+return
+   $v/* except $delete
+};
+
+
+declare function std:error($seq) as item() {
+(:TODO: this should be generated to the error port:)
+
+<c:errors xmlns:c="http://www.w3.org/ns/xproc-step"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xmlns:my="http://www.example.org/error">
+<c:error name="step-name" type="p:error" code="{$seq[4]/p:option[@name='code']/@value}">
+    <message>{$seq[1]}</message>
+</c:error>
+</c:errors>
+
 };
 
 (: -------------------------------------------------------------------------- :)
