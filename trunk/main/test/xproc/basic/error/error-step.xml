@@ -4,10 +4,6 @@
 
     <p:identity/>
 
-    <p:delete>
-        <p:option name="match" value="//b"/> 
-    </p:delete>
-
     <p:error>
         <p:option name="code" value="error code"/> 
     </p:error>

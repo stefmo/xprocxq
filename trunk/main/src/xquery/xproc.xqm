@@ -269,7 +269,6 @@ return
         (:TODO: throws a rudimentary xproc static error :)
         fn:error( QName("http://www.w3.org/ns/xproc-error", "XprocStaticError"), concat('preparse result: ',util:serialize($preparse,<xsl:output method="xml" omit-xml-declaration="yes" indent="no"/>)))
 
-    
 };
 
 
@@ -284,7 +283,7 @@ import module namespace std = "http://xproc.net/xproc/std"
                         at "src/xquery/std.xqm";
 import module namespace ext = "http://xproc.net/xproc/ext"
                         at "src/xquery/ext.xqm";
-let $O0 := <test/>'),
+let $O0 := <test><a><b/></a></test>'),
 fn:string('
 let $pipeline :='),util:serialize($xproc,<xsl:output method="xml" omit-xml-declaration="yes" indent="no"/>),
     fn:string('
@@ -337,8 +336,11 @@ declare function xproc:output($evalresult){
 declare function xproc:evalstep ($step,$primaryinput,$pipeline) {
 
 (: TODO: boy all this is ugly; will need a refactor :)
-let $stepfunction := fn:local-name($pipeline/*[@xproc:defaultname=$step])
 
+let $inputs := $pipeline/*[@xproc:defaultname=$step]/p:input
+let $options := $pipeline/*[@xproc:defaultname=$step]/p:option
+
+let $stepfunction := fn:local-name($pipeline/*[@xproc:defaultname=$step])
 let $stepfunc := fn:string(concat('import module namespace xproc = "http://xproc.net/xproc"
                         at "src/xquery/xproc.xqm";
 import module namespace util = "http://xproc.net/xproc/util"
@@ -355,7 +357,7 @@ $std:',$stepfunction))
             if($stepfunction='') then
                 $primaryinput
             else
-                util:call( util:xquery($stepfunc), $primaryinput[1])
+                util:call( util:xquery($stepfunc), ($primaryinput[1], <inputs>{$inputs}</inputs>, <outputs/>, <options>{$options}</options>))
     )
 
 };
