@@ -5,6 +5,8 @@ import module namespace test = "http://xproc.net/test"
                         at "../../test/xquery/test.xqm";
 import module namespace std = "http://xproc.net/xproc/std"
                         at "../../src/xquery/std.xqm";
+import module namespace opt = "http://xproc.net/xproc/opt"
+                        at "../../src/xquery/opt.xqm";
 
 declare namespace c="http://www.w3.org/ns/xproc-step";
 
@@ -64,7 +66,7 @@ declare namespace c="http://www.w3.org/ns/xproc-step";
 <test>
     <name>run failed p:wrap test</name>
     <result>
-    {test:assertXMLEqual(std:wrap(<test/>,"wrap","/"),(<a><test/></a>))}
+    {test:assertXMLEqual(std:wrap((<test/>,"wrap","/")),(<a><test/></a>))}
     </result>
     <expected>false</expected>
 </test>
@@ -72,7 +74,7 @@ declare namespace c="http://www.w3.org/ns/xproc-step";
 <test>
     <name>run failed p:wrap test due to incorrect xpath</name>
     <result>
-    {test:assertXMLEqual(std:wrap(<test/>,"a","/a/test/b"),(<a><test/></a>))}
+    {test:assertXMLEqual(std:wrap((<test/>,"a","/a/test/b")),(<a><test/></a>))}
     </result>
     <expected>false</expected>
 </test>
@@ -91,7 +93,7 @@ declare namespace c="http://www.w3.org/ns/xproc-step";
 <test>
     <name>run success p:wrap test</name>
     <result>
-        {test:assertXMLEqual(std:wrap(<test/>,"aaaa","/"),(<aaaa><test/></aaaa>))}
+        {test:assertXMLEqual(std:wrap((<test/>,"aaaa","/")),(<aaaa><test/></aaaa>))}
     </result>
     <expected>true</expected>
 </test>
@@ -99,10 +101,11 @@ declare namespace c="http://www.w3.org/ns/xproc-step";
 <test>
     <name>run success p:wrap test</name>
     <result>
-        {test:assertXMLEqual(std:wrap(<test><a><c>test</c></a></test>,"aaaa","test/a"),(<aaaa><a><c>test</c></a></aaaa>))}
+        {test:assertXMLEqual(std:wrap((<test><a><c>test</c></a></test>,"aaaa","test/a"),(<aaaa><a><c>test</c></a></aaaa>))}
     </result>
     <expected>true</expected>
 </test>
+
 
 <test>
     <name>run success p:compare test</name>

@@ -23,7 +23,6 @@ declare variable $std:delete :=saxon:function("std:delete",1);
 declare variable $std:error :=saxon:function("std:error",1);
 
 (: -------------------------------------------------------------------------- :)
-
 declare function std:identity($seq) as item() {
     $seq[1]
 };

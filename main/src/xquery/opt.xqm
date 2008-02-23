@@ -13,6 +13,21 @@ import module namespace util = "http://xproc.net/xproc/util"
 
 (: Module Vars :)
 declare variable $opt:steps := doc("../../etc/pipeline-optional.xml")/p:library;
+declare variable $opt:xquery :=saxon:function("opt:xquery", 1);
+declare variable $opt:exec :=saxon:function("opt:exec", 1);
 
+(: -------------------------------------------------------------------------- :)
+
+
+
+(: -------------------------------------------------------------------------- :)
+declare function opt:xquery($seq) {
+    util:xquery($seq[2]/c:query[1]/text())
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function opt:exec($seq) {
+ $seq[1]
+};
 
 (: -------------------------------------------------------------------------- :)
