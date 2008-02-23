@@ -67,20 +67,34 @@ for $step at $count in $steps
         element {$stepname} {
              attribute name{$step/@name},attribute xproc:defaultname{$step/@xproc:defaultname},
              (
-                (: generate bindings for input and output:)
-                for $binding in $step/p:*[name(.)='p:input' or name(.)='p:output']
+                (: generate bindings for input:)
+                for $input in $step/p:*[name(.)='p:input']
                     return
-                      element {name($binding)}{
-                         attribute port{$binding/@port},attribute primary{$binding/@primary},attribute select{$binding/@select},
-
-                        if (name($binding)='p:input' and not($binding/p:pipe) and not($xproc/*[$count - 1]/@*:defaultname)) then
+                      element {name($input)}{
+                         attribute port{$input/@port},attribute primary{$input/@primary},attribute select{$input/@select},
+                
+                        (: first step in pipeline :)
+                        if (fn:not($xproc/*[$count - 1]/@*:defaultname) and $input/@primary='true') then
                             <p:pipe step="{$pipelinename}" port="{$xproc/p:input[@primary='true']/@port}"/> 
-                        else if (name($binding)='p:input' and not($binding/p:pipe)) then
+ 
+                       (: primary input step:)
+                       else if ($input/@primary='true') then
                             <p:pipe step="{$xproc/*[$count - 1]/@*:defaultname}" port="{$xproc/*[$count - 1]/p:output[@primary='true']/@port}"/> 
 
-                         else
-                            $binding/p:pipe
+                       (: other inputs :)
+                       else if ($input/p:pipe and fn:not($input/@primary='true')) then
+                            $input/*    
+                        
+                       (: p:document & p:inline & p:empty :)
+                       else
+                            $input/*
                       },
+
+                (: generate bindings for output:)
+                for $output in $step/p:*[name(.)='p:output']
+                    return
+                        $output,
+
                 (: generate options:)
                 for $option in $step/p:option 
                     return
@@ -283,7 +297,7 @@ import module namespace std = "http://xproc.net/xproc/std"
                         at "src/xquery/std.xqm";
 import module namespace ext = "http://xproc.net/xproc/ext"
                         at "src/xquery/ext.xqm";
-let $O0 := <test><a><b/></a></test>'),
+let $O0 := <test/>'),
 fn:string('
 let $pipeline :='),util:serialize($xproc,<xsl:output method="xml" omit-xml-declaration="yes" indent="no"/>),
     fn:string('
@@ -336,7 +350,6 @@ declare function xproc:output($evalresult){
 declare function xproc:evalstep ($step,$primaryinput,$pipeline) {
 
 (: TODO: boy all this is ugly; will need a refactor :)
-let $select := $pipeline/*[@xproc:defaultname=$step]/p:input[@primary='true']/@select
 let $stepfunction := fn:local-name($pipeline/*[@xproc:defaultname=$step])
 let $stepfunc := fn:string(concat('import module namespace xproc = "http://xproc.net/xproc"
                         at "src/xquery/xproc.xqm";
@@ -364,8 +377,15 @@ $std:',$stepfunction))
                                 for $input in $pipeline/*[@xproc:defaultname=$step]/p:input[not(@primary='true')]
                                     return 
                                         if ($input/p:document) then
-                                            $input
+                                            element {name($input)}{
+                                             attribute port{$input/@port},attribute primary{$input/@primary},attribute select{$input/@select},
+                                             if (fn:doc-available($input/p:document/@href)) then
+                                                fn:doc($input/p:document/@href)
+                                             else
+                                                <err:error message="cannot access document {$input/p:document/@href}"/>
+                                            }
                                         else
+                                        (: p:empty and p:inline :)
                                             $input
                            }</inputs>, 
                            <outputs/>, 

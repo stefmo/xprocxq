@@ -2,17 +2,15 @@
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:util = "http://xproc.net/xproc/util">
                 
-  <p:input port="std-input" primary="true"/>
+  <p:input port="source" primary="true"/>
   <p:output port="result" primary="true"/>
 
-    <p:compare name="step1">
-        <p:input port="source">
-              <p:pipe step="pipeline" port="std-input"/>
-        </p:input>
+   <p:compare name="step1">
+        <p:input port="source" primary="true"/>
         <p:input port="alternate">
-              <p:pipe step="pipeline" port="std-input"/>
+              <p:document href="file:test/data/test.xml"/>
         </p:input>
-        <p:output port="step1-output"/>
-    </p:compare>
+        <p:output port="result"/>
+   </p:compare>
 
 </p:pipeline>

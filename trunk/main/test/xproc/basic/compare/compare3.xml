@@ -5,13 +5,19 @@
   <p:input port="std-input" primary="true"/>
   <p:output port="result" primary="true"/>
 
-    <p:compare name="step1">
-        <p:input port="source">
-              <p:pipe step="pipeline" port="std-input"/>
+    <p:wrap name="wrapstep">
+        <p:option name="wrapper" value="mytestwrapperelement"/>   
+        <p:option name="match" value="/"/> 
+    </p:wrap>
+    
+   <p:compare>
+        <p:input port="source" primary="true">
+            <p:pipe step="source" port="input"/>
         </p:input>
-        <p:input port="alternate-wrong-port-name">
-              <p:pipe step="pipeline" port="std-input"/>
+        <p:input port="alternate">
+              <p:pipe step="wrapstep" port="result"/>
         </p:input>
-        <p:output port="step1-output"/>
-    </p:compare>
+        <p:output port="result"/>
+   </p:compare>
+
 </p:pipeline>
