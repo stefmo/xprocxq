@@ -18,6 +18,8 @@ import module namespace std = "http://xproc.net/xproc/std"
                         at "../../src/xquery/std.xqm";
 import module namespace ext = "http://xproc.net/xproc/ext"
                         at "../../src/xquery/ext.xqm";
+import module namespace opt = "http://xproc.net/xproc/opt"
+                        at "../../src/xquery/opt.xqm";
 
 (: -------------------------------------------------------------------------- :)
 
@@ -155,29 +157,7 @@ import module namespace ext = "http://xproc.net/xproc/ext"
 </test>
 
 
-<test>
-    <name>complex util:xquery test</name>
-    <result>
-    {util:xquery('import module namespace xproc = "http://xproc.net/xproc"&#xD;
-                        at "src/xquery/xproc.xqm";&#xD;
-import module namespace util = "http://xproc.net/xproc/util"&#xD;
-                        at "src/xquery/util.xqm";&#xD;
-import module namespace std = "http://xproc.net/xproc/std"&#xD;
-                        at "src/xquery/std.xqm";&#xD;
-import module namespace ext = "http://xproc.net/xproc/ext"&#xD;
-                        at "src/xquery/ext.xqm";&#xD;
-let $I0 := <test>aaaaa</test>&#xD;
-let $pipeline := &lt;p:pipeline xmlns:xproc="http://xproc.net/xproc" xmlns:p="http://www.w3.org/ns/xproc" xproc:preparsed="true" name="main"&gt;&lt;p:input port="source" primary="true" xproc:stdin="true"&gt;&lt;p:pipe step="main" port="xproc:stdin"/&gt;&lt;/p:input&gt;&lt;p:output port="result" primary="true" xproc:stdout="true"&gt;&lt;p:pipe step="!0:main" port="result"/&gt;&lt;/p:output&gt;&lt;p:identity name="" xproc:defaultname="!3:main:"&gt;&lt;p:input port="source" primary="true"&gt;&lt;p:pipe step="main" port="source"/&gt;&lt;/p:input&gt;&lt;p:output port="result" primary="true"/&gt;&lt;/p:identity&gt;&lt;p:identity name="" xproc:defaultname="!4:main:"&gt;&lt;p:input port="source" primary="true"&gt;&lt;p:pipe step="!3:main:" port="result"/&gt;&lt;/p:input&gt;&lt;p:output port="result" primary="true"/&gt;&lt;/p:identity&gt;&lt;/p:pipeline&gt; &#xD;
-let $steps := ("!3:main:","!4:main:") 
-return util:step-fold($pipeline,
-                      $steps, 
-                      saxon:function("xproc:evalstep", 3),
-                      ($I0,""))
-')
-}
-    </result>
-    <expected><test>aaaaa</test></expected>
-</test>
+
 
 <test>
     <name>testing subsequence</name>

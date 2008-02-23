@@ -66,6 +66,13 @@ for $step at $count in $steps
 
         element {$stepname} {
              attribute name{$step/@name},attribute xproc:defaultname{$step/@xproc:defaultname},
+             attribute xproc:step-type{ if ($optstepexists) then
+                                            'opt'
+                                        else if($extstepexists) then
+                                             'ext'
+                                        else
+                                            'std'
+                                       },
              (
                 (: generate bindings for input:)
                 for $input in $step/p:*[name(.)='p:input']
@@ -297,6 +304,8 @@ import module namespace std = "http://xproc.net/xproc/std"
                         at "src/xquery/std.xqm";
 import module namespace ext = "http://xproc.net/xproc/ext"
                         at "src/xquery/ext.xqm";
+import module namespace opt = "http://xproc.net/xproc/opt"
+                        at "src/xquery/opt.xqm";
 let $O0 := <test/>'),
 fn:string('
 let $pipeline :='),util:serialize($xproc,<xsl:output method="xml" omit-xml-declaration="yes" indent="no"/>),
@@ -357,10 +366,12 @@ import module namespace util = "http://xproc.net/xproc/util"
                         at "src/xquery/util.xqm";
 import module namespace std = "http://xproc.net/xproc/std"
                         at "src/xquery/std.xqm";
+import module namespace opt = "http://xproc.net/xproc/opt"
+                        at "src/xquery/opt.xqm";
 import module namespace ext = "http://xproc.net/xproc/ext"
                         at "src/xquery/ext.xqm";','
 
-$std:',$stepfunction))
+$',$pipeline/*[@xproc:defaultname=$step]/@xproc:step-type,':',$stepfunction))
 
     return (
         (:TODO:temporary hack to get around blank steps, which are caused by input/outputs and top level elements for now :)
@@ -384,9 +395,12 @@ $std:',$stepfunction))
                                              else
                                                 <err:error message="cannot access document {$input/p:document/@href}"/>
                                             }
+                                        else if($input/p:inline) then
+                                            $input/p:inline/node()
                                         else
-                                        (: p:empty and p:inline :)
-                                            $input
+                                            <test/>
+                                        
+                                            
                            }</inputs>, 
                            <outputs/>, 
                            <options>{
