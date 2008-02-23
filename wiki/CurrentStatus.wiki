@@ -2,10 +2,10 @@
 
 = Status =
 
-3/2/2008 hoping to get something released by the 18th / I am digesting changes in latest editor draft
+23/2/2008 really starting to pickup some 'velocity' now that overall architecture is in place ... have implemented p:documentation, p:inline, p:pipes, pipe ordering .... I have disabled most of the static and dynamic error checking but that will 'come back'
 
-currently, this means I am still refactoring things like options, inputs/outputs ... they were hacks in my prototype efforts, and the xquery was just so ugly, it would cause embarrassing questions to be asked ;)
-  
+predicting an official release within the next few weeks ... things are starting to work though ;) 
+
 
 = Changelog =
 
@@ -24,21 +24,17 @@ There are so many issues to list .... so I will just highlight the major ones;
 
   * depends on one having bought Michael Kay's [http://www.saxonica.com Saxon-SA]  XSLT/XQUERY processor ... and even then it does very little ;)
 
-  * very limited std step library and non-existent optional library
+  * very limited std step library and optional (just p:xquery) library
 
-  * non-standard util:step wraps top level inputs and outputs, as a intermediate hack to make step ordering work
-
-  * must explicitly define input connections in XProc XML
+  * its best to explicitly define input connections in XProc XML
 
 {{{
  <p:pipeline name="helloworld"
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:util = "http://xproc.net/xproc/util">
 
-<util:step name="helloworld">
-  <p:input port="std-input"/>
-  <p:output port="std-output"/>
-</util:step>
+  <p:input port="source"/>
+  <p:output port="result"/>
 
     <p:identity name="step2">
        <p:input port="step2-input">
@@ -60,13 +56,11 @@ There are so many issues to list .... so I will just highlight the major ones;
         <p:output port="step1-output"/>
     </p:count>
 
-
  </p:pipeline>
-
 
 }}}
 
-  * step ordering is still 'open ended' ... but it virtually works for simplistic xprocs
+  * step ordering is still a bit flaky ... but it virtually works for simplistic xprocs
 
   * no command line entry point .. all operation is via Ant script, which just means running unit tests
 
