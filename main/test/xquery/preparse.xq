@@ -40,6 +40,14 @@ let $pipeline :=
   <p:identity/>
   <p:identity/>
 
+   <p:compare name="step1">
+        <p:input port="source" primary="true"/>
+        <p:input port="alternate">
+              <p:document href="../../data/alternate_data_1.xml"/>
+        </p:input>
+        <p:output port="result"/>
+   </p:compare>
+
  </p:pipeline>
  return xproc:parse(xproc:preparse($pipeline))
 

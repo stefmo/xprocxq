@@ -2,6 +2,12 @@
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:ext = "http://xproc.net/xproc/ext">
 
-      <p:identity/>
-
+   <p:compare name="step1">
+        <p:input port="source" primary="true"/>
+        <p:input port="alternate">
+              <p:document href="file:test/data/test.xml"/>
+        </p:input>
+        <p:output port="result"/>
+   </p:compare>
+    
 </p:pipeline>

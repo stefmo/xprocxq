@@ -5,11 +5,10 @@
   <p:input port="std-input" primary="true"/>
   <p:output port="result" primary="true"/>
 
-    <p:compare name="step1">
+   <p:compare name="step1">
         <p:input port="alternate">
-              <p:pipe step="pipeline" port="std-input"/>
+              <p:document href="file:test/data/test.xml"/>
         </p:input>
-        <p:output port="step1-output"/>
-    </p:compare>
+   </p:compare>
 
 </p:pipeline>

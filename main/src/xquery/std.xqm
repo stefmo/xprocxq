@@ -35,7 +35,7 @@ declare function std:count($seq) as item() {
 
 (: -------------------------------------------------------------------------- :)
 declare function std:compare($seq) as item() {
-        <c:result>{fn:deep-equal($seq[1],$seq[2])}</c:result>
+        <c:result>{fn:deep-equal($seq[1],$seq[2]/p:input[@port='alternate']/*)}</c:result>
 };
 
 (: -------------------------------------------------------------------------- :)
