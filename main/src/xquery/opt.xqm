@@ -22,6 +22,7 @@ declare variable $opt:exec :=saxon:function("opt:exec", 1);
 
 (: -------------------------------------------------------------------------- :)
 declare function opt:xquery($seq) {
+(:TODO: need to sort out multiple c:query elements :)
     util:xquery($seq[2]/c:query[1]/text())
 };
 
