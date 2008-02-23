@@ -74,12 +74,9 @@ Once I have worked through all of XProc primary components and logic structure t
 
 If I had a road map, in plan view it would be;
 
-  * (re) implement options, input/outputs & step ordering
   * (re) implement xproc logic structures (try catch, choose, etc)
   * finish standard steps implementations
-  * finish optional steps implementations
-  * ensure static error checking is working properly
-  * ensure dynamic error checking is working propery
-  * expand existing testsuite to include more exotic corner cases
-
-so you can see, lots to do ;)
+  * finish optional & extension steps implementations
+  * ensure static and dynamic error checking is working properly
+  * ensure namespaces are fixed up properly
+  * update testsuite
