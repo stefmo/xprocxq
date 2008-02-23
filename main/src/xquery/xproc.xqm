@@ -71,7 +71,7 @@ for $step at $count in $steps
                 for $binding in $step/p:*[name(.)='p:input' or name(.)='p:output']
                     return
                       element {name($binding)}{
-                         attribute port{$binding/@port},attribute primary{$binding/@primary},
+                         attribute port{$binding/@port},attribute primary{$binding/@primary},attribute select{$binding/@select},
 
                         if (name($binding)='p:input' and not($binding/p:pipe) and not($xproc/*[$count - 1]/@*:defaultname)) then
                             <p:pipe step="{$pipelinename}" port="{$xproc/p:input[@primary='true']/@port}"/> 
@@ -149,14 +149,14 @@ let $explicitnames :=
         element {$stepname} { 
              attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
              (
-                (: output bindings for input and output:)
+                (: generate bindings for input and output:)
                 for $binding in $stdstep/p:*[name(.)='p:input' or name(.)='p:output'] 
                     return
                       element {name($binding)}{
-                         attribute port{$binding/@port},attribute primary{$binding/@primary},
+                         attribute port{$binding/@port},attribute primary{$binding/@primary},attribute select{$step/p:input[@port=$binding/@port][@primary='true']/@select},
                        $step/p:*[name()=name($binding)]/p:*
                       },
-                (: output options:)
+                (: generate options:)
                 for $option in $stdstep/p:option 
                     return
                       element {name($option)}{
@@ -171,14 +171,14 @@ let $explicitnames :=
         element {$stepname} { 
              attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
              (
-                (: output bindings for input and output:)
+                (: generate bindings for input and output:)
                 for $binding in $optstep/p:*[name(.)='p:input' or name(.)='p:output'] 
                     return
                       element {name($binding)}{
-                         attribute port{$binding/@port},attribute primary{$binding/@primary},
+                         attribute port{$binding/@port},attribute primary{$binding/@primary},attribute select{$step/p:input[@port=$binding/@port][@primary='true']/@select},
                        $step/p:*[name()=name($binding)]/p:*
                       },
-                (: output options:)
+                (: generate options:)
                 for $option in $optstep/p:option 
                     return
                       element {name($option)}{
@@ -193,14 +193,14 @@ let $explicitnames :=
         element {$stepname} { 
              attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
              (
-                (: output bindings for input and output:)
+                (: generate bindings for input and output:)
                 for $binding in $extstep/p:*[name(.)='p:input' or name(.)='p:output'] 
                     return
                       element {name($binding)}{
-                         attribute port{$binding/@port},attribute primary{$binding/@primary},
+                         attribute port{$binding/@port},attribute primary{$binding/@primary},attribute select{$step/p:input[@port=$binding/@port][@primary='true']/@select},
                        $step/p:*[name()=name($binding)]/p:*
                       },
-                (: output options:)
+                (: generate options:)
                 for $option in $extstep/p:option 
                     return
                       element {name($option)}{
@@ -336,10 +336,7 @@ declare function xproc:output($evalresult){
 declare function xproc:evalstep ($step,$primaryinput,$pipeline) {
 
 (: TODO: boy all this is ugly; will need a refactor :)
-
-let $inputs := $pipeline/*[@xproc:defaultname=$step]/p:input
-let $options := $pipeline/*[@xproc:defaultname=$step]/p:option
-
+let $select := $pipeline/*[@xproc:defaultname=$step]/p:input[@primary='true']/@select
 let $stepfunction := fn:local-name($pipeline/*[@xproc:defaultname=$step])
 let $stepfunc := fn:string(concat('import module namespace xproc = "http://xproc.net/xproc"
                         at "src/xquery/xproc.xqm";
@@ -357,7 +354,26 @@ $std:',$stepfunction))
             if($stepfunction='') then
                 $primaryinput
             else
-                util:call( util:xquery($stepfunc), ($primaryinput[1], <inputs>{$inputs}</inputs>, <outputs/>, <options>{$options}</options>))
+                util:call( util:xquery($stepfunc),
+                           (
+                           if($pipeline/*[@xproc:defaultname=$step]/p:input[@select=''][@primary='true']) then
+                                $primaryinput[1]
+                           else
+                               util:evalXPATH(fn:string($pipeline/*[@xproc:defaultname=$step]/p:input[@primary='true'][@select]/@select),document{$primaryinput[1]}),
+                           <inputs>{
+                                for $input in $pipeline/*[@xproc:defaultname=$step]/p:input[not(@primary='true')]
+                                    return 
+                                        if ($input/p:document) then
+                                            $input
+                                        else
+                                            $input
+                           }</inputs>, 
+                           <outputs/>, 
+                           <options>{
+                                $pipeline/*[@xproc:defaultname=$step]/p:option
+                           }</options>
+                            )
+                )
     )
 
 };
