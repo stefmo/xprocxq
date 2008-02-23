@@ -2,7 +2,7 @@
 
 = Status =
 
-23/2/2008 really starting to pickup some 'velocity' now that overall architecture is in place ... have implemented p:documentation, p:inline, p:pipes, pipe ordering .... I have disabled most of the static and dynamic error checking but that will 'come back'
+23/2/2008 really starting to pickup some 'velocity' now that overall architecture is in place ... have implemented p:document, p:inline, p:pipes, pipe ordering .... I have disabled most of the static and dynamic error checking but that will 'come back'
 
 predicting an official release within the next few weeks ... things are starting to work though ;) 
 
