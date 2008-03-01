@@ -189,6 +189,23 @@ import module namespace opt = "http://xproc.net/xproc/opt"
     <expected>false</expected>
 </test>
 
+<test>
+    <name>xproc:step-available function</name>
+    <result>{xproc:step-available('p:identity')}</result>
+    <expected>true</expected>
+</test>
+
+<test>
+    <name>xproc:step-available function</name>
+    <result>{xproc:step-available('p:identitytest')}</result>
+    <expected>false</expected>
+</test>
+
+<test>
+    <name>xproc:step-available function</name>
+    <result>{xproc:step-available('p:xquery')}</result>
+    <expected>true</expected>
+</test>
 
 </testsuite>
 

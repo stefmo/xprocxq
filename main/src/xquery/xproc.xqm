@@ -2,7 +2,6 @@ xquery version "1.0" encoding "UTF-8";
 
 module namespace xproc = "http://xproc.net/xproc";
 
-
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
@@ -31,108 +30,144 @@ declare function xproc:main() as xs:string {
     "main xproc.xq executed"
 };
 
+
+(: -------------------------------------------------------------------------- :)
+declare function xproc:comp-available($stepname as xs:string) as xs:boolean {
+
+    let $component :=$comp:components/xproc:library/xproc:top-level-element[@type=$stepname]
+    return
+        exists($component)
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function xproc:step-available($stepname as xs:string) as xs:boolean {
+
+    let $stdstep := $std:steps/p:declare-step[@type=$stepname]
+    let $optstep := $opt:steps/p:declare-step[@type=$stepname]
+    let $extstep := $ext:steps/p:declare-step[@type=$stepname]
+    return
+        exists($stdstep) or exists($optstep) or exists($extstep)
+};
+(: -------------------------------------------------------------------------- :)
+
+(: -------------------------------------------------------------------------- :)
+declare function xproc:step-type($stepname as xs:string) as xs:string {
+
+    let $stdstep := $std:steps/p:declare-step[@type=$stepname]
+    let $optstep := $opt:steps/p:declare-step[@type=$stepname]
+    let $extstep := $ext:steps/p:declare-step[@type=$stepname]
+    let $component :=$comp:components/xproc:library/xproc:top-level-element[@type=$stepname]
+
+    let $stdstepexists := exists($stdstep)        
+    let $optstepexists := exists($optstep)
+    let $extstepexists := exists($extstep)
+    let $compexists := exists($component)
+    return    
+        if ($optstepexists) then
+            'opt'
+        else if($extstepexists) then
+            'ext'
+        else if($stdstepexists) then
+            'std'
+        else
+            'comp'
+};
+(: -------------------------------------------------------------------------- :)
+
+
+
+
 (: -------------------------------------------------------------------------- :)
 (: make all input/output pipe bindings to steps explicit :)
 declare function xproc:explicitbindings($xproc as item()){
 
 let $pipelinename := $xproc/@name
 
-let $explicitbindings := <p:pipeline xmlns:xproc="http://xproc.net/xproc" name="{$pipelinename}" xproc:preparsed="true">
+let $explicitbindings := 
 
-{
+(    let $steps :=$xproc/*
 
-let $steps :=$xproc/*
+    for $step at $count in $steps
 
-for $step at $count in $steps
+        let $stepname := name($step)
+        return
 
-    let $stepname := name($step)
+        (:std step element:)
+        if(xproc:step-available($stepname)) then
 
-    let $component :=$comp:components/xproc:library/xproc:top-level-element[@type=$stepname]
+            element {$stepname} {
+                 attribute name{$step/@name},attribute xproc:defaultname{$step/@xproc:defaultname},
+                 attribute xproc:step-type{xproc:step-type($stepname)
+                                           },
+                 (
+                    (: generate bindings for input:)
+                    for $input in $step/p:*[name(.)='p:input']
+                        return
+                          element {name($input)}{
+                             attribute port{$input/@port},attribute primary{$input/@primary},attribute select{$input/@select},
 
-    let $stdstep := $std:steps/p:declare-step[@type=$stepname]
-    let $optstep := $opt:steps/p:declare-step[@type=$stepname]
-    let $extstep := $ext:steps/p:declare-step[@type=$stepname]
-    let $currentstep :=($stdstep,$optstep,$extstep)
+                            (: first step in pipeline :)
+                            if (fn:not($xproc/*[$count - 1]/@*:defaultname) and $input/@primary='true') then
+                                <p:pipe step="{$pipelinename}" port="{$xproc/p:input[@primary='true']/@port}"/> 
 
-    let $compexists := exists($component)
-    let $stdstepexists := exists($stdstep)
-    let $optstepexists := exists($optstep)
-    let $extstepexists := exists($extstep)
+                           (: primary input step:)
+                           else if ($input/@primary='true') then
+                                <p:pipe step="{$xproc/*[$count - 1]/@*:defaultname}" port="{$xproc/*[$count - 1]/p:output[@primary='true']/@port}"/> 
 
-    return
+                           (: other inputs :)
+                           else if ($input/p:pipe and fn:not($input/@primary='true')) then
+                                $input/*    
 
-    (:std step element:)
-    if($stdstepexists=true() or $optstepexists=true() or $extstepexists=true() ) then
+                           (: p:document & p:inline & p:empty :)
+                           else
+                                $input/*
+                          },
 
-        element {$stepname} {
-             attribute name{$step/@name},attribute xproc:defaultname{$step/@xproc:defaultname},
-             attribute xproc:step-type{ if ($optstepexists) then
-                                            'opt'
-                                        else if($extstepexists) then
-                                             'ext'
-                                        else
-                                            'std'
-                                       },
-             (
-                (: generate bindings for input:)
-                for $input in $step/p:*[name(.)='p:input']
-                    return
-                      element {name($input)}{
-                         attribute port{$input/@port},attribute primary{$input/@primary},attribute select{$input/@select},
-                
-                        (: first step in pipeline :)
-                        if (fn:not($xproc/*[$count - 1]/@*:defaultname) and $input/@primary='true') then
-                            <p:pipe step="{$pipelinename}" port="{$xproc/p:input[@primary='true']/@port}"/> 
- 
-                       (: primary input step:)
-                       else if ($input/@primary='true') then
-                            <p:pipe step="{$xproc/*[$count - 1]/@*:defaultname}" port="{$xproc/*[$count - 1]/p:output[@primary='true']/@port}"/> 
+                    (: generate bindings for output:)
+                    for $output in $step/p:*[name(.)='p:output']
+                        return
+                            $output,
 
-                       (: other inputs :)
-                       else if ($input/p:pipe and fn:not($input/@primary='true')) then
-                            $input/*    
-                        
-                       (: p:document & p:inline & p:empty :)
-                       else
-                            $input/*
-                      },
+                    (: generate options:)
+                    for $option in $step/p:option
+                        return
+                          element {name($option)}{
+                               attribute name{$option/@name},attribute select{$option/@select},attribute value{$option/@value}
+                          }
+                 )
+            }
 
-                (: generate bindings for output:)
-                for $output in $step/p:*[name(.)='p:output']
-                    return
-                        $output,
+        (: preparse xproc component :)
+         else if (xproc:comp-available($stepname)) then
 
-                (: generate options:)
-                for $option in $step/p:option 
-                    return
-                      element {name($option)}{
-                           attribute name{$option/@name},attribute select{$option/@select},attribute value{$option/@value}
-                      }
-             )                   
-        }
+            element {$stepname} {
+                 attribute name{$step/@name},attribute xproc:defaultname{$step/@xproc:defaultname},
+                 attribute xproc:step-type{xproc:step-type($stepname)},
+                (
+                   xproc:explicitbindings(<util:ignore>{$step/*}</util:ignore>) 
+                )
+            }
 
-    (: preparse xproc component :)
-     else if ($compexists=true()) then
-        $step
+         else
+         (:TODO: need to implement static error here:)
+            $step
+)
+    return 
+    (: if dealing with nested components:)
+        if(empty($pipelinename)) then
+                    $explicitbindings
+        else
+    (: if dealing with p:pipeline component:)
+                <p:pipeline xmlns:xproc="http://xproc.net/xproc" name="{$pipelinename}" xproc:preparsed="true">
+                    {$explicitbindings}
+                </p:pipeline>
 
-     else if (name($step)= 'err:error') then
-        $step
-
-     else
-     (:TODO: need to implement static error here:)
-        <err:error message="general static error thrown during explicit binding: "/>
-}
-
-</p:pipeline>
-
-return 
-    $explicitbindings
 
 };
 
 (: -------------------------------------------------------------------------- :)
 (: make all step and input/output pipe names explicit :)
-declare function xproc:explicitnames($xproc as item()){
+declare function xproc:explicitnames($xproc as item(), $unique_id){
 
 let $pipelinename := $xproc/@name
 
@@ -144,10 +179,8 @@ let $explicitnames :=
 
         let $stepname := name($step)
 
-        let $unique_before := concat('!',$count - 1,':',$pipelinename,':',$step/@name)
-        let $unique_current := concat('!',$count,':',$pipelinename,':',$step/@name)
-
-        let $component := $comp:components/xproc:library/xproc:top-level-element[@type=$stepname]
+        let $unique_before := concat($unique_id,'!',$count - 1,':',$pipelinename,':',$step/@name)
+        let $unique_current := concat($unique_id,'!',$count,':',$pipelinename,':',$step/@name)
 
         let $stdstep := $std:steps/p:declare-step[@type=$stepname]
         let $optstep := $opt:steps/p:declare-step[@type=$stepname]
@@ -155,7 +188,6 @@ let $explicitnames :=
 
         let $currentstep :=($stdstep,$optstep,$extstep)
 
-        let $compexists := exists($component)
         let $stdstepexists := exists($stdstep)
         let $optstepexists := exists($optstep)
         let $extstepexists := exists($extstep)
@@ -232,10 +264,10 @@ let $explicitnames :=
 
 
 (: preparse xproc component :)
-     else if ($compexists=true()) then
+     else if (xproc:comp-available($stepname) and ($stepname='p:input' or $stepname='p:output') ) then
 
 		(:binds unconnected primary input to stdin:)
-		    if ($stepname='p:input' and $step/@primary='true' and not($step/p:*)) then
+		    if ($stepname='p:input' and $step/@primary='true') then
 
 		        element {$stepname} {
 		            attribute port {$step/@port},
@@ -247,15 +279,13 @@ let $explicitnames :=
 		        }
 
 		(:binds unconnected primary output to stdout:)
-		    else if ($stepname='p:output' and $step/@primary='true' and not($step/p:*)) then
+		    else if ($stepname='p:output' and $step/@primary='true') then
 
 		        element {$stepname} { 
 		            attribute port {$step/@port},
 		            attribute primary {'true'},
-		            attribute xproc:stdout {'true'},                           
-(:
-    unbounded primary output <- last step output 
-:)		            
+		            attribute xproc:stdout {'true'},               
+                (: unbounded primary output <- last step output :)		            
                         <p:pipe step="!0:{$pipelinename}" port="result"/> 
 		        }
 
@@ -265,13 +295,78 @@ let $explicitnames :=
 		            attribute port {$step/@port},
 		            <p:pipe step="" port=""/> 
 		        }
+
+(: preparse xproc p:choose component   :)
+(: TODO: this is temporary structure :)
+     else if (xproc:comp-available($stepname) and $stepname='p:choose') then
+
+        element {$stepname} { 
+             attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
+             (
+                for $when in $step/p:*[name(.)='p:when']
+                    return 
+                    <p:when test="{$when/@test}">
+                          {xproc:explicitnames(<util:ignore>{$when/*}</util:ignore>,fn:concat($unique_current,':'))}                        
+                    </p:when>,
+                for $when in $step/p:*[name(.)='p:otherwise']
+                    return 
+                    <p:otherwise>
+                          {xproc:explicitnames(<util:ignore>{$when/*}</util:ignore>,fn:concat($unique_current,':'))}                        
+                    </p:otherwise>
+             )                   
+        }
+        
+
+(: preparse xproc p:group component   :)
+(: TODO: this is temporary structure :)
+     else if (xproc:comp-available($stepname) and $stepname='p:group') then
+        element {$stepname} { 
+             attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
+             (
+               xproc:explicitnames(<util:ignore>{$step/*}</util:ignore>,fn:concat($unique_current,':'))
+            )                   
+        }
+
+(: preparse xproc p:for-each component   :)
+(: TODO: this is temporary structure :)
+     else if (xproc:comp-available($stepname) and $stepname='p:for-each') then
+        element {$stepname} { 
+             attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
+             (
+               xproc:explicitnames(<util:ignore>{$step/*}</util:ignore>,fn:concat($unique_current,':'))
+            )                   
+        }        
+
+(: preparse xproc p:try component   :)
+(: TODO: this is temporary structure :)
+     else if (xproc:comp-available($stepname) and $stepname='p:try') then
+        element {$stepname} { 
+             attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
+             (
+               xproc:explicitnames(<util:ignore>{$step/*}</util:ignore>,fn:concat($unique_current,':'))
+            )                   
+        }
+
+(: preparse xproc p:viewport component   :)
+(: TODO: this is temporary structure :)
+     else if (xproc:comp-available($stepname) and $stepname='p:viewport') then
+        element {$stepname} { 
+             attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
+             (
+               xproc:explicitnames(<util:ignore>{$step/*}</util:ignore>,fn:concat($unique_current,':'))
+            )                   
+        }
+
     else
     (:TODO: need to implement static error here:)
         <err:error message="general static error thrown during explicit naming: {name($step)} is an unknown element"/>
 
-
     return
     (:apply a topological sort based on step names :)
+
+        if(empty($pipelinename))then
+            util:pipeline-step-sort($explicitnames,())
+        else
         <p:pipeline name="{$pipelinename}">
             {util:pipeline-step-sort($explicitnames,())}
         </p:pipeline>
@@ -282,7 +377,7 @@ let $explicitnames :=
 (: Preparse pipeline XML, sorting steps by input, throwing some static errors :)
 declare function xproc:preparse($xproc as item()){
 
-let $preparse := xproc:explicitbindings(xproc:explicitnames($xproc))
+let $preparse := xproc:explicitbindings(xproc:explicitnames($xproc,''))
 return
     if (fn:not($preparse//err:error)) then     
         $preparse
@@ -411,3 +506,5 @@ $',$pipeline/*[@xproc:defaultname=$step]/@xproc:step-type,':',$stepfunction))
     )
 
 };
+
+
