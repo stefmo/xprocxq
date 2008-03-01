@@ -25,40 +25,71 @@ import module namespace opt = "http://xproc.net/xproc/opt"
 
 <testsuite title="preparse XQuery Unit Tests" desc="Test the parsing and ordering of pipeline steps with XProc.xq">
 
-
 <test>
-    <name>simple preparse and parse example</name>
+    <name>group sample</name>
     <result>
 {
 
 let $pipeline :=
- <p:pipeline name="main"
-            xmlns:p="http://www.w3.org/ns/xproc">
-
-  <p:input port="source" primary="true"/>
-  <p:output port="result" primary="true"/>
-
-  <p:identity/>
-  <p:identity/>
-
-   <p:compare name="step1">
-        <p:input port="source" primary="true"/>
-        <p:input port="alternate">
-              <p:document href="../../data/alternate_data_1.xml"/>
-        </p:input>
-        <p:output port="result"/>
-   </p:compare>
-
- </p:pipeline>
- return xproc:parse(xproc:preparse($pipeline))
+<p:pipeline name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc"
+            xmlns:util = "http://xproc.net/xproc/util">
+    
+    <p:input port="source" primary="true"/>
+    <p:output port="result" primary="true"/>
+    
+    <p:group name="version">
+            <p:identity name="step1"/>    
+            <p:count name="step2"/>
+        <p:group name="another">
+            <p:identity name="step1"/>    
+            <p:count name="step2"/>
+        </p:group>
+    </p:group>
+    
+</p:pipeline>
+ return xproc:preparse($pipeline)
 
 }
-
 </result>
 <expected></expected>
 </test>
 
+<test>
+    <name>choose sample</name>
+    <result>
+{
 
+let $pipeline :=
+<p:pipeline name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc"
+            xmlns:util = "http://xproc.net/xproc/util">
+    
+    <p:input port="source" primary="true"/>
+    <p:output port="result" primary="true"/>
+    
+    <p:choose name="version">
+        <p:when test="//test">
+            <p:identity name="step1">
+                <p:input port="source" primary="true">
+                    <p:document href="file:test/data/alternate_data_1.xml"/>
+                </p:input>
+                <p:output port="result"/>
+            </p:identity>
+        </p:when>
+        <p:otherwise>
+            <p:error>
+                <p:option name="code" value="error code"/> 
+            </p:error>
+        </p:otherwise>
+    </p:choose>
+</p:pipeline>
+ return xproc:preparse($pipeline)
+
+}
+</result>
+<expected></expected>
+</test>
 
 <test>
     <name>simple preparse and parse example</name>
@@ -77,48 +108,6 @@ let $pipeline :=
 
  </p:pipeline>
     return xproc:preparse($pipeline)
-}
-
-</result>
-<expected></expected>
-</test>
-
-<test>
-    <name>eval explicit naming and binding preprocess</name>
-    <result>
-{
-
-let $pipeline :=
- <p:pipeline name="main"
-            xmlns:p="http://www.w3.org/ns/xproc">
-
-  <p:input port="source" primary="true"/>
-  <p:output port="result" primary="true"/>
-
-  <p:identity/>
-
-  <p:count>
-    <p:input port="source">
-        <p:pipe step="test1" port="result"/>
-    </p:input>
-  </p:count>
-
-  <p:wrap>
-    <p:option name="wrapper" value="test"/>
-  </p:wrap>
-
-  <p:identity name="test1"/>
-
-  <p:identity>
-    <p:input port="source" primary="true">
-        <p:pipe step="test1" port="result"/>
-    </p:input>
-    <p:output port="result" primary="true"/>
-  </p:identity>
-
- </p:pipeline>
- return xproc:explicitnames($pipeline)
-
 }
 
 </result>
@@ -283,7 +272,7 @@ let $pipeline :=
   <p:identity/>
 
  </p:pipeline>
- return xproc:explicitbindings(xproc:explicitnames($pipeline))
+ return xproc:explicitbindings(xproc:explicitnames($pipeline,''))
 
 }
 
@@ -309,7 +298,7 @@ let $pipeline :=
   <p:identity name="step2"/>
 
  </p:pipeline>
- return xproc:explicitbindings(xproc:explicitnames($pipeline))
+ return xproc:explicitbindings(xproc:explicitnames($pipeline,''))
 
 }
 
@@ -340,7 +329,7 @@ let $pipeline :=
     </p:count>
 
  </p:pipeline>
- return xproc:explicitbindings(xproc:explicitnames($pipeline))
+ return xproc:preparse($pipeline)
 }
 </result>
 <expected></expected>
@@ -368,7 +357,7 @@ let $pipeline :=
     </p:count>
 
  </p:pipeline>
- return xproc:explicitbindings(xproc:explicitnames($pipeline))
+ return xproc:preparse($pipeline)
 }
 </result>
 <expected></expected>
@@ -401,7 +390,7 @@ let $pipeline :=
     </p:count>
 
  </p:pipeline>
- return xproc:explicitbindings(xproc:explicitnames($pipeline))
+ return xproc:preparse($pipeline)
 }
 </result>
 <expected></expected>
@@ -423,7 +412,7 @@ let $pipeline :=
     <p:count/>
     <p:thisstepdoesnotexist/>
  </p:pipeline>
- return xproc:explicitbindings(xproc:explicitnames($pipeline))
+ return xproc:explicitnames($pipeline,'')
 }
 </result>
 <expected>error</expected>
@@ -445,7 +434,7 @@ let $pipeline :=
     <p:uuid/>
     <ext:test/>
  </p:pipeline>
- return xproc:explicitbindings(xproc:explicitnames($pipeline))
+ return xproc:preparse($pipeline)
 }
 </result>
 <expected></expected>

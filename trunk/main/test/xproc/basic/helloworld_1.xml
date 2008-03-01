@@ -1,20 +1,12 @@
-<p:pipeline name="main"
+<p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc"
-            xmlns:c="http://www.w3.org/ns/xproc-step"
-            xmlns:ext = "http://xproc.net/xproc/ext">
-
-  <p:identity>
+            xmlns:util = "http://xproc.net/xproc/util">
+    
     <p:input port="source" primary="true"/>
     <p:output port="result" primary="true"/>
-  </p:identity>
-
-  <p:xquery>
-     <p:input port="query">
-         <p:inline>
-             <c:query>current-dateTime()</c:query>
-         </p:inline>
-     </p:input>
-     <p:output port="result" sequence="true"/>
-  </p:xquery>
-
+    
+    <p:group name="version">
+            <p:identity name="step1"/>
+    </p:group>
+    
 </p:pipeline>
