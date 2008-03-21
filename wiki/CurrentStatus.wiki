@@ -2,8 +2,7 @@
 
 = Status =
 
-21/3/2008 I am in a bit of a standstill mode whilst the W3C Working Group for XProc stabilize for the next draft ... there is some good work going on to streamline and rationalize things; so I would rather hold off any serious development until I get this new draft.
-
+21/3/2008 I am in a bit of a standstill mode whilst I go through the latest redrafting of [http://www.w3.org/XML/XProc/docs/langspec.html XProc spec] ... most of the rationalizations in this draft are welcome, though I need to comprehend them fully before I just start coding again.
 
 
 = Changelog =
