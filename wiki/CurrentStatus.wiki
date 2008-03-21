@@ -2,9 +2,8 @@
 
 = Status =
 
-23/2/2008 starting to pickup some implementation 'velocity' now that overall architecture is in place ... have implemented p:document, p:inline, p:pipes, pipe ordering .... I have disabled most of the static and dynamic error checking but that will 'come back'
+21/3/2008 I am in a bit of a standstill mode whilst the W3C Working Group for XProc stabilize for the next draft ... there is some good work going on to streamline and rationalize things; so I would rather hold off any serious development until I get this new draft.
 
-predicting an official release within the next few weeks ... things are starting to work though ;) 
 
 
 = Changelog =
@@ -21,6 +20,8 @@ The source code [http://xprocxq.googlecode.com/svn/trunk/main/TODO TODO] file is
 = Limitations and Issues=
 
 There are so many issues to list .... so I will just highlight the major ones;
+
+  * currently a bit out of step with latest version of xproc draft .... this will change soon
 
   * depends on one having bought Michael Kay's [http://www.saxonica.com Saxon-SA]  XSLT/XQUERY processor ... and even then it does very little ;)
 
