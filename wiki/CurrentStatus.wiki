@@ -2,7 +2,7 @@
 
 = Status =
 
-21/3/2008 I am in a bit of a standstill mode whilst I go through the latest redrafting of [http://www.w3.org/XML/XProc/docs/langspec.html XProc spec] ... most of the rationalizations in this draft are welcome, though I need to comprehend them fully before I just start coding again.
+5/6/2008 I am in a bit of a standstill mode whilst I go through the latest redrafting of [http://www.w3.org/XML/XProc/docs/langspec.html XProc spec] ... most of the rationalizations in this draft are welcome, though I need to comprehend them fully before I just start coding again.
 
 
 = Changelog =
