@@ -1,6 +1,5 @@
 <p:pipeline name="main"
             xmlns:p="http://www.w3.org/ns/xproc"
-            xmlns:ext = "http://xproc.net/xproc/ext"
 >
     
     <p:identity/>
