@@ -5,8 +5,8 @@
     
     <p:identity/>
     <p:wrap>
-        <p:option name="wrapper" value="mytestwrapperelement"/>   
-        <p:option name="match" value="/"/> 
+        <p:with-option name="wrapper" select="'mytestwrapperelement'"/>   
+        <p:with-option name="match" select="'/'"/> 
     </p:wrap>
     
     

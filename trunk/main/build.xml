@@ -2,139 +2,140 @@
 <project name="xproc.xq" basedir=".">
     <description>This build file builds the single java extension needed for Saxon-SA. Past that,
 it is mostly a unit test runner for firing off XQuery and XProc tests.</description>
-    
+
+
     <!-- ===================================================== -->
     <!-- dep properties                                        -->
     <!-- ===================================================== -->
     <!-- note: adjust for your xquery processor -->
     <xmlproperty file="properties.xml"/>
-       
+
     <property name="logonerror" value="false"/>
-    
+
     <!-- ===================================================== -->
     <!-- unit test unit comp                                   -->
     <!-- ===================================================== -->
     <target name="test-comp" description="test comp unit tests">
-        
+
         <xquery-saxon dest="result/comp.xml"
                       query="test/xquery/comp.xq"
                       input="file:test/data/test.xml"/>
-        
+
         <xslt-saxon dest="result/result-comp-test.html"
                     style="etc/test.xsl"
                     xml="result/comp.xml"/>
-        
+
     </target>
-    
+
     <!-- ===================================================== -->
     <!-- unit test ext                                         -->
     <!-- ===================================================== -->
     <target name="test-ext" description="test ext unit tests">
-        
+
         <xquery-saxon dest="result/ext.xml"
                       query="test/xquery/ext.xq"
                       input="file:test/data/test.xml"/>
-        
+
         <xslt-saxon dest="result/result-ext-test.html"
                     style="etc/test.xsl"
                     xml="result/ext.xml"/>
-        
+
     </target>
-    
+
     <!-- ===================================================== -->
     <!-- unit test unit test suite ;)                          -->
     <!-- ===================================================== -->
     <target name="test-test" description="test baseline unit tests">
-        
+
         <xquery-saxon dest="result/baseline.xml"
                       query="test/xquery/baseline.xq"
                       input="file:test/data/test.xml"/>
-        
+
         <xslt-saxon dest="result/result-baseline-test.html"
                     style="etc/test.xsl"
                     xml="result/baseline.xml"/>
-        
+
     </target>
-    
+
     <!-- ===================================================== -->
     <!-- unit test xproc.xq standard steps                     -->
     <!-- ===================================================== -->
     <target name="test-std" description="run std xquery unit tests">
-        
+
         <xquery-saxon dest="result/std.xml"
                       query="test/xquery/std.xq"
                       input="file:test/data/test.xml"/>
-        
+
         <xslt-saxon dest="result/result-std-test.html"
                     style="etc/test.xsl"
                     xml="result/std.xml"/>
-        
+
     </target>
-    
-    
+
+
     <!-- ===================================================== -->
     <!-- unit test xproc.xq optional steps                     -->
     <!-- ===================================================== -->
     <target name="test-opt" description="run optional xquery unit tests">
-        
+
         <xquery-saxon dest="result/opt.xml"
                       query="test/xquery/opt.xq"
                       input="file:test/data/test.xml"/>
-        
+
         <xslt-saxon dest="result/result-opt-test.html"
                     style="etc/test.xsl"
                     xml="result/opt.xml"/>
-        
+
     </target>
-    
-    
+
+
     <!-- ===================================================== -->
     <!-- unit test xproc.xq engine                             -->
     <!-- ===================================================== -->
     <target name="test-core" description="run core xquery unit tests">
-        
+
         <xquery-saxon dest="result/core.xml"
                       query="test/xquery/core.xq"
                       input="file:test/data/test.xml"/>
-        
+
         <xslt-saxon dest="result/result-core-test.html"
                     style="etc/test.xsl"
                     xml="result/core.xml"/>
-        
+
     </target>
-    
-    
+
+
     <!-- ===================================================== -->
     <!-- unit test preparse engine                             -->
     <!-- ===================================================== -->
     <target name="test-preparse" description="run preparse xquery unit tests">
-        
+
         <xquery-saxon dest="result/preparse.xml"
                       query="test/xquery/preparse.xq"
                       input="file:test/data/test.xml"/>
-        
+
         <xslt-saxon dest="result/result-preparse-test.html"
                     style="etc/test.xsl"
                     xml="result/preparse.xml"/>
-        
+
     </target>
-    
-    
+
+
     <!-- ===================================================== -->
     <!-- run all xquery unit tests                             -->
     <!-- ===================================================== -->
-    <target name="test-all-xquery" depends="clean,test-test,test-core,test-preparse,test-std,test-opt,test-comp,test-ext"  
+    <target name="test-all-xquery" depends="clean,test-test,test-core,test-preparse,test-std,test-opt,test-comp,test-ext"
             description="run all xquery tests">
-        
+
     </target>
-    
-    
-    
+
+
+
     <!-- ===================================================== -->
     <!-- xproc.xq sorting xproc unit tests                     -->
     <!-- ===================================================== -->
     <target name="xproc-ordering-test" depends="clean"  description="run xproc.xq on basic ordering xproc">
-        
+
         <xproc-saxon dest="result/xproc_order_result_1.xml"
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
@@ -153,81 +154,86 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
     <!-- xproc.xq compare xproc unit tests                     -->
     <!-- ===================================================== -->
     <target name="xproc-compare-test" depends="clean"  description="run xproc.xq on basic compare xproc">
-        
+
         <xproc-saxon dest="result/xproc_compare_result_1.xml"
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
                      xproc="file:test/xproc/basic/compare/compare1.xml"/>
-        
+
     </target>
 
-    
+
     <!-- ===================================================== -->
     <!-- xproc.xq doc xproc unit tests                         -->
     <!-- ===================================================== -->
     <target name="xproc-documentation-test" depends="clean"  description="run xproc.xq on basic documentation xproc">
-        
+
         <xproc-saxon dest="result/xproc_order_result_1.xml"
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
                      xproc="file:test/xproc/basic/documentation/documentation.xml"/>
-        
+
     </target>
 
-        
+
     <!-- ===================================================== -->
     <!-- xproc.xq perf xproc unit tests                     -->
     <!-- ===================================================== -->
     <target name="xproc-perf-test" depends="clean"  description="run xproc.xq for basic performance testing">
-        
+
         <xproc-saxon dest="result/xproc_order_result_1.xml"
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
                      xproc="file:test/xproc/basic/performance/perf.xml"/>
-        
+
     </target>
-    
-    
+
+
     <!-- ===================================================== -->
     <!-- xproc.xq Hello World xproc unit tests                 -->
     <!-- ===================================================== -->
-    <target name="xproc-helloworld-test" depends="clean"  
+    <target name="xproc-helloworld-test" depends="clean"
             description="run xproc on basic helloworld.xml xproc">
-        
+
         <xproc-saxon dest="result/xproc_result_1.xml"
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
                      xproc="file:test/xproc/basic/helloworld_1.xml"/>
-        
+
         <xproc-saxon dest="result/xproc_result_1_1.xml"
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
                      xproc="file:test/xproc/basic/helloworld_1_1.xml"/>
-        
-        <xproc-saxon dest="result/xproc_result_2.xml"
-                     query="src/xquery/xproc.xq"
-                     input="file:test/data/test.xml"
-                     xproc="file:test/xproc/basic/helloworld_1_1_1.xml"/>
-        
-         <xproc-saxon dest="result/xproc_result_3.xml"
-                     query="src/xquery/xproc.xq"
-                     input="file:test/data/test.xml"
-                     xproc="file:test/xproc/basic/helloworld_1_1_1.xml"/>
-                     
+
          <xproc-saxon dest="result/xproc_result_1_2.xml"
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
                      xproc="file:test/xproc/basic/helloworld_1_2.xml"/>
 
+        <xproc-saxon dest="result/xproc_result_1_3.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/helloworld_1_3.xml"/>
+
+        <xproc-saxon dest="result/xproc_result_2.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/helloworld_2.xml"/>
+
+         <xproc-saxon dest="result/xproc_result_3.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/helloworld_3.xml"/>
+
     </target>
-    
-    
+
+
     <!-- ===================================================== -->
     <!-- compile saxon xquery extension                        -->
     <!-- ===================================================== -->
     <!-- TODO: update to compile this at some point            -->
     <target name="saxon-compile" description="compile xquery java extension">
-        
+
         <!-- compile in netbeans for now
 
     <javac destdir="lib" includes="src/java/*.java" source="1.5" srcdir="src/java">
@@ -235,70 +241,70 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
     </javac>
 
     //-->
-        
-    </target>    
-    
-    
+
+    </target>
+
+
     <!-- ===================================================== -->
     <!-- clean                                                 -->
-    <!-- ===================================================== -->    
+    <!-- ===================================================== -->
     <target name="clean">
         <delete dir="result"/>
         <mkdir dir="result"/>
     </target>
-    
+
 
     <!-- ===================================================== -->
     <!-- generate svn changelog                                -->
-    <!-- ===================================================== -->    
+    <!-- ===================================================== -->
     <target name="svn.changelog">
 
         <!-- svn log -xml -verbose | xsltproc etc/svn2cl-0.9/svn2cl.xsl - > ChangeLog  //-->
-        
+
     </target>
 
-    
-    
+
+
     <!-- ===================================================== -->
     <!-- MACRODEFS                                             -->
-    <!-- ===================================================== -->    
+    <!-- ===================================================== -->
 
     <macrodef name="xslt-saxon">
         <attribute name="dest"/>
         <attribute name="style"/>
         <attribute name="xml"/>
-        
+
         <sequential>
             <java classname="net.sf.saxon.Transform"
                   fork="true"
                   failonerror="false"
                   maxmemory="256m"
                   output="@{dest}/">
-                
+
                 <arg line="@{xml} @{style} "/>
                 <classpath>
                     <pathelement location="${p.dir.lib.saxon}"/>
                     <fileset dir="${p.dir.lib.saxon}">
                         <include name="saxon8.jar"/>
                     </fileset>
-                </classpath>          
+                </classpath>
             </java>
         </sequential>
     </macrodef>
-    
+
 
     <macrodef name="xquery-saxon">
         <attribute name="dest"/>
         <attribute name="input"/>
         <attribute name="query"/>
-        
+
         <sequential>
             <java classname="net.sf.saxon.Query"
                   fork="true"
                   failonerror="false"
                   maxmemory="256m"
                   output="@{dest}/">
-                
+
                 <arg line="-sa -s @{input} @{query}"/>
                 <classpath>
                     <pathelement location="${p.dir.lib.saxon-ext}"/>
@@ -310,21 +316,21 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
             </java>
         </sequential>
     </macrodef>
-    
-    
+
+
     <macrodef name="xproc-saxon">
         <attribute name="dest"/>
         <attribute name="input"/>
         <attribute name="query"/>
         <attribute name="xproc"/>
-        
+
         <sequential>
             <java classname="net.sf.saxon.Query"
                   fork="true"
                   failonerror="false"
                   maxmemory="256m"
                   output="@{dest}/">
-                
+
                 <arg line="-sa -s @{input} @{query} +xproc=@{xproc} +stdin=@{input}"/>
                 <classpath>
                     <pathelement location="${p.dir.lib.saxon-ext}"/>
@@ -332,9 +338,9 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                     <fileset dir="${p.dir.lib.saxon}">
                         <include name="saxon8sa.jar"/>
                     </fileset>
-                </classpath>                        
+                </classpath>
             </java>
         </sequential>
     </macrodef>
-    
+
 </project>

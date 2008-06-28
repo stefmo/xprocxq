@@ -351,6 +351,15 @@ let $explicitnames :=
                     )                   
                 }
 
+        (: preparse xproc p:documentation component   :)
+        (: TODO: this is temporary structure :)
+             else if (xproc:comp-available($stepname) and $stepname='p:documentation') then
+                element {$stepname} { 
+                     attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
+                     (
+                       xproc:explicitnames(<util:ignore>{$step/*}</util:ignore>,fn:concat($unique_current,':'))
+                    )                   
+                }
             else
             (:TODO: need to implement static error here:)
                 <err:error message="general static error thrown during explicit naming: {name($step)} is an unknown element"/>

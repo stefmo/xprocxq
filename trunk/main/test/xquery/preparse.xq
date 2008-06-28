@@ -26,7 +26,7 @@ import module namespace opt = "http://xproc.net/xproc/opt"
 <testsuite title="preparse XQuery Unit Tests" desc="Test the parsing and ordering of pipeline steps with XProc.xq">
 
 <test>
-    <name>group sample</name>
+    <name>preparse p:group</name>
     <result>
 {
 
@@ -55,8 +55,9 @@ let $pipeline :=
 <expected></expected>
 </test>
 
+
 <test>
-    <name>choose sample</name>
+    <name>preparse p:choose</name>
     <result>
 {
 
@@ -92,7 +93,7 @@ let $pipeline :=
 </test>
 
 <test>
-    <name>simple preparse and parse example</name>
+    <name>basic preparse example</name>
     <result>
 {
 
@@ -116,7 +117,7 @@ let $pipeline :=
 
 
 <test>
-    <name>pipeline sort 1: fix natural ordering</name>
+    <name>util:pipeline-step-sort 1</name>
     <result>
 {
 
@@ -129,18 +130,19 @@ let $pipeline :=
   <p:output port="std-output"/>
 </util:step>
 
-    <p:identity name="step2">
-       <p:input port="step2-input">
-              <p:pipe step="step1" port="step1-output"/>
-       </p:input>
-       <p:output port="step2-output"/>
-    </p:identity>
 
     <p:count name="step3">
         <p:input port="step3-input">
               <p:pipe step="step2" port="step2-output"/>
        </p:input>
     </p:count>
+
+    <p:identity name="step2">
+       <p:input port="step2-input">
+              <p:pipe step="step1" port="step1-output"/>
+       </p:input>
+       <p:output port="step2-output"/>
+    </p:identity>
 
     <p:count name="step1">
         <p:input port="step1-input">
@@ -183,7 +185,7 @@ return $sortsteps
 
 
 <test>
-    <name>pipeline sort 2: strange input and output ports </name>
+    <name>util:pipeline-step-sort 2</name>
     <result>
 {
 
@@ -221,7 +223,7 @@ return $sortsteps
 </test>
 
 <test>
-    <name>pipeline parse test: test parsing</name>
+    <name>preparse + parse 1</name>
     <result>
 {
 
