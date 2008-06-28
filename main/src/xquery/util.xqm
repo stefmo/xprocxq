@@ -15,6 +15,7 @@ declare namespace system="java:java.lang.System";
 declare namespace math="http://exslt.org/math";
 declare namespace xproc="http://xproc.net/xproc";
 
+declare namespace comp = "http://xproc.net/xproc/comp";
 (: -------------------------------------------------------------------------- :)
 declare function util:help() as xs:string {
     "help util executed"

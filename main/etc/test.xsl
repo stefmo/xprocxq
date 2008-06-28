@@ -61,8 +61,8 @@ failed: <xsl:value-of select="$failed"/> /  success: <xsl:value-of select="$succ
         </xsl:otherwise> 
         </xsl:choose>
         </td>
-        <td><xsl:value-of select="result"/></td>
-        <td><xsl:value-of select="expected"/></td>
+        <td> <textarea name="content" rows="6" cols="60"><xsl:copy-of select="result/node()"/></textarea></td>
+        <td> <textarea name="content" rows="6" cols="60"><xsl:copy-of select="expected/node()"/></textarea></td>
     </tr>
 </xsl:template>
 </xsl:stylesheet>
