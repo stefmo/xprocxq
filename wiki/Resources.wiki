@@ -2,14 +2,12 @@
 
 [http://www.w3.org/TR/2002/NOTE-xml-pipeline-20020228/ XML Pipeline Definition Language Version 1.0: W3C Note 28 February 2002]: Read the note submitted by Sun Microsystems, Alis Technologies, Arbortext, Cisco Systems, Fujitsu, Markup Technology, and Oracle.
 
-[http://www.w3.org/TR/2004/NOTE-proc-model-req-20040405/NOTE-proc-model-req-20040405.xml XML
-Processing Model Requirements: W3C Working Group Note 05 April 2004]: Peruse the W3C WG Note from 05 April 2004.
+[http://www.w3.org/TR/2004/NOTE-proc-model-req-20040405/NOTE-proc-model-req-20040405.xml XML Processing Model Requirements: W3C Working Group Note 05 April 2004]: Peruse the W3C WG Note from 05 April 2004.
 
 [http://www.w3.org/Submission/2005/SUBM-xpl-20050411/ XML Pipeline Language (XPL)
 Version 1.0 (Draft)]: Review the W3C Member Submission submitted by Orbeon on 11 March 2005 and published on 11 April 2005.
 
-[http://www.w3.org/XML/XProc/docs/langspec.html XProc: An XML Pipeline Language]:
-  Explore this W3C XProc Editors Draft (the W3C working draft dated 01 May 2008).
+[http://www.w3.org/XML/XProc/docs/langspec.html XProc: An XML Pipeline Language]: Explore this W3C XProc Editors Draft (the W3C working draft dated 01 May 2008).
 
 [http://www.w3.org/XML/XProc/docs/langspec.html#namespace-fixup-guidance XProc:
 Section E. Guidance on Namespace Fixup]: Review the non-normative list of suggestions for implementors to follow to reduce the need to fix up namespaces.
