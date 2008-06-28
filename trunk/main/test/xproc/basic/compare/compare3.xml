@@ -1,13 +1,15 @@
  <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:util = "http://xproc.net/xproc/util">
-                
-  <p:input port="std-input" primary="true"/>
-  <p:output port="result" primary="true"/>
+
+<util:step name="pipeline">
+    <p:input port="source" primary="true"/>
+    <p:output port="result" primary="true"/>
+</util:step>
 
     <p:wrap name="wrapstep">
-        <p:option name="wrapper" value="mytestwrapperelement"/>   
-        <p:option name="match" value="/"/> 
+        <p:with-option name="wrapper" value="mytestwrapperelement"/>   
+        <p:with-option name="match" value="/"/> 
     </p:wrap>
     
    <p:compare>
