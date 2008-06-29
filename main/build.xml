@@ -292,7 +292,7 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                 <classpath>
                     <pathelement location="${p.dir.lib.saxon}"/>
                     <fileset dir="${p.dir.lib.saxon}">
-                        <include name="saxon8.jar"/>
+                        <include name="*.jar"/>
                     </fileset>
                 </classpath>
             </java>
@@ -317,7 +317,7 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                     <pathelement location="${p.dir.lib.saxon-ext}"/>
                     <pathelement location="${p.dir.lib.saxon}"/>
                     <fileset dir="${p.dir.lib.saxon}">
-                        <include name="saxon8sa.jar"/>
+                        <include name="*.jar"/>
                     </fileset>
                 </classpath>
             </java>
@@ -343,7 +343,7 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                     <pathelement location="${p.dir.lib.saxon-ext}"/>
                     <pathelement location="${p.dir.lib.saxon}"/>
                     <fileset dir="${p.dir.lib.saxon}">
-                        <include name="saxon8sa.jar"/>
+                        <include name="*.jar"/>
                     </fileset>
                 </classpath>
             </java>

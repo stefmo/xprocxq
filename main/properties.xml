@@ -3,12 +3,12 @@
 <p>
 <dir>
     <lib>
-        <saxon>lib/saxon</saxon>
+        <saxon>lib/saxon8</saxon>
         <saxon-ext>lib</saxon-ext>
     </lib>
 </dir>
 <jar>
-    <saxon>lib/saxon/saxon8.jar</saxon>
+    <saxon>lib/saxon/saxon8sa.jar</saxon>
 </jar>
 </p>
 
