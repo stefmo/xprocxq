@@ -1,0 +1,8 @@
+<t:test-suite xmlns:t='http://xproc.org/ns/testsuite'>
+<t:title>All tests</t:title>
+    <t:test href='testsuite/required/*.xml'/> 
+    <t:test href='testsuite/optional/*.xml'/>
+    <t:test href='testsuite/extension/*.xml'/>
+    <t:test href='basic/helloworld/*.xml'/>    
+    <t:test href='contributed/mohamedZ/*.xml'/>    
+</t:test-suite>

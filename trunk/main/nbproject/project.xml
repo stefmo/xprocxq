@@ -73,12 +73,11 @@
             <compilation-unit>
                 <package-root>test</package-root>
                 <unit-tests/>
-                <classpath mode="compile">lib/saxon:lib/saxon/saxon8-ant.jar:lib/saxon/saxon8-dom.jar:lib/saxon/saxon8-dom4j.jar:lib/saxon/saxon8-jdom.jar:lib/saxon/saxon8-sql.jar:lib/saxon/saxon8-xom.jar:lib/saxon/saxon8-xpath.jar:lib/saxon/saxon8-xqj.jar:lib/saxon/saxon8.jar:lib/saxon/saxon8sa-jaxp.jar:lib/saxon/saxon8sa-qc.jar:lib/saxon/saxon8sa.jar:trash/xproc-0.0.3/lib/xproc.jar</classpath>
                 <source-level>1.5</source-level>
             </compilation-unit>
             <compilation-unit>
                 <package-root>src</package-root>
-                <classpath mode="compile">lib/net:lib/saxon:lib/saxon/saxon8-ant.jar:lib/saxon/saxon8-dom.jar:lib/saxon/saxon8-dom4j.jar:lib/saxon/saxon8-jdom.jar:lib/saxon/saxon8-sql.jar:lib/saxon/saxon8-xom.jar:lib/saxon/saxon8-xpath.jar:lib/saxon/saxon8-xqj.jar:lib/saxon/saxon8.jar:lib/saxon/saxon8sa-jaxp.jar:lib/saxon/saxon8sa-qc.jar:lib/saxon/saxon8sa.jar</classpath>
+                <classpath mode="compile">lib/net:lib/saxon8/saxon8-ant.jar:lib/saxon8/saxon8-dom.jar:lib/saxon8/saxon8-dom4j.jar:lib/saxon8/saxon8-jdom.jar:lib/saxon8/saxon8-sql.jar:lib/saxon8/saxon8-xom.jar:lib/saxon8/saxon8-xpath.jar:lib/saxon8/saxon8-xqj.jar:lib/saxon8/saxon8.jar:lib/saxon8/saxon8sa-jaxp.jar:lib/saxon8/saxon8sa-qc.jar:lib/saxon8/saxon8sa.jar</classpath>
                 <source-level>1.5</source-level>
             </compilation-unit>
         </java-data>
