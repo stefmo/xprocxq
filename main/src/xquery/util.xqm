@@ -16,6 +16,10 @@ declare namespace math="http://exslt.org/math";
 declare namespace xproc="http://xproc.net/xproc";
 
 declare namespace comp = "http://xproc.net/xproc/comp";
+
+(: set to 1 to enable debugging :)
+declare variable $util:NDEBUG:=1;
+
 (: -------------------------------------------------------------------------- :)
 declare function util:help() as xs:string {
     "help util executed"
@@ -26,6 +30,23 @@ declare function util:timing() as xs:integer  {
     xs:integer(system:currentTimeMillis())
 };
 
+(: -------------------------------------------------------------------------- :)
+declare function util:assert($booleanexp as item(), $why as xs:string)  {
+if(fn:not($booleanexp) and fn:boolean($util:NDEBUG)) then 
+    util:dynamicError('err:XC0020',$why)
+else
+    ()
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function util:dynamicError($error,$string) {
+    fn:error(QName('http://www.w3.org/ns/xproc-error',$error), $string)
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function util:outputResultElement($exp){
+    $exp
+};
 
 (: -------------------------------------------------------------------------- :)
 declare function util:random() as  xs:double  {

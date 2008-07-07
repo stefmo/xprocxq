@@ -2,17 +2,15 @@
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:util = "http://xproc.net/xproc/util">
 
-
 <util:step name="pipeline">
     <p:input port="source" primary="true"/>
     <p:output port="result" primary="true"/>
 </util:step>
 
-   <p:compare name="step1">
-        <p:input port="alternate">
+   <p:identity name="step1">
+        <p:input port="source">
               <p:document href="file:test/data/test2.xml"/>
         </p:input>
-        <p:with-option name="fail-if-not-equal" select="'true'"/> 
-   </p:compare>
+   </p:identity>
 
 </p:pipeline>

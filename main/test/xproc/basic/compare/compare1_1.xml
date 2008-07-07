@@ -1,7 +1,7 @@
  <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:util = "http://xproc.net/xproc/util">
-
+                
 
 <util:step name="pipeline">
     <p:input port="source" primary="true"/>
@@ -9,10 +9,9 @@
 </util:step>
 
    <p:compare name="step1">
-        <p:input port="alternate">
-              <p:document href="file:test/data/test2.xml"/>
-        </p:input>
-        <p:with-option name="fail-if-not-equal" select="'true'"/> 
+        <p:input port="source" primary="true"/>
+        <p:input port="alternate"/>
+        <p:output port="result"/>
    </p:compare>
 
 </p:pipeline>

@@ -29,8 +29,8 @@
     </p:declare-step>
     
     <p:declare-step type="p:delete">
-        <p:input port="source"/>
-        <p:output port="result"/>
+        <p:input port="source" primary="true"/>
+        <p:output port="result" primary="true"/>
         <p:option name="match" required="true"/>                      <!-- XSLTMatchPattern -->
     </p:declare-step>
     
@@ -42,7 +42,7 @@
     </p:declare-step>
     
     <p:declare-step type="p:error">
-        <p:input port="source"/>
+        <p:input port="source" primary="true"/>
         <p:option name="code" required="true"/>                       <!-- QName -->
     </p:declare-step>
     
@@ -194,8 +194,8 @@
     </p:declare-step>
     
     <p:declare-step type="p:unescape-markup">
-        <p:input port="source"/>
-        <p:output port="result"/>
+        <p:input port="source" primary="true"/>
+        <p:output port="result" primary="true"/>
         <p:option name="namespace"/>                                  <!-- anyURI -->
         <p:option name="content-type" value="application/xml"/>       <!-- string -->
         <p:option name="encoding"/>                                   <!-- string -->
@@ -203,29 +203,29 @@
     </p:declare-step>
     
     <p:declare-step type="p:string-replace">
-        <p:input port="source"/>
-        <p:output port="result"/>
+        <p:input port="source" primary="true"/>
+        <p:output port="result" primary="true"/>
         <p:option name="match" required="true"/>                      <!-- XSLTMatchPattern -->
         <p:option name="replace" required="true"/>                    <!-- XPathExpression -->
     </p:declare-step>
     
     <p:declare-step type="p:unwrap">
-        <p:input port="source"/>
-        <p:output port="result"/>
+        <p:input port="source" primary="true"/>
+        <p:output port="result" primary="true"/>
         <p:option name="match" required="true"/>                      <!-- XSLTMatchPattern -->
     </p:declare-step>
     
     <p:declare-step type="p:wrap">
-        <p:input port="source"/>
-        <p:output port="result"/>
+        <p:input port="source" primary="true"/>
+        <p:output port="result" primary="true"/>
         <p:option name="wrapper" required="true"/>                    <!-- QName -->
         <p:option name="match" required="true"/>                      <!-- XSLTMatchPattern -->
         <p:option name="group-adjacent"/>                             <!-- XPathExpression -->
     </p:declare-step>
-    
+
     <p:declare-step type="p:wrap-sequence">
-        <p:input port="source" sequence="true"/>
-        <p:output port="result" sequence="true"/>
+        <p:input port="source" primary="true" sequence="true"/>
+        <p:output port="result" primary="true" sequence="true"/>
         <p:option name="wrapper" required="true"/>                    <!-- QName -->
         <p:option name="group-adjacent"/>                             <!-- XPathExpression -->
     </p:declare-step>

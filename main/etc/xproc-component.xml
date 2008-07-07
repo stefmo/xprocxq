@@ -13,5 +13,5 @@
     <xproc:top-level-element type="p:serialization"/>
     <xproc:top-level-element type="p:declare-step"/>
     <xproc:top-level-element type="p:import"/>
-    <xproc:top-level-element type="p:documentation"/>
+    <xproc:top-level-element type="p:library"/>
 </xproc:library>

@@ -8,7 +8,7 @@
     <p:output port="result" primary="true"/>
 </util:step>
 
-   <p:compare name="step1">
+   <p:compare name="step1" fail-if-not-equal="true">
         <p:input port="alternate">
               <p:document href="file:test/data/test.xml"/>
         </p:input>
