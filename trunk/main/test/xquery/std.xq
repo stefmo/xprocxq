@@ -54,6 +54,8 @@ declare namespace c="http://www.w3.org/ns/xproc-step";
     <expected>true</expected>
 </test>
 
+
+
 <test>
     <name>run failed p:count test</name>
     <result>
@@ -62,11 +64,10 @@ declare namespace c="http://www.w3.org/ns/xproc-step";
     <expected>false</expected>
 </test>
 
-<!--
 <test>
     <name>run failed p:wrap test</name>
     <result>
-    {test:assertXMLEqual(std:wrap((<test/>)),(<a><test/></a>))}
+    {test:assertXMLEqual(std:wrap((<test/>,<input/>,<output/>,<options/>)),(<a><test/></a>))}
     </result>
     <expected>false</expected>
 </test>
@@ -80,7 +81,6 @@ declare namespace c="http://www.w3.org/ns/xproc-step";
     <expected>false</expected>
 </test>
 
-//-->
 
 <!--
 <test>

@@ -1,0 +1,12 @@
+ <p:pipeline name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc"
+            xmlns:util = "http://xproc.net/xproc/util">
+
+    <p:wrap name="step1">
+        <p:input port="source" primary="true"/>
+        <p:with-option name="wrapper" select="bbbb"/>   
+        <p:with-option name="match" select="/test/node()"/> 
+        <p:output port="result" primary="true"/>
+    </p:wrap>
+
+</p:pipeline>

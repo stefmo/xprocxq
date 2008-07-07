@@ -8,11 +8,10 @@
     </util:step>
 
     <p:wrap name="step1">
-        <p:input port="source">
-             <p:pipe step="pipeline" port="source"/>
-        </p:input>
-        <p:with-option name="wrapper" select="aaaaaaaaaaaaa"/>   
-        <p:with-option name="match" select="aaaaaaaaaaa"/> 
+        <p:input port="source" primary="true"/>
+        <p:with-option name="wrapper" select="c"/>   
+        <p:with-option name="match" select="//a"/> 
+        <p:output port="result" primary="true"/>
     </p:wrap>
 
 </p:pipeline>

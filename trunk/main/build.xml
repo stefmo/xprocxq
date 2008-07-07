@@ -151,7 +151,7 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
     </target>
 
     <!-- ===================================================== -->
-    <!-- xproc.xq compare xproc unit tests                     -->
+    <!-- xproc.xq compare xproc tests                          -->
     <!-- ===================================================== -->
     <target name="xproc-compare-test" depends="clean"  description="run xproc.xq on basic compare xproc">
 
@@ -159,6 +159,14 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
                      xproc="file:test/xproc/basic/compare/compare1.xml"/>
+        <xproc-saxon dest="result/xproc_compare_result_1_1.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/compare/compare1_1.xml"/>
+        <xproc-saxon dest="result/xproc_compare_result_1_2.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/compare/compare1_2.xml"/>
         <xproc-saxon dest="result/xproc_compare_result_2.xml"
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
@@ -167,6 +175,71 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
                      xproc="file:test/xproc/basic/compare/compare2_1.xml"/>                     
+        <xproc-saxon dest="result/xproc_compare_result_2_2.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/compare/compare2_2.xml"/> 
+                     
+    </target>
+
+
+    <!-- ===================================================== -->
+    <!-- xproc.xq wrap xproc tests                          -->
+    <!-- ===================================================== -->
+    <target name="xproc-wrap-test" depends="clean"  description="run xproc.xq on basic wrap xproc">
+
+        <xproc-saxon dest="result/xproc_wrap_result_1.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/wrap/wrap1.xml"/> 
+
+        <xproc-saxon dest="result/xproc_wrap_result_1_1.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/wrap/wrap1_1.xml"/> 
+
+        <xproc-saxon dest="result/xproc_wrap_result_1_2.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test_1.xml"
+                     xproc="file:test/xproc/basic/wrap/wrap1_2.xml"/>
+
+
+        <xproc-saxon dest="result/xproc_wrap_result_1_3.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/wrap/wrap1_3.xml"/>
+    </target>
+
+
+
+    <!-- ===================================================== -->
+    <!-- xproc.xq unwrap xproc tests                          -->
+    <!-- ===================================================== -->
+    <target name="xproc-unwrap-test" depends="clean"  description="run xproc.xq on basic unwrap xproc">
+
+        <xproc-saxon dest="result/xproc_unwrap_result_1.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/unwrap/unwrap1.xml"/> 
+
+        <xproc-saxon dest="result/xproc_unwrap_result_1_1.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/unwrap/unwrap1_1.xml"/> 
+
+    </target>
+    
+    
+    <!-- ===================================================== -->
+    <!-- xproc.xq doc xproc tests                              -->
+    <!-- ===================================================== -->
+    <target name="xproc-identity-test" depends="clean"  description="run xproc.xq on identity xproc">
+
+        <xproc-saxon dest="result/xproc_identity_2.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/identity/identity2.xml"/>
+
     </target>
 
 
@@ -183,6 +256,18 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
     </target>
 
 
+
+    <!-- ===================================================== -->
+    <!-- xproc.xq error xproc unit tests                     -->
+    <!-- ===================================================== -->
+    <target name="xproc-error-test" depends="clean"  description="run xproc.xq for basic error testing">
+
+        <xproc-saxon dest="result/xproc_error_result_1.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/error/error1.xml"/>
+
+    </target>
     <!-- ===================================================== -->
     <!-- xproc.xq perf xproc unit tests                     -->
     <!-- ===================================================== -->

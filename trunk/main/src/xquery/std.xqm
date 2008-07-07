@@ -6,6 +6,8 @@ module namespace std = "http://xproc.net/xproc/std";
 declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
+declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
+declare namespace xproc = "http://xproc.net/xproc";
 
 (: Module Imports :)
 import module namespace util = "http://xproc.net/xproc/util"
@@ -14,9 +16,11 @@ import module namespace util = "http://xproc.net/xproc/util"
 (: Module Vars :)
 declare variable $std:steps := doc("../../etc/pipeline-standard.xml")/p:library;
 
+(: TODO: generate these declarations :)
 declare variable $std:identity :=saxon:function("std:identity", 1);
 declare variable $std:count :=saxon:function("std:count", 1);
 declare variable $std:wrap :=saxon:function("std:wrap", 1);
+declare variable $std:wrap-sequence :=saxon:function("std:wrap-sequence", 1);
 declare variable $std:unwrap :=saxon:function("std:unwrap", 1);
 declare variable $std:compare :=saxon:function("std:compare",1);
 declare variable $std:delete :=saxon:function("std:delete",1);
@@ -34,31 +38,69 @@ declare function std:count($seq) as item() {
 
 (: -------------------------------------------------------------------------- :)
 declare function std:compare($seq) as item() {
-        <c:result>{fn:deep-equal($seq[1],$seq[2]/p:input[@port='alternate']/*)}</c:result>
+
+(: this should be caught as a static error someday ... will do it in refactoring :)
+util:assert(fn:exists($seq[2]/p:input[@port='alternate']/*),'p:compare alternate port not defined'),
+
+let $result := fn:deep-equal($seq[1],$seq[2]/p:input[@port='alternate']/*)
+let $option := fn:boolean($seq[4]/p:option[@name='fail-if-not-equal']/@select)
+    return
+        if($option eq fn:true()) then
+            if ( $result eq fn:true())then
+                (<c:result xproc:diag='p:compare'>{$result}</c:result>)
+            else
+                (util:dynamicError('err:XC0020','p:compare fail-if-not-equal option is enabled and documents were not equal'))
+        else
+            (util:outputResultElement($result))
+        
+};
+
+
+(: -------------------------------------------------------------------------- :)
+declare function std:wrap-sequence($seq){
+    $seq[1]
 };
 
 (: -------------------------------------------------------------------------- :)
 declare function std:wrap($seq) as item() {
+(: TODO - The match option must only match element, text, processing instruction, and comment nodes. It is a dynamic error (err:XC0041) if the match pattern matches any other kind of node. :)
+(: this should be caught as a static error someday ... will do it in refactoring :)
+util:assert(fn:exists($seq[4]/p:option[@name='match']/@select),'p:option match is required'),
 
-let $v :=document{$seq[1]}
+(: this should be caught as a static error someday ... will do it in refactoring :)
+util:assert(fn:exists($seq[4]/p:option[@name='wrapper']/@select),'p:option wrapper is required'),
+
+    let $v :=document{$seq[1]}
     return
-    element {$seq[4]/p:option[@name='wrapper']/@value} {
-         util:evalXPATH(fn:string($seq[4]/p:option[@name='match']/@value),$v)
-    }
+       document 
+       {
+        element {fn:string($seq[4]/p:option[@name='wrapper']/@select)} {
+            util:evalXPATH($seq[4]/p:option[@name='match']/@select,$v)
+        }
+       } 
 };
 
 (: -------------------------------------------------------------------------- :)
 declare function std:unwrap($seq) as item() {
+
+(: this should be caught as a static error someday ... will do it in refactoring :)
+util:assert(fn:exists($seq[4]/p:option[@name='match']/@select),'p:option match is required'),
+
+(: TODO - The value of the match option must be an XSLTMatchPattern. It is a dynamic error (err:XC0023) if that pattern matches anything other than element nodes. :)
 let $v :=document{$seq[1]}
     return
-         util:evalXPATH(fn:string($seq[4]/p:option[@name='match']/@value),$v)
+         util:evalXPATH($seq[4]/p:option[@name='match']/@select,$v)
 };
+
 
 (: -------------------------------------------------------------------------- :)
 declare function std:delete($seq) as item() {
 
+(: this should be caught as a static error someday ... will do it in refactoring :)
+util:assert(fn:exists($seq[4]/p:option[@port='match']/@select),'p:option match is required'),
+
 let $v :=document{$seq[1]}
-let $delete := util:evalXPATH(fn:string($seq[4]/p:option[@name='match']/@value),$v)
+let $delete := util:evalXPATH(fn:string($seq[4]/p:option[@name='match']/@select),$v)
 return
    $v/* except $delete
 };

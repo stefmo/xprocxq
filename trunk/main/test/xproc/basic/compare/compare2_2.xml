@@ -9,10 +9,11 @@
 </util:step>
 
    <p:compare name="step1">
+
+   <!-- alternate file does not exist, so this should throw a dynamic error //-->
         <p:input port="alternate">
-              <p:document href="file:test/data/test2.xml"/>
+              <p:document href="file:test/data/test_does_not_exist.xml"/>
         </p:input>
-        <p:with-option name="fail-if-not-equal" select="'true'"/> 
    </p:compare>
 
 </p:pipeline>

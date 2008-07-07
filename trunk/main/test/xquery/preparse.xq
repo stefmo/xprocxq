@@ -55,6 +55,38 @@ let $pipeline :=
 <expected></expected>
 </test>
 
+<test>
+    <name>preparse p:wrap</name>
+    <result>
+{
+
+let $pipeline :=
+ <p:pipeline name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc"
+            xmlns:util = "http://xproc.net/xproc/util">
+
+    <util:step name="pipeline">
+        <p:input port="source" primary="true"/>
+        <p:output port="result" primary="true"/>
+    </util:step>
+
+    <p:identity/>
+
+    <p:wrap name="step1">
+        <p:input port="source" primary="true"/>
+        <p:with-option name="wrapper" select="aaaaaaaaaaaaa"/>   
+        <p:with-option name="match" select="aaaaaaaaaaa"/> 
+        <p:output port="result" primary="true"/>
+    </p:wrap>
+
+</p:pipeline>
+    return xproc:build(xproc:parse(xproc:preparse($pipeline)))
+
+}
+</result>
+<expected></expected>
+</test>
+
 
 <test>
     <name>preparse p:choose</name>
@@ -106,9 +138,14 @@ let $pipeline :=
 
     <p:count/>
     <p:identity/>
+    <p:compare name="step1">
+        <p:input port="alternate">
+              <p:document href="file:test/data/test2.xml"/>
+        </p:input>
+   </p:compare>
 
  </p:pipeline>
-    return xproc:preparse($pipeline)
+    return xproc:build(xproc:parse(xproc:preparse($pipeline)))
 }
 
 </result>

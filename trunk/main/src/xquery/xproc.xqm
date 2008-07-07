@@ -10,7 +10,6 @@ declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
 
 declare copy-namespaces no-preserve, inherit;
 
-
 (: Module Imports :)
 import module namespace const = "http://xproc.net/xproc/const"
                         at "../xquery/const.xqm";
@@ -24,6 +23,10 @@ import module namespace ext = "http://xproc.net/xproc/ext"
                         at "../xquery/ext.xqm";
 import module namespace comp = "http://xproc.net/xproc/comp"
                         at "../xquery/comp.xqm";
+
+
+(: TODO - I need a lot of new algorithms in this module ... .working on it :)
+
 
 (: -------------------------------------------------------------------------- :)
 declare function xproc:main() as xs:string {
@@ -39,6 +42,7 @@ declare function xproc:comp-available($stepname as xs:string) as xs:boolean {
         exists($component)
 };
 
+
 (: -------------------------------------------------------------------------- :)
 declare function xproc:step-available($stepname as xs:string) as xs:boolean {
 
@@ -48,7 +52,7 @@ declare function xproc:step-available($stepname as xs:string) as xs:boolean {
     return
         exists($stdstep) or exists($optstep) or exists($extstep)
 };
-(: -------------------------------------------------------------------------- :)
+
 
 (: -------------------------------------------------------------------------- :)
 declare function xproc:type($stepname as xs:string) as xs:string {
@@ -73,7 +77,6 @@ declare function xproc:type($stepname as xs:string) as xs:string {
             'comp'
 };
 (: -------------------------------------------------------------------------- :)
-
 
 
 
@@ -132,7 +135,7 @@ let $explicitbindings :=
                     for $option in $step/p:option
                         return
                           element {name($option)}{
-                               attribute name{$option/@name},attribute select{$option/@select},attribute value{$option/@value}
+                               attribute name{$option/@name},attribute select{$option/@select}
                           }
                  )
             }
@@ -207,7 +210,8 @@ let $explicitnames :=
                         for $option in $stdstep/p:option 
                             return
                               element {name($option)}{
-                                   attribute name{$option/@name},attribute select{$step/p:option[@name=$option/@name]/@select},attribute value{$step/p:option[@name=$option/@name]/@value}
+                                   attribute name{$option/@name},
+                                   attribute select{$step/p:with-option[@name=$option/@name]/@select}
                               }
 
                      )                   
@@ -392,7 +396,13 @@ return
 
 
 (: Parse pipeline XML, generating xquery code, throwing some static errors if neccesary :)
+(: TODO: dummy function for xquery unit tests :)
 declare function xproc:parse($xproc as item()) {
+    xproc:parse($xproc,fn:doc('file:test/data/test.xml'))
+};
+
+(: Parse pipeline XML, generating xquery code, throwing some static errors if neccesary :)
+declare function xproc:parse($xproc as item(),$stdin) {
 
    (fn:string('import module namespace xproc = "http://xproc.net/xproc"
                         at "src/xquery/xproc.xqm";
@@ -404,7 +414,8 @@ import module namespace ext = "http://xproc.net/xproc/ext"
                         at "src/xquery/ext.xqm";
 import module namespace opt = "http://xproc.net/xproc/opt"
                         at "src/xquery/opt.xqm";
-let $O0 := <test/>'),
+
+let $O0 := '),util:serialize($stdin,<xsl:output method="xml" omit-xml-declaration="yes" indent="no"/>),
 fn:string('
 let $pipeline :='),util:serialize($xproc,<xsl:output method="xml" omit-xml-declaration="yes" indent="no"/>),
     fn:string('
@@ -428,18 +439,17 @@ return
 
 (: -------------------------------------------------------------------------- :)
 (: Build Run Tree :)
-(: TODO: this needs to be refactored. :)
+(: NOTE: this function is more of a latent abstraction to use if needed, instead it justs :)
+(: deals with concating strings of xquery code. :)
 declare function xproc:build($parsetree) {
-
     fn:string-join($parsetree,'')
-
 };
 
 
 (: -------------------------------------------------------------------------- :)
 (: Eval Run Tree :)
 (: this function may throw some dynamic errors :)
-declare function xproc:eval($runtree,$stdin){
+declare function xproc:eval($runtree){
         util:xquery($runtree) 
 };
 
@@ -478,10 +488,13 @@ $',$pipeline/*[@xproc:defaultname=$step]/@xproc:type,':',$stepfunction))
             else
                 util:call( util:xquery($stepfunc),
                            (
+                           (: generate primary input source :)
                            if($pipeline/*[@xproc:defaultname=$step]/p:input[@select=''][@primary='true']) then
                                 $primaryinput[1]
                            else
                                util:evalXPATH(fn:string($pipeline/*[@xproc:defaultname=$step]/p:input[@primary='true'][@select]/@select),document{$primaryinput[1]}),
+
+                           (: generate all non primary inputs :)                           
                            <inputs>{
                                 for $input in $pipeline/*[@xproc:defaultname=$step]/p:input[not(@primary='true')]
                                     return 
@@ -491,18 +504,24 @@ $',$pipeline/*[@xproc:defaultname=$step]/@xproc:type,':',$stepfunction))
                                              if (fn:doc-available($input/p:document/@href)) then
                                                 fn:doc($input/p:document/@href)
                                              else
-                                                <err:error message="cannot access document {$input/p:document/@href}"/>
+                                                util:dynamicError('err:XD0002',fn:concat($step," p:input ",$input/@port," cannot access document ",$input/p:document/@href))
                                             }
                                         else if($input/p:inline) then
                                             $input/p:inline/node()
                                         else
-                                            <test/>
-                                        
-                                            
+                                            <test desc="generated automatically"/>                                            
                            }</inputs>, 
-                           <outputs/>, 
+
+                           (: placeholder for now :)
+                           <outputs>{
+                                  $pipeline/*[@xproc:defaultname=$step]/p:output
+                           }
+                           </outputs> 
+                            ,
+
+                           (: generate options :)
                            <options>{
-                                $pipeline/*[@xproc:defaultname=$step]/p:option
+                                  $pipeline/*[@xproc:defaultname=$step]/p:option
                            }</options>
                             )
                 )
