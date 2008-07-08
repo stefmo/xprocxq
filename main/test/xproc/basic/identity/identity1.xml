@@ -7,14 +7,6 @@
     <p:output port="result" primary="true"/>
 </util:step>
 
-    <p:count name="step2">
-       <p:input port="test1-output"/>
-       <p:output port="std-output"/>
-    </p:count>
-    
-    <p:identity name="step1">
-        <p:input port="std-input"/>
-        <p:output port="test1-output"/>
-    </p:identity>
+   <p:identity name="step1"/>
 
- </p:pipeline>
+</p:pipeline>

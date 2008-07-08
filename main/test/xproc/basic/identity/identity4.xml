@@ -1,0 +1,11 @@
+ <p:pipeline name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc"
+            xmlns:util = "http://xproc.net/xproc/util">
+                
+  <p:identity>
+    <p:input port="source">
+      <p:empty/>
+    </p:input>
+  </p:identity>
+  
+</p:pipeline>

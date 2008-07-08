@@ -3,15 +3,12 @@
             xmlns:util = "http://xproc.net/xproc/util">
 
 <util:step name="pipeline">
-    <p:input port="source" primary="true"/>
+    <p:input port="source" primary="true">
+        <p:empty/>
+    </p:input>    
     <p:output port="result" primary="true"/>
 </util:step>
-
-
-    <p:identity name="step1">
-       <p:input port="step1-input">
-              <p:pipe step="pipeline" port="std-input"/>
-       </p:input>
-    </p:identity>
-
- </p:pipeline>
+                
+  <p:identity/>
+  
+</p:pipeline>
