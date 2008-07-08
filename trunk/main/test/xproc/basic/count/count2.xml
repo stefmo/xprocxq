@@ -2,6 +2,13 @@
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:util = "http://xproc.net/xproc/util">
 
+<util:step>    
+    <p:input port="src">
+        <p:document href = "file://../../data/test.xml" />
+    </p:input>  
+    <p:output port="result"/>
+</util:step>
+
     <p:count name="step1"/>
     
 </p:pipeline>

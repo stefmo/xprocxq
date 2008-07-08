@@ -20,6 +20,7 @@ declare namespace comp = "http://xproc.net/xproc/comp";
 (: set to 1 to enable debugging :)
 declare variable $util:NDEBUG:=1;
 
+
 (: -------------------------------------------------------------------------- :)
 declare function util:help() as xs:string {
     "help util executed"
@@ -45,7 +46,7 @@ declare function util:dynamicError($error,$string) {
 
 (: -------------------------------------------------------------------------- :)
 declare function util:outputResultElement($exp){
-    $exp
+    <c:result>{$exp}</c:result>
 };
 
 (: -------------------------------------------------------------------------- :)
