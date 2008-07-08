@@ -64,14 +64,14 @@ declare namespace c="http://www.w3.org/ns/xproc-step";
     <expected>false</expected>
 </test>
 
+<!--
 <test>
     <name>run failed p:wrap test</name>
     <result>
-    {test:assertXMLEqual(std:wrap((<test/>,<input/>,<output/>,<options/>)),(<a><test/></a>))}
+    {test:assertXMLEqual(std:wrap((<test/>)),(<a><test/></a>))}
     </result>
     <expected>false</expected>
 </test>
-
 
 <test>
     <name>run failed p:wrap test due to incorrect xpath</name>
@@ -81,6 +81,7 @@ declare namespace c="http://www.w3.org/ns/xproc-step";
     <expected>false</expected>
 </test>
 
+//-->
 
 <!--
 <test>

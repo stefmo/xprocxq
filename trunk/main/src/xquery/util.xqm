@@ -40,6 +40,14 @@ else
 };
 
 (: -------------------------------------------------------------------------- :)
+declare function util:assert($booleanexp as item(), $why as xs:string,$error)  {
+if(fn:not($booleanexp) and fn:boolean($util:NDEBUG)) then 
+    util:dynamicError($error,$why)
+else
+    ()
+};
+
+(: -------------------------------------------------------------------------- :)
 declare function util:dynamicError($error,$string) {
     fn:error(QName('http://www.w3.org/ns/xproc-error',$error), $string)
 };

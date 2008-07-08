@@ -182,6 +182,17 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                      xproc="file:test/xproc/basic/count/count3.xml"/>                     
     </target>
     
+    <!-- ===================================================== -->
+    <!-- xproc.xq delete xproc tests                          -->
+    <!-- ===================================================== -->
+    <target name="xproc-delete-test" depends="clean"  description="run xproc.xq on basic delete xproc">
+
+        <xproc-saxon dest="result/xproc_delete_result_1.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/delete/delete1.xml"/>
+              
+    </target>
     
     <!-- ===================================================== -->
     <!-- xproc.xq compare xproc tests                          -->
@@ -216,6 +227,18 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
     </target>
 
 
+    <!-- ===================================================== -->
+    <!-- xproc.xq filter xproc tests                           -->
+    <!-- ===================================================== -->
+    <target name="xproc-filter-test" depends="clean"  description="run xproc.xq on basic filter xproc">
+
+        <xproc-saxon dest="result/xproc_filter_result_1.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/filter/filter1.xml"/>
+    </target>
+    
+    
     <!-- ===================================================== -->
     <!-- xproc.xq wrap xproc tests                          -->
     <!-- ===================================================== -->
