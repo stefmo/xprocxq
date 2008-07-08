@@ -19,12 +19,13 @@ declare variable $std:steps := doc("../../etc/pipeline-standard.xml")/p:library;
 (: TODO: generate these declarations :)
 declare variable $std:identity :=saxon:function("std:identity", 1);
 declare variable $std:count :=saxon:function("std:count", 1);
-declare variable $std:wrap :=saxon:function("std:wrap", 1);
-declare variable $std:wrap-sequence :=saxon:function("std:wrap-sequence", 1);
-declare variable $std:unwrap :=saxon:function("std:unwrap", 1);
 declare variable $std:compare :=saxon:function("std:compare",1);
 declare variable $std:delete :=saxon:function("std:delete",1);
 declare variable $std:error :=saxon:function("std:error",1);
+declare variable $std:filter :=saxon:function("std:filter",1);
+declare variable $std:wrap :=saxon:function("std:wrap", 1);
+declare variable $std:wrap-sequence :=saxon:function("std:wrap-sequence", 1);
+declare variable $std:unwrap :=saxon:function("std:unwrap", 1);
 
 (: -------------------------------------------------------------------------- :)
 declare function std:identity($seq) as item() {
@@ -57,9 +58,48 @@ let $option := fn:boolean($seq[4]/p:option[@name='fail-if-not-equal']/@select)
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:wrap-sequence($seq){
-    $seq[1]
+declare function std:delete($seq) as item() {
+
+(: this should be caught as a static error someday ... will do it in refactoring :)
+util:assert(fn:exists($seq[4]/p:option[@name='match']/@select),'p:option match is required'),
+
+let $v :=document{$seq[1]}
+    return (
+      $v 
+    )
 };
+
+
+(: -------------------------------------------------------------------------- :)
+declare function std:error($seq) as item() {
+(:TODO: this should be generated to the error port:)
+
+<c:errors xmlns:c="http://www.w3.org/ns/xproc-step"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xmlns:my="http://www.example.org/error">
+<!-- WARNING: this output should be generated to std error and/or error port //-->
+<c:error href="" column="" offset="" 
+         name="step-name" type="p:error" 
+         code="{$seq[4]/p:option[@name='code']/@value}">
+    <message>{$seq[1]}</message>
+</c:error>
+</c:errors>
+
+};
+
+
+(: -------------------------------------------------------------------------- :)
+declare function std:filter($seq) as item() {
+
+(: this should be caught as a static error someday ... will do it in refactoring :)
+util:assert(fn:exists($seq[4]/p:option[@name='match']/@select),'p:option match is required'),
+
+let $v :=document{$seq[1]}
+    return 
+      util:evalXPATH(fn:string($seq[4]/p:option[@name='match']/@select),$v)
+  
+};
+
 
 (: -------------------------------------------------------------------------- :)
 declare function std:wrap($seq) as item() {
@@ -80,6 +120,7 @@ util:assert(fn:exists($seq[4]/p:option[@name='wrapper']/@select),'p:option wrapp
        } 
 };
 
+
 (: -------------------------------------------------------------------------- :)
 declare function std:unwrap($seq) as item() {
 
@@ -94,32 +135,10 @@ let $v :=document{$seq[1]}
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:delete($seq) as item() {
-
-(: this should be caught as a static error someday ... will do it in refactoring :)
-util:assert(fn:exists($seq[4]/p:option[@port='match']/@select),'p:option match is required'),
-
-let $v :=document{$seq[1]}
-let $delete := util:evalXPATH(fn:string($seq[4]/p:option[@name='match']/@select),$v)
-return
-   $v/* except $delete
+declare function std:wrap-sequence($seq){
+    $seq[1]
 };
 
-(: -------------------------------------------------------------------------- :)
-declare function std:error($seq) as item() {
-(:TODO: this should be generated to the error port:)
 
-<c:errors xmlns:c="http://www.w3.org/ns/xproc-step"
-          xmlns:p="http://www.w3.org/ns/xproc"
-          xmlns:my="http://www.example.org/error">
-<!-- WARNING: this output should be generated to std error and/or error port //-->
-<c:error href="" column="" offset="" 
-         name="step-name" type="p:error" 
-         code="{$seq[4]/p:option[@name='code']/@value}">
-    <message>{$seq[1]}</message>
-</c:error>
-</c:errors>
-
-};
 
 (: -------------------------------------------------------------------------- :)
