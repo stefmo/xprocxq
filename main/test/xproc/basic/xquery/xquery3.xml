@@ -1,0 +1,25 @@
+ <p:pipeline name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc"
+            xmlns:util = "http://xproc.net/xproc/util">
+
+<util:step name="pipeline">
+    <p:input port="source" primary="true"/>
+    <p:input port="qry">
+         <p:inline>
+             <c:query xmlns:c="http://www.w3.org/ns/xproc-step">let $a := 3 return $a</c:query>
+         </p:inline>
+    </p:input>
+    <p:output port="result" primary="true"/>
+</util:step>
+
+<p:xquery>
+     <p:input port="source" primary="true"/>
+
+<!-- TODO: piping of non primary ports //-->
+     <p:input port="query">
+         <p:pipe step="pipeline" port="qry"/>
+     </p:input>
+     <p:output port="result" sequence="true"/>
+</p:xquery>
+
+</p:pipeline>

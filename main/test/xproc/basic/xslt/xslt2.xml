@@ -1,0 +1,27 @@
+ <p:pipeline name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc"
+            xmlns:util = "http://xproc.net/xproc/util">
+
+<util:step name="pipeline">
+    <p:input port="source" primary="true"/>
+    <p:output port="result" primary="true"/>
+</util:step>
+
+<p:xslt>
+     <p:input port="source" primary="true"/>
+     <p:input port="stylesheet">
+              <p:inline>
+                  <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                       version="1.0">
+    <xsl:template match="/">
+        <inlinesuccess>
+            <xsl:copy-of select="."/>            
+        </inlinesuccess>
+    </xsl:template>
+  </xsl:stylesheet>
+              </p:inline>    
+     </p:input>
+     <p:output port="result" primary="true"/>
+</p:xslt>
+
+</p:pipeline>

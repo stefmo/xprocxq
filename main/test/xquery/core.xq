@@ -157,6 +157,23 @@ import module namespace opt = "http://xproc.net/xproc/opt"
 </test>
 
 
+<test>
+    <name>simple util:xslt test</name>
+    <result>
+    {util:xslt(<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                       version="2.0">
+    <xsl:template match="customer">
+        <xsl:value-of select="."/>
+    </xsl:template>
+  </xsl:stylesheet>,
+     <customers>
+        <customer>test<b/></customer>
+    </customers>
+  
+)}
+    </result>
+    <expected>1</expected>
+</test>
 
 
 <test>

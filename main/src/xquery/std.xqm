@@ -26,22 +26,26 @@ declare variable $std:filter :=saxon:function("std:filter",1);
 declare variable $std:wrap :=saxon:function("std:wrap", 1);
 declare variable $std:wrap-sequence :=saxon:function("std:wrap-sequence", 1);
 declare variable $std:unwrap :=saxon:function("std:unwrap", 1);
+declare variable $std:xslt :=saxon:function("std:xslt", 1);
+
 
 (: -------------------------------------------------------------------------- :)
 declare function std:identity($seq) as item() {
     $seq[1]
 };
 
+
 (: -------------------------------------------------------------------------- :)
 declare function std:count($seq) as item() {
    util:outputResultElement(fn:count($seq[1]/node()))
 };
 
+
 (: -------------------------------------------------------------------------- :)
 declare function std:compare($seq) as item() {
 
-(: this should be caught as a static error someday ... will do it in refactoring :)
-util:assert(fn:exists($seq[2]/p:input[@port='alternate']/*),'p:compare alternate port does not exist'),
+(: this should be caught as a static error someday ... will do it in refactoring  :)
+util:assert(fn:exists($seq[2]/p:input[@port='alternate']),'p:compare alternate port does not exist'),
 
 let $result := fn:deep-equal($seq[1],$seq[2]/p:input[@port='alternate']/*)
 let $option := fn:boolean($seq[4]/p:option[@name='fail-if-not-equal']/@select)
@@ -92,12 +96,16 @@ declare function std:error($seq) as item() {
 declare function std:filter($seq) as item() {
 
 (: this should be caught as a static error someday ... will do it in refactoring :)
-util:assert(fn:exists($seq[4]/p:option[@name='match']/@select),'p:option match is required'),
+util:assert(fn:exists($seq[4]/p:option[@name='select']/@select),'p:option match is required'),
 
 let $v :=document{$seq[1]}
+let $xpath := util:evalXPATH(fn:string($seq[4]/p:option[@name='select']/@select),$v)
+let $result := util:evalXPATH(fn:string($xpath),$v)
     return 
-      util:evalXPATH(fn:string($seq[4]/p:option[@name='match']/@select),$v)
-  
+    if(fn:exists($result)) then
+        $result
+    else 
+        $xpath
 };
 
 
@@ -139,6 +147,11 @@ declare function std:wrap-sequence($seq){
     $seq[1]
 };
 
+
+(: -------------------------------------------------------------------------- :)
+declare function std:xslt($seq){
+    util:xslt($seq[2]/p:input[@port='stylesheet']/*,$seq[1])
+};
 
 
 (: -------------------------------------------------------------------------- :)

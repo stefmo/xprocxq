@@ -7,9 +7,9 @@
     <p:output port="result" primary="true"/>
 </util:step>
 
-   <p:filter name="step1">
+   <p:filter>
         <p:input port="source" primary="true"/>
-        <p:with-option name="select" select="/test/a"/> 
+        <p:with-option name="select" select="fn:concat('//','a')"/> 
         <p:output port="result" primary="true"/>
    </p:filter>
 

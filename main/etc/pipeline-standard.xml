@@ -63,7 +63,13 @@
         <p:option name="undeclare-prefixes"/>                         <!-- boolean -->
         <p:option name="version" value="1.0"/>                        <!-- string -->
     </p:declare-step>
-    
+
+    <p:declare-step type="p:filter">
+        <p:input port="source" primary="true"/>
+        <p:output port="result" primary="true"/>
+        <p:option name="select" required="true"/>                      <!-- XSLTMatchPattern -->
+    </p:declare-step>
+
     <p:declare-step type="p:http-request">
         <p:input port="source"/>
         <p:output port="result"/>
@@ -237,16 +243,16 @@
         <p:option name="fixup-xml-lang" value="false"/>               <!-- boolean -->
     </p:declare-step>
     
-    <p:declare-step type="p:xslt">
+    <p:declare-step type="p:xslt" xml:id="xslt">
         <p:input port="source" sequence="true" primary="true"/>
         <p:input port="stylesheet"/>
-        <p:input port="parameters" kind="parameter" sequence="true"/>
+        <p:input port="parameters" kind="parameter"/>
         <p:output port="result" primary="true"/>
         <p:output port="secondary" sequence="true"/>
-        <p:option name="initial-mode"/>                               <!-- QName -->
-        <p:option name="template-name"/>                              <!-- QName -->
-        <p:option name="output-base-uri"/>                            <!-- anyURI -->
-        <p:option name="version"/>                                    <!-- string -->
+        <p:option name="initial-mode"/>
+        <p:option name="template-name"/>
+        <p:option name="output-base-uri"/>
+        <p:option name="version"/>
     </p:declare-step>
     
 </p:library>

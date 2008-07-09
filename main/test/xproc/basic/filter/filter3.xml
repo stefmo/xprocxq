@@ -7,9 +7,11 @@
     <p:output port="result" primary="true"/>
 </util:step>
 
-   <p:filter name="step1">
-        <p:input port="source" primary="true"/>
-        <p:with-option name="select" select="/test/a"/> 
+   <p:filter>
+        <p:input port="source" primary="true">
+              <p:document href="file:test/data/filter.xml"/>
+        </p:input>  
+        <p:with-option name="select" select="fn:concat('//',//a)"/> 
         <p:output port="result" primary="true"/>
    </p:filter>
 
