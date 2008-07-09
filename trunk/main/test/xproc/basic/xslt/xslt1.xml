@@ -7,10 +7,12 @@
     <p:output port="result" primary="true"/>
 </util:step>
 
-   <p:filter name="step1">
-        <p:input port="source" primary="true"/>
-        <p:with-option name="select" select="/test/a"/> 
-        <p:output port="result" primary="true"/>
-   </p:filter>
+<p:xslt>
+     <p:input port="source" primary="true"/>
+     <p:input port="stylesheet">
+              <p:document href="file:test/data/stylesheet.xml"/>         
+     </p:input>
+     <p:output port="result" primary="true"/>
+</p:xslt>
 
 </p:pipeline>

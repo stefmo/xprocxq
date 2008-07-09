@@ -109,6 +109,12 @@ declare function util:xquery($exp as xs:string) as item()*{
 };
 
 (: -------------------------------------------------------------------------- :)
+declare function util:xslt($xslt,$xml) as item()*{
+let $cxslt := saxon:compile-stylesheet(document{$xslt})
+    return saxon:transform($cxslt, document{$xml})
+};
+
+(: -------------------------------------------------------------------------- :)
 declare function util:serialize($xproc,$output){
      saxon:serialize($xproc,$output)
 };

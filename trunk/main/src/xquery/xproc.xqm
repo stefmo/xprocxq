@@ -79,7 +79,6 @@ declare function xproc:type($stepname as xs:string) as xs:string {
 (: -------------------------------------------------------------------------- :)
 
 
-
 (: -------------------------------------------------------------------------- :)
 (: make all input/output pipe bindings to steps explicit :)
 declare function xproc:explicitbindings($xproc as item()){
@@ -100,8 +99,8 @@ let $explicitbindings :=
 
             element {$stepname} {
                  attribute name{$step/@name},attribute xproc:defaultname{$step/@xproc:defaultname},
-                 attribute xproc:type{xproc:type($stepname)
-                                           },
+                 attribute xproc:type{xproc:type($stepname)                                           
+            },
                  (
                     (: generate bindings for input:)
                     for $input in $step/p:*[name(.)='p:input']
@@ -119,7 +118,7 @@ let $explicitbindings :=
 
                            (: other inputs :)
                            else if ($input/p:pipe and fn:not($input/@primary='true')) then
-                                $input/*    
+                                $input/*
 
                            (: p:document & p:inline & p:empty :)
                            else
@@ -482,47 +481,57 @@ import module namespace ext = "http://xproc.net/xproc/ext"
 $',$pipeline/*[@xproc:defaultname=$step]/@xproc:type,':',$stepfunction))
 
     return (
-        (:TODO:temporary hack to get around blank steps, which are caused by input/outputs and top level elements for now :)
+
+      (:TODO:temporary hack to get around blank steps, which are caused by input/outputs and top level elements for now :)
             if($stepfunction='') then
                 $primaryinput
             else
                 util:call( util:xquery($stepfunc),
-                           (
-                           (: generate primary input source :)
+ 
+                          (
+
+      (: generate primary input source :)
                            if($pipeline/*[@xproc:defaultname=$step]/p:input[@select=''][@primary='true']) then
                                 $primaryinput[1]
                            else
                                util:evalXPATH(fn:string($pipeline/*[@xproc:defaultname=$step]/p:input[@primary='true'][@select]/@select),document{$primaryinput[1]}),
 
-                           (: generate all non primary inputs :)                           
-                           <inputs>{
+
+      (: generate all non primary inputs :)                           
+                           <xproc:inputs>{
                                 for $input in $pipeline/*[@xproc:defaultname=$step]/p:input[not(@primary='true')]
                                     return 
                                         if ($input/p:document) then
                                             element {name($input)}{
                                              attribute port{$input/@port},attribute primary{$input/@primary},attribute select{$input/@select},
                                              if (fn:doc-available($input/p:document/@href)) then
-                                                fn:doc($input/p:document/@href)
+                                                    fn:doc($input/p:document/@href)
                                              else
                                                 util:dynamicError('err:XD0002',fn:concat($step," p:input ",$input/@port," cannot access document ",$input/p:document/@href))
                                             }
                                         else if($input/p:inline) then
+                                           element {name($input)}{
+                                            attribute port{$input/@port},
+                                            attribute primary{$input/@primary},
+                                            attribute select{$input/@select},
                                             $input/p:inline/node()
+                                            }
                                         else
-                                            <test desc="generated automatically"/>                                            
-                           }</inputs>, 
+                                            <xproc:warning desc="xproc.xqm: generated automatically"/>                                            
+                           }</xproc:inputs>, 
 
-                           (: placeholder for now :)
-                           <outputs>{
+       (: outputs :)
+                           <xproc:outputs>{
                                   $pipeline/*[@xproc:defaultname=$step]/p:output
                            }
-                           </outputs> 
-                            ,
+                           </xproc:outputs> 
+                            ,          
+ 
 
-                           (: generate options :)
-                           <options>{
+      (: generate options :)
+                           <xproc:options>{
                                   $pipeline/*[@xproc:defaultname=$step]/p:option
-                           }</options>
+                           }</xproc:options>
                             )
                 )
     )

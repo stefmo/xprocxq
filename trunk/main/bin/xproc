@@ -4,7 +4,11 @@ should execute src/xquery/xproc.xq on on a supplied xproc file
 
 for saxon the invokation maybe something like
 
-java -jar saxon8.jar src/xquery/xproc/xq somexproc.xpp 
+java -jar saxon8.jar src/xquery/xproc.xq somexproc.xml
  
 
+ideas
+--------------------
 
+* switch for enabling output of 
+* include namespace definition for c: namespace on root element
