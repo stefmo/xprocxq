@@ -16,11 +16,7 @@ import module namespace util = "http://xproc.net/xproc/util"
 (: Module Vars :)
 declare variable $std:steps := doc("../../etc/pipeline-standard.xml")/p:library;
 
-(: TODO: generate these declarations :)
-
-
-
-
+(: TODO - generate these declarations at some point :)
 declare variable $std:add-attribute :=saxon:function("std:add-attribute", 1);
 declare variable $std:add-xml-base :=saxon:function("std:add-xml-base", 1);
 declare variable $std:count :=saxon:function("std:count", 1);
@@ -166,17 +162,9 @@ let $option := fn:boolean($seq[4]/p:option[@name='fail-if-not-equal']/@select)
         
 };
 
-
 (: -------------------------------------------------------------------------- :)
-declare function std:delete($seq) as item() {
-
-(: this should be caught as a static error someday ... will do it in refactoring :)
-util:assert(fn:exists($seq[4]/p:option[@name='match']/@select),'p:option match is required'),
-
-let $v :=document{$seq[1]}
-    return (
-      $v 
-    )
+declare function std:delete($seq) as item(){
+    $seq[1]
 };
 
 

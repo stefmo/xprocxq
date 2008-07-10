@@ -10,13 +10,7 @@ import module namespace ext = "http://xproc.net/xproc/ext"
 
 <testsuite title="XProc Extension Step XQuery Unit Tests" desc="Test the XProc.xq extension step XQuery functions">
 
-<test>
-    <name>run ext entrypoint</name>
-    <result>
-    {ext:main()}
-    </result>
-    <expected>ext entry point executed</expected>
-</test>
+
 
 <test>
     <name>run successful ext:pre step test</name>

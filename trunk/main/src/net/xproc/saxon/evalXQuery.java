@@ -26,7 +26,7 @@ public class evalXQuery {
 
  */
 
-
+ 
 /**
      * Compile a string containing a source query
      * @param context the XPath dynamic evaluation context

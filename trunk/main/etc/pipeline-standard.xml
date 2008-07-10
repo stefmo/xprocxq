@@ -1,6 +1,5 @@
 <p:library xmlns:p ="http://www.w3.org/ns/xproc" 
                     name="xproc-standard-library">
-
    <p:declare-step type="p:add-attribute" xml:id="add-attribute">
       <p:input port="source" primary="true"/>
       <p:output port="result" primary="true"/>
@@ -8,6 +7,7 @@
       <p:option name="attribute-name" required="true"/>
       <p:option name="attribute-value" required="true"/>
    </p:declare-step>
+   
    <p:declare-step type="p:add-xml-base" xml:id="add-xml-base">
       <p:input port="source" primary="true"/>
       <p:output port="result" primary="true"/>
