@@ -14,8 +14,8 @@ declare namespace func="java:net.xproc.saxon.evalXQuery";
 declare namespace system="java:java.lang.System";
 declare namespace math="http://exslt.org/math";
 declare namespace xproc="http://xproc.net/xproc";
-
 declare namespace comp = "http://xproc.net/xproc/comp";
+declare namespace nvdl="java:com.thaiopensource.relaxng.util.Driver";
 
 (: set to 1 to enable debugging :)
 declare variable $util:NDEBUG:=1;
@@ -112,6 +112,14 @@ declare function util:xquery($exp as xs:string) as item()*{
 declare function util:xslt($xslt,$xml) as item()*{
 let $cxslt := saxon:compile-stylesheet(document{$xslt})
     return saxon:transform($cxslt, document{$xml})
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function util:validate($exp) as xs:string {
+$exp
+(:
+    nvdl:main("file:test/data/w3schema.xml file:test/data/schema-example.xml")
+:)
 };
 
 (: -------------------------------------------------------------------------- :)

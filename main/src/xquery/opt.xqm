@@ -13,8 +13,16 @@ import module namespace util = "http://xproc.net/xproc/util"
 
 (: Module Vars :)
 declare variable $opt:steps := doc("../../etc/pipeline-optional.xml")/p:library;
-declare variable $opt:xquery :=saxon:function("opt:xquery", 1);
 declare variable $opt:exec :=saxon:function("opt:exec", 1);
+declare variable $opt:hash :=saxon:function("opt:hash", 1);
+declare variable $opt:uuid :=saxon:function("opt:uuid", 1);
+declare variable $opt:www-form-urldecode :=saxon:function("opt:www-form-urldecode", 1);
+declare variable $opt:www-form-urlencode :=saxon:function("opt:www-form-urlencode", 1);
+declare variable $opt:validate-with-xml-schema :=saxon:function("opt:validate-with-xml-schema",1);
+declare variable $opt:validate-with-schematron :=saxon:function("opt:validate-with-schematron",1);
+declare variable $opt:validate-with-relax-ng :=saxon:function("opt:validate-with-relax-ng",1);
+declare variable $opt:xquery :=saxon:function("opt:xquery", 1);
+declare variable $opt:xsl-formatter :=saxon:function("opt:xsl-formatter", 1);
 
 (: -------------------------------------------------------------------------- :)
 
@@ -39,5 +47,45 @@ declare function opt:exec($seq) {
  $seq[1]
 };
 
+(: -------------------------------------------------------------------------- :)
+declare function opt:hash($seq) {
+ $seq[1]
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function opt:uuid($seq) {
+ $seq[1]
+};
+
+
+(: -------------------------------------------------------------------------- :)
+declare function opt:www-form-urldecode($seq) {
+ $seq[1]
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function opt:www-form-urlencode($seq) {
+ $seq[1]
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function opt:validate-with-xml-schema($seq) {
+    util:validate("test")
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function opt:validate-with-schematron($seq) {
+    util:validate("test")
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function opt:validate-with-relax-ng($seq) {
+    util:validate("test")
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function opt:xsl-formatter($seq) {
+ $seq[1]
+};
 
 (: -------------------------------------------------------------------------- :)
