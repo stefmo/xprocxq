@@ -247,6 +247,19 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
 
     </target>
     
+
+    
+    <!-- ===================================================== -->
+    <!-- xproc.xq schema xproc tests                          -->
+    <!-- ===================================================== -->
+    <target name="xproc-schema-test" depends="clean"  description="run xproc.xq on basic schema xproc">
+
+        <xproc-saxon dest="result/xproc_schema_result_1.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/schema-example.xml"
+                     xproc="file:test/xproc/basic/schema/schema1.xml"/>      
+    </target>
+    
     
     <!-- ===================================================== -->
     <!-- xproc.xq wrap xproc tests                          -->
@@ -387,6 +400,20 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                      xproc="file:test/xproc/basic/error/error1.xml"/>
 
     </target>
+    
+
+    <!-- ===================================================== -->
+    <!-- xproc.xq exec xproc unit tests                     -->
+    <!-- ===================================================== -->
+    <target name="xproc-exec-test" depends="clean"  description="run xproc.xq for basic exec testing">
+
+        <xproc-saxon dest="result/xproc_exec_result_1.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/exec/exec1.xml"/>
+    </target>
+
+    
     <!-- ===================================================== -->
     <!-- xproc.xq perf xproc unit tests                     -->
     <!-- ===================================================== -->
@@ -399,6 +426,11 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
 
     </target>
 
+   <target name="xproc-all" 
+    depends="clean,xproc-compare-test,xproc-count-test,xproc-delete-test,xproc-documentation-test
+            ,xproc-error-test,xproc-exec-test,xproc-filter-test,xproc-identity-test,xproc-ordering-test,
+            xproc-schema-test,xproc-unwrap-test,xproc-wrap-test,xproc-xquery-test,xproc-xslt-test"  
+    description="run all xproc tests"/>
 
     <!-- ===================================================== -->
     <!-- xproc.xq Hello World xproc unit tests                 -->
@@ -548,7 +580,7 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                     <pathelement location="${p.dir.lib.saxon}"/>
                     <fileset dir="${p.dir.lib.saxon}">
                         <include name="*.jar"/>
-                    </fileset>
+                    </fileset>                
                 </classpath>
             </java>
         </sequential>

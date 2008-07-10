@@ -8,7 +8,8 @@ declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
 
-(: declare copy-namespaces no-preserve, inherit; :)
+(: TODO - need to check what std pragmas are needed for each xqm file :)
+declare copy-namespaces no-preserve, inherit; 
 
 (: Module Imports :)
 import module namespace const = "http://xproc.net/xproc/const"
@@ -26,7 +27,6 @@ import module namespace comp = "http://xproc.net/xproc/comp"
 
 
 (: TODO - I need a lot of new algorithms in this module ... .working on it :)
-
 
 (: -------------------------------------------------------------------------- :)
 declare function xproc:main() as xs:string {
@@ -383,13 +383,16 @@ let $explicitnames :=
 (: Preparse pipeline XML, sorting steps by input, throwing some static errors :)
 declare function xproc:preparse($xproc as item()){
 
-let $preparse := xproc:explicitbindings(xproc:explicitnames($xproc,''))
+let $preparse := xproc:explicitbindings(
+                            xproc:explicitnames($xproc,'')
+                        )
 return
     if (fn:not($preparse//err:error)) then     
         $preparse
     else
+        (: there is some static error thrown by previous explicitbindings and/or explicitnames:)
         (:TODO: throws a rudimentary xproc static error :)
-        fn:error( QName("http://www.w3.org/ns/xproc-error", "XprocStaticError"), concat('preparse result: ',util:serialize($preparse,<xsl:output method="xml" omit-xml-declaration="yes" indent="no"/>)))
+        util:staticError('GenericStaticError',concat('preparse result: ',util:serialize($preparse,<xsl:output method="xml" omit-xml-declaration="yes" indent="no"/>)))
 
 };
 
