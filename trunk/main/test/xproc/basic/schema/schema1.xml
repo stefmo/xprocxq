@@ -1,0 +1,18 @@
+ <p:pipeline name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc"
+            xmlns:util = "http://xproc.net/xproc/util">
+
+<util:step name="pipeline">
+    <p:input port="source" primary="true"/>
+    <p:output port="result" primary="true"/>
+</util:step>
+
+<p:validate-with-xml-schema>
+     <p:input port="source" primary="true"/>
+     <p:input port="schema">
+              <p:document href="file:test/data/w3schema.xml"/>         
+     </p:input>
+     <p:output port="result" primary="true"/>
+</p:validate-with-xml-schema>
+
+</p:pipeline>

@@ -25,5 +25,10 @@
     <p:declare-step type="util:test-step" name="test-step" xproc:arity="2">
         <p:input port="input" primary="true"/>
     </p:declare-step>
-    
+
+<!-- Test Runner //-->
+    <p:declare-step type="test:run" name="test-step" xproc:arity="2">
+        <p:input port="input" primary="true"/>
+    </p:declare-step>
+
 </p:library>

@@ -17,12 +17,36 @@ import module namespace util = "http://xproc.net/xproc/util"
 declare variable $std:steps := doc("../../etc/pipeline-standard.xml")/p:library;
 
 (: TODO: generate these declarations :)
-declare variable $std:identity :=saxon:function("std:identity", 1);
+
+
+
+
+declare variable $std:add-attribute :=saxon:function("std:add-attribute", 1);
+declare variable $std:add-xml-base :=saxon:function("std:add-xml-base", 1);
 declare variable $std:count :=saxon:function("std:count", 1);
 declare variable $std:compare :=saxon:function("std:compare",1);
 declare variable $std:delete :=saxon:function("std:delete",1);
 declare variable $std:error :=saxon:function("std:error",1);
 declare variable $std:filter :=saxon:function("std:filter",1);
+declare variable $std:directory-list :=saxon:function("std:directory-list", 1);
+declare variable $std:escape-markup :=saxon:function("std:escape-markup", 1);
+declare variable $std:http-request :=saxon:function("std:http-request", 1);
+declare variable $std:identity :=saxon:function("std:insert", 1);
+declare variable $std:label-elements :=saxon:function("std:label-elements", 1);
+declare variable $std:load :=saxon:function("std:load", 1);
+declare variable $std:make-absolute-uris :=saxon:function("std:make-absolute-uris", 1);
+declare variable $std:namespace-rename :=saxon:function("std:namespace-rename", 1);
+declare variable $std:pack :=saxon:function("std:pack", 1);
+declare variable $std:parameters :=saxon:function("std:parameters", 1);
+declare variable $std:rename :=saxon:function("std:rename", 1);
+declare variable $std:replace :=saxon:function("std:replace", 1);
+declare variable $std:set-attributes :=saxon:function("std:set-attributes", 1);
+declare variable $std:sink :=saxon:function("std:sink", 1);
+declare variable $std:split-sequence :=saxon:function("std:split-sequence", 1);
+declare variable $std:store :=saxon:function("std:store", 1);
+declare variable $std:string-replace :=saxon:function("std:string-replace", 1);
+declare variable $std:unescape-markup :=saxon:function("std:unescape-markup", 1);
+declare variable $std:xinclude :=saxon:function("std:xinclude", 1);
 declare variable $std:wrap :=saxon:function("std:wrap", 1);
 declare variable $std:wrap-sequence :=saxon:function("std:wrap-sequence", 1);
 declare variable $std:unwrap :=saxon:function("std:unwrap", 1);
@@ -30,10 +54,92 @@ declare variable $std:xslt :=saxon:function("std:xslt", 1);
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:identity($seq) as item() {
+declare function std:add-attribute($seq) as item() {
     $seq[1]
 };
 
+(: -------------------------------------------------------------------------- :)
+declare function std:add-xml-base($seq) as item() {
+    $seq[1]
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function std:directory-list($seq) as item() {
+    $seq[1]
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function std:escape-markup($seq) as item() {
+    $seq[1]
+};
+(: -------------------------------------------------------------------------- :)
+declare function std:http-request($seq) as item() {
+    $seq[1]
+};
+(: -------------------------------------------------------------------------- :)
+declare function std:insert($seq) as item() {
+    $seq[1]
+};
+(: -------------------------------------------------------------------------- :)
+declare function std:label-elements($seq) as item() {
+    $seq[1]
+};
+(: -------------------------------------------------------------------------- :)
+declare function std:load($seq) as item() {
+    $seq[1]
+};
+(: -------------------------------------------------------------------------- :)
+declare function std:make-absolute-uris($seq) as item() {
+    $seq[1]
+};
+(: -------------------------------------------------------------------------- :)
+declare function std:namespace-rename($seq) as item() {
+    $seq[1]
+};
+(: -------------------------------------------------------------------------- :)
+declare function std:pack($seq) as item() {
+    $seq[1]
+};
+(: -------------------------------------------------------------------------- :)
+declare function std:parameters($seq) as item() {
+    $seq[1]
+};
+(: -------------------------------------------------------------------------- :)
+declare function std:rename($seq) as item() {
+    $seq[1]
+};
+(: -------------------------------------------------------------------------- :)
+declare function std:replace($seq) as item() {
+    $seq[1]
+};
+(: -------------------------------------------------------------------------- :)
+declare function std:set-attributes($seq) as item() {
+    $seq[1]
+};
+(: -------------------------------------------------------------------------- :)
+declare function std:sink($seq) as item() {
+    $seq[1]
+};
+(: -------------------------------------------------------------------------- :)
+declare function std:split-sequence($seq) as item() {
+    $seq[1]
+};
+(: -------------------------------------------------------------------------- :)
+declare function std:store($seq) as item() {
+    $seq[1]
+};
+(: -------------------------------------------------------------------------- :)
+declare function std:string-replace($seq) as item() {
+    $seq[1]
+};
+(: -------------------------------------------------------------------------- :)
+declare function std:unescape-markup($seq) as item() {
+    $seq[1]
+};
+(: -------------------------------------------------------------------------- :)
+declare function std:xinclude($seq) as item() {
+    $seq[1]
+};
 
 (: -------------------------------------------------------------------------- :)
 declare function std:count($seq) as item() {
