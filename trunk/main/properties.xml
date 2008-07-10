@@ -3,12 +3,14 @@
 <p>
 <dir>
     <lib>
-        <saxon>lib/saxon8</saxon>
+        <saxon>lib/saxon9</saxon>
         <saxon-ext>lib</saxon-ext>
+        <onvdl>lib/oNVDL/bin</onvdl>
+
     </lib>
 </dir>
 <jar>
-    <saxon>lib/saxon/saxon8sa.jar</saxon>
+    <saxon>lib/saxon/saxon9sa.jar</saxon>
 </jar>
 </p>
 

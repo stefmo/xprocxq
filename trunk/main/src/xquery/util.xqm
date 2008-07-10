@@ -53,6 +53,11 @@ declare function util:dynamicError($error,$string) {
 };
 
 (: -------------------------------------------------------------------------- :)
+declare function util:staticError($error,$string) {
+    fn:error(QName('http://www.w3.org/ns/xproc-error',$error), $string)
+};
+
+(: -------------------------------------------------------------------------- :)
 declare function util:outputResultElement($exp){
     <c:result>{$exp}</c:result>
 };
