@@ -1,0 +1,17 @@
+ <p:pipeline name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc"
+            xmlns:util = "http://xproc.net/xproc/util">
+
+<util:step name="pipeline">
+    <p:input port="source" primary="true"/>
+    <p:output port="result" primary="true"/>
+</util:step>
+
+   <p:exec name="step1">
+      <p:input port="source" primary="true" sequence="true"/>
+      <p:output port="result" primary="true"/>
+      <p:output port="errors"/>
+      <p:with-option name="command" select="/bin/ls"/>
+   </p:exec>
+
+</p:pipeline>

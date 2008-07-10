@@ -101,12 +101,14 @@ declare function util:evalXPATH($xpathstring, $xml){
     $xml/saxon:evaluate($xpathstring)
 };
 
+
 (: -------------------------------------------------------------------------- :)
 declare function util:xquery($exp as xs:string) as item()*{
     let $a := func:compileQuery($exp)
     return 
         func:query($a)
 };
+
 
 (: -------------------------------------------------------------------------- :)
 declare function util:xslt($xslt,$xml) as item()*{

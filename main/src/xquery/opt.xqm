@@ -6,6 +6,7 @@ module namespace opt = "http://xproc.net/xproc/opt";
 declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
+declare namespace runtime="java:net.xproc.opt.runtimeExec";
 
 (: Module Imports :)
 import module namespace util = "http://xproc.net/xproc/util"
@@ -41,10 +42,16 @@ return
 
 };
 
-
 (: -------------------------------------------------------------------------- :)
 declare function opt:exec($seq) {
- $seq[1]
+    util:outputResultElement(
+
+(:        runtime:main(fn:string($seq[4]/p:option[@name='command']/@select))
+
+:)
+runtime:main("/bin/ls")
+
+    )
 };
 
 (: -------------------------------------------------------------------------- :)
