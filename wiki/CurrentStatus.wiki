@@ -2,11 +2,9 @@
 
 = Status =
 
-5/6/2008 working off May 1st spec ... have yet to pass my unit tests again (been a month!) ... hoping to turn a corner sometime in the coming weeks. For now I am not commiting to google code svn until I start passing some of the basic tests.
-
+11/07/2008 working off May 1st spec ... passing many unit tests have about 15 steps implemented, but I would not recommend using codebase just yet, there are a lot of idiosyncrasies and I am pretty certain no one would be able to get the code running on their machine just yet ... should have a first release before 1st week of August.
 
 = Changelog =
-
 
 Check out the [http://xprocxq.googlecode.com/svn/trunk/main/ChangeLog Changelog] included in the source code. This file is  not always up to date in trunk but will reflect reality for tag releases.
 
@@ -22,16 +20,13 @@ There are so many issues to list .... so I will just highlight the major ones;
 
   * currently a bit out of step with latest version of xproc draft .... this will change soon
 
-  * depends on one having bought Michael Kay's [http://www.saxonica.com Saxon-SA]  XSLT/XQUERY processor ... and even then it does very little ;)
-
-  * very limited std step library and optional (just p:xquery) library
+  * depends on one having bought Michael Kay's [http://www.saxonica.com Saxon-SA]  XSLT/XQUERY processor ... as dependent on SA version and even then it does very little ;)
 
   * its best to explicitly define input connections in XProc XML
 
 {{{
  <p:pipeline name="helloworld"
-            xmlns:p="http://www.w3.org/ns/xproc"
-            xmlns:util = "http://xproc.net/xproc/util">
+            xmlns:p="http://www.w3.org/ns/xproc">
 
   <p:input port="source"/>
   <p:output port="result"/>
@@ -60,23 +55,19 @@ There are so many issues to list .... so I will just highlight the major ones;
 
 }}}
 
-  * step ordering is still a bit flaky ... but it virtually works for simplistic xprocs
-
   * no command line entry point .. all operation is via Ant script, which just means running unit tests
 
 _Note: Looking at the current trunk/TODO file will help you determine what I am focusing on for now._
 
 = When will feature X be done or xproc.xq be compliant with W3C spec ? =
 
-I have a real desire to get xproc.xq to XProc v1.0 compliance, but using XQuery means I am  somewhat limited. There are all sorts of issues, some that have been surmounted, some I have yet to even engage with yet (but known from the start).
-
-Once I have worked through all of XProc primary components and logic structure then I will be able to comment more about the more exotic edge cases.
+I have a desire to get xproc.xq to XProc v1.0 compliance, but using XQuery means I am  pragmatic on how realistic this goal is. There are all sorts of issues, some that have been surmounted, some I have yet to even engage with yet.
 
 If I had a road map, in plan view it would be;
 
-  * (re) implement xproc logic structures (try catch, choose, etc)
-  * finish standard steps implementations
-  * finish optional & extension steps implementations
+  * update testsuite
+  * do standard steps implementations
+  * do optional & extension steps implementations
   * ensure static and dynamic error checking is working properly
   * ensure namespaces are fixed up properly
-  * update testsuite
+  * build process to derive eXist and Saxon impl from same codebase
