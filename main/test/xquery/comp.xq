@@ -11,14 +11,6 @@ import module namespace comp = "http://xproc.net/xproc/comp"
 <testsuite title="XProc Component XQuery Unit Tests" desc="Test the XProc.xq components XQuery functions">
 
 <test>
-    <name>run comp entrypoint</name>
-    <result>
-    {comp:main()}
-    </result>
-    <expected>comp entry executed</expected>
-</test>
-
-<test>
     <name>run p:episode</name>
     <result>
     {comp:episode()}

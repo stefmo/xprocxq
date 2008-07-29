@@ -1,17 +1,33 @@
 <xproc:library xmlns:p ="http://www.w3.org/ns/xproc" 
                xmlns:xproc = "http://xproc.net/xproc"
                name="xproc-components">
+
+<!-- //-->    
     <xproc:root-element type="p:pipeline"/>
-    <xproc:top-level-element type="p:input"/>
-    <xproc:top-level-element type="p:output"/>
-    <xproc:top-level-element type="p:for-each"/>
-    <xproc:top-level-element type="p:viewport"/>
-    <xproc:top-level-element type="p:choose"/>
-    <xproc:top-level-element type="p:group"/>
-    <xproc:top-level-element type="p:try"/>
-    <xproc:top-level-element type="p:documentation"/>
-    <xproc:top-level-element type="p:serialization"/>
+
+<!-- //-->    
+    <xproc:top-level-element type="p:library"/>
     <xproc:top-level-element type="p:declare-step"/>
     <xproc:top-level-element type="p:import"/>
-    <xproc:top-level-element type="p:library"/>
+
+<!-- //-->    
+    <xproc:top-level-element type="p:input"/>
+    <xproc:top-level-element type="p:output"/>
+
+<!-- //-->    
+    <xproc:top-level-element type="p:document"/>
+    <xproc:top-level-element type="p:file"/>
+    <xproc:top-level-element type="p:pipe"/>
+
+<!-- //-->    
+    <xproc:top-level-element type="p:for-each"/>
+    <xproc:top-level-element type="p:choose"/>
+    <xproc:top-level-element type="p:viewport"/>
+    <xproc:top-level-element type="p:try"/>
+
+<!-- //-->    
+    <xproc:top-level-element type="p:group"/>
+    <xproc:top-level-element type="p:documentation"/>
+    <xproc:top-level-element type="p:serialization"/>
+
 </xproc:library>

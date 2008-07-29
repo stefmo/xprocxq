@@ -143,8 +143,11 @@ declare function std:identity($seq) as item() {
 };
 
 (: -------------------------------------------------------------------------- :)
+(: TODO this is wrong, its counting the elements needs to count the sequence :)
 declare function std:count($seq) as item() {
-   util:outputResultElement(fn:count($seq[1]/node()))
+   util:outputResultElement(
+        fn:count($seq[1]/node())
+    )
 };
 
 

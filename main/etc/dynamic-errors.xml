@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<errors type="dynamic">
+    
+<error><code>err:XD0001</code>
+<description>
+
+    It is a dynamic error if a non-XML resource is produced on a step output or arrives on a step input.
+
+    See: Inputs and Outputs
+</description></error><error><code>err:XD0002</code>
+<description>
+
+    It is a dynamic error if the processor attempts to retrieve the URI specified on a p:document and fails.
+
+    See: Associating Documents with Ports
+</description></error><error><code>err:XD0003</code>
+<description>
+
+    It is a dynamic error if the viewport source does not provide exactly one document.
+
+    See: p:viewport
+</description></error><error><code>err:XD0004</code>
+<description>
+
+    It is a dynamic error if no subpipeline is selected by the p:choose and no default is provided.
+
+    See: p:choose
+</description></error><error><code>err:XD0005</code>
+<description>
+
+    It is a dynamic error if the xpath-context is bound to a sequence of documents.
+
+    See: p:xpath-context
+</description></error><error><code>err:XD0006</code>
+<description>
+
+    If sequence is not specified, or has the value “false”, then it is a dynamic error unless exactly one document appears on the declared port.
+
+    See: Document Inputs, p:viewport-source
+</description></error><error><code>err:XD0007</code>
+<description>
+
+    If sequence is not specified on p:output, or has the value “false”, then it is a dynamic error if the step does not produce exactly one document on the declared port.
+
+    See: p:output
+</description></error><error><code>err:XD0008</code>
+<description>
+
+    It is a dynamic error if a document sequence appears where a document to be used as the context node is expected.
+
+    See: Processor XPath Context, Processor XPath Context, p:variable, p:with-option, p:with-param
+</description></error><error><code>err:XD0009</code>
+<description>
+
+    It is a dynamic error if the element attribute on p:namespaces is specified and it does not identify a single element node.
+
+    See: Namespaces on variables, options, and parameters
+</description></error><error><code>err:XD0010</code>
+<description>
+
+    It is a dynamic error if the match expression on p:viewport does not match an element or document.
+
+    See: p:viewport
+</description></error><error><code>err:XD0011</code>
+<description>
+
+    It is a dynamic error if the document referenced by a p:document element does not exist, cannot be accessed, or is not a well-formed XML document.
+
+    See: p:document
+</description></error><error><code>err:XD0013</code>
+<description>
+
+    It is a dynamic error if the specified namespace bindings are inconsistent; that is, if the same prefix is bound to two different namespace names.
+
+    See: Namespaces on variables, options, and parameters
+</description></error><error><code>err:XD0014</code>
+<description>
+
+    It is a dynamic error for any unqualified attribute names other than “name”, “namespace”, or “value” to appear on a c:param element.
+
+    See: The c:param element, The c:param-set element
+</description></error><error><code>err:XD0016</code>
+<description>
+
+    It is a dynamic error if the select expression on a p:input returns anything other than a possibly empty set of element or document nodes.
+
+    See: Document Inputs
+</description></error><error><code>err:XD0017</code>
+<description>
+
+    It is a dynamic error if the running pipeline attempts to invoke a step which the processor does not know how to perform.
+
+    See: Extension Steps
+</description></error><error><code>err:XD0018</code>
+<description>
+
+    It is a dynamic error if the parameter list contains any elements other than c:param.
+
+    See: The c:param-set element
+</description></error><error><code>err:XD0019</code>
+<description>
+
+    It is a dynamic error if any option value does not satisfy the type required for that option.
+
+    See: Syntax Summaries
+</description></error><error><code>err:XD0021</code>
+<description>
+
+    It is a dynamic error for a pipeline to attempt to access a resource for which it has insufficient privileges or perform a step which is forbidden.
+
+    See: Security Considerations
+</description></error><error><code>err:XD0022</code>
+<description>
+
+    It is a dynamic error if a pipeline attempts to evaluate a step where the psvi-required attribute is “true” and the processor does not support passing PSVI annotations between steps.
+
+    See: Declaring pipelines
+</description></error><error><code>err:XD0023</code>
+<description>
+
+    It is a dynamic error if a processor that does not support PSVI annotations attempts to invoke a step which asserts that they are required.
+
+    See: PSVIs in XProc
+</description></error><error><code>err:XD0024</code>
+<description>
+
+    It is a dynamic error if a 2.0 processor encounters an XPath 1.0 expression and it does not support XPath 1.0 compatibility mode.
+
+    See: XPaths in XProc
+</description></error>
+
+
+
+</errors>
+
+

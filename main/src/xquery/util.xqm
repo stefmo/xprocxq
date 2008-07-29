@@ -15,7 +15,6 @@ declare namespace system="java:java.lang.System";
 declare namespace math="http://exslt.org/math";
 declare namespace xproc="http://xproc.net/xproc";
 declare namespace comp = "http://xproc.net/xproc/comp";
-declare namespace nvdl="java:com.thaiopensource.relaxng.util.Driver";
 
 (: set to 1 to enable debugging :)
 declare variable $util:NDEBUG:=1;

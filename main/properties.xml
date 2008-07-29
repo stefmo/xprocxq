@@ -6,7 +6,7 @@
         <saxon>lib/saxon9</saxon>
         <saxon-ext>lib</saxon-ext>
         <onvdl>lib/oNVDL/bin</onvdl>
-
+        <ant>/Users/jimfuller/Source/Thirdparty/ant/dist/lib</ant>
     </lib>
 </dir>
 <jar>

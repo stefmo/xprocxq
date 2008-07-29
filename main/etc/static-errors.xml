@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<errors type="static">
+    
+    <error><code>err:XS0001</code>
+        <description>
+        It is a static error if there are any loops in the connections between steps: no step can be connected to itself nor can there be any sequence of connections through other steps that leads back to itself.
+        
+        See: Connections
+    </description></error>
+    
+    <error><code>err:XS0002</code><description>
+        
+        All steps in the same scope must have unique names: it is a static error if two steps with the same name appear in the same scope.
+        
+        See: Scoping of Names
+    </description></error><error><code>err:XS0003</code><description>
+        
+        It is a static error if the port specified by a p:pipe is not in the readable ports of the environment.
+        
+        See: Associating Documents with Ports
+    </description></error><error><code>err:XS0004</code><description>
+        
+        It is a static error to declare two or more options on the same step with the same name.
+        
+        See: p:option, p:with-option
+    </description></error><error><code>err:XS0006</code><description>
+        
+        It is a static error if the primary output port has no binding and the last step in the subpipeline does not have a primary output port.
+        
+        See: p:for-each, p:viewport, Declaring pipelines
+    </description></error><error><code>err:XS0007</code><description>
+        
+        It is a static error if two subpipelines in a p:choose declare different outputs.
+        
+        See: p:choose
+    </description></error><error><code>err:XS0008</code><description>
+        
+        It is a static error if any element in the XProc namespace has attributes not defined by this specification unless they are extension attributes.
+        
+        See: Syntax Summaries
+    </description></error><error><code>err:XS0009</code><description>
+        
+        It is a static error if the p:group and p:catch subpipelines declare different outputs.
+        
+        See: p:try
+    </description></error><error><code>err:XS0010</code><description>
+        
+        It is a static error if a pipeline contains a step whose specified inputs, outputs, and options do not match the signature for steps of that type.
+        
+        See: Extension Steps
+    </description></error><error><code>err:XS0011</code><description>
+        
+        It is a static error to identify two ports with the same name on the same step.
+        
+        See: Document Inputs, Parameter Inputs, p:output
+    </description></error><error><code>err:XS0012</code><description>
+        
+        it is a static error if the port given does not match the name of an input port specified in the step's declaration.
+        
+        See: Document Inputs
+    </description></error><error><code>err:XS0014</code><description>
+        
+        It is a static error to identify more than one output port as primary.
+        
+        See: p:output
+    </description></error><error><code>err:XS0015</code><description>
+        
+        It is a static error if a compound step has no contained steps.
+        
+        See: Syntax Summaries
+    </description></error><error><code>err:XS0016</code><description>
+        
+        It is a static error if the select attribute is not specified.
+        
+        See: p:variable, p:with-option, p:with-param
+    </description></error><error><code>err:XS0017</code><description>
+        
+        It is a static error to specify that an option is both required and has a default value.
+        
+        See: p:option
+    </description></error><error><code>err:XS0018</code><description>
+        
+        If an option is required, it is a static error to invoke the step without specifying a value for that option.
+        
+        See: p:option
+    </description></error><error><code>err:XS0019</code><description>
+        
+        it is a static error for a variable's document binding to refer to the output port of any step in the surrounding container's contained steps
+        
+        See: p:variable
+    </description></error><error><code>err:XS0020</code><description>
+        
+        It is a static error if the binding attribute on p:namespaces is specified and its value is not the name of an in-scope binding.
+        
+        See: Namespaces on variables, options, and parameters
+    </description></error><error><code>err:XS0021</code><description>
+        
+        It is a static error if the import references in a pipeline or pipeline library are circular.
+        
+        See: p:library
+    </description></error><error><code>err:XS0022</code><description>
+        
+        In all cases except the p:output of a compound step, it is a static error if the port identified by a p:pipe is not in the readable ports of the step that contains the p:pipe.
+        
+        See: p:pipe
+    </description></error><error><code>err:XS0024</code><description>
+        
+        It is a static error if the content of the p:inline element does not consist of exactly one element, optionally preceded and/or followed by any number of processing instructions, comments or whitespace characters.
+        
+        See: p:inline
+    </description></error><error><code>err:XS0025</code><description>
+        
+        It is a dynamic error if the processor encounters an xpath-version that it does not support.
+        
+        See: XPaths in XProc, p:declare-step
+    </description></error><error><code>err:XS0026</code><description>
+        
+        It is a static error if the port specified on the p:log is not the name of an output port on the step in which it appears or if more than one p:log element is applied to the same port.
+        
+        See: p:log
+    </description></error><error><code>err:XS0027</code><description>
+        
+        It is a static error if an option is specified with both the shortcut form and the long form.
+        
+        See: Syntactic Shortcut for Option Values
+    </description></error><error><code>err:XS0028</code><description>
+        
+        It is a static error to declare an option or variable in the XProc namespace.
+        
+        See: p:variable, p:option, p:with-param
+    </description></error><error><code>err:XS0029</code><description>
+        
+        It is a static error to specify a binding for a p:output inside a p:declare-step for an atomic step.
+        
+        See: p:output
+    </description></error><error><code>err:XS0030</code><description>
+        
+        It is a static error to specify that more than one input port is the primary.
+        
+        See: Document Inputs, Parameter Inputs
+    </description></error><error><code>err:XS0031</code><description>
+        
+        It is a static error to use an option on an atomic step that is not declared on steps of that type.
+        
+        See: Syntactic Shortcut for Option Values, p:with-option
+    </description></error><error><code>err:XS0032</code><description>
+        
+        It is a static error if no binding is provided and the default readable port is undefined.
+        
+        See: Document Inputs, p:variable, p:with-option, p:with-param
+    </description></error><error><code>err:XS0033</code><description>
+        
+        It is a static error to specify any kind of input other than “document” or “parameter”.
+        
+        See: Parameter Inputs
+    </description></error><error><code>err:XS0034</code><description>
+        
+        It is a static error if the specified port is not a parameter input port or if no port is specified and the step does not have a primary parameter input port.
+        
+        See: p:with-param
+    </description></error><error><code>err:XS0035</code><description>
+        
+        It is a static error if the declaration of a parameter input port contains a binding; parameter input port declarations must be empty.
+        
+        See: Parameter Inputs
+    </description></error><error><code>err:XS0036</code><description>
+        
+        All the step types in a pipeline must have unique names: it is a static error if any step type name is built-in and/or declared or defined more than once in the same scope.
+        
+        See: Scoping of Names
+    </description></error><error><code>err:XS0037</code><description>
+        
+        It is a static error if any step directly contains text nodes that do not consist entirely of whitespace.
+        
+        See: Syntax Summaries
+    </description></error><error><code>err:XS0038</code><description>
+        
+        It is a static error if any required attribute is not provided.
+        
+        See: Syntax Summaries
+    </description></error><error><code>err:XS0039</code><description>
+        
+        It is a static error if the port specified on the p:serialization is not the name of an output port on the pipeline in which it appears or if more than one p:serialization element is applied to the same port.
+        
+        See: p:serialization
+    </description></error><error><code>err:XS0040</code><description>
+        
+        It is a static error to specify any value other than “true”.
+        
+        See: Parameter Inputs
+    </description></error><error><code>err:XS0041</code><description>
+        
+        It is a static error to specify both binding and element on the same p:namespaces element.
+        
+        See: Namespaces on variables, options, and parameters
+    </description></error><error><code>err:XS0042</code><description>
+        
+        It is a static error to attempt to provide a binding for an input port on the declaration of an atomic step.
+        
+        See: Document Inputs
+    </description></error><error><code>err:XS0043</code><description>
+        
+        It is a static error if any attribute value does not satisfy the type required for that attribute.
+        
+        See: Syntax Summaries
+    </description></error><error><code>err:XS0044</code><description>
+        
+        It is a static error if any element in the XProc namespace or any step has element children other than those specified for it by this specification.
+        
+        See: Syntax Summaries
+    </description></error><error><code>err:XS0045</code><description>
+        
+        It is a static error if any string that must be interpreted as a QName uses a prefix for which there is not a namespace binding.
+        
+        See: Syntax Summaries
+    </description></error><error><code>err:XS0048</code><description>
+        
+        It is a static error to use a declared step as a compound step.
+        
+        See: Extension Steps
+    </description></error><error><code>err:XS0050</code><description>
+        
+        It is a static error if a pipeline attempts to import two (or more) libraries with URIs that identify steps associated with a particular version of XProc.
+        
+        See: p:import
+    </description></error><error><code>err:XS0051</code><description>
+        
+        It is a static error if the except-prefixes attribute on p:namespaces does not contain a list of tokens or if any of those tokens is not a prefix bound to a namespace in the in-scope namespaces of the p:namespaces element.
+        
+        See: Namespaces on variables, options, and parameters
+    </description></error><error><code>err:XS0052</code><description>
+        
+        It is a static error if the URI of a p:import cannot be retrieved or if, once retrieved, it does not point to a p:library, p:declare-step, or p:pipeline.
+        
+        See: p:import
+    </description></error><error><code>err:XS0053</code><description>
+        
+        It is a static error to import a single pipeline if that pipeline does not have a type.
+        
+        See: p:import
+    </description></error><error><code>err:XS0054</code>
+        <description>
+        
+        It is a static error to import more than one pipeline with the same type (either directly or within a library).
+        
+        See: p:import
+    </description></error><error><code>err:XS0055</code><description>
+        
+        It is a static error if a primary parameter input port has no binding and the pipeline that contains the step has no primary parameter input port.
+        
+        See: Parameter Inputs
+    </description></error><error><code>err:XS0057</code><description>
+        
+        It is a static error if a namespace prefix is used within the exclude-result-prefixes attribute and there is no namespace binding in scope for that prefix.
+        
+        See: p:inline
+    </description></error><error><code>err:XS0058</code><description>
+        
+        It is a static error if the value #default is used within the exclude-result-prefixes attribute and the p:inline has no default namespace.
+        
+        See: p:inline
+    </description></error><error><code>err:XS0059</code><description>
+        
+        It is a static error if a p:import-schema element that contains an xs:schema element has a schema-location attribute, or if it has a namespace attribute that conflicts with the target namespace of the contained schema.
+        
+        See: p:import-schema
+    </description></error><error><code>err:XS0060</code><description>
+        
+        It is a static error if the synthetic schema document does not satisfy the constraints described in (section 5.1, Errors in Schema Construction and Structure). This includes, without loss of generality, conflicts such as multiple definitions of the same name.
+        
+        See: p:import-schema
+    </description></error>
+</errors>
+
+

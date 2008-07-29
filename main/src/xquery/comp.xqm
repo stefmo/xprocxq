@@ -11,13 +11,6 @@ import module namespace util = "http://xproc.net/xproc/util"
 
 declare variable $comp:components := doc("../../etc/xproc-component.xml");
 
-(: -------------------------------------------------------------------------- :)
-
-declare function comp:main() as xs:string {
-    "comp entry executed"
-};
-
-
 
 
 (: -------------------------------------------------------------------------- :)
