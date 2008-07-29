@@ -1,1 +1,5 @@
-<test><a>test1</a><b/></test>
+<test>
+    <a>test1</a>
+    <b/>
+    <c/>
+</test>

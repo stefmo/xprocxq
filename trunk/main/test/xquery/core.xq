@@ -27,15 +27,6 @@ import module namespace opt = "http://xproc.net/xproc/opt"
 
 
 <test>
-    <name>run xproc main entrypoint</name>
-    <result>
-    {xproc:main()}
-    </result>
-    <expected>main xproc.xq executed</expected>
-</test>
-
-
-<test>
     <name>run xproc util:help</name>
     <result>
     {util:help()}

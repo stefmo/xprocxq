@@ -45,6 +45,19 @@
                         </arity>
                     </context>
                 </action>
+                <action name="run.single">
+                    <script>nbproject/ide-file-targets.xml</script>
+                    <target>run-selected-file-in-src</target>
+                    <context>
+                        <property>run.class</property>
+                        <folder>src</folder>
+                        <pattern>\.java$</pattern>
+                        <format>java-name</format>
+                        <arity>
+                            <one-file-only/>
+                        </arity>
+                    </context>
+                </action>
             </ide-actions>
             <view>
                 <items>
@@ -77,7 +90,7 @@
             </compilation-unit>
             <compilation-unit>
                 <package-root>src</package-root>
-                <classpath mode="compile">lib/net:lib/saxon9/saxon9sa-jaxp.jar:lib/saxon9/saxon9sa-qc.jar:lib/saxon9/saxon9sa.jar</classpath>
+                <classpath mode="compile">lib/net:lib/saxon9/saxon9sa.jar:/Users/jimfuller/Source/Thirdparty/ant/dist/lib/ant.jar:/Users/jimfuller/Source/Thirdparty/ant/dist/lib/xercesImpl.jar:/Users/jimfuller/Source/Thirdparty/ant/dist/lib/xml-apis.jar</classpath>
                 <source-level>1.5</source-level>
             </compilation-unit>
         </java-data>

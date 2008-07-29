@@ -1,6 +1,6 @@
 xquery version "1.0" encoding "UTF-8";
 
-module namespace ext = "http://xproc.net/xproc/ext";
+module namespace ant = "http://xproc.net/xproc/ant";
 
 declare namespace comp = "http://xproc.net/xproc/comp";
 
@@ -9,28 +9,22 @@ declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
 
+declare namespace task="java:net.xproc.ant.testEmbedded";
+declare namespace target="java:net.xproc.ant.AntTargetRunner";
+
 (: Module Vars :)
-declare variable  $ext:steps := doc("../../etc/pipeline-extension.xml")/p:library;
-
-
-(: -------------------------------------------------------------------------- :)
-
-declare variable $ext:pre :=saxon:function("ext:pre", 1);
-declare variable $ext:post :=saxon:function("ext:post", 1);
-declare variable $ext:test :=saxon:function("ext:test", 1);
-
+declare variable  $ant:steps := doc("../../etc/pipeline-ant.xml")/p:library;
 
 (: -------------------------------------------------------------------------- :)
-declare function ext:pre($seq ) as item()* {
-    $seq
+
+declare variable $ant:test :=saxon:function("ant:test", 1);
+
+(: -------------------------------------------------------------------------- :)
+declare function ant:test($action){
+    task:main($action)
 };
 
-declare function ext:post($seq ) as item()* {
-    $seq
+declare function ant:build-target(){
+    target:executeTarget("build.xml","/Users/jimfuller/Source/Webcomposite/xprocxq/main","test-target")
 };
-
-declare function ext:test($seq ) as item()* {
-    $seq
-};
-
 (: -------------------------------------------------------------------------- :)

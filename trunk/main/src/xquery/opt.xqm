@@ -25,8 +25,6 @@ declare variable $opt:validate-with-relax-ng :=saxon:function("opt:validate-with
 declare variable $opt:xquery :=saxon:function("opt:xquery", 1);
 declare variable $opt:xsl-formatter :=saxon:function("opt:xsl-formatter", 1);
 
-(: -------------------------------------------------------------------------- :)
-
 
 (: -------------------------------------------------------------------------- :)
 declare function opt:xquery($seq) {

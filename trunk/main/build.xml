@@ -88,7 +88,30 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
 
     </target>
 
+    <!-- ===================================================== -->
+    <!-- unit test xproc.xq engine                             -->
+    <!-- ===================================================== -->
+    <target name="test-ant" description="run ant xquery unit tests">
 
+        <xquery-saxon dest="result/ant.xml"
+                      query="test/xquery/ant.xq"
+                      input="file:test/data/test.xml"/>
+
+        <xslt-saxon dest="result/result-core-test.html"
+                    style="etc/test.xsl"
+                    xml="result/ant.xml"/>
+
+    </target>
+
+
+    <!-- ===================================================== -->
+    <!-- unit test ant:build-target step                       -->
+    <!-- ===================================================== -->
+    <target name="test-target" description="for testing ant:build-target step">
+        <echo message="ant:build-target is running normally"/>
+    </target>
+
+    
     <!-- ===================================================== -->
     <!-- unit test xproc.xq engine                             -->
     <!-- ===================================================== -->
@@ -340,6 +363,19 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                      input="file:test/data/test.xml"
                      xproc="file:test/xproc/basic/xslt/xslt2.xml"/>   
     </target>
+
+
+    <!-- ===================================================== -->
+    <!-- xproc.xq doc xproc tests                              -->
+    <!-- ===================================================== -->
+    <target name="xproc-urlencode-test" depends="clean"  description="run xproc.xq on identity xproc">
+
+        <xproc-saxon dest="result/xproc_urlencode_1.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/urlencode/urlencode1.xml"/>
+  
+    </target>
     
     
     <!-- ===================================================== -->
@@ -555,6 +591,10 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                     <fileset dir="${p.dir.lib.saxon}">
                         <include name="*.jar"/>
                     </fileset>
+                    <fileset dir="${p.dir.lib.ant}">
+                        <include name="*.jar"/>
+                    </fileset>  
+
                 </classpath>
             </java>
         </sequential>
@@ -581,6 +621,9 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                     <fileset dir="${p.dir.lib.saxon}">
                         <include name="*.jar"/>
                     </fileset>                
+                    <fileset dir="${p.dir.lib.ant}">
+                        <include name="*.jar"/>
+                    </fileset>  
                 </classpath>
             </java>
         </sequential>

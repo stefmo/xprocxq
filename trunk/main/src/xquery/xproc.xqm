@@ -26,16 +26,11 @@ import module namespace comp = "http://xproc.net/xproc/comp"
                         at "../xquery/comp.xqm";
 
 
-(: TODO - I need a lot of new algorithms in this module ... .working on it :)
 
-(: -------------------------------------------------------------------------- :)
-declare function xproc:main() as xs:string {
-    "main xproc.xq executed"
-};
-
-
-(: -------------------------------------------------------------------------- :)
 declare function xproc:comp-available($stepname as xs:string) as xs:boolean {
+(: -------------------------------------------------------------------------- :)
+(: checks to see if this component exists :)
+(: -------------------------------------------------------------------------- :)
 
     let $component :=$comp:components/xproc:library/xproc:top-level-element[@type=$stepname]
     return
@@ -43,6 +38,8 @@ declare function xproc:comp-available($stepname as xs:string) as xs:boolean {
 };
 
 
+(: -------------------------------------------------------------------------- :)
+(: checks to see if this step is available :)
 (: -------------------------------------------------------------------------- :)
 declare function xproc:step-available($stepname as xs:string) as xs:boolean {
 
@@ -54,6 +51,8 @@ declare function xproc:step-available($stepname as xs:string) as xs:boolean {
 };
 
 
+(: -------------------------------------------------------------------------- :)
+(: returns step type :)
 (: -------------------------------------------------------------------------- :)
 declare function xproc:type($stepname as xs:string) as xs:string {
 
@@ -93,7 +92,7 @@ let $explicitbindings :=
         let $stepname := name($step)
         return
 
-        (:std step element:)
+        (: handle step element ----------------------------------------------------------------  :)
         if(xproc:step-available($stepname)) then
 
             element {$stepname} {
@@ -101,7 +100,7 @@ let $explicitbindings :=
                  attribute xproc:type{xproc:type($stepname)                                           
             },
                  (
-                    (: generate bindings for input:)
+                    (: generate bindings for input---------------------------------------------- :)
                     for $input in $step/p:*[name(.)='p:input']
                         return
                           element {name($input)}{
@@ -124,12 +123,12 @@ let $explicitbindings :=
                                 $input/*
                           },
 
-                    (: generate bindings for output:)
+                    (: generate bindings for output---------------------------------------------- :)
                     for $output in $step/p:*[name(.)='p:output']
                         return
                             $output,
 
-                    (: generate options:)
+                    (: generate options --------------------------------------------------------- :)
                     for $option in $step/p:option
                         return
                           element {name($option)}{
@@ -138,7 +137,7 @@ let $explicitbindings :=
                  )
             }
 
-        (: preparse xproc component :)
+        (: preparse xproc component -------------------------------------------------------------- :)
          else if (xproc:comp-available($stepname)) then
 
             element {$stepname} {
@@ -150,8 +149,8 @@ let $explicitbindings :=
             }
 
          else
-         (:TODO: need to implement static error here:)
-            $step
+         (:TODO: need to implement static error here with $step :)
+            ()
 )
     return 
     (: if dealing with nested components:)
@@ -165,6 +164,14 @@ let $explicitbindings :=
 
 
 };
+
+
+
+
+
+
+
+
 
 
 (: -------------------------------------------------------------------------- :)
