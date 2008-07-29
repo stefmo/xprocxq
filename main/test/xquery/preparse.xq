@@ -21,6 +21,11 @@ import module namespace ext = "http://xproc.net/xproc/ext"
                         at "../../src/xquery/ext.xqm";
 import module namespace opt = "http://xproc.net/xproc/opt"
                         at "../../src/xquery/opt.xqm";
+
+(: :)
+declare variable $source := document{*};
+
+
 (: -------------------------------------------------------------------------- :)
 
 <testsuite title="preparse XQuery Unit Tests" desc="Test the parsing and ordering of pipeline steps with XProc.xq">

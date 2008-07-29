@@ -28,6 +28,10 @@ declare variable $xproc as item() external;
 
 declare variable $stdin as item() external;
 
+(: :)
+declare variable $source := document{.};
+
+
 (: -------------------------------------------------------------------------- :)
 (: XProc Processing :)
 

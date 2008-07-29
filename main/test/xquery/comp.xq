@@ -6,6 +6,11 @@ import module namespace test = "http://xproc.net/test"
 import module namespace comp = "http://xproc.net/xproc/comp"
                         at "../../src/xquery/comp.xqm";
 
+(: :)
+declare variable $source := document{*};
+
+
+
 (: -------------------------------------------------------------------------- :)
 
 <testsuite title="XProc Component XQuery Unit Tests" desc="Test the XProc.xq components XQuery functions">

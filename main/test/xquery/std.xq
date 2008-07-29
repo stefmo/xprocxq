@@ -10,6 +10,9 @@ import module namespace opt = "http://xproc.net/xproc/opt"
 
 declare namespace c="http://www.w3.org/ns/xproc-step";
 
+(: :)
+declare variable $source := document{*};
+
 (: -------------------------------------------------------------------------- :)
 
 <testsuite title="XProc Standard Step XQuery Unit Tests" desc="Test the XProc.xq standard step XQuery functions">
