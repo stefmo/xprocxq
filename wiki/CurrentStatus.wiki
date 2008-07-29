@@ -2,7 +2,7 @@
 
 = Status =
 
-11/07/2008 working off May 1st spec ... passing many unit tests have about 15 steps implemented, but I would not recommend using codebase just yet, there are a lot of idiosyncrasies and I am pretty certain no one would be able to get the code running on their machine just yet ... should have a first release before 1st week of August.
+29/07/2008 working off latest editor spec ... still on course to release beta in the early part of August.
 
 = Changelog =
 
