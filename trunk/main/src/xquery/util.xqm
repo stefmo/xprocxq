@@ -13,12 +13,15 @@ declare namespace jt="http://net.sf.saxon/java-type";
 declare namespace func="java:net.xproc.saxon.evalXQuery";
 declare namespace system="java:java.lang.System";
 declare namespace math="http://exslt.org/math";
-declare namespace xproc="http://xproc.net/xproc";
+declare namespace xproc="http://xproc.net/xproc";   
 declare namespace comp = "http://xproc.net/xproc/comp";
+
+(: Module Imports :)
+import module namespace const = "http://xproc.net/xproc/const"
+                        at "../xquery/const.xqm";
 
 (: set to 1 to enable debugging :)
 declare variable $util:NDEBUG:=1;
-
 
 (: -------------------------------------------------------------------------- :)
 declare function util:help() as xs:string {
@@ -46,6 +49,8 @@ else
     ()
 };
 
+
+
 (: -------------------------------------------------------------------------- :)
 declare function util:dynamicError($error,$string) {
     fn:error(QName('http://www.w3.org/ns/xproc-error',$error), $string)
@@ -53,6 +58,11 @@ declare function util:dynamicError($error,$string) {
 
 (: -------------------------------------------------------------------------- :)
 declare function util:staticError($error,$string) {
+    fn:error(QName('http://www.w3.org/ns/xproc-error',$error), $string)
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function util:stepError($error,$string) {
     fn:error(QName('http://www.w3.org/ns/xproc-error',$error), $string)
 };
 

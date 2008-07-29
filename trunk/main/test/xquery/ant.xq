@@ -6,6 +6,10 @@ import module namespace test = "http://xproc.net/test"
 import module namespace ant = "http://xproc.net/xproc/ant"
                         at "../../src/xquery/ant.xqm";
 
+(: :)
+declare variable $source := document{*};
+
+
 (: -------------------------------------------------------------------------- :)
 
 <testsuite title="XProc Ant Step XQuery Unit Tests" desc="Test the XProc.xq ant step XQuery functions">

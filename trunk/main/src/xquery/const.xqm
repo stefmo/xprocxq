@@ -36,5 +36,10 @@ declare variable $const:vendor-uri :="http://www.xproc.net/xproc.xq";
 (: XPATH Version :)
 declare variable $const:xpath-version :="2.0";
 
-
 (: -------------------------------------------------------------------------- :)
+
+(: Module Vars :)
+declare variable  $const:error-static := doc("../../etc/error-dynamic.xml")/errors/error;
+declare variable  $const:error-dynamic := doc("../../etc/error-dynamic.xml")/errors/error;
+declare variable  $const:error-step := doc("../../etc/error-step.xml")/errors/error;
+

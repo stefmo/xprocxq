@@ -21,6 +21,9 @@ import module namespace ext = "http://xproc.net/xproc/ext"
 import module namespace opt = "http://xproc.net/xproc/opt"
                         at "../../src/xquery/opt.xqm";
 
+(: :)
+declare variable $source := document{*};
+
 (: -------------------------------------------------------------------------- :)
 
 <testsuite title="Core XQuery Unit Tests" desc="Test the core XProc.xq XQuery functions">

@@ -75,17 +75,17 @@ declare function opt:www-form-urlencode($seq) {
 
 (: -------------------------------------------------------------------------- :)
 declare function opt:validate-with-xml-schema($seq) {
-    util:validate("test")
+    "test"
 };
 
 (: -------------------------------------------------------------------------- :)
 declare function opt:validate-with-schematron($seq) {
-    util:validate("test")
+    "test"
 };
 
 (: -------------------------------------------------------------------------- :)
 declare function opt:validate-with-relax-ng($seq) {
-    util:validate("test")
+    "test"
 };
 
 (: -------------------------------------------------------------------------- :)

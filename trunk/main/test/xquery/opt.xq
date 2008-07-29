@@ -6,6 +6,10 @@ import module namespace test = "http://xproc.net/test"
 import module namespace opt = "http://xproc.net/xproc/opt"
                         at "../../src/xquery/opt.xqm";
 
+(: :)
+declare variable $source := document{*};
+
+
 (: -------------------------------------------------------------------------- :)
 
 <testsuite title="XProc Optional Step XQuery Unit Tests" desc="Test the XProc.xq optional step XQuery functions">
