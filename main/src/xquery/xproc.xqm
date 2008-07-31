@@ -390,10 +390,11 @@ declare function xproc:output($evalresult){
 
 
 
-
-
-
-
+(: -------------------------------------------------------------------------- :)
+(: runtime evaluation of xproc steps; throwing dynamic errors and writing output along the way :)
+declare function xproc:evalstep ($step,$primaryinput,$pipeline) {
+$step
+};
 
 
 
@@ -401,10 +402,11 @@ declare function xproc:output($evalresult){
 
 (: -------------------------------------------------------------------------- :)
 (: runtime evaluation of xproc steps; throwing dynamic errors and writing output along the way :)
-declare function xproc:evalstep ($step,$primaryinput,$pipeline) {
+declare function xproc:evalstep1 ($step,$primaryinput,$pipeline) {
 
 (: TODO: boy all this is ugly and is does not reflect the actual evalstep in development :)
 let $stepfunction := fn:local-name($pipeline/*[@xproc:defaultname=$step])
+
 let $stepfunc := fn:string(concat('import module namespace xproc = "http://xproc.net/xproc"
                         at "src/xquery/xproc.xqm";
 import module namespace util = "http://xproc.net/xproc/util"
@@ -414,9 +416,9 @@ import module namespace std = "http://xproc.net/xproc/std"
 import module namespace opt = "http://xproc.net/xproc/opt"
                         at "src/xquery/opt.xqm";
 import module namespace ext = "http://xproc.net/xproc/ext"
-                        at "src/xquery/ext.xqm";','
-
-$',$pipeline/*[@xproc:defaultname=$step]/@xproc:type,':',$stepfunction))
+                        at "src/xquery/ext.xqm";',
+'$',
+$pipeline/*[@xproc:defaultname=$step]/@xproc:type,':',$stepfunction))
 
     return (
 
@@ -424,6 +426,8 @@ $',$pipeline/*[@xproc:defaultname=$step]/@xproc:type,':',$stepfunction))
             if($stepfunction='') then
                 $primaryinput
             else
+
+
                 util:call( util:xquery($stepfunc),
  
                           (
@@ -475,5 +479,3 @@ $',$pipeline/*[@xproc:defaultname=$step]/@xproc:type,':',$stepfunction))
     )
 
 };
-
-

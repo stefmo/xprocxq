@@ -47,7 +47,7 @@ declare variable $source := document{.};
     let $runtree := xproc:build($parsetree)
 
     (: STEP III: execute run tree, reporting any dynamic errors :)
-    let $eval_result := xproc:eval($runtree)
+    let $eval_result := xproc:evaltree($runtree)
 
     (: STEP IV: serialize and return results :)
     let $serialized_result := xproc:output($eval_result)

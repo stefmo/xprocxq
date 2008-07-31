@@ -6,7 +6,7 @@
 
    <p:identity name="step1">
         <p:input port="source" primary="true">
-              <p:document href="file:test/data/test.xml"/>
+              <p:document href="file:test/data/test1.xml"/>
         </p:input>
         <p:output port="result"/>
    </p:identity>
