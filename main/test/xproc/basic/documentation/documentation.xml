@@ -1,11 +1,8 @@
  <p:pipeline name="pipeline"
-            xmlns:p="http://www.w3.org/ns/xproc"
-            xmlns:util = "http://xproc.net/xproc/util">
+            xmlns:p="http://www.w3.org/ns/xproc">
 
-<util:step name="pipeline">
     <p:input port="source" primary="true"/>
     <p:output port="result" primary="true"/>
-</util:step>
 
 <p:documentation>Talking about the beginning of the pipeline</p:documentation>
 

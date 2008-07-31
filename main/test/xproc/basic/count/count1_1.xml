@@ -1,8 +1,6 @@
 <p:pipeline name="pipeline"
-            xmlns:p="http://www.w3.org/ns/xproc"
-            xmlns:util = "http://xproc.net/xproc/util">
+            xmlns:p="http://www.w3.org/ns/xproc">
 
-<util:step>
 <p:input port="source" primary="true">
   <p:inline>
     <test1/>
@@ -12,8 +10,6 @@
   </p:inline>
 </p:input>
 <p:output port="result" primary="true"/>
-</util:step>
-
     
     <p:count name="step1"/>
     
