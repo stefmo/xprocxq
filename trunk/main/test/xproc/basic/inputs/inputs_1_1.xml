@@ -2,7 +2,7 @@
             xmlns:p="http://www.w3.org/ns/xproc">
 
       <p:identity>
-        <p:input port="source" primary="true" select="//a"/>
+        <p:input port="source" primary="true" select="//c"/>
       </p:identity>
 
 </p:pipeline>
