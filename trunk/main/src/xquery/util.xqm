@@ -135,8 +135,8 @@ declare function util:xquery($exp as xs:string) as item()*{
 
 (: -------------------------------------------------------------------------- :)
 declare function util:xslt($xslt,$xml) as item()*{
-let $cxslt := saxon:compile-stylesheet(document{$xslt})
-    return saxon:transform($cxslt, document{$xml})
+let $compiled_xslt := saxon:compile-stylesheet(document{$xslt})
+    return saxon:transform($compiled_xslt, document{$xml})
 };
 
 (: -------------------------------------------------------------------------- :)

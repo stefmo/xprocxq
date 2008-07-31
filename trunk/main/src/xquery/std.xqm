@@ -254,7 +254,13 @@ declare function std:wrap-sequence($seq){
 
 (: -------------------------------------------------------------------------- :)
 declare function std:xslt($seq){
-    util:xslt($seq[2]/p:input[@port='stylesheet']/*,$seq[1])
+
+util:assert(fn:exists($seq[2]/p:input[@port='stylesheet']),'stylesheet is required'),
+
+let $v :=document{$seq[1]}
+return 
+    util:xslt($seq[2]/p:input[@port='stylesheet']/*,$v)
+
 };
 
 
