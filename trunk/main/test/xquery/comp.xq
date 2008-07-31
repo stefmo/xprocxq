@@ -63,7 +63,6 @@ declare variable $source := document{*};
     <expected>0.5</expected>
 </test>
 
-
 <test>
     <name>run p:xpath-version</name>
     <result>

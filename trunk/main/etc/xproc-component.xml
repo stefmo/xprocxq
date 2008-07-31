@@ -6,28 +6,54 @@
     <xproc:root-element type="p:pipeline"/>
 
 <!-- //-->    
-    <xproc:top-level-element type="p:library"/>
-    <xproc:top-level-element type="p:declare-step"/>
-    <xproc:top-level-element type="p:import"/>
+    <xproc:element type="p:library"/>
+    <xproc:element type="p:declare-step"/>
+    <xproc:element type="p:import"/>
+    <xproc:element type="p:import-schema"/>
 
 <!-- //-->    
-    <xproc:top-level-element type="p:input"/>
-    <xproc:top-level-element type="p:output"/>
+    <xproc:element type="p:input"/>
+    <xproc:element type="p:output"/>
 
 <!-- //-->    
-    <xproc:top-level-element type="p:document"/>
-    <xproc:top-level-element type="p:file"/>
-    <xproc:top-level-element type="p:pipe"/>
+    <xproc:element type="p:document"/>
 
 <!-- //-->    
-    <xproc:top-level-element type="p:for-each"/>
-    <xproc:top-level-element type="p:choose"/>
-    <xproc:top-level-element type="p:viewport"/>
-    <xproc:top-level-element type="p:try"/>
+    <xproc:element type="p:for-each"/>
+    <xproc:element type="p:choose"/>
+    <xproc:element type="p:viewport"/>
+    <xproc:element type="p:try"/>
+    <xproc:element type="p:catch"/>
 
 <!-- //-->    
-    <xproc:top-level-element type="p:group"/>
-    <xproc:top-level-element type="p:documentation"/>
-    <xproc:top-level-element type="p:serialization"/>
+    <xproc:element type="p:group"/>
+    <xproc:element type="p:documentation"/>
+    <xproc:element type="p:serialization"/>
 
+
+    <xproc:element type="p:iteration-source"/>
+    <xproc:element type="p:viewport-source"/>
+    <xproc:element type="p:when"/>            
+    <xproc:element type="p:otherwise"/>            
+    <xproc:element type="p:variable"/>            
+    <xproc:element type="p:namespaces"/>            
+
+    <xproc:element type="p:serialization"/>            
+    <xproc:element type="p:option"/>            
+
+    <xproc:element type="p:with-option"/>            
+    <xproc:element type="p:with-param"/>            
+
+    <xproc:element type="p:pipe"/>
+    <xproc:element type="p:empty"/>
+    <xproc:element type="p:inline"/>
+    <xproc:element type="p:pipeinfo"/>
+    
+    
+    <xproc:element type="p:xpath-context"/>
+
+    <xproc:element type="p:log"/>
+    <xproc:element type="p:document"/>
+    <xproc:element type="p:file"/>
+        
 </xproc:library>

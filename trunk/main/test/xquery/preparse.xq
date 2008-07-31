@@ -49,6 +49,26 @@ let $pipeline :=
         <p:group name="another">
             <p:identity name="step1"/>    
             <p:count name="step2"/>
+
+            <p:choose name="mychoose">
+              <p:when test="/*[@version = 2]">
+                <p:wrap>
+                    <p:input port="source" primary="true"/>
+                    <p:with-option name="wrapper" select="aaaaaaaaaaaaa"/>   
+                    <p:with-option name="match" select="/"/> 
+                    <p:output port="result" primary="true"/>
+                </p:wrap>
+                </p:when>
+                <p:otherwise>
+                    <p:wrap>
+                        <p:input port="source" primary="true"/>
+                        <p:with-option name="wrapper" select="bbbb"/>   
+                        <p:with-option name="match" select="/"/> 
+                        <p:output port="result" primary="true"/>
+                    </p:wrap>    
+                </p:otherwise>
+            </p:choose>
+
         </p:group>
     </p:group>
     
@@ -85,7 +105,7 @@ let $pipeline :=
     </p:wrap>
 
 </p:pipeline>
-    return xproc:build(xproc:parse(xproc:preparse($pipeline)))
+ return xproc:preparse($pipeline)
 
 }
 </result>
