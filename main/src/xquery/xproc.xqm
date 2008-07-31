@@ -76,6 +76,7 @@ declare function xproc:type($stepname as xs:string) as xs:string {
 };
 
 
+
 (: -------------------------------------------------------------------------- :)
 (: 1) make all step and input/output pipe names explicit :)
 (: -------------------------------------------------------------------------- :)
@@ -85,28 +86,26 @@ let $pipelinename := $xproc/@name
 
 let $explicitnames := 
 
-    let $steps :=$xproc/*
-
-    for $step at $count in $steps
+    for $step at $count in $xproc/*
 
         let $stepname := name($step)
 
+        (: generate unique name :)
+        (: TODO: refactor generation of name into a utility function :)
         let $unique_before := concat($unique_id,'!',$count - 1,':',$pipelinename,':',$step/@name)
         let $unique_current := concat($unique_id,'!',$count,':',$pipelinename,':',$step/@name)
 
-        let $stdstep := $std:steps/p:declare-step[@type=$stepname]
-        let $optstep := $opt:steps/p:declare-step[@type=$stepname]
-        let $extstep := $ext:steps/p:declare-step[@type=$stepname]
-        let $allstep :=($stdstep,$optstep,$extstep)
+        (: look up step in library :)
+        let $allstep :=($std:steps/p:declare-step[@type=$stepname],
+                        $opt:steps/p:declare-step[@type=$stepname],
+                        $ext:steps/p:declare-step[@type=$stepname])
 
         return
-
-        (: preparse xproc step :)    
 
             (: handle step element ------------------------------------------------------------ :)
                 if(xproc:step-available($stepname)) then
 
-                element {$stepname} { 
+                element {$stepname} {
                      attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
                      (
                         (: generate bindings for input and output:)
@@ -116,7 +115,8 @@ let $explicitnames :=
                                  attribute port{$binding/@port},attribute primary{$binding/@primary},attribute select{$step/p:input[@port=$binding/@port][@primary='true']/@select},
                                $step/p:*[name()=name($binding)]/p:*
                               },
-                        (: generate options:)
+
+                        (: match up options with step definitions and generate options:)
                         for $option in $allstep//p:option 
                             return
                               element {name($option)}{
@@ -124,7 +124,6 @@ let $explicitnames :=
                                    attribute select{$step//p:with-option[@name=$option/@name]/@select}
                               }
                      )
-                   
                 }
 
         (: handle xproc components ------------------------------------------------------------- :)
@@ -143,11 +142,13 @@ let $explicitnames :=
             util:staticError("X0001", concat($stepname,$step/@name))
 
     return
-        if(empty($pipelinename))then
-            $explicitnames
+
+    (: Topo sort  --------------------------------------------------------------------------------- :)
+    if(empty($pipelinename))then
+             util:pipeline-step-sort($explicitnames,())
         else
         <p:pipeline name="{$pipelinename}">
-            {$explicitnames}
+            { util:pipeline-step-sort($explicitnames,())}
         </p:pipeline>
 };
 
@@ -163,9 +164,7 @@ let $pipelinename := $xproc/@name
 
 let $explicitbindings := 
 
-(    let $steps :=$xproc/*
-
-    for $step at $count in $steps
+    for $step at $count in $xproc/*
 
       let $stepname := name($step) 
       return
@@ -206,7 +205,12 @@ let $explicitbindings :=
                         for $option in $step//p:option 
                             return 
                                 $option
-                    ))
+                    ),
+                      (  for $output in $step//p:output 
+                            return 
+                                $output
+                       )
+)
             
             }
 
@@ -226,7 +230,7 @@ let $explicitbindings :=
       (:TODO: need to implement static error here:)
             util:staticError("X0001", concat($stepname,$step/@name))
 
-)
+
     return 
     (: if dealing with nested components --------------------------------------------------------- :)
         if(empty($pipelinename)) then
@@ -247,11 +251,9 @@ let $explicitbindings :=
 (: -------------------------------------------------------------------------- :)
 declare function xproc:preparse($xproc as item()){
 
-let $preparse := util:pipeline-step-sort(
-                        xproc:explicitbindings(
-                            xproc:explicitnames($xproc,'')
-                        ),
-                  ())
+let $preparse := xproc:explicitbindings(
+                    xproc:explicitnames($xproc,'')
+                )
 return
 
 (: TODO: Error Checking will go away :) 

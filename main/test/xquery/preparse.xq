@@ -39,10 +39,10 @@ let $pipeline :=
 <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:util = "http://xproc.net/xproc/util">
-    
+    <util:step>
     <p:input port="source" primary="true"/>
     <p:output port="result" primary="true"/>
-    
+    </util:step>
     <p:group name="version">
             <p:identity name="step1"/>    
             <p:count name="step2"/>
@@ -123,8 +123,10 @@ let $pipeline :=
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:util = "http://xproc.net/xproc/util">
     
+    <util:step name="pipeline">
     <p:input port="source" primary="true"/>
     <p:output port="result" primary="true"/>
+    </util:step>
     
     <p:choose name="version">
         <p:when test="//test">
@@ -137,7 +139,7 @@ let $pipeline :=
         </p:when>
         <p:otherwise>
             <p:error>
-                <p:option name="code" value="error code"/> 
+                <p:with-option name="code" select="'error code'"/> 
             </p:error>
         </p:otherwise>
     </p:choose>
@@ -148,6 +150,43 @@ let $pipeline :=
 </result>
 <expected></expected>
 </test>
+
+
+
+<test>
+    <name>p:compare preparse</name>
+    <result>
+{
+
+let $pipeline :=
+
+ <p:pipeline name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc"
+            xmlns:util = "http://xproc.net/xproc/util">
+                
+
+<util:step name="pipeline">
+    <p:input port="source" primary="true"/>
+    <p:output port="result" primary="true"/>
+</util:step>
+
+   <p:compare name="step1">
+        <p:input port="source" primary="true"/>
+        <p:input port="alternate">
+              <p:document href="file:test/data/test.xml"/>
+        </p:input>
+        <p:output port="result"/>
+      <p:with-option name="fail-if-not-equal" select="'false'"/>
+   </p:compare>
+
+</p:pipeline>
+ return xproc:preparse($pipeline)
+
+}
+</result>
+<expected></expected>
+</test>
+
 
 <test>
     <name>basic preparse example</name>
@@ -199,6 +238,13 @@ let $pipeline :=
        </p:input>
     </p:count>
 
+    <p:count name="step1">
+        <p:input port="step1-input">
+              <p:pipe step="helloworld" port="std-input"/>
+        </p:input>
+        <p:output port="step1-output"/>
+    </p:count>
+
     <p:identity name="step2">
        <p:input port="step2-input">
               <p:pipe step="step1" port="step1-output"/>
@@ -206,12 +252,6 @@ let $pipeline :=
        <p:output port="step2-output"/>
     </p:identity>
 
-    <p:count name="step1">
-        <p:input port="step1-input">
-              <p:pipe step="helloworld" port="std-input"/>
-        </p:input>
-        <p:output port="step1-output"/>
-    </p:count>
 
  </p:pipeline>
 let $sortsteps := <p:pipeline>{util:pipeline-step-sort($pipeline/node(),())}</p:pipeline>
@@ -474,7 +514,6 @@ let $pipeline :=
 
     <p:identity/>
     <p:count/>
-    <p:thisstepdoesnotexist/>
  </p:pipeline>
  return xproc:explicitnames($pipeline,'')
 }

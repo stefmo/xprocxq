@@ -1,0 +1,43 @@
+ <p:pipeline name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc"
+            xmlns:util = "http://xproc.net/xproc/util">
+
+    <util:step name="pipeline">
+        <p:input port="source" primary="true"/>
+        <p:output port="result" primary="true"/>
+    </util:step>
+
+    <p:wrap name="step3">
+        <p:input port="source" primary="true">
+            <p:pipe step="step2" port="result"/>
+        </p:input>
+        <p:with-option name="wrapper" select="cccccccc"/>
+        <p:with-option name="match" select="/"/> 
+        <p:output port="result" primary="true"/>
+    </p:wrap>
+
+
+    <p:wrap name="step1">
+        <p:input port="source" primary="true">
+            <p:pipe step="pipeline" port="source"/>
+        </p:input>    
+        <p:with-option name="wrapper" select="aaaaaaaaaaaaaaaaaaaa">
+                <p:namespaces xmlns="http://www.w3.org/1999/xhtml"/>
+        </p:with-option>
+        <p:with-option name="match" select="/"/> 
+        <p:output port="result" primary="true"/>
+            
+    </p:wrap>
+
+    
+    <p:wrap name="step2">
+        <p:input port="source" primary="true">
+            <p:pipe step="step1" port="result"/>
+        </p:input>
+        <p:with-option name="wrapper" select="bbbbbbbbbbbbb"/>
+        <p:with-option name="match" select="/"/> 
+        <p:output port="result" primary="true"/>
+    </p:wrap>
+    
+    
+</p:pipeline>
