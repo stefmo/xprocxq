@@ -2,14 +2,14 @@ xquery version "1.0" encoding "UTF-8";
 
 module namespace xproc = "http://xproc.net/xproc";
 
+(: TODO: need to check what std pragmas are needed for each xqm file :)
+declare copy-namespaces no-preserve, inherit; 
+
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
-
-(: TODO - need to check what std pragmas are needed for each xqm file :)
-declare copy-namespaces no-preserve, inherit; 
 
 (: Module Imports :)
 import module namespace const = "http://xproc.net/xproc/const"
@@ -26,10 +26,10 @@ import module namespace comp = "http://xproc.net/xproc/comp"
                         at "../xquery/comp.xqm";
 
 
-declare function xproc:comp-available($stepname as xs:string) as xs:boolean {
 (: -------------------------------------------------------------------------- :)
 (: checks to see if this component exists :)
 (: -------------------------------------------------------------------------- :)
+declare function xproc:comp-available($stepname as xs:string) as xs:boolean {
 
     let $component :=$comp:components/xproc:library/xproc:element[@type=$stepname]
     return
@@ -37,16 +37,26 @@ declare function xproc:comp-available($stepname as xs:string) as xs:boolean {
 };
 
 
+
+(: -------------------------------------------------------------------------- :)
+(: returns step from step definitions :)
+(: -------------------------------------------------------------------------- :)
+declare function xproc:get-step($stepname as xs:string) {
+
+    $std:steps/p:declare-step[@type=$stepname],
+    $opt:steps/p:declare-step[@type=$stepname],
+    $ext:steps/p:declare-step[@type=$stepname]
+};
+
 (: -------------------------------------------------------------------------- :)
 (: checks to see if this step is available :)
 (: -------------------------------------------------------------------------- :)
 declare function xproc:step-available($stepname as xs:string) as xs:boolean {
 
-    let $stdstep := $std:steps/p:declare-step[@type=$stepname]
-    let $optstep := $opt:steps/p:declare-step[@type=$stepname]
-    let $extstep := $ext:steps/p:declare-step[@type=$stepname]
-    return
-        exists($stdstep) or exists($optstep) or exists($extstep)
+   exists(($std:steps/p:declare-step[@type=$stepname],
+          $opt:steps/p:declare-step[@type=$stepname],
+          $ext:steps/p:declare-step[@type=$stepname]))
+
 };
 
 
@@ -58,7 +68,7 @@ declare function xproc:type($stepname as xs:string) as xs:string {
     let $stdstep := $std:steps/p:declare-step[@type=$stepname]
     let $optstep := $opt:steps/p:declare-step[@type=$stepname]
     let $extstep := $ext:steps/p:declare-step[@type=$stepname]
-    let $component :=$comp:components/xproc:library/xproc:top-level-element[@type=$stepname]
+    let $component :=$comp:components//xproc:element[@type=$stepname]
 
     let $stdstepexists := exists($stdstep)        
     let $optstepexists := exists($optstep)
@@ -71,10 +81,11 @@ declare function xproc:type($stepname as xs:string) as xs:string {
             'ext'
         else if($stdstepexists) then
             'std'
-        else
+        else if($compexists) then
             'comp'
+        else
+            'unknown'
 };
-
 
 
 (: -------------------------------------------------------------------------- :)
@@ -96,15 +107,19 @@ let $explicitnames :=
         let $unique_current := concat($unique_id,'!',$count,':',$pipelinename,':',$step/@name)
 
         (: look up step in library :)
-        let $allstep :=($std:steps/p:declare-step[@type=$stepname],
-                        $opt:steps/p:declare-step[@type=$stepname],
-                        $ext:steps/p:declare-step[@type=$stepname])
+        let $allstep := xproc:get-step($stepname)
 
         return
 
             (: handle step element ------------------------------------------------------------ :)
                 if(xproc:step-available($stepname)) then
 
+if($stepname eq "util:step") then
+                element {$stepname} {
+                     attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
+                     $step/*
+                     }
+else
                 element {$stepname} {
                      attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
                      (
@@ -112,17 +127,29 @@ let $explicitnames :=
                         for $binding in $allstep/p:*[name(.)='p:input' or name(.)='p:output'] 
                             return
                               element {name($binding)}{
-                                 attribute port{$binding/@port},attribute primary{$binding/@primary},attribute select{$step/p:input[@port=$binding/@port][@primary='true']/@select},
-                               $step/p:*[name()=name($binding)]/p:*
+                                 attribute port{$binding/@port},
+                                 attribute primary{$binding/@primary},
+                                 attribute select{$step/p:input[@port=$binding/@port]/@select},
+                                 $step/p:input[@port=$binding/@port]/*
                               },
-
+                        (for $option-from-attribute in $step/@* 
+                            return 
+                            if (not(name($option-from-attribute)='name')) then
+                                <p:option name="{name($option-from-attribute)}" select="{$option-from-attribute}"/>
+                            else
+                                ()
+                         ),
                         (: match up options with step definitions and generate options:)
                         for $option in $allstep//p:option 
                             return
+                            if ($step//p:with-option[@name=$option/@name]/@select) then
                               element {name($option)}{
                                    attribute name{$option/@name},
+                                   attribute required{$option/@required},
                                    attribute select{$step//p:with-option[@name=$option/@name]/@select}
                               }
+                            else
+                                ()
                      )
                 }
 
@@ -138,7 +165,6 @@ let $explicitnames :=
             else
 
  (: STATIC ERROR  ---------------------------------------------------------------------------------- :)
-      (:TODO: need to implement static error here:)
             util:staticError("X0001", concat($stepname,$step/@name))
 
     return
@@ -184,6 +210,10 @@ let $explicitbindings :=
                              attribute primary{$input/@primary},
                              attribute select{$input/@select},
 
+                    if ($input/p:document or $input/p:inline or $input/p:empty ) then
+                        $input/*
+                    else
+                    (
                             (: first step in pipeline :)
                             if (fn:not($xproc/*[$count - 1]/@*:defaultname) and $input/@primary='true') then
                                 <p:pipe step="{$pipelinename}" port="{$xproc/p:input[@primary='true']/@port}"/> 
@@ -199,18 +229,18 @@ let $explicitbindings :=
                            (: p:document & p:inline & p:empty :)
                            else
                                 $input/*
-                          }
+                    )
 
-            ,(
-                        for $option in $step//p:option 
+                          },
+                        (for $option in $step//p:option 
                             return 
                                 $option
-                    ),
-                      (  for $output in $step//p:output 
+                         ),
+                         (for $output in $step/p:output 
                             return 
                                 $output
-                       )
-)
+                         )
+                )
             
             }
 
@@ -246,13 +276,30 @@ let $explicitbindings :=
 
 
 (: -------------------------------------------------------------------------- :)
+(: Fix up top level input/output :)
+(: -------------------------------------------------------------------------- :)
+declare function xproc:port-fixup($xproc as item()){
+
+        <p:pipeline name="{$xproc/@name}">
+            <util:step name="{$xproc/@name}">
+                {$xproc/p:input}
+                {$xproc/p:output}
+            </util:step>
+            {$xproc/p:*[not(name(.)="p:input")][not(name(.)="p:output")]}
+        </p:pipeline>
+};
+
+
+
+(: -------------------------------------------------------------------------- :)
 (: Preparse pipeline XML, sorting steps by input, throwing some static errors :)
 (: apply explicitnames then explicitbindings :)
 (: -------------------------------------------------------------------------- :)
 declare function xproc:preparse($xproc as item()){
 
 let $preparse := xproc:explicitbindings(
-                    xproc:explicitnames($xproc,'')
+                    xproc:explicitnames(
+                         xproc:port-fixup($xproc),'')
                 )
 return
 
@@ -290,7 +337,8 @@ import module namespace ext = "http://xproc.net/xproc/ext"
 import module namespace opt = "http://xproc.net/xproc/opt"
                         at "src/xquery/opt.xqm";
 
-let $O0 := '),util:serialize($stdin,<xsl:output method="xml" omit-xml-declaration="yes" indent="no"/>),
+let $O0 := '), util:serialize($stdin,<xsl:output method="xml" omit-xml-declaration="yes" indent="no"/>),
+
 fn:string('
 let $pipeline :='),util:serialize($xproc,<xsl:output method="xml" omit-xml-declaration="yes" indent="no"/>),
     fn:string('
@@ -324,7 +372,7 @@ declare function xproc:build($parsetree) {
 (: -------------------------------------------------------------------------- :)
 (: Eval Run Tree :)
 (: this function may throw some dynamic errors :)
-declare function xproc:eval($runtree){
+declare function xproc:evaltree($runtree){
         util:xquery($runtree) 
 };
 
@@ -337,11 +385,25 @@ declare function xproc:output($evalresult){
 };
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 (: -------------------------------------------------------------------------- :)
 (: runtime evaluation of xproc steps; throwing dynamic errors and writing output along the way :)
 declare function xproc:evalstep ($step,$primaryinput,$pipeline) {
 
-(: TODO: boy all this is ugly; will need a refactor :)
+(: TODO: boy all this is ugly and is does not reflect the actual evalstep in development :)
 let $stepfunction := fn:local-name($pipeline/*[@xproc:defaultname=$step])
 let $stepfunc := fn:string(concat('import module namespace xproc = "http://xproc.net/xproc"
                         at "src/xquery/xproc.xqm";
