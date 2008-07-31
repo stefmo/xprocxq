@@ -14,6 +14,7 @@
               <p:document href="file:test/data/test.xml"/>
         </p:input>
         <p:output port="result"/>
+      <p:with-option name="fail-if-not-equal" select="'false'"/>
    </p:compare>
 
 </p:pipeline>

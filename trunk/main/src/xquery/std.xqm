@@ -153,13 +153,15 @@ declare function std:count($seq) as item() {
 
 (: -------------------------------------------------------------------------- :)
 declare function std:compare($seq) as item() {
+(: TODO: xproc namespace is leaking into alternate, must fix :)
 
 (: this should be caught as a static error someday ... will do it in refactoring  :)
 util:assert(fn:exists($seq[2]/p:input[@port='alternate']),'p:compare alternate port does not exist'),
 
 let $result := fn:deep-equal($seq[1],$seq[2]/p:input[@port='alternate']/*)
-let $option := fn:boolean($seq[4]/p:option[@name='fail-if-not-equal']/@select)
+let $option := util:boolean($seq[4]/p:option[@name='fail-if-not-equal']/@select)
     return
+
         if($option eq fn:true()) then
             if ( $result eq fn:true())then
                 (util:outputResultElement($result))
@@ -167,7 +169,7 @@ let $option := fn:boolean($seq[4]/p:option[@name='fail-if-not-equal']/@select)
                 (util:dynamicError('err:XC0020','p:compare fail-if-not-equal option is enabled and documents were not equal'))
         else
             (util:outputResultElement($result))
-        
+      
 };
 
 (: -------------------------------------------------------------------------- :)

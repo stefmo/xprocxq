@@ -57,7 +57,7 @@ declare variable $source := document{.};
     return
     document
        {
-        <xproc:result xproc:ts="{current-dateTime()}" xproc:timing="{$end-time - $start-time}ms">
+        <xproc:result xproc:timing="{$end-time - $start-time}ms" xproc:ts="{current-dateTime()}">
             {
                 $serialized_result
             }
