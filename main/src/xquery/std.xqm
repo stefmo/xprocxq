@@ -54,76 +54,109 @@ declare function std:add-attribute($seq) as item() {
     $seq[1]
 };
 
+
 (: -------------------------------------------------------------------------- :)
 declare function std:add-xml-base($seq) as item() {
     $seq[1]
 };
+
 
 (: -------------------------------------------------------------------------- :)
 declare function std:directory-list($seq) as item() {
     $seq[1]
 };
 
+
 (: -------------------------------------------------------------------------- :)
 declare function std:escape-markup($seq) as item() {
     $seq[1]
 };
+
+
 (: -------------------------------------------------------------------------- :)
 declare function std:http-request($seq) as item() {
     $seq[1]
 };
+
+
 (: -------------------------------------------------------------------------- :)
 declare function std:insert($seq) as item() {
     $seq[1]
 };
+
+
 (: -------------------------------------------------------------------------- :)
 declare function std:label-elements($seq) as item() {
     $seq[1]
 };
+
+
 (: -------------------------------------------------------------------------- :)
 declare function std:load($seq) as item() {
     $seq[1]
 };
+
+
 (: -------------------------------------------------------------------------- :)
 declare function std:make-absolute-uris($seq) as item() {
     $seq[1]
 };
+
+
 (: -------------------------------------------------------------------------- :)
 declare function std:namespace-rename($seq) as item() {
     $seq[1]
 };
+
+
 (: -------------------------------------------------------------------------- :)
 declare function std:pack($seq) as item() {
     $seq[1]
 };
+
+
 (: -------------------------------------------------------------------------- :)
 declare function std:parameters($seq) as item() {
     $seq[1]
 };
+
+
 (: -------------------------------------------------------------------------- :)
 declare function std:rename($seq) as item() {
     $seq[1]
 };
+
+
 (: -------------------------------------------------------------------------- :)
 declare function std:replace($seq) as item() {
     $seq[1]
 };
+
+
 (: -------------------------------------------------------------------------- :)
 declare function std:set-attributes($seq) as item() {
     $seq[1]
 };
+
+
 (: -------------------------------------------------------------------------- :)
 declare function std:sink($seq) as item() {
     $seq[1]
 };
+
+
 (: -------------------------------------------------------------------------- :)
 declare function std:split-sequence($seq) as item() {
     $seq[1]
 };
+
+
 (: -------------------------------------------------------------------------- :)
 declare function std:store($seq) as item() {
     $seq[1]
 };
+
+
 (: -------------------------------------------------------------------------- :)
 declare function std:string-replace($seq) as item() {
     $seq[1]
