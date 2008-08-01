@@ -76,6 +76,8 @@ let $pipeline :=
         <p:output port="result"/>
    </p:identity>
 
+   <p:identity name="step2"/>
+
 </p:pipeline>
 
     let $preparse := xproc:preparse($pipeline)
