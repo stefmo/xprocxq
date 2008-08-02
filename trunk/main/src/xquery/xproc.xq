@@ -37,19 +37,13 @@ declare variable $source := document{.};
 
     let $start-time := util:timing()
 
-    (: STEP Ia: sort parse tree :)
+    (: STEP I: generate parse tree :)
     let $preparse := xproc:preparse($xproc/p:pipeline)
 
-    (: STEP Ib: generate parse tree :)
-    let $parsetree := xproc:parse($preparse,$stdin)
+    (: STEP II: parse and eval tree :)
+    let $eval_result := xproc:parse($preparse,$stdin)
 
-    (: STEP II: build run tree, reporting any static errors :)
-    let $runtree := xproc:build($parsetree)
-
-    (: STEP III: execute run tree, reporting any dynamic errors :)
-    let $eval_result := xproc:evaltree($runtree)
-
-    (: STEP IV: serialize and return results :)
+    (: STEP III: serialize and return results :)
     let $serialized_result := xproc:output($eval_result)
 
     let $end-time := util:timing()
