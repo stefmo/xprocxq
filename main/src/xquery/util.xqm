@@ -108,7 +108,7 @@ declare function util:call($func,$a,$b,$c){
 
 
 declare function util:call($func,$a,$b,$c,$d){
-    saxon:call($func,$a,$b,$c)
+    saxon:call($func,$a,$b,$c,$d)
 };
 
 
@@ -176,25 +176,6 @@ as item()* {
 };
 
 (: -------------------------------------------------------------------------- :)
-
-declare function util:step-fold ($pipeline,$steps as item()*, $operation, $primaryinput) {
-     if (empty($steps)) then $primaryinput
-                           else 
-                                    let $newinput := util:call($operation, 
-                                                              $steps[1], 
-                                                              $primaryinput,
-                                                              $pipeline)
-                           return
-                                    util:step-fold($pipeline,
-                                                   remove($steps, 1), 
-                                                   $operation,
-                                                   $newinput)
-
-};
-
-
-
-(: -------------------------------------------------------------------------- :)
 (: test folding the step with a different function :)
 declare function util:printstep ($step,$meta,$value) {
     util:call( $step, $value)
@@ -214,5 +195,38 @@ declare function util:pipeline-step-sort($unsorted, $sorted )   {
                                             ($sorted, $allnodes) )
 };
 
+
+
+(: -------------------------------------------------------------------------- :)
+declare function util:final-result($primaryresult,$pipeline){
+
+    $primaryresult
+
+};
+
+
+
+(: -------------------------------------------------------------------------- :)
+declare function util:step-fold ($pipeline,$steps as item()*,$stepfuncs, $evalstep, $primaryinput) {
+  
+    if (empty($steps)) then
+       (: no more steps return the results :)
+            util:final-result($primaryinput,$pipeline)
+    else 
+       (: perform evalstep function, generating new primary input :)
+       let $result := util:call($evalstep, 
+                                  $steps[1],
+                                  $stepfuncs[1],
+                                  $primaryinput,
+                                  $pipeline)
+    return
+       (: TODO: tail end recursion, could probably optimise this manually; will investigate
+                if the xquery processor is not already optimizing :)
+        util:step-fold($pipeline,
+                       remove($steps, 1),
+                       remove($stepfuncs, 1),
+                       $evalstep,
+                       $result)
+};
 
 (: -------------------------------------------------------------------------- :)
