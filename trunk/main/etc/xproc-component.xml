@@ -6,6 +6,9 @@
     <xproc:root-element type="p:pipeline"/>
 
 <!-- //-->    
+
+    <xproc:element type="p:pipeline"/>
+
     <xproc:element type="p:library"/>
     <xproc:element type="p:declare-step"/>
     <xproc:element type="p:import"/>

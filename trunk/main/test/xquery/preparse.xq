@@ -65,9 +65,12 @@ let $pipeline :=
 let $pipeline :=
    <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
+
+<p:import href="file:test/data/pipeline.xml"/>
                 
   <p:input port="source" primary="true"/>
   <p:output port="result" primary="true"/>
+
 
    <p:identity name="step1">
         <p:input port="source" primary="true">
@@ -89,7 +92,7 @@ return
        {
         <xproc:result>
             {
-                $serialized_result
+                $preparse
             }
         </xproc:result>
         }
