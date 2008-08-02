@@ -136,7 +136,7 @@ declare variable $source := document{*};
 
 
  </p:pipeline>
- ))}
+ ),<test/>)}
     </result>
     <expected>import module namespace xproc = "http://xproc.net/xproc" at "src/xquery/xproc.xqm"; import module namespace comp = "http://xproc.net/xproc/comp" at "src/xquery/comp.xqm"; import module namespace util = "http://xproc.net/xproc/util" at "src/xquery/util.xqm"; import module namespace std = "http://xproc.net/xproc/std" at "src/xquery/std.xqm"; import module namespace ext = "http://xproc.net/xproc/ext" at "src/xquery/ext.xqm"; let $O0 := <test/> let $steps := ("pre step",$ext:pre, "step1", $std:count, "step2", $std:identity, "step3", $std:count, "post-step",$ext:post) return util:step-fold($steps, saxon:function("xproc:evalstep", 3),($O0,""))</expected>
 </test>

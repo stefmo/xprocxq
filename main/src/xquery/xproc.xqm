@@ -320,68 +320,44 @@ declare function xproc:preparse($xproc as item()){
 };
 
 
-(: TODO: dummy function for xquery unit tests :)
-declare function xproc:parse($xproc as item()) {
-
-    xproc:parse($xproc,fn:doc('file:test/data/test.xml'))
-
-};
-
-
-(: Parse pipeline XML, generating xquery code, throwing some static errors if neccesary :)
-declare function xproc:parse($xproc as item(),$stdin) {
-
-(: TODO this will go away :)
-(: will just need to generate and return 2 sequences e.g. steps and stepfunc:)
-(   
-    fn:string($const:default-imports),
-    fn:string('let $O0 := '), util:serialize($stdin,<xsl:output method="xml" omit-xml-declaration="yes" indent="no"/>),
-    fn:string('let $pipeline :='),util:serialize($xproc,<xsl:output method="xml" omit-xml-declaration="yes" indent="no"/>),
-    fn:string('let $steps := ('),xproc:gensteps1($xproc),fn:string('"")'),
-    fn:string('let $stepfunc := ('),xproc:gensteps2($xproc),fn:string('"")'),
-
-    fn:string('return util:step-fold($pipeline,
-                                     $steps, 
-                                     saxon:function("xproc:evalstep", 3),($O0,""))')
-)   
-};
-
 
 
 (: -------------------------------------------------------------------------- :)
 (: Generate xquery steps sequence :)
-declare function xproc:gensteps1($steps) {
+declare function xproc:gensteps1($steps) as xs:string* {
 
     for $step in $steps/p:*[fn:not(fn:name()='p:documentation')] 
     return
         let $name := $step/@xproc:defaultname
         return
-             fn:string(concat('"',$name,'",') )                            
+             $name                            
 };
 
 
 
 (: -------------------------------------------------------------------------- :)
 (: Generate xquery steps sequence :)
-declare function xproc:gensteps2($steps) {
+declare function xproc:gensteps2($steps) as xs:string*
+{
 
     for $step in $steps/p:*[fn:not(fn:name()='p:documentation')] 
     return
-        let $func := concat("$":$step/@xproc:type,":",local-name($step))
+        let $func := concat("$",$step/@xproc:type,":",local-name($step))
         return
-             fn:string(concat('"',$func,'",') )                            
+             $func                            
 };
 
 
+(: Parse pipeline XML, generating xquery code, throwing some static errors if neccesary :)
+declare function xproc:parse($xproc as item(),$stdin) {
+(: TODO all this is in transition :)
 
-(: -------------------------------------------------------------------------- :)
-(: Build Run Tree :)
-(: NOTE: this function is more of a latent abstraction to use if needed, instead it justs :)
-(: deals with concating strings of xquery code. :)
-declare function xproc:build($parsetree) {
-
-(: TODO: This will go away:)
-    fn:string-join($parsetree,'')
+    let $O0 := $stdin
+    let $pipeline := $xproc
+    let $steps := xproc:gensteps1($xproc)
+    let $stepfunc := xproc:gensteps2($xproc)
+    return
+        xproc:evaltree($steps,$stepfunc,$pipeline,$O0)
 
 };
 
@@ -390,10 +366,10 @@ declare function xproc:build($parsetree) {
 (: -------------------------------------------------------------------------- :)
 (: Eval Run Tree :)
 (: TODO: this function will throw dynamic errors :)
-declare function xproc:evaltree($runtree){
-(: TODO: once is changed to xproc:evaltree($step, $stepfunc,$pipeline,$stdin) will look like this soon :)
+declare function xproc:evaltree($steps,$stepfunc,$pipeline,$stdin){
 
-        util:xquery($runtree) 
+    util:step-fold($pipeline,$steps,saxon:function("xproc:evalstep", 3),($stdin,""))
+
 };
 
 
@@ -402,8 +378,9 @@ declare function xproc:evaltree($runtree){
 (: Serialize Eval Result :)
 (: TODO: implement xproc serialization params  :)
 declare function xproc:output($evalresult){
-    $evalresult[1]
+    $evalresult
 };
+
 
 
 
@@ -412,8 +389,8 @@ declare function xproc:output($evalresult){
 declare function xproc:evalstep ($step,$primaryinput,$pipeline) {
 
 (: construct step function:)
-(: TODO this is going away very soon:)
 let $stepfunction := fn:local-name($pipeline/*[@xproc:defaultname=$step])
+
 let $stepfunc := fn:string(concat($const:default-imports,'$',$pipeline/*[@xproc:defaultname=$step]/@xproc:type,':',$stepfunction))
 
     return (
@@ -422,8 +399,6 @@ let $stepfunc := fn:string(concat($const:default-imports,'$',$pipeline/*[@xproc:
             if($stepfunction='') then
                 $primaryinput
             else
-
-                (dynamically invoke the function )
                 util:call( 
                             util:xquery($stepfunc),
  

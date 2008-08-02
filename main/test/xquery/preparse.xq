@@ -76,14 +76,12 @@ let $pipeline :=
         <p:output port="result"/>
    </p:identity>
 
-   <p:identity name="step2"/>
+   <p:count/>
 
 </p:pipeline>
 
     let $preparse := xproc:preparse($pipeline)
-    let $parsetree := xproc:parse($preparse,<test/>)
-    let $runtree := xproc:build($parsetree)
-    let $eval_result := xproc:evaltree($runtree)
+    let $eval_result := xproc:parse($preparse,$source)
     let $serialized_result := xproc:output($eval_result)
 
 return
@@ -91,7 +89,7 @@ return
        {
         <xproc:result>
             {
-                $parsetree
+                $serialized_result
             }
         </xproc:result>
         }
