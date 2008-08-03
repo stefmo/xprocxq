@@ -40,7 +40,10 @@ let $pipeline :=
    <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
                 
-  <p:input port="source" primary="true"/>
+  <p:input port="source" primary="true">
+    <p:empty/>
+  </p:input>
+
   <p:output port="result" primary="true"/>
 
    <p:identity name="step1">
@@ -52,6 +55,47 @@ let $pipeline :=
 
 </p:pipeline>
  return xproc:preparse($pipeline)
+}
+</result>
+<expected></expected>
+</test>
+
+<test>
+    <name>preparse with different inputs</name>
+    <result>
+{
+
+let $pipeline :=
+   <p:pipeline name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc">
+                
+  <p:input port="source" primary="true"/>
+  <p:output port="result" primary="true"/>
+
+   <p:identity name="step1">
+        <p:input port="source" primary="true">
+              <p:inline>
+                    <test>inline test</test>
+               </p:inline>
+        </p:input>
+        <p:output port="result"/>
+   </p:identity>
+
+</p:pipeline>
+
+    let $preparse := xproc:preparse($pipeline)
+    let $eval_result := xproc:parse($preparse,$source)
+    let $serialized_result := xproc:output($eval_result)
+
+return
+    document
+       {
+        <xproc:result>
+            {
+                $serialized_result
+            }
+        </xproc:result>
+        }
 }
 </result>
 <expected></expected>
@@ -73,9 +117,7 @@ let $pipeline :=
 
 
    <p:identity name="step1">
-        <p:input port="source" primary="true">
-              <p:document href="file:test/data/test1.xml"/>
-        </p:input>
+        <p:input port="source" primary="true"/>
         <p:output port="result"/>
    </p:identity>
 

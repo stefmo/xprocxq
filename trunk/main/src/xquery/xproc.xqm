@@ -48,6 +48,8 @@ declare function xproc:get-step($stepname as xs:string) {
     $ext:steps/p:declare-step[@type=$stepname]
 };
 
+
+
 (: -------------------------------------------------------------------------- :)
 (: checks to see if this step is available :)
 (: -------------------------------------------------------------------------- :)
@@ -268,21 +270,21 @@ let $explicitbindings :=
             }
 
          else
- (: STATIC ERROR  ---------------------------------------------------------------------------------- :)
-      (:TODO: need to implement static error here:)
+ 
+    (: STATIC ERROR  ---------------------------------------------------------------------------------- :)
             util:staticError("X0001", concat($stepname,$step/@name))
 
 
     return 
     (: if dealing with nested components --------------------------------------------------------- :)
         if(empty($pipelinename)) then
-                    $explicitbindings
+            $explicitbindings
         else
 
     (: if dealing with p:pipeline component ------------------------------------------------------ :)
-                <p:pipeline xmlns:xproc="http://xproc.net/xproc" name="{$pipelinename}" xproc:preparsed="true">
-                    {$explicitbindings}
-                </p:pipeline>
+            <p:pipeline xmlns:xproc="http://xproc.net/xproc" name="{$pipelinename}" xproc:preparsed="true">
+                {$explicitbindings}
+            </p:pipeline>
 
 };
 
@@ -399,7 +401,9 @@ declare function xproc:evaltree($steps,$stepfunc,$pipeline,$stdin){
 (: Serialize Eval Result :)
 (: TODO: implement xproc serialization params  :)
 declare function xproc:output($evalresult){
-    $evalresult
+
+    (: return the primary result :)  
+    $evalresult[1]
 };
 
 
@@ -409,13 +413,31 @@ declare function xproc:output($evalresult){
 declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline) {
 
 let $stepfunc := concat($const:default-imports,$stepfunc1)
-
+let $currentstep := $pipeline/*[@xproc:defaultname=$step]
     return (
             util:call( util:xquery($stepfunc),
                        (
                        (: generate primary input source :)
-                           if($pipeline/*[@xproc:defaultname=$step]/p:input[@select=''][@primary='true']) then
-                                $primaryinput[1]
+                           if($currentstep/p:input[@primary='true'][@select='']) then
+
+                                if($currentstep/p:input/p:empty) then
+
+                                    ('','')
+
+                                else if($currentstep/p:input/p:inline) then
+
+                                    $currentstep/p:input/p:inline/*
+
+                                else if($currentstep/p:input/p:document) then
+
+                                             if (fn:doc-available($currentstep/p:input/p:document/@href)) then
+                                                   fn:doc($currentstep/p:input/p:document/@href)
+                                             else
+                                                   util:dynamicError('err:XD0002',fn:concat(" cannot access document ",$currentstep/p:input/p:document/@href))
+
+                                else
+                                    $primaryinput[1]
+
                            else
                                util:evalXPATH(fn:string($pipeline/*[@xproc:defaultname=$step]/p:input[@primary='true'][@select]/@select),document{$primaryinput[1]}),
 
