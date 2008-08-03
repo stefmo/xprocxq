@@ -149,12 +149,13 @@
    <p:declare-step type="p:sink" xml:id="sink">
       <p:input port="source" sequence="true" primary="true"/>
    </p:declare-step>
-   <p:declare-step type="p:split-sequence" xml:id="split-sequence">
-      <p:input port="source" sequence="true" primary="true"/>
-      <p:output port="matched" sequence="true" primary="true"/>
-      <p:output port="not-matched" sequence="true"/>
-      <p:option name="test" required="true"/>
-   </p:declare-step>
+    <p:declare-step type="p:split-sequence">
+       <p:input port="source" sequence="true"/>
+       <p:output port="matched" sequence="true" primary="true"/>
+       <p:output port="not-matched" sequence="true"/>
+       <p:option name="initial-only" select="false()'"/>             <!-- boolean -->
+       <p:option name="test" required="true"/>                       <!-- XPathExpression -->
+    </p:declare-step>
    <p:declare-step type="p:store" xml:id="store">
       <p:input port="source" primary="true"/>
       <p:output port="result" primary="false"/>

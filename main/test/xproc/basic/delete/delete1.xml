@@ -6,7 +6,7 @@
 
    <p:delete name="step1">
         <p:input port="source" primary="true"/>
-        <p:with-option name="match" select="/test/a"/> 
+        <p:with-option name="match" select="//a"/> 
         <p:output port="result" primary="true"/>
    </p:delete>
 

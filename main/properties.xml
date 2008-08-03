@@ -10,7 +10,7 @@
     </lib>
 </dir>
 <jar>
-    <saxon>lib/saxon/saxon9sa.jar</saxon>
+    <saxon>lib/saxon9/saxon9sa.jar</saxon>
 </jar>
 </p>
 
