@@ -3,6 +3,7 @@
 <p>
 <dir>
     <lib>
+        <classes>lib/net/xproc</classes>
         <saxon>lib/saxon9</saxon>
         <saxon-ext>lib</saxon-ext>
         <onvdl>lib/oNVDL/bin</onvdl>

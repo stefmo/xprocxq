@@ -7,10 +7,11 @@ package net.xproc.ant;
 
 import java.io.File;
  
+import org.apache.tools.ant.DefaultLogger;
 import org.apache.tools.ant.BuildEvent;
 import org.apache.tools.ant.BuildListener;
  
-public class SimpleBuildListener implements BuildListener {
+public class SimpleBuildListener extends DefaultLogger  {
  
     public void buildFinished(BuildEvent buildEvent) {
     }
@@ -19,15 +20,15 @@ public class SimpleBuildListener implements BuildListener {
     }
  
     public void messageLogged(BuildEvent buildEvent) {
-        System.out.println(" ["+buildEvent.getTask().getTaskName()+"] "+buildEvent.getMessage());
+        System.out.println(" ");
     }
  
     public void targetFinished(BuildEvent buildEvent) {
-        System.out.println("target finished");
+        System.out.println(" ");
     }
  
     public void targetStarted(BuildEvent buildEvent) {
-        System.out.println(buildEvent.getTarget().getName()+":");
+        System.out.println(" ");
     }
  
     public void taskFinished(BuildEvent buildEvent) {

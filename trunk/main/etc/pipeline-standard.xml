@@ -37,7 +37,7 @@
    </p:declare-step>
    <p:declare-step type="p:directory-list" xml:id="directory-list">
       <p:output port="result" primary="true"/>
-      <p:option name="path" select="'.'"/>
+      <p:option name="path" select="'.'" required="true"/>
       <p:option name="include-filter"/>
       <p:option name="exclude-filter"/>
    </p:declare-step>

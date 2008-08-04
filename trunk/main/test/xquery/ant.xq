@@ -17,7 +17,6 @@ declare variable $source := document{*};
 <test>
     <name>run successful ant:test step test</name>
     <result>
-        {ant:test("test")}
     </result>
     <expected>true</expected>
 </test>
@@ -25,7 +24,7 @@ declare variable $source := document{*};
 <test>
     <name>run successful ant:build-target step test</name>
     <result>
-        {ant:build-target()}
+        {ant:build-target("write this please")}
     </result>
     <expected>true</expected>
 </test>

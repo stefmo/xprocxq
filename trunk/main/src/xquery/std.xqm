@@ -64,7 +64,12 @@ declare function std:add-xml-base($seq) as item() {
 
 (: -------------------------------------------------------------------------- :)
 declare function std:directory-list($seq) as item() {
-    $seq[1]
+ 
+(: this should be caught as a static error someday ... will do it in refactoring  :)
+util:assert(fn:exists($seq[4]/p:option[@name='path']),'p:directory-list path option does not exist'),
+
+    (util:outputResultElement(fn:collection('file:/')))
+
 };
 
 

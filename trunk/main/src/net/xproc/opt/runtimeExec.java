@@ -45,24 +45,9 @@ public class runtimeExec
             String osName = System.getProperty("os.name" );
             String[] cmd = new String[3];
 
-            if( osName.equals( "Windows NT" ) )
-            {
-                cmd[0] = "cmd.exe" ;
-                cmd[1] = "/C" ;
-                cmd[2] = args[0];
-            }
-            else if( osName.equals( "Windows 95" ) )
-            {
-                cmd[0] = "command.com" ;
-                cmd[1] = "/C" ;
-                cmd[2] = args[0];
-            }
-            else 
-            {
                 cmd[0] = args[0];
                 cmd[1] = "" ;
                 cmd[2] = "";
-            }
             
             Runtime rt = Runtime.getRuntime();
             System.out.println("Execing " + cmd[0] + " " + cmd[1] 
