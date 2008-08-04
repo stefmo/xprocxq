@@ -19,13 +19,13 @@ import org.apache.tools.ant.ProjectHelper;
  */
 public class AntTargetRunner {
  
-    private Project project;
+    private static Project project;
  
-    public String executeTarget(String build, String basedir1,String target) {
+    public static String executeTarget(String build, String basedir1,String target) {
         project = new Project();
         File basedir = new File(basedir1);
         project.init();
-        project.addBuildListener(new net.xproc.ant.SimpleBuildListener());
+        project.addBuildListener(new org.apache.tools.ant.listener.AnsiColorLogger());
         ProjectHelper.getProjectHelper().parse(project, build);
         project.setBaseDir(basedir);
         project.executeTarget(target);

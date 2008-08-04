@@ -666,7 +666,8 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
 
                 <arg line="-sa -s @{input} @{query}"/>
                 <classpath>
-                    <pathelement location="${p.dir.lib.saxon-ext}"/>
+                    <pathelement location="${p.dir.lib.classes}"/>
+                  <pathelement location="${p.dir.lib.saxon-ext}"/>
                     <pathelement location="${p.dir.lib.saxon}"/>
                     <fileset dir="${p.dir.lib.saxon}">
                         <include name="*.jar"/>
@@ -696,6 +697,7 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
 
                 <arg line="-sa -s @{input} @{query} +xproc=@{xproc} +stdin=@{input}"/>
                 <classpath>
+                    <pathelement location="${p.dir.lib.classes}"/>
                     <pathelement location="${p.dir.lib.saxon-ext}"/>
                     <pathelement location="${p.dir.lib.saxon}"/>
                     <fileset dir="${p.dir.lib.saxon}">

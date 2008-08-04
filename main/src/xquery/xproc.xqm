@@ -452,8 +452,12 @@ let $currentstep := $pipeline/*[@xproc:defaultname=$step]
                                 else
                                     $primaryinput[1]
 
-                           else
-                               util:evalXPATH(fn:string($pipeline/*[@xproc:defaultname=$step]/p:input[@primary='true'][@select]/@select),document{$primaryinput[1]}),
+                           else if($currentstep/p:input[@primary='true'][@select]) then
+                               util:evalXPATH(fn:string($pipeline/*[@xproc:defaultname=$step]/p:input[@primary='true'][@select]/@select),document{$primaryinput[1]})
+
+                           else 
+                               (<p:empty/>),
+                               
 
       (: non-primary inputs :)                           
                            <xproc:inputs>{
