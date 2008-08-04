@@ -126,10 +126,11 @@ declare function util:evalXPATH($xpathstring, $xml){
 
 
 (: -------------------------------------------------------------------------- :)
-declare function util:xquery($exp as xs:string) as item()*{
+declare function util:xquery($exp as xs:string){
     let $a := func:compileQuery($exp)
-    return 
-        func:query($a)
+    let $result := func:query($a)
+    return
+        $result
 };
 
 
@@ -153,7 +154,6 @@ declare function util:serialize($xproc,$output){
 };
 
 (: -------------------------------------------------------------------------- :)
-(: All those useful FP functions ... all dependent on xquery eval() call :)
 declare function util:map($func, $seqA as item()*, $seqB as item()*) 
 as item()* {
 	if(count($seqA) != count($seqB)) then ()
@@ -198,20 +198,20 @@ declare function util:pipeline-step-sort($unsorted, $sorted )   {
 
 
 (: -------------------------------------------------------------------------- :)
-declare function util:final-result($primaryresult,$pipeline){
+declare function util:final-result($primaryresult as item()*,$pipeline,$resulttree){
 
-    $primaryresult
+    ($primaryresult,$pipeline,$resulttree)
 
 };
 
 
 
 (: -------------------------------------------------------------------------- :)
-declare function util:step-fold ($pipeline,$steps as item()*,$stepfuncs, $evalstep, $primaryinput) {
+declare function util:step-fold ($pipeline,$steps as item()*,$stepfuncs, $evalstep, $primaryinput, $resulttree) {
   
     if (empty($steps)) then
        (: no more steps return the results :)
-            util:final-result($primaryinput,$pipeline)
+            util:final-result($primaryinput,$pipeline,$resulttree)
     else 
        (: perform evalstep function, generating new primary input :)
        let $result := util:call($evalstep, 
@@ -219,14 +219,18 @@ declare function util:step-fold ($pipeline,$steps as item()*,$stepfuncs, $evalst
                                   $stepfuncs[1],
                                   $primaryinput,
                                   $pipeline)
+
     return
+
        (: TODO: tail end recursion, could probably optimise this manually; will investigate
                 if the xquery processor is not already optimizing :)
         util:step-fold($pipeline,
                        remove($steps, 1),
                        remove($stepfuncs, 1),
                        $evalstep,
-                       $result)
+                       $result,
+                       ($resulttree,<xproc:output name="{$steps[1]}" func="{$stepfuncs[1]}">{$result}</xproc:output>) 
+                       )
 };
 
 (: -------------------------------------------------------------------------- :)

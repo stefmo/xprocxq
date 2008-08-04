@@ -248,6 +248,8 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                      xproc="file:test/xproc/basic/compare/compare2_2.xml"/> 
                      
     </target>
+
+
     <!-- ===================================================== -->
     <!-- xproc.xq input xproc tests                          -->
     <!-- ===================================================== -->
@@ -264,6 +266,21 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
                      xproc="file:test/xproc/basic/inputs/inputs_2.xml"/>
+    </target>
+
+
+    <!-- ===================================================== -->
+    <!-- xproc.xq import xproc tests                           -->
+    <!-- ===================================================== -->
+    <target name="xproc-import-test" depends="clean"  description="run xproc.xq on basic import xproc">
+        <xproc-saxon dest="result/xproc_import_result_1.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/import/import1.xml"/>
+        <xproc-saxon dest="result/xproc_import_result_2.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/import/import2.xml"/>
     </target>
 
 
@@ -441,6 +458,27 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
 
 
     <!-- ===================================================== -->
+    <!-- xproc.xq declare steyp xproc unit tests               -->
+    <!-- ===================================================== -->
+    <target name="xproc-declare-step-test" depends="clean"  description="run xproc.xq on basic declare-step xproc">
+
+        <xproc-saxon dest="result/xproc_declare-step_result_1.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/declare-step/declare-step1.xml"/>
+        <xproc-saxon dest="result/xproc_declare-step_result_2.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/declare-step/declare-step2.xml"/>
+        <xproc-saxon dest="result/xproc_declare-step_result_3.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/declare-step/declare-step3.xml"/>
+
+    </target>
+
+
+    <!-- ===================================================== -->
     <!-- xproc.xq doc xproc unit tests                         -->
     <!-- ===================================================== -->
     <target name="xproc-documentation-test" depends="clean"  description="run xproc.xq on basic documentation xproc">
@@ -449,6 +487,19 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
                      xproc="file:test/xproc/basic/documentation/documentation.xml"/>
+
+    </target>
+    
+    
+    <!-- ===================================================== -->
+    <!-- xproc.xq directory-list xproc unit tests              -->
+    <!-- ===================================================== -->
+    <target name="xproc-directorylist-test" depends="clean"  description="run xproc.xq on basic directory-list xproc">
+
+        <xproc-saxon dest="result/xproc_dirlist_result_1.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/directory-list/dirlist1.xml"/>
 
     </target>
 

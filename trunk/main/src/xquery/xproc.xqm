@@ -26,6 +26,7 @@ import module namespace comp = "http://xproc.net/xproc/comp"
                         at "../xquery/comp.xqm";
 
 
+
 (: -------------------------------------------------------------------------- :)
 (: checks to see if this component exists :)
 (: -------------------------------------------------------------------------- :)
@@ -41,11 +42,13 @@ declare function xproc:comp-available($stepname as xs:string) as xs:boolean {
 (: -------------------------------------------------------------------------- :)
 (: returns step from step definitions :)
 (: -------------------------------------------------------------------------- :)
-declare function xproc:get-step($stepname as xs:string) {
+declare function xproc:get-step($stepname as xs:string,$declare-step) {
 
     $std:steps/p:declare-step[@type=$stepname],
     $opt:steps/p:declare-step[@type=$stepname],
-    $ext:steps/p:declare-step[@type=$stepname]
+    $ext:steps/p:declare-step[@type=$stepname],
+    $declare-step/p:declare-step[@type=$stepname]
+
 };
 
 
@@ -53,12 +56,12 @@ declare function xproc:get-step($stepname as xs:string) {
 (: -------------------------------------------------------------------------- :)
 (: checks to see if this step is available :)
 (: -------------------------------------------------------------------------- :)
-declare function xproc:step-available($stepname as xs:string) as xs:boolean {
+declare function xproc:step-available($stepname as xs:string,$declare-step) as xs:boolean {
 
    exists(($std:steps/p:declare-step[@type=$stepname],
           $opt:steps/p:declare-step[@type=$stepname],
-          $ext:steps/p:declare-step[@type=$stepname]))
-
+          $ext:steps/p:declare-step[@type=$stepname],
+          $declare-step/p:declare-step[@type=$stepname]))
 };
 
 
@@ -90,12 +93,14 @@ declare function xproc:type($stepname as xs:string) as xs:string {
 };
 
 
+
 (: -------------------------------------------------------------------------- :)
 (: 1) make all step and input/output pipe names explicit :)
 (: -------------------------------------------------------------------------- :)
 declare function xproc:explicitnames($xproc as item(), $unique_id){
 
 let $pipelinename := $xproc/@name
+let $declare-step := $xproc//p:declare-step
 
 let $explicitnames := 
 
@@ -109,12 +114,12 @@ let $explicitnames :=
         let $unique_current := concat($unique_id,'!',$count,':',$pipelinename,':',$step/@name)
 
         (: look up defined step in library :)
-        let $allstep := xproc:get-step($stepname)
+        let $allstep := xproc:get-step($stepname,$declare-step)
 
         return
 
             (: handle step element ------------------------------------------------------------ :)
-                if(xproc:step-available($stepname)) then
+                if(xproc:step-available($stepname,$declare-step)) then
 
 (: util:step is a convention for wrapping top level ports :)
 if($stepname eq "util:step") then
@@ -198,6 +203,7 @@ else
 declare function xproc:explicitbindings($xproc as item()){
 
 let $pipelinename := $xproc/@name
+let $declare-step := $xproc//p:declare-step
 
 let $explicitbindings := 
 
@@ -207,7 +213,7 @@ let $explicitbindings :=
       return
 
         (: handle step element ----------------------------------------------------------------  :)
-        if(xproc:step-available($stepname)) then
+        if(xproc:step-available($stepname,$declare-step)) then
 
             element {$stepname} {
                  attribute name{$step/@name},attribute xproc:defaultname{$step/@xproc:defaultname},
@@ -304,7 +310,7 @@ declare function xproc:import-fixup($xproc as item()){
                 if (fn:doc-available($import/@href)) then
                       fn:doc($import/@href)
                 else
-                      util:dynamicError('err:XD0002',fn:concat("cannot import pipeline document ",$import/@href))
+                      util:dynamicError('err:XD0002',"cannot import pipeline document ")
 }
             {$xproc/p:*[not(name(.)="p:import")]}
         </p:pipeline>
@@ -391,7 +397,7 @@ declare function xproc:parse($xproc as item(),$stdin) {
 (: Eval Run Tree :)
 declare function xproc:evaltree($steps,$stepfunc,$pipeline,$stdin){
 
-    util:step-fold($pipeline,$steps,$stepfunc,saxon:function("xproc:evalstep", 4),($stdin,""))
+    util:step-fold($pipeline,$steps,$stepfunc,saxon:function("xproc:evalstep", 4),($stdin,""),())
 
 };
 
@@ -400,10 +406,18 @@ declare function xproc:evaltree($steps,$stepfunc,$pipeline,$stdin){
 (: -------------------------------------------------------------------------- :)
 (: Serialize Eval Result :)
 (: TODO: implement xproc serialization params  :)
-declare function xproc:output($evalresult){
+declare function xproc:output($evalresult,$flag){
 
-    (: return the primary result :)  
-    $evalresult[1]
+    if($flag = 3) then
+        $evalresult
+    else if($flag = 2 ) then
+        subsequence($evalresult,3)
+    else if($flag = 1 ) then
+        $evalresult[2]
+    else 
+        $evalresult[1]
+
+        
 };
 
 

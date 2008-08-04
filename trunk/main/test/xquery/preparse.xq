@@ -85,7 +85,7 @@ let $pipeline :=
 
     let $preparse := xproc:preparse($pipeline)
     let $eval_result := xproc:parse($preparse,$source)
-    let $serialized_result := xproc:output($eval_result)
+    let $serialized_result := xproc:output($eval_result,0)
 
 return
     document
@@ -109,8 +109,6 @@ return
 let $pipeline :=
    <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
-
-<p:import href="file:test/data/pipeline.xml"/>
                 
   <p:input port="source" primary="true"/>
   <p:output port="result" primary="true"/>
@@ -127,14 +125,14 @@ let $pipeline :=
 
     let $preparse := xproc:preparse($pipeline)
     let $eval_result := xproc:parse($preparse,$source)
-    let $serialized_result := xproc:output($eval_result)
+    let $serialized_result := xproc:output($eval_result,2)
 
 return
     document
        {
         <xproc:result>
             {
-                $preparse
+               $serialized_result
             }
         </xproc:result>
         }

@@ -22,6 +22,7 @@ declare variable $std:add-xml-base :=saxon:function("std:add-xml-base", 1);
 declare variable $std:count :=saxon:function("std:count", 1);
 declare variable $std:compare :=saxon:function("std:compare",1);
 declare variable $std:delete :=saxon:function("std:delete",1);
+declare variable $std:declare-step :=saxon:function("std:declare-step",1);
 declare variable $std:error :=saxon:function("std:error",1);
 declare variable $std:filter :=saxon:function("std:filter",1);
 declare variable $std:directory-list :=saxon:function("std:directory-list", 1);
@@ -57,12 +58,18 @@ declare function std:add-attribute($seq) as item() {
 
 (: -------------------------------------------------------------------------- :)
 declare function std:add-xml-base($seq) as item() {
-    $seq[1]
+    <test/>
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:directory-list($seq) as item() {
+    $seq[1]
+};
+
+
+(: -------------------------------------------------------------------------- :)
+declare function std:declare-step($seq) as item() {
     $seq[1]
 };
 
