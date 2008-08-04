@@ -1,0 +1,12 @@
+ <p:pipeline name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc">
+
+    <p:input port="source" primary="true"/>
+    <p:output port="result" primary="true"/>
+
+<p:directory-list>
+     <p:output port="result"/>
+     <p:with-option name="path" select="'.'"/>
+</p:directory-list>
+
+</p:pipeline>

@@ -24,6 +24,9 @@ import module namespace xproc = "http://xproc.net/xproc"
 
 (: Module Vars :)
 (: load in xproc xml :)
+
+declare variable $flag external;
+
 declare variable $xproc as item() external;
 
 declare variable $stdin as item() external;
@@ -38,13 +41,13 @@ declare variable $source := document{.};
     let $start-time := util:timing()
 
     (: STEP I: generate parse tree :)
-    let $preparse := xproc:preparse($xproc/p:pipeline)
+    let $preparse := xproc:preparse($xproc/p:*)
 
     (: STEP II: parse and eval tree :)
     let $eval_result := xproc:parse($preparse,$stdin)
 
     (: STEP III: serialize and return results :)
-    let $serialized_result := xproc:output($eval_result)
+    let $serialized_result := xproc:output($eval_result,0)
 
     let $end-time := util:timing()
 

@@ -35,9 +35,9 @@ util:assert(fn:exists($seq[2]/p:input[@port='query']/c:query),'p:input query is 
 
 (:TODO: need to sort out multiple c:query elements :)
 let $xquery := $seq[2]/p:input[@port='query']/c:query/text()
-return
-    util:xquery($xquery)
-
+let $result := fn:data(util:xquery($xquery))
+return 
+            (util:outputResultElement($result))
 };
 
 (: -------------------------------------------------------------------------- :)

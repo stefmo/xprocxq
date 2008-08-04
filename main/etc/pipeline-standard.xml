@@ -30,6 +30,11 @@
       <p:output port="result" primary="true"/>
       <p:option name="match" required="true"/>
    </p:declare-step>
+   <p:declare-step type="p:declare-step" xml:id="declare-step">
+      <p:input port="source" primary="true"/>
+      <p:output port="result" primary="true"/>
+      <p:option name="match" required="true"/>
+   </p:declare-step>
    <p:declare-step type="p:directory-list" xml:id="directory-list">
       <p:output port="result" primary="true"/>
       <p:option name="path" select="'.'"/>

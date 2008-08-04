@@ -1,0 +1,11 @@
+<p:declare-step name="test1"
+            type="mine:count"
+            xmlns:p="http://www.w3.org/ns/xproc"
+            xmlns:mine="http://www.example.org/test/mine">
+
+    <p:input port="source" sequence="true"/>
+    <p:output port="result" sequence="true"/>
+
+    <p:count/>
+    
+</p:declare-step>
