@@ -4,6 +4,10 @@ module namespace ant = "http://xproc.net/xproc/ant";
 
 declare namespace comp = "http://xproc.net/xproc/comp";
 
+(: Module Imports :)
+import module namespace util = "http://xproc.net/xproc/util"
+                        at "../xquery/util.xqm";
+
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
@@ -23,7 +27,7 @@ declare function ant:test($action){
 <test/>
 };
 
-declare function ant:build-target($message){
-    target:echo($message)
+declare function ant:ExecTask($message){
+    util:outputResultElement(target:execute($message))
 };
 (: -------------------------------------------------------------------------- :)
