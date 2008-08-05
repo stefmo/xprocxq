@@ -20,15 +20,12 @@ public class SimpleBuildListener extends DefaultLogger  {
     }
  
     public void messageLogged(BuildEvent buildEvent) {
-        System.out.println(" ");
     }
  
     public void targetFinished(BuildEvent buildEvent) {
-        System.out.println(" ");
     }
  
     public void targetStarted(BuildEvent buildEvent) {
-        System.out.println(" ");
     }
  
     public void taskFinished(BuildEvent buildEvent) {

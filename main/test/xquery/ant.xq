@@ -15,8 +15,9 @@ declare variable $source := document{*};
 <testsuite title="XProc Ant Step XQuery Unit Tests" desc="Test the XProc.xq ant step XQuery functions">
 
 <test>
-    <name>run successful ant:test step test</name>
+    <name>run successful ant:build-target step test</name>
     <result>
+        {ant:ExecTask(("tail","ChangeLog"))}
     </result>
     <expected>true</expected>
 </test>
@@ -24,7 +25,15 @@ declare variable $source := document{*};
 <test>
     <name>run successful ant:build-target step test</name>
     <result>
-        {ant:build-target("write this please")}
+        {ant:ExecTask(("ls","-la"))}
+    </result>
+    <expected>true</expected>
+</test>
+
+<test>
+    <name>run successful ant:build-target step test</name>
+    <result>
+        {ant:ExecTask(("df"))}
     </result>
     <expected>true</expected>
 </test>
