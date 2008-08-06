@@ -325,10 +325,10 @@ declare function xproc:import-fixup($xproc as item()){
 declare function xproc:port-fixup($xproc as item()){
 
         <p:pipeline name="{$xproc/@name}">
-            <util:step name="{$xproc/@name}">
+            <ext:pre name="{$xproc/@name}">
                 {$xproc/p:input}
                 {$xproc/p:output}
-            </util:step>
+            </ext:pre>
             {$xproc/p:*[not(name(.)="p:input")][not(name(.)="p:output")]}
         </p:pipeline>
 };
@@ -356,7 +356,7 @@ declare function xproc:preparse($xproc as item()){
 (: Generate xquery steps sequence :)
 declare function xproc:gensteps1($steps) as xs:string* {
 
-    for $step in $steps/p:*[fn:not(fn:name()='p:documentation')] 
+    for $step in $steps/*[fn:not(fn:name()='p:documentation')] 
     return
         let $name := $step/@xproc:defaultname
         return
@@ -370,7 +370,7 @@ declare function xproc:gensteps1($steps) as xs:string* {
 declare function xproc:gensteps2($steps) as xs:string*
 {
 
-    for $step in $steps/p:*[fn:not(fn:name()='p:documentation')] 
+    for $step in $steps/*[fn:not(fn:name()='p:documentation')] 
     return
         let $func := concat("$",$step/@xproc:type,":",local-name($step))
         return
@@ -397,7 +397,7 @@ declare function xproc:parse($xproc as item(),$stdin) {
 (: Eval Run Tree :)
 declare function xproc:evaltree($steps,$stepfunc,$pipeline,$stdin){
 
-    util:step-fold($pipeline,$steps,$stepfunc,saxon:function("xproc:evalstep", 4),($stdin,""),())
+    util:step-fold($pipeline,$steps,$stepfunc,saxon:function("xproc:evalstep", 5),($stdin,""),())
 
 };
 
@@ -424,39 +424,47 @@ declare function xproc:output($evalresult,$flag){
 
 (: -------------------------------------------------------------------------- :)
 (: runtime evaluation of xproc steps; throwing dynamic errors and writing output along the way :)
-declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline) {
+declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$resulttree) {
 
 let $stepfunc := concat($const:default-imports,$stepfunc1)
 let $currentstep := $pipeline/*[@xproc:defaultname=$step]
     return (
             util:call( util:xquery($stepfunc),
-                       (
-                       (: generate primary input source :)
+                       ( 
+               
+                    (: generate primary input source :)
                            if($currentstep/p:input[@primary='true'][@select='']) then
 
-                                if($currentstep/p:input/p:empty) then
+                           for $child in $currentstep/p:input/*
+                           return
+                           (
+                                if(name($child)='p:empty') then
 
-                                    ('','')
+                                    ()
 
-                                else if($currentstep/p:input/p:inline) then
+                                else if(name($child)='p:inline') then
 
-                                    $currentstep/p:input/p:inline/*
+                                    $child/*
 
-                                else if($currentstep/p:input/p:document) then
+                                else if($child/@href) then
 
-                                             if (fn:doc-available($currentstep/p:input/p:document/@href)) then
-                                                   fn:doc($currentstep/p:input/p:document/@href)
+                                             if (fn:doc-available($child/@href)) then
+                                                   fn:doc($child/@href)
                                              else
-                                                   util:dynamicError('err:XD0002',fn:concat(" cannot access document ",$currentstep/p:input/p:document/@href))
+                                                   util:dynamicError('err:XD0002',fn:concat(" cannot access document ",$child/@href))
 
                                 else
                                     $primaryinput[1]
+                            )
 
                            else if($currentstep/p:input[@primary='true'][@select]) then
                                util:evalXPATH(fn:string($pipeline/*[@xproc:defaultname=$step]/p:input[@primary='true'][@select]/@select),document{$primaryinput[1]})
 
                            else 
-                               (<p:empty/>),
+                               (<p:empty/>)
+
+                               
+                ,
                                
 
       (: non-primary inputs :)                           
