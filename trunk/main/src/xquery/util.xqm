@@ -112,6 +112,10 @@ declare function util:call($func,$a,$b,$c,$d){
 };
 
 
+declare function util:call($func,$a,$b,$c,$d,$e){
+    saxon:call($func,$a,$b,$c,$d,$e)
+};
+
 (: -------------------------------------------------------------------------- :)
 (:
 declare function util:function($func,$arity){
@@ -218,7 +222,8 @@ declare function util:step-fold ($pipeline,$steps as item()*,$stepfuncs, $evalst
                                   $steps[1],
                                   $stepfuncs[1],
                                   $primaryinput,
-                                  $pipeline)
+                                  $pipeline,
+                                  $resulttree)
 
     return
 
@@ -229,7 +234,7 @@ declare function util:step-fold ($pipeline,$steps as item()*,$stepfuncs, $evalst
                        remove($stepfuncs, 1),
                        $evalstep,
                        $result,
-                       ($resulttree,<xproc:output name="{$steps[1]}" func="{$stepfuncs[1]}">{$result}</xproc:output>) 
+                       ($resulttree,<xproc:step-state output-port="" name="{$steps[1]}" func="{$stepfuncs[1]}">{$result}</xproc:step-state>) 
                        )
 };
 

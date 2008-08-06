@@ -18,10 +18,16 @@ declare variable  $ext:steps := doc("../../etc/pipeline-extension.xml")/p:librar
 declare variable $ext:pre :=saxon:function("ext:pre", 1);
 declare variable $ext:post :=saxon:function("ext:post", 1);
 declare variable $ext:test :=saxon:function("ext:test", 1);
+declare variable $ext:step :=saxon:function("ext:step", 1);
 
 
 (: -------------------------------------------------------------------------- :)
 declare function ext:pre($seq ) as item()* {
+    $seq
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function ext:step($seq ) as item()* {
     $seq
 };
 

@@ -183,15 +183,15 @@ declare function std:xinclude($seq) as item() {
 };
 
 (: -------------------------------------------------------------------------- :)
-declare function std:identity($seq) as item() {
-    $seq[1]
+declare function std:identity($seq) as item()* {
+    $seq
 };
 
 (: -------------------------------------------------------------------------- :)
 (: TODO this is wrong, its counting the elements needs to count the sequence :)
 declare function std:count($seq) as item() {
    util:outputResultElement(
-        fn:count($seq[1]/node())
+        $seq
     )
 };
 
