@@ -17,6 +17,8 @@ declare variable $const:NS_XPROC_ERR_EXT := "http://xproc.net/ns/errors";
 
 (: Module Vars :)
 
+declare variable  $const:evalstep := saxon:function("xproc:evalstep", 5);
+
 (: -------------------------------------------------------------------------- :)
 (: error dictionaries :)
 declare variable  $const:error-static := doc("../../etc/error-dynamic.xml")/errors/error;

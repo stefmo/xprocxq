@@ -397,7 +397,7 @@ declare function xproc:parse($xproc as item(),$stdin) {
 (: Eval Run Tree :)
 declare function xproc:evaltree($steps,$stepfunc,$pipeline,$stdin){
 
-    util:step-fold($pipeline,$steps,$stepfunc,saxon:function("xproc:evalstep", 5),($stdin,""),())
+    util:step-fold($pipeline,$steps,$stepfunc,$const:evalstep,($stdin,""),())
 
 };
 
@@ -428,11 +428,7 @@ declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$resul
 
 let $stepfunc := concat($const:default-imports,$stepfunc1)
 let $currentstep := $pipeline/*[@xproc:defaultname=$step]
-    return (
-            util:call( util:xquery($stepfunc),
-                       ( 
-               
-                    (: generate primary input source :)
+let $primary :=                     (: generate primary input source :)
                            if($currentstep/p:input[@primary='true'][@select='']) then
 
                            for $child in $currentstep/p:input/*
@@ -462,13 +458,7 @@ let $currentstep := $pipeline/*[@xproc:defaultname=$step]
 
                            else 
                                (<p:empty/>)
-
-                               
-                ,
-                               
-
-      (: non-primary inputs :)                           
-                           <xproc:inputs>{
+let $secondary :=                           <xproc:inputs>{
                                 for $input in $pipeline/*[@xproc:defaultname=$step]/p:input[not(@primary='true')]
                                     return 
                                         if ($input/p:document) then
@@ -488,21 +478,20 @@ let $currentstep := $pipeline/*[@xproc:defaultname=$step]
                                             }
                                         else
                                             <xproc:warning message="xproc.xqm: generated automatically"/>                                            
-                           }</xproc:inputs>, 
-
-     (: outputs :)
-                           <xproc:outputs>{
+                           }</xproc:inputs>
+let $options :=<xproc:options>{
+                                  $pipeline/*[@xproc:defaultname=$step]/p:option
+                           }</xproc:options>
+let $output :=<xproc:outputs>{
                                   $pipeline/*[@xproc:defaultname=$step]/p:output
                            }
                            </xproc:outputs> 
-                            ,          
 
-     (: options :)
-                           <xproc:options>{
-                                  $pipeline/*[@xproc:defaultname=$step]/p:option
-                           }</xproc:options>
-                            )
-                )
-    )
+    return
+
+      (: dynamically invoke function and returning results to util:step-fold :)
+      util:call( util:xquery($stepfunc),
+                   ($primary,$secondary,$output,$options)
+        )
 
 };
