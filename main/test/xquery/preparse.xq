@@ -30,7 +30,7 @@ declare variable $source := document{*};
 
 <testsuite title="preparse XQuery Unit Tests" desc="Test the parsing and ordering of pipeline steps with XProc.xq">
 
-
+<!--
 <test>
     <name>preparse simple</name>
     <result>
@@ -85,7 +85,7 @@ let $pipeline :=
 
     let $preparse := xproc:preparse($pipeline)
     let $eval_result := xproc:parse($preparse,$source)
-    let $serialized_result := xproc:output($eval_result,0)
+    let $serialized_result := xproc:output($eval_result,3)
 
 return
     document
@@ -101,6 +101,9 @@ return
 <expected></expected>
 </test>
 
+
+//-->
+
 <test>
     <name>preparse simple</name>
     <result>
@@ -110,12 +113,18 @@ let $pipeline :=
    <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
                 
-  <p:input port="source" primary="true"/>
-  <p:output port="result" primary="true"/>
-
+     <p:input port="source" primary="true" select="">
+        <p:document href="file:test/data/test.xml"/>
+        <p:inline>
+              <anothertest/>
+          </p:inline>
+     </p:input>
+    <p:output port="result" primary="true"/>
 
    <p:identity name="step1">
-        <p:input port="source" primary="true"/>
+        <p:input port="source" primary="true">
+            <p:pipe step="pipeline" port="source"/>
+        </p:input>
         <p:output port="result"/>
    </p:identity>
 
@@ -125,7 +134,7 @@ let $pipeline :=
 
     let $preparse := xproc:preparse($pipeline)
     let $eval_result := xproc:parse($preparse,$source)
-    let $serialized_result := xproc:output($eval_result,2)
+    let $serialized_result := xproc:output($eval_result,0)
 
 return
     document
@@ -140,6 +149,8 @@ return
 </result>
 <expected></expected>
 </test>
+
+
 
 </testsuite>
 

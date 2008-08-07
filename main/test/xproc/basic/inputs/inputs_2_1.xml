@@ -1,0 +1,20 @@
+ <p:pipeline name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc">
+                
+  <p:input port="source" primary="true">
+                    <p:document href="file:test/data/test2.xml"/>
+              <p:inline>
+                  <anothertest/>
+              </p:inline>
+  </p:input>
+      
+  <p:output port="result" primary="true"/>
+
+   <p:identity name="step1">
+        <p:input port="source" primary="true">
+              <p:pipe step="pipeline" port="source" />
+        </p:input>
+        <p:output port="result"/>
+   </p:identity>
+   
+</p:pipeline>

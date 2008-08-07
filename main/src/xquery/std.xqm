@@ -28,7 +28,7 @@ declare variable $std:filter :=saxon:function("std:filter",1);
 declare variable $std:directory-list :=saxon:function("std:directory-list", 1);
 declare variable $std:escape-markup :=saxon:function("std:escape-markup", 1);
 declare variable $std:http-request :=saxon:function("std:http-request", 1);
-declare variable $std:identity :=saxon:function("std:insert", 1);
+declare variable $std:identity :=saxon:function("std:identity", 1);
 declare variable $std:label-elements :=saxon:function("std:label-elements", 1);
 declare variable $std:load :=saxon:function("std:load", 1);
 declare variable $std:make-absolute-uris :=saxon:function("std:make-absolute-uris", 1);
@@ -184,7 +184,7 @@ declare function std:xinclude($seq) as item() {
 
 (: -------------------------------------------------------------------------- :)
 declare function std:identity($seq) as item()* {
-    $seq
+    $seq[1]
 };
 
 (: -------------------------------------------------------------------------- :)
