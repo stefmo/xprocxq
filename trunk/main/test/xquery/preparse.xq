@@ -128,8 +128,6 @@ let $pipeline :=
         <p:output port="result"/>
    </p:identity>
 
-   <p:count/>
-
 </p:pipeline>
 
     let $preparse := xproc:preparse($pipeline)

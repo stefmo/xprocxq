@@ -407,17 +407,7 @@ declare function xproc:evaltree($steps,$stepfunc,$pipeline,$stdin){
 (: Serialize Eval Result :)
 (: TODO: implement xproc serialization params  :)
 declare function xproc:output($evalresult,$flag){
-
-    if($flag = 3) then
         $evalresult
-    else if($flag = 2 ) then
-        subsequence($evalresult,3)
-    else if($flag = 1 ) then
-        $evalresult[2]
-    else 
-        $evalresult[1]
-
-        
 };
 
 
@@ -427,9 +417,10 @@ declare function xproc:output($evalresult,$flag){
 declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$resulttree) {
 
 let $stepfunc := concat($const:default-imports,$stepfunc1)
+
 let $currentstep := $pipeline/*[@xproc:defaultname=$step]
-let $primary :=                     (: generate primary input source :)
-                           if($currentstep/p:input[@primary='true'][@select='']) then
+
+let $primary := ( if($currentstep/p:input[@primary='true'][@select='']) then
 
                            for $child in $currentstep/p:input/*
                            return
@@ -458,40 +449,40 @@ let $primary :=                     (: generate primary input source :)
 
                            else 
                                (<p:empty/>)
-let $secondary :=                           <xproc:inputs>{
-                                for $input in $pipeline/*[@xproc:defaultname=$step]/p:input[not(@primary='true')]
-                                    return 
-                                        if ($input/p:document) then
-                                            element {name($input)}{
-                                             attribute port{$input/@port},attribute primary{$input/@primary},attribute select{$input/@select},
-                                             if (fn:doc-available($input/p:document/@href)) then
-                                                   fn:doc($input/p:document/@href)
-                                             else
-                                                   util:dynamicError('err:XD0002',fn:concat($step," p:input ",$input/@port," cannot access document ",$input/p:document/@href))
-                                            }
-                                        else if($input/p:inline) then
-                                           element {name($input)}{
-                                            attribute port{$input/@port},
-                                            attribute primary{$input/@primary},
-                                            attribute select{$input/@select},
-                                                $input/p:inline/node()
-                                            }
-                                        else
-                                            <xproc:warning message="xproc.xqm: generated automatically"/>                                            
-                           }</xproc:inputs>
+                               )
+
+
+let $secondary :=  <xproc:inputs>{
+                            for $input in $pipeline/*[@xproc:defaultname=$step]/p:input[not(@primary='true')]
+                                return 
+                                    if ($input/p:document) then
+                                        element {name($input)}{
+                                         attribute port{$input/@port},attribute primary{$input/@primary},attribute select{$input/@select},
+                                         if (fn:doc-available($input/p:document/@href)) then
+                                               fn:doc($input/p:document/@href)
+                                         else
+                                               util:dynamicError('err:XD0002',fn:concat($step," p:input ",$input/@port," cannot access document ",$input/p:document/@href))
+                                        }
+                                    else if($input/p:inline) then
+                                       element {name($input)}{
+                                        attribute port{$input/@port},
+                                        attribute primary{$input/@primary},
+                                        attribute select{$input/@select},
+                                            $input/p:inline/node()
+                                        }
+                                    else
+                                        <xproc:warning message="xproc.xqm: generated automatically"/>                                            
+                       }</xproc:inputs>
 let $options :=<xproc:options>{
-                                  $pipeline/*[@xproc:defaultname=$step]/p:option
-                           }</xproc:options>
+                              $pipeline/*[@xproc:defaultname=$step]/p:option
+                       }</xproc:options>
 let $output :=<xproc:outputs>{
-                                  $pipeline/*[@xproc:defaultname=$step]/p:output
-                           }
-                           </xproc:outputs> 
+                              $pipeline/*[@xproc:defaultname=$step]/p:output
+                       }
+                       </xproc:outputs> 
 
     return
-
-      (: dynamically invoke function and returning results to util:step-fold :)
-      util:call( util:xquery($stepfunc),
-                   ($primary,$secondary,$output,$options)
+        util:call( 
+                   util:xquery($stepfunc),$primary,$secondary,$options
         )
-
 };

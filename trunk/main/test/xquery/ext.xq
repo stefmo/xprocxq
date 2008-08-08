@@ -18,7 +18,7 @@ declare variable $source := document{*};
 <test>
     <name>run successful ext:pre step test</name>
     <result>
-    {test:assertXMLEqual(ext:pre(<test/>),<test/>)}
+    {test:assertXMLEqual(ext:pre(<test/>,(),()),<test/>)}
     </result>
     <expected>true</expected>
 </test>
@@ -26,7 +26,7 @@ declare variable $source := document{*};
 <test>
     <name>run successful ext:post step test</name>
     <result>
-    {test:assertXMLEqual(ext:post(<test/>),<test/>)}
+    {test:assertXMLEqual(ext:post(<test/>,(),()),<test/>)}
     </result>
     <expected>true</expected>
 </test>

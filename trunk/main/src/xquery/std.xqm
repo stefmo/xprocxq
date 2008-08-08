@@ -16,57 +16,61 @@ import module namespace util = "http://xproc.net/xproc/util"
 (: Module Vars :)
 declare variable $std:steps := doc("../../etc/pipeline-standard.xml")/p:library;
 
-(: TODO - generate these declarations at some point :)
-declare variable $std:add-attribute :=saxon:function("std:add-attribute", 1);
-declare variable $std:add-xml-base :=saxon:function("std:add-xml-base", 1);
-declare variable $std:count :=saxon:function("std:count", 1);
-declare variable $std:compare :=saxon:function("std:compare",1);
-declare variable $std:delete :=saxon:function("std:delete",1);
-declare variable $std:declare-step :=saxon:function("std:declare-step",1);
-declare variable $std:error :=saxon:function("std:error",1);
-declare variable $std:filter :=saxon:function("std:filter",1);
-declare variable $std:directory-list :=saxon:function("std:directory-list", 1);
-declare variable $std:escape-markup :=saxon:function("std:escape-markup", 1);
-declare variable $std:http-request :=saxon:function("std:http-request", 1);
-declare variable $std:identity :=saxon:function("std:identity", 1);
-declare variable $std:label-elements :=saxon:function("std:label-elements", 1);
-declare variable $std:load :=saxon:function("std:load", 1);
-declare variable $std:make-absolute-uris :=saxon:function("std:make-absolute-uris", 1);
-declare variable $std:namespace-rename :=saxon:function("std:namespace-rename", 1);
-declare variable $std:pack :=saxon:function("std:pack", 1);
-declare variable $std:parameters :=saxon:function("std:parameters", 1);
-declare variable $std:rename :=saxon:function("std:rename", 1);
-declare variable $std:replace :=saxon:function("std:replace", 1);
-declare variable $std:set-attributes :=saxon:function("std:set-attributes", 1);
-declare variable $std:sink :=saxon:function("std:sink", 1);
-declare variable $std:split-sequence :=saxon:function("std:split-sequence", 1);
-declare variable $std:store :=saxon:function("std:store", 1);
-declare variable $std:string-replace :=saxon:function("std:string-replace", 1);
-declare variable $std:unescape-markup :=saxon:function("std:unescape-markup", 1);
-declare variable $std:xinclude :=saxon:function("std:xinclude", 1);
-declare variable $std:wrap :=saxon:function("std:wrap", 1);
-declare variable $std:wrap-sequence :=saxon:function("std:wrap-sequence", 1);
-declare variable $std:unwrap :=saxon:function("std:unwrap", 1);
-declare variable $std:xslt :=saxon:function("std:xslt", 1);
+
+declare variable $std:add-attribute :=saxon:function("std:add-attribute", 3);
+declare variable $std:add-xml-base :=saxon:function("std:add-xml-base", 3);
+declare variable $std:count :=saxon:function("std:count", 3);
+declare variable $std:compare :=saxon:function("std:compare",3);
+declare variable $std:delete :=saxon:function("std:delete",3);
+declare variable $std:declare-step :=saxon:function("std:declare-step",3);
+declare variable $std:error :=saxon:function("std:error",3);
+declare variable $std:filter :=saxon:function("std:filter",3);
+declare variable $std:directory-list :=saxon:function("std:directory-list", 3);
+declare variable $std:escape-markup :=saxon:function("std:escape-markup", 3);
+declare variable $std:http-request :=saxon:function("std:http-request", 3);
+
+
+declare variable $std:identity :=saxon:function("std:identity", 3);
+
+
+declare variable $std:label-elements :=saxon:function("std:label-elements", 3);
+declare variable $std:load :=saxon:function("std:load", 3);
+declare variable $std:make-absolute-uris :=saxon:function("std:make-absolute-uris", 3);
+declare variable $std:namespace-rename :=saxon:function("std:namespace-rename", 3);
+declare variable $std:pack :=saxon:function("std:pack", 3);
+declare variable $std:parameters :=saxon:function("std:parameters", 3);
+declare variable $std:rename :=saxon:function("std:rename", 3);
+declare variable $std:replace :=saxon:function("std:replace", 3);
+declare variable $std:set-attributes :=saxon:function("std:set-attributes", 3);
+declare variable $std:sink :=saxon:function("std:sink", 3);
+declare variable $std:split-sequence :=saxon:function("std:split-sequence", 3);
+declare variable $std:store :=saxon:function("std:store", 3);
+declare variable $std:string-replace :=saxon:function("std:string-replace", 3);
+declare variable $std:unescape-markup :=saxon:function("std:unescape-markup", 3);
+declare variable $std:xinclude :=saxon:function("std:xinclude", 3);
+declare variable $std:wrap :=saxon:function("std:wrap", 3);
+declare variable $std:wrap-sequence :=saxon:function("std:wrap-sequence", 3);
+declare variable $std:unwrap :=saxon:function("std:unwrap", 3);
+declare variable $std:xslt :=saxon:function("std:xslt", 3);
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:add-attribute($seq) as item() {
-    $seq[1]
+declare function std:add-attribute($primary,$secondary,$options) as item() {
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:add-xml-base($seq) as item() {
+declare function std:add-xml-base($primary,$secondary,$options) as item() {
     <test/>
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:directory-list($seq) as item() {
+declare function std:directory-list($primary,$secondary,$options) as item() {
  
 (: this should be caught as a static error someday ... will do it in refactoring  :)
-util:assert(fn:exists($seq[4]/p:option[@name='path']),'p:directory-list path option does not exist'),
+util:assert(fn:exists($options/p:option[@name='path']),'p:directory-list path option does not exist'),
 
     (util:outputResultElement(fn:collection('file:/')))
 
@@ -74,137 +78,143 @@ util:assert(fn:exists($seq[4]/p:option[@name='path']),'p:directory-list path opt
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:declare-step($seq) as item() {
-    $seq[1]
+declare function std:declare-step($primary,$secondary,$options) as item() {
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:escape-markup($seq) as item() {
-    $seq[1]
+declare function std:escape-markup($primary,$secondary,$options) as item() {
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:http-request($seq) as item() {
-    $seq[1]
+declare function std:http-request($primary,$secondary,$options) as item() {
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:insert($seq) as item() {
-    $seq[1]
+declare function std:insert($primary,$secondary,$options) as item() {
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:label-elements($seq) as item() {
-    $seq[1]
+declare function std:label-elements($primary,$secondary,$options) as item() {
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:load($seq) as item() {
-    $seq[1]
+declare function std:load($primary,$secondary,$options) as item() {
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:make-absolute-uris($seq) as item() {
-    $seq[1]
+declare function std:make-absolute-uris($primary,$secondary,$options) as item() {
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:namespace-rename($seq) as item() {
-    $seq[1]
+declare function std:namespace-rename($primary,$secondary,$options) as item() {
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:pack($seq) as item() {
-    $seq[1]
+declare function std:pack($primary,$secondary,$options) as item() {
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:parameters($seq) as item() {
-    $seq[1]
+declare function std:parameters($primary,$secondary,$options) as item() {
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:rename($seq) as item() {
-    $seq[1]
+declare function std:rename($primary,$secondary,$options) as item() {
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:replace($seq) as item() {
-    $seq[1]
+declare function std:replace($primary,$secondary,$options) as item() {
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:set-attributes($seq) as item() {
-    $seq[1]
+declare function std:set-attributes($primary,$secondary,$options) as item() {
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:sink($seq) as item() {
-    $seq[1]
+declare function std:sink($primary,$secondary,$options) as item() {
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:split-sequence($seq) as item() {
-    $seq[1]
+declare function std:split-sequence($primary,$secondary,$options) as item() {
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:store($seq) as item() {
-    $seq[1]
+declare function std:store($primary,$secondary,$options) as item() {
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:string-replace($seq) as item() {
-    $seq[1]
-};
-(: -------------------------------------------------------------------------- :)
-declare function std:unescape-markup($seq) as item() {
-    $seq[1]
-};
-(: -------------------------------------------------------------------------- :)
-declare function std:xinclude($seq) as item() {
-    $seq[1]
+declare function std:string-replace($primary,$secondary,$options) as item() {
+    $primary
 };
 
+
 (: -------------------------------------------------------------------------- :)
-declare function std:identity($seq) as item()* {
-    $seq[1]
+declare function std:unescape-markup($primary,$secondary,$options) as item() {
+    $primary
 };
+
+
+(: -------------------------------------------------------------------------- :)
+declare function std:xinclude($primary,$secondary,$options) as item() {
+    $primary
+};
+
+
+(: -------------------------------------------------------------------------- :)
+declare function std:identity($primary,$secondary,$options) {
+   $primary
+};
+
 
 (: -------------------------------------------------------------------------- :)
 (: TODO this is wrong, its counting the elements needs to count the sequence :)
-declare function std:count($seq) as item() {
+declare function std:count($primary,$secondary,$options) as item() {
    util:outputResultElement(
-        $seq
+        count($primary)
     )
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:compare($seq) as item() {
+declare function std:compare($primary,$secondary,$options) as item() {
 (: TODO: xproc namespace is leaking into alternate, must fix :)
 
 (: this should be caught as a static error someday ... will do it in refactoring  :)
-util:assert(fn:exists($seq[2]/p:input[@port='alternate']),'p:compare alternate port does not exist'),
+util:assert(fn:exists($secondary/p:input[@port='alternate']),'p:compare alternate port does not exist'),
 
-let $result := fn:deep-equal($seq[1],$seq[2]/p:input[@port='alternate']/*)
-let $option := util:boolean($seq[4]/p:option[@name='fail-if-not-equal']/@select)
+let $result := fn:deep-equal($primary,$secondary/p:input[@port='alternate']/*)
+let $option := util:boolean($options/p:option[@name='fail-if-not-equal']/@select)
     return
 
         if($option eq fn:true()) then
@@ -217,14 +227,15 @@ let $option := util:boolean($seq[4]/p:option[@name='fail-if-not-equal']/@select)
       
 };
 
+
 (: -------------------------------------------------------------------------- :)
-declare function std:delete($seq) as item(){
-    $seq[1]
+declare function std:delete($primary,$secondary,$options) as item(){
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:error($seq) as item() {
+declare function std:error($primary,$secondary,$options) as item() {
 (:TODO: this should be generated to the error port:)
 
 <c:errors xmlns:c="http://www.w3.org/ns/xproc-step"
@@ -233,8 +244,8 @@ declare function std:error($seq) as item() {
 <!-- WARNING: this output should be generated to std error and/or error port //-->
 <c:error href="" column="" offset="" 
          name="step-name" type="p:error" 
-         code="{$seq[4]/p:option[@name='code']/@value}">
-    <message>{$seq[1]}</message>
+         code="{$options/p:option[@name='code']/@value}">
+    <message>{$primary}</message>
 </c:error>
 </c:errors>
 
@@ -242,13 +253,13 @@ declare function std:error($seq) as item() {
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:filter($seq) as item() {
+declare function std:filter($primary,$secondary,$options) as item() {
 
 (: this should be caught as a static error someday ... will do it in refactoring :)
-util:assert(fn:exists($seq[4]/p:option[@name='select']/@select),'p:option match is required'),
+util:assert(fn:exists($options/p:option[@name='select']/@select),'p:option match is required'),
 
-let $v :=document{$seq[1]}
-let $xpath := util:evalXPATH(fn:string($seq[4]/p:option[@name='select']/@select),$v)
+let $v :=document{$primary}
+let $xpath := util:evalXPATH(fn:string($options/p:option[@name='select']/@select),$v)
 let $result := util:evalXPATH(fn:string($xpath),$v)
     return 
     if(fn:exists($result)) then
@@ -259,52 +270,52 @@ let $result := util:evalXPATH(fn:string($xpath),$v)
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:wrap($seq) as item() {
+declare function std:wrap($primary,$secondary,$options) as item() {
 (: TODO - The match option must only match element, text, processing instruction, and comment nodes. It is a dynamic error (err:XC0041) if the match pattern matches any other kind of node. :)
 (: this should be caught as a static error someday ... will do it in refactoring :)
-util:assert(fn:exists($seq[4]/p:option[@name='match']/@select),'p:option match is required'),
+util:assert(fn:exists($options/p:option[@name='match']/@select),'p:option match is required'),
 
 (: this should be caught as a static error someday ... will do it in refactoring :)
-util:assert(fn:exists($seq[4]/p:option[@name='wrapper']/@select),'p:option wrapper is required'),
+util:assert(fn:exists($options/p:option[@name='wrapper']/@select),'p:option wrapper is required'),
 
-    let $v :=document{$seq[1]}
+    let $v :=document{$primary}
     return
        document 
        {
-        element {fn:string($seq[4]/p:option[@name='wrapper']/@select)} {
-            util:evalXPATH($seq[4]/p:option[@name='match']/@select,$v)
+        element {fn:string($options/p:option[@name='wrapper']/@select)} {
+            util:evalXPATH($options/p:option[@name='match']/@select,$v)
         }
        } 
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:unwrap($seq) as item() {
+declare function std:unwrap($primary,$secondary,$options) as item() {
 
 (: this should be caught as a static error someday ... will do it in refactoring :)
-util:assert(fn:exists($seq[4]/p:option[@name='match']/@select),'p:option match is required'),
+util:assert(fn:exists($options/p:option[@name='match']/@select),'p:option match is required'),
 
 (: TODO - The value of the match option must be an XSLTMatchPattern. It is a dynamic error (err:XC0023) if that pattern matches anything other than element nodes. :)
-let $v :=document{$seq[1]}
+let $v :=document{$primary}
     return
-         util:evalXPATH($seq[4]/p:option[@name='match']/@select,$v)
+         util:evalXPATH($options/p:option[@name='match']/@select,$v)
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:wrap-sequence($seq){
-    $seq[1]
+declare function std:wrap-sequence($primary,$secondary,$options){
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:xslt($seq){
+declare function std:xslt($primary,$secondary,$options){
 
-util:assert(fn:exists($seq[2]/p:input[@port='stylesheet']),'stylesheet is required'),
+util:assert(fn:exists($secondary/p:input[@port='stylesheet']),'stylesheet is required'),
 
-let $v :=document{$seq[1]}
+let $v :=document{$primary}
 return 
-    util:xslt($seq[2]/p:input[@port='stylesheet']/*,$v)
+    util:xslt($secondary/p:input[@port='stylesheet']/*,$v)
 
 };
 

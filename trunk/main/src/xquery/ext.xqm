@@ -15,28 +15,28 @@ declare variable  $ext:steps := doc("../../etc/pipeline-extension.xml")/p:librar
 
 (: -------------------------------------------------------------------------- :)
 
-declare variable $ext:pre :=saxon:function("ext:pre", 1);
-declare variable $ext:post :=saxon:function("ext:post", 1);
-declare variable $ext:test :=saxon:function("ext:test", 1);
-declare variable $ext:step :=saxon:function("ext:step", 1);
+declare variable $ext:pre :=saxon:function("ext:pre", 3);
+declare variable $ext:post :=saxon:function("ext:post", 3);
+declare variable $ext:test :=saxon:function("ext:test", 3);
+declare variable $ext:step :=saxon:function("ext:step", 3);
 
 
 (: -------------------------------------------------------------------------- :)
-declare function ext:pre($seq ) as item()* {
-    $seq
+declare function ext:pre($primary,$secondary,$options){
+   ($primary,<test/>)
 };
 
 (: -------------------------------------------------------------------------- :)
-declare function ext:step($seq ) as item()* {
-    $seq
+declare function ext:step($primary,$secondary,$options) as item()* {
+    $primary
 };
 
-declare function ext:post($seq ) as item()* {
-    $seq
+declare function ext:post($primary,$secondary,$options) as item()* {
+    $primary
 };
 
-declare function ext:test($seq ) as item()* {
-    $seq
+declare function ext:test($primary,$secondary,$options) as item()* {
+    $primary
 };
 
 (: -------------------------------------------------------------------------- :)

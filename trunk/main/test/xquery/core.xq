@@ -84,7 +84,7 @@ declare variable $source := document{*};
     <name>testing util:call</name>
     <result>
     {
-        util:call(saxon:function('std:count', 1),<test/>)
+        util:call(saxon:function('std:count', 3),<test/>,(),())
     }
     </result>
     <expected>1</expected>
@@ -95,7 +95,7 @@ declare variable $source := document{*};
     <name>directly testing saxon:call</name>
     <result>
     {
-        saxon:call(saxon:function('std:count', 1),<test/>)
+        saxon:call(saxon:function('std:count', 3),<test/>,(),())
     }
     </result>
     <expected>1</expected>
@@ -173,7 +173,7 @@ declare variable $source := document{*};
 <test>
     <name>testing subsequence</name>
     <result>
-    {let $steps := (<step><name>test1</name><func>saxon:function("std:identity", 1)</func></step>,<step><name>test2</name><func>saxon:function("std:count", 1)</func></step>) 
+    {let $steps := (<step><name>test1</name><func>saxon:function("std:identity", 3)</func></step>,<step><name>test2</name><func>saxon:function("std:count", 3)</func></step>) 
      return $steps[1]/func/text()}
     </result>
     <expected></expected>
@@ -202,19 +202,19 @@ declare variable $source := document{*};
 
 <test>
     <name>xproc:step-available function</name>
-    <result>{xproc:step-available('p:identity')}</result>
+    <result>{xproc:step-available('p:identity',())}</result>
     <expected>true</expected>
 </test>
 
 <test>
     <name>xproc:step-available function</name>
-    <result>{xproc:step-available('p:identitytest')}</result>
+    <result>{xproc:step-available('p:identitytest',())}</result>
     <expected>false</expected>
 </test>
 
 <test>
     <name>xproc:step-available function</name>
-    <result>{xproc:step-available('p:xquery')}</result>
+    <result>{xproc:step-available('p:xquery',())}</result>
     <expected>true</expected>
 </test>
 
