@@ -14,37 +14,37 @@ import module namespace util = "http://xproc.net/xproc/util"
 
 (: Module Vars :)
 declare variable $opt:steps := doc("../../etc/pipeline-optional.xml")/p:library;
-declare variable $opt:exec :=saxon:function("opt:exec", 1);
-declare variable $opt:hash :=saxon:function("opt:hash", 1);
-declare variable $opt:uuid :=saxon:function("opt:uuid", 1);
-declare variable $opt:www-form-urldecode :=saxon:function("opt:www-form-urldecode", 1);
-declare variable $opt:www-form-urlencode :=saxon:function("opt:www-form-urlencode", 1);
-declare variable $opt:validate-with-xml-schema :=saxon:function("opt:validate-with-xml-schema",1);
-declare variable $opt:validate-with-schematron :=saxon:function("opt:validate-with-schematron",1);
-declare variable $opt:validate-with-relax-ng :=saxon:function("opt:validate-with-relax-ng",1);
-declare variable $opt:xquery :=saxon:function("opt:xquery", 1);
-declare variable $opt:xsl-formatter :=saxon:function("opt:xsl-formatter", 1);
+declare variable $opt:exec :=saxon:function("opt:exec", 3);
+declare variable $opt:hash :=saxon:function("opt:hash", 3);
+declare variable $opt:uuid :=saxon:function("opt:uuid", 3);
+declare variable $opt:www-form-urldecode :=saxon:function("opt:www-form-urldecode", 3);
+declare variable $opt:www-form-urlencode :=saxon:function("opt:www-form-urlencode", 3);
+declare variable $opt:validate-with-xml-schema :=saxon:function("opt:validate-with-xml-schema", 3);
+declare variable $opt:validate-with-schematron :=saxon:function("opt:validate-with-schematron", 3);
+declare variable $opt:validate-with-relax-ng :=saxon:function("opt:validate-with-relax-ng", 3);
+declare variable $opt:xquery :=saxon:function("opt:xquery", 3);
+declare variable $opt:xsl-formatter :=saxon:function("opt:xsl-formatter", 3);
 
 
 (: -------------------------------------------------------------------------- :)
-declare function opt:xquery($seq) {
+declare function opt:xquery($primary,$secondary,$options) {
 
 (: this should be caught as a static error someday ... will do it in refactoring 
-util:assert(fn:exists($seq[2]/p:input[@port='query']/c:query),'p:input query is required'),
+util:assert(fn:exists($secondary/p:input[@port='query']/c:query),'p:input query is required'),
 :)
 
 (:TODO: need to sort out multiple c:query elements :)
-let $xquery := $seq[2]/p:input[@port='query']/c:query/text()
+let $xquery := $secondary/p:input[@port='query']/c:query/text()
 let $result := fn:data(util:xquery($xquery))
 return 
             (util:outputResultElement($result))
 };
 
 (: -------------------------------------------------------------------------- :)
-declare function opt:exec($seq) {
+declare function opt:exec($primary,$secondary,$options) {
     util:outputResultElement(
 
-(:        runtime:main(fn:string($seq[4]/p:option[@name='command']/@select))
+(:        runtime:main(fn:string($options/p:option[@name='command']/@select))
 
 :)
 runtime:main("/bin/ls")
@@ -53,44 +53,43 @@ runtime:main("/bin/ls")
 };
 
 (: -------------------------------------------------------------------------- :)
-declare function opt:hash($seq) {
- $seq[1]
+declare function opt:hash($primary,$secondary,$options) {
+ $primary
 };
 
 (: -------------------------------------------------------------------------- :)
-declare function opt:uuid($seq) {
- $seq[1]
-};
-
-
-(: -------------------------------------------------------------------------- :)
-declare function opt:www-form-urldecode($seq) {
- $seq[1]
+declare function opt:uuid($primary,$secondary,$options) {
+ $primary
 };
 
 (: -------------------------------------------------------------------------- :)
-declare function opt:www-form-urlencode($seq) {
- $seq[1]
+declare function opt:www-form-urldecode($primary,$secondary,$options) {
+ $primary
 };
 
 (: -------------------------------------------------------------------------- :)
-declare function opt:validate-with-xml-schema($seq) {
-    "test"
+declare function opt:www-form-urlencode($primary,$secondary,$options) {
+ $primary
 };
 
 (: -------------------------------------------------------------------------- :)
-declare function opt:validate-with-schematron($seq) {
-    "test"
+declare function opt:validate-with-xml-schema($primary,$secondary,$options) {
+ $primary
 };
 
 (: -------------------------------------------------------------------------- :)
-declare function opt:validate-with-relax-ng($seq) {
-    "test"
+declare function opt:validate-with-schematron($primary,$secondary,$options) {
+ $primary
 };
 
 (: -------------------------------------------------------------------------- :)
-declare function opt:xsl-formatter($seq) {
- $seq[1]
+declare function opt:validate-with-relax-ng($primary,$secondary,$options) {
+ $primary
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function opt:xsl-formatter($primary,$secondary,$options) {
+ $primary
 };
 
 (: -------------------------------------------------------------------------- :)

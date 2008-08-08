@@ -202,20 +202,18 @@ declare function util:pipeline-step-sort($unsorted, $sorted )   {
 
 
 (: -------------------------------------------------------------------------- :)
-declare function util:final-result($primaryresult as item()*,$pipeline,$resulttree){
-
-    ($primaryresult,$pipeline,$resulttree)
-
+declare function util:final-result($primaryresult,$pipeline,$resulttree){
+    $primaryresult
 };
 
 
 
 (: -------------------------------------------------------------------------- :)
-declare function util:step-fold ($pipeline,$steps as item()*,$stepfuncs, $evalstep, $primaryinput, $resulttree) {
+declare function util:step-fold ($pipeline,$steps,$stepfuncs, $evalstep, $primaryinput, $resulttree) {
   
     if (empty($steps)) then
        (: no more steps return the results :)
-            util:final-result($primaryinput,$pipeline,$resulttree)
+           util:final-result($primaryinput,$pipeline,$resulttree)
     else 
        (: perform evalstep function, generating new primary input :)
        let $result := util:call($evalstep, 
