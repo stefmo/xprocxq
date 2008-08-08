@@ -201,7 +201,7 @@ declare function std:identity($primary,$secondary,$options) {
 (: TODO this is wrong, its counting the elements needs to count the sequence :)
 declare function std:count($primary,$secondary,$options) as item() {
    util:outputResultElement(
-        count($primary)
+        count($primary/*)
     )
 };
 
@@ -313,7 +313,7 @@ declare function std:xslt($primary,$secondary,$options){
 
 util:assert(fn:exists($secondary/p:input[@port='stylesheet']),'stylesheet is required'),
 
-let $v :=document{$primary}
+let $v :=document{$primary[1]}
 return 
     util:xslt($secondary/p:input[@port='stylesheet']/*,$v)
 

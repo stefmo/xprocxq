@@ -3,6 +3,7 @@
 
     <p:input port="src">
         <p:document href = "file://../../data/test1.xml" />
+        <p:document href = "file://../../data/test.xml" />
     </p:input>  
     <p:output port="result"/>
 
