@@ -264,6 +264,7 @@ let $result := util:evalXPATH(fn:string($xpath),$v)
 
 (: -------------------------------------------------------------------------- :)
 declare function std:wrap($primary,$secondary,$options) as item() {
+(: TODO - not quite certain this step is working as intended :)
 (: TODO - The match option must only match element, text, processing instruction, and comment nodes. It is a dynamic error (err:XC0041) if the match pattern matches any other kind of node. :)
 (: this should be caught as a static error someday ... will do it in refactoring :)
 util:assert(fn:exists($options/p:option[@name='match']/@select),'p:option match is required'),
