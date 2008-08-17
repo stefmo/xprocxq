@@ -2,7 +2,7 @@
 
 = Status =
 
-29/07/2008 working off latest editor spec ... still on course to release beta in the early part of August.
+17/08/2008 working off latest editor spec ... aiming for a release Sept 6th.
 
 = Changelog =
 
@@ -18,9 +18,9 @@ The source code [http://xprocxq.googlecode.com/svn/trunk/main/TODO TODO] file is
 
 There are so many issues to list .... so I will just highlight the major ones;
 
-  * currently a bit out of step with latest version of xproc draft .... this will change soon
-
   * depends on one having bought Michael Kay's [http://www.saxonica.com Saxon-SA]  XSLT/XQUERY processor ... as dependent on SA version and even then it does very little ;)
+
+  * planned release version will support both eXist and SAXON
 
   * its best to explicitly define input connections in XProc XML
 
@@ -59,15 +59,19 @@ There are so many issues to list .... so I will just highlight the major ones;
 
 _Note: Looking at the current trunk/TODO file will help you determine what I am focusing on for now._
 
-= When will feature X be done or xproc.xq be compliant with W3C spec ? =
+= When will you release and will xproc.xq be compliant ? =
 
-I have a desire to get xproc.xq to XProc v1.0 compliance, but using XQuery means I am  pragmatic on how realistic this goal is. There are all sorts of issues, some that have been surmounted, some I have yet to even engage with yet.
+If I had a road map it would be;
 
-If I had a road map, in plan view it would be;
+  * update testsuite (10% done)
+  * do standard steps implementations (50% done)
+  * do optional & extension steps implementations (50% done)
+  * ensure static and dynamic error checking is working properly (40% done)
+  * ensure namespaces are fixed up properly (20% done)
+  * build process to derive eXist and Saxon impl from same codebase (20% done)
 
-  * update testsuite
-  * do standard steps implementations
-  * do optional & extension steps implementations
-  * ensure static and dynamic error checking is working properly
-  * ensure namespaces are fixed up properly
-  * build process to derive eXist and Saxon impl from same codebase
+I will need to get each of the above near 100% before I release.
+
+I believe that I will partially satisfy XProc v1.0 compliance ... the choice of using XQuery restricts me somewhat in that I have to resort to extending the underlying XQUery processor. Here are the real problems;
+
+  * Try/Catch mechanism
