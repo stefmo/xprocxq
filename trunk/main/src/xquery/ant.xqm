@@ -10,9 +10,6 @@ import module namespace util = "http://xproc.net/xproc/util"
 
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
-declare namespace c="http://www.w3.org/ns/xproc-step";
-declare namespace err="http://www.w3.org/ns/xproc-error";
-
 declare namespace target="java:net.xproc.ant.Embedded";
 
 (: Module Vars :)
@@ -28,6 +25,6 @@ declare function ant:test($action){
 };
 
 declare function ant:ExecTask($message){
-    util:outputResultElement(target:execute($message))
+<test/>
 };
 (: -------------------------------------------------------------------------- :)

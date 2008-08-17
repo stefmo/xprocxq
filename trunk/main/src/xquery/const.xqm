@@ -2,6 +2,8 @@ xquery version "1.0" encoding "UTF-8";
 
 module namespace const = "http://xproc.net/xproc/const";
 
+declare namespace xproc = "http://xproc.net/xproc";
+
 (: XProc Namespaces :)
 declare variable $const:NS_XPROC := "http://www.w3.org/ns/xproc";
 declare variable $const:NS_XPROC_STEP := "http://www.w3.org/ns/xproc-step";
@@ -16,8 +18,9 @@ declare variable $const:NS_XPROC_ERR_EXT := "http://xproc.net/ns/errors";
 (: -------------------------------------------------------------------------- :)
 
 (: Module Vars :)
-
+(: doesnt work as intended
 declare variable  $const:evalstep := saxon:function("xproc:evalstep", 5);
+:)
 
 (: -------------------------------------------------------------------------- :)
 (: error dictionaries :)

@@ -3,9 +3,11 @@ xquery version "1.0" encoding "UTF-8";
 (: Module Imports :)
 import module namespace test = "http://xproc.net/test"
                         at "../../test/xquery/test.xqm";
+
 import module namespace ant = "http://xproc.net/xproc/ant"
                         at "../../src/xquery/ant.xqm";
 
+declare namespace xproc = "http://xproc.net/xproc";
 (: :)
 declare variable $source := document{*};
 

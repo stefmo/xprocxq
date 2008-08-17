@@ -2,12 +2,11 @@
                     xmlns:ant ="http://xproc.net/xproc/ant"
                     xmlns:xproc = "http://xproc.net/xproc"
                     name="xprocxq-ant-library">
-
-    <p:declare-step type="ant:test" name="step" xproc:arity="1">
+    <p:declare-step type="ant:test" name="step">
         <p:input port="source" primary="true"/>
         <p:output port="result" primary="true"/>
     </p:declare-step>
-    <p:declare-step type="ant:build-target" name="step" xproc:arity="1">
+    <p:declare-step type="ant:build-target" name="step">
         <p:input port="source" primary="true"/>
         <p:output port="result" primary="true"/>
     </p:declare-step>

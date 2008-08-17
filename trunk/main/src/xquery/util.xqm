@@ -13,7 +13,6 @@ declare namespace jt="http://net.sf.saxon/java-type";
 declare namespace func="java:net.xproc.saxon.evalXQuery";
 declare namespace system="java:java.lang.System";
 declare namespace math="http://exslt.org/math";
-declare namespace xproc="http://xproc.net/xproc";   
 declare namespace comp = "http://xproc.net/xproc/comp";
 
 (: Module Imports :)
@@ -203,7 +202,7 @@ declare function util:pipeline-step-sort($unsorted, $sorted )   {
 
 (: -------------------------------------------------------------------------- :)
 declare function util:final-result($primaryresult,$pipeline,$resulttree){
-    $primaryresult
+    ($primaryresult,$resulttree,$pipeline)
 };
 
 
@@ -232,7 +231,7 @@ declare function util:step-fold ($pipeline,$steps,$stepfuncs, $evalstep, $primar
                        remove($stepfuncs, 1),
                        $evalstep,
                        $result,
-                       ($resulttree,<xproc:step-state output-port="" name="{$steps[1]}" func="{$stepfuncs[1]}">{$result}</xproc:step-state>) 
+                       ($resulttree,<util:step-state output-port="" name="{$steps[1]}" func="{$stepfuncs[1]}">{$result}</util:step-state>) 
                        )
 };
 

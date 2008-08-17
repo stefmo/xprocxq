@@ -7,7 +7,6 @@ declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
-declare namespace xproc = "http://xproc.net/xproc";
 
 (: Module Imports :)
 import module namespace util = "http://xproc.net/xproc/util"
@@ -15,8 +14,6 @@ import module namespace util = "http://xproc.net/xproc/util"
 
 (: Module Vars :)
 declare variable $std:steps := doc("../../etc/pipeline-standard.xml")/p:library;
-
-
 declare variable $std:add-attribute :=saxon:function("std:add-attribute", 3);
 declare variable $std:add-xml-base :=saxon:function("std:add-xml-base", 3);
 declare variable $std:count :=saxon:function("std:count", 3);
@@ -28,11 +25,7 @@ declare variable $std:filter :=saxon:function("std:filter",3);
 declare variable $std:directory-list :=saxon:function("std:directory-list", 3);
 declare variable $std:escape-markup :=saxon:function("std:escape-markup", 3);
 declare variable $std:http-request :=saxon:function("std:http-request", 3);
-
-
 declare variable $std:identity :=saxon:function("std:identity", 3);
-
-
 declare variable $std:label-elements :=saxon:function("std:label-elements", 3);
 declare variable $std:load :=saxon:function("std:load", 3);
 declare variable $std:make-absolute-uris :=saxon:function("std:make-absolute-uris", 3);
@@ -193,7 +186,7 @@ declare function std:xinclude($primary,$secondary,$options) as item() {
 
 (: -------------------------------------------------------------------------- :)
 declare function std:identity($primary,$secondary,$options) {
-   $primary
+   $primary[2]
 };
 
 
@@ -201,7 +194,7 @@ declare function std:identity($primary,$secondary,$options) {
 (: TODO this is wrong, its counting the elements needs to count the sequence :)
 declare function std:count($primary,$secondary,$options) as item() {
    util:outputResultElement(
-        count($primary/*)
+        $primary
     )
 };
 
