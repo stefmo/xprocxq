@@ -1,8 +1,10 @@
-#summary For those who want to install and play with early alpha xproc.xq
+#summary For those who want to install and play with xproc.xq
 
 = Getting xquery.xq =
 
-So far I have not released any packaged version of xproc.xq ... so your only method of getting xproc.xq is checking out from [http://code.google.com/p/xprocxq/source subversion].
+I will be releasing a packaged version for eXist and SAXON on Sept 6th.
+
+currently, your only method of getting xproc.xq is checking it out from [http://code.google.com/p/xprocxq/source subversion].
 
 {{{
 # Non-members may svn check out a read-only working copy anonymously over HTTP.
@@ -12,9 +14,9 @@ svn checkout http://xprocxq.googlecode.com/svn/trunk/ xprocxq-read-only
 
 = Installation and Dependencies =
 
-Most up to date definition of dependencies is contained in the source code [http://xprocxq.googlecode.com/svn/trunk/main/README README]
+The current definition of dependencies is contained in the source code [http://xprocxq.googlecode.com/svn/trunk/main/README README] document.
 
-*I*: One needs an XQuery processor (only Saxon-SA currently supported) to run xproc.xq.
+*I*: XQuery processor (only Saxon-SA currently supported).
 
 *II*: For now, one will require [http://ant.apache.org Apache Ant] to run unit tests and compile associated artifacts.
 
@@ -25,9 +27,9 @@ Most up to date definition of dependencies is contained in the source code [http
 
 = Usage =
 
-*warning:* xproc.xq does very little at this moment in time
+*warning:* xproc.xq DOES VERY LITTLE AT THIS MOMENT.
 
-in fact, it is not possible to run it without SAXON-SA and ANT, and even then, you are just running some pretty specific unit tests.
+In fact, it is not possible to run it without SAXON-SA and ANT, and even then, you are just running some pretty specific unit tests.
 
 to get Ant targets, run Apache Ant with -projecthelp switch  
 
