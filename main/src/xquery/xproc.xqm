@@ -388,26 +388,7 @@ declare function xproc:parse($xproc as item(),$stdin) {
     let $steps := xproc:gensteps1($xproc)
     let $stepfunc := xproc:gensteps2($xproc)
     return
-        xproc:evaltree($steps,$stepfunc,$pipeline,$O0)
-};
-
-
-
-(: -------------------------------------------------------------------------- :)
-(: Eval Run Tree :)
-declare function xproc:evaltree($steps,$stepfunc,$pipeline,$stdin){
-
-    util:step-fold($pipeline,$steps,$stepfunc,$const:evalstep,($stdin,""),())
-
-};
-
-
-
-(: -------------------------------------------------------------------------- :)
-(: Serialize Eval Result :)
-(: TODO: implement xproc serialization params  :)
-declare function xproc:output($evalresult,$flag){
-        $evalresult
+        xproc:evaltree
 };
 
 
