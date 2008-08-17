@@ -1,3 +1,8 @@
+# articles
+
+[http://www.ibm.com/developerworks/library/x-xproc/ Discovering XProc (by moi)]
+
+
 #summary useful links and resources
 
 [http://www.w3.org/TR/2002/NOTE-xml-pipeline-20020228/ XML Pipeline Definition Language Version 1.0: W3C Note 28 February 2002]: Read the note submitted by Sun Microsystems, Alis Technologies, Arbortext, Cisco Systems, Fujitsu, Markup Technology, and Oracle.
