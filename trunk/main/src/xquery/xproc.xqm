@@ -95,7 +95,7 @@ declare function xproc:type($stepname as xs:string) as xs:string {
 
 
 (: -------------------------------------------------------------------------- :)
-(: 1) make all step and input/output pipe names explicit :)
+(: Walking the tree I. make all step and input/output pipe names explicit :)
 (: -------------------------------------------------------------------------- :)
 declare function xproc:explicitnames($xproc as item(), $unique_id){
 
@@ -197,7 +197,7 @@ else
 
 
 (: -------------------------------------------------------------------------- :)
-(: 2) explicitly bind output to input ports :)
+(: Walking the tree II. explicitly bind output to input ports :)
 (: -------------------------------------------------------------------------- :)
 (: make all input/output pipe bindings to steps explicit :)
 declare function xproc:explicitbindings($xproc as item()){
@@ -297,7 +297,7 @@ let $explicitbindings :=
 
 
 (: -------------------------------------------------------------------------- :)
-(: Fix up top level input/output with util:step :)
+(: Fix up all top level imports  :)
 (: -------------------------------------------------------------------------- :)
 (: TODO: temporary measure to use util:step :)
 declare function xproc:import-fixup($xproc as item()){
@@ -319,7 +319,7 @@ declare function xproc:import-fixup($xproc as item()){
 
 
 (: -------------------------------------------------------------------------- :)
-(: Fix up top level input/output with util:step :)
+(: Fix up top level input/output with ext:pre :)
 (: -------------------------------------------------------------------------- :)
 (: TODO: temporary measure to use util:step :)
 declare function xproc:port-fixup($xproc as item()){
@@ -366,7 +366,7 @@ declare function xproc:gensteps1($steps) as xs:string* {
 
 
 (: -------------------------------------------------------------------------- :)
-(: Generate xquery steps sequence :)
+(: Generate xquery function sequence :)
 declare function xproc:gensteps2($steps) as xs:string*
 {
 
@@ -388,10 +388,16 @@ declare function xproc:parse($xproc as item(),$stdin) {
     let $steps := xproc:gensteps1($xproc)
     let $stepfunc := xproc:gensteps2($xproc)
     return
-        xproc:evaltree
+        xproc:evaltree($steps,$stepfunc,$pipeline,$O0)
 };
 
+declare function xproc:evaltree($steps,$stepfunc,$pipeline,$stdin){
+	util:step-fold($pipeline,$steps,$stepfunc,saxon:function("xproc:evalstep", 5),(),())
+};
 
+declare function xproc:output($evalresult,$flag){
+    $evalresult
+};
 
 (: -------------------------------------------------------------------------- :)
 (: runtime evaluation of xproc steps; throwing dynamic errors and writing output along the way :)

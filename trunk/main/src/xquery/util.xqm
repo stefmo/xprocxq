@@ -202,7 +202,7 @@ declare function util:pipeline-step-sort($unsorted, $sorted )   {
 
 (: -------------------------------------------------------------------------- :)
 declare function util:final-result($primaryresult,$pipeline,$resulttree){
-    ($primaryresult,$resulttree,$pipeline)
+    ($primaryresult)
 };
 
 
