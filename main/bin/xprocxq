@@ -1,0 +1,13 @@
+#!/bin/bash
+XPROCXQ_HOME=/Users/jimfuller/Source/Webcomposite/xprocxq/main
+CLASSPATH=/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib/net:/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib/saxon9/saxon9sa.jar:/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib/saxon9:/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib
+export CLASSPATH XPROCXQ_HOME
+MINPARAMS=1
+
+if [ $# -lt "$MINPARAMS" ]
+then
+  echo "Usage: xprocxq  [xproc] [xml source]"
+  exit
+fi
+
+java net.sf.saxon.Query -sa -ext:on $XPROCXQ_HOME/src/xquery/xproc.xq +xproc="$1" +stdin="$2"

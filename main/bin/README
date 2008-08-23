@@ -1,0 +1,8 @@
+will probably need to create an install script which makes a symlink to something like /usr/local/bin/xprocxq
+
+
+planned switches
+--------------------
+
+* switch for enabling output of 
+* include namespace definition for c: namespace on root element
