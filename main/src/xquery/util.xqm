@@ -1,6 +1,7 @@
 xquery version "1.0" encoding "UTF-8";
 
 module namespace util = "http://xproc.net/xproc/util";
+declare copy-namespaces no-preserve,inherit;
 
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
@@ -200,6 +201,20 @@ declare function util:pipeline-step-sort($unsorted, $sorted )   {
 
 
 
+declare function util:strip-namespace($e as element()) as element() {
+  
+   element {QName((),local-name($e))} {
+    for $child in $e/(@*,*)
+    return
+      if ($child instance of element())
+      then
+        util:strip-namespace($child)
+      else
+        $child
+  }
+};
+
+
 (: -------------------------------------------------------------------------- :)
 declare function util:final-result($primaryresult,$pipeline,$resulttree){
     ($primaryresult,$pipeline,$resulttree)
@@ -236,7 +251,7 @@ declare function util:step-fold($pipeline,$steps,$stepfuncs, $evalstep, $primary
                        remove($stepfuncs, 1),
                        $evalstep,
                        $result,
-                       ($resulttree,<util:step-state output-port="" name="{$steps[1]}" func="{$stepfuncs[1]}">{$result}</util:step-state>) 
+                       ($resulttree,<util:step-state output-port="" name="{$steps[1]}" func="{$stepfuncs[1]}">{$result[1]}</util:step-state>) 
                        )
 };
 

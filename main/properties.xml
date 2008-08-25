@@ -4,14 +4,14 @@
 <dir>
     <lib>
         <classes>lib/net/xproc</classes>
-        <saxon>lib/saxon9</saxon>
+        <saxon>lib/saxon9sa</saxon>
         <saxon-ext>lib</saxon-ext>
         <onvdl>lib/oNVDL/bin</onvdl>
         <ant>/Users/jimfuller/Source/Thirdparty/ant/dist/lib</ant>
     </lib>
 </dir>
 <jar>
-    <saxon>lib/saxon9/saxon9sa.jar</saxon>
+    <saxon>lib/saxonsa/saxon9sa.jar</saxon>
 </jar>
 </p>
 

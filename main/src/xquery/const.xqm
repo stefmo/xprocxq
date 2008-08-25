@@ -1,6 +1,7 @@
 xquery version "1.0" encoding "UTF-8";
 
 module namespace const = "http://xproc.net/xproc/const";
+declare copy-namespaces no-preserve,inherit;
 
 declare namespace xproc = "http://xproc.net/xproc";
 
