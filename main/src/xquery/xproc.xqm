@@ -437,7 +437,14 @@ let $primary := ( if($currentstep/p:input[@primary='true'][@select='']) then
                             )
 
                            else if($currentstep/p:input[@primary='true'][@select]) then
-                               util:evalXPATH(fn:string($pipeline/*[@xproc:defaultname=$step]/p:input[@primary='true'][@select]/@select),document{$primaryinput[1]})
+                               let $selectval :=util:evalXPATH(fn:string($pipeline/*[@xproc:defaultname=$step]/p:input[@primary='true'][@select]/@select),document{$primaryinput[1]})
+                               return
+                               if(empty($selectval))
+                               then
+                                    util:dynamicError('err:XD0001',fn:concat(fn:string($pipeline/*[@xproc:defaultname=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@xproc:defaultname=$step])))
+                               else
+                                    $selectval
+
 
                            else 
                                (<p:empty/>)
