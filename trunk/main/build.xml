@@ -262,6 +262,10 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
                      xproc="file:test/xproc/basic/inputs/inputs_1_1.xml"/>
+        <xproc-saxon dest="result/xproc_input_result_1_2.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/inputs/inputs_1_2.xml"/>
         <xproc-saxon dest="result/xproc_inputs_result_2.xml"
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"
@@ -699,7 +703,7 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                   maxmemory="256m"
                   output="@{dest}/">
 
-                <arg line="-sa -s @{input} @{query} +xproc=@{xproc} +stdin=@{input} dflag='' oval='' ival=''"/>
+                <arg line="-sa -s:@{input} -q:@{query} +xproc=@{xproc} +stdin=@{input} dflag='' oval='' ival=''"/>
                 <classpath>
                     <pathelement location="${p.dir.lib.classes}"/>
                     <pathelement location="${p.dir.lib.saxon-ext}"/>

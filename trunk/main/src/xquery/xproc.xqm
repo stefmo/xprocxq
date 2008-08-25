@@ -1,9 +1,7 @@
 xquery version "1.0" encoding "UTF-8"; 
 
 module namespace xproc = "http://xproc.net/xproc";
-
-(: TODO: need to check what std pragmas are needed for each xqm file :)
-declare copy-namespaces no-preserve, inherit; 
+declare copy-namespaces no-preserve,inherit;
 
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
@@ -288,9 +286,9 @@ let $explicitbindings :=
         else
 
     (: if dealing with p:pipeline component ------------------------------------------------------ :)
-            <p:pipeline xmlns:xproc="http://xproc.net/xproc" name="{$pipelinename}" xproc:preparsed="true">
+            <p:declare-step xmlns:xproc="http://xproc.net/xproc" name="{$pipelinename}" xproc:preparsed="true">
                 {$explicitbindings}
-            </p:pipeline>
+            </p:declare-step>
 
 };
 
@@ -399,8 +397,11 @@ declare function xproc:evaltree($steps,$stepfunc,$pipeline,$stdin){
                        ())
 };
 
-declare function xproc:output($evalresult,$flag){
-    $evalresult
+declare function xproc:output($result,$dflag){
+    if($dflag="1") then
+        $result
+    else
+        $result[1]
 };
 
 (: -------------------------------------------------------------------------- :)

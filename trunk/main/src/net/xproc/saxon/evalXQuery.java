@@ -1,7 +1,5 @@
 package net.xproc.saxon;
-
-import javax.xml.xpath.XPathException;
-
+        
 import net.sf.saxon.expr.XPathContext;
 import net.sf.saxon.om.Axis;
 import net.sf.saxon.om.AxisIterator;
@@ -16,6 +14,8 @@ import net.sf.saxon.query.XQueryExpression;
 import net.sf.saxon.type.Type;
 import net.sf.saxon.value.Value;
 
+
+import javax.xml.xpath.XPathException;
 
 public class evalXQuery {
 

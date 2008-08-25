@@ -1,5 +1,7 @@
 xquery version "1.0" encoding "UTF-8";
 
+declare copy-namespaces no-preserve,inherit;
+
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
@@ -52,7 +54,7 @@ declare variable $source := document{.};
     let $eval_result := xproc:parse($preparse,$stdin)
 
     (: STEP III: serialize and return results :)
-    let $serialized_result := xproc:output($eval_result,0)
+    let $serialized_result := xproc:output($eval_result,$dflag)
 
     let $end-time := util:timing()
 

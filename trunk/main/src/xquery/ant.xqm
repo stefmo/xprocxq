@@ -1,6 +1,7 @@
 xquery version "1.0" encoding "UTF-8";
 
 module namespace ant = "http://xproc.net/xproc/ant";
+declare copy-namespaces no-preserve,inherit;
 
 declare namespace comp = "http://xproc.net/xproc/comp";
 
