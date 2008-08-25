@@ -1,8 +1,22 @@
-will probably need to create an install script which makes a symlink to something like /usr/local/bin/xprocxq
+Usage: xprocxq [options] [--import library|pipeline] pipeline source
+
+xprocxq is a W3C XProc pipeline processor
+
+OPTIONS:
+   -h      Show this message
+   -d      Show debug information
+   -t      Show timing information
+   -i      Set input port document
+   -o      Set output port document
+   -x      Enable XInclude processing in all XML documents
+
+   -d      Enable DTD validation
 
 
-planned switches
---------------------
+Examples:
 
-* switch for enabling output of 
-* include namespace definition for c: namespace on root element
+Common 
+>xprocxq pipeline.xpl source.xml
+
+You can supply primary source input as standard input
+> cat test/data/test.xml | xprocxq test/xproc/inputs/inputs_1_1.xml -

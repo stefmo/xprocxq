@@ -1,6 +1,6 @@
 #!/bin/bash
 XPROCXQ_HOME=/Users/jimfuller/Source/Webcomposite/xprocxq/main
-CLASSPATH=/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib/net:/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib/saxon9/saxon9sa.jar:/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib/saxon9:/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib
+CLASSPATH=/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib/net:/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib/saxon9sa/saxon9sa.jar:/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib/saxon9sa:/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib
 export CLASSPATH XPROCXQ_HOME
 
 MINPARAMS=1
@@ -14,10 +14,15 @@ xprocxq processes XProc pipeline documents.
 
 OPTIONS:
    -h      Show this message
-   -d      Enable Debug and Timing information
+   -d      Show debug information
+   -t      Show timing information
    -i      Set input port document
    -o      Set output port document
-   -xi     Enable XInclude processing
+   -x      Enable XInclude processing in all XML documents 
+
+   -d      Enable DTD validation
+
+
 EOF
 }
 
@@ -25,15 +30,19 @@ oval=
 ival=
 dval=
 dflag=
+tflag=
 iflag=
 oflag=
 xiflag=
-while getopts 'di:o:xh' OPTION
+valval=
+while getopts 'di:o:xhtv:' OPTION
 do
   case $OPTION in
   d)	dflag=1
-                dval="$OPTARG"
                 ;;
+  t)	tflag=1
+                ;;
+
   i)	iflag=1
                 ival="$OPTARG"
                 ;;
@@ -41,6 +50,8 @@ do
                 oval="$OPTARG"
                 ;;
   x)	xiflag="-xi"
+                ;;
+  v)	valval="-$OPTARG:on"
                 ;;
   h)	usage
                 exit 2
@@ -55,4 +66,4 @@ then
      exit 1
 fi
 
-java net.sf.saxon.Query $xiflag -sa -s:$2 -ext:on -q:$XPROCXQ_HOME/src/xquery/xproc.xq +xproc="$1" +stdin="$2" dflag="$dflag" ival="$ival" oval="$oval"
+java net.sf.saxon.Query $valval $xiflag -sa -s:$2 -ext:on -q:$XPROCXQ_HOME/src/xquery/xproc.xq +xproc="$1" +stdin="$2" dflag="$dflag" tflag="$tflag" ival="$ival" oval="$oval"
