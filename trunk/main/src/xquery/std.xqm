@@ -55,7 +55,7 @@ declare function std:add-attribute($primary,$secondary,$options) as item() {
 
 (: -------------------------------------------------------------------------- :)
 declare function std:add-xml-base($primary,$secondary,$options) as item() {
-    <test/>
+    $primary
 };
 
 
@@ -186,9 +186,8 @@ declare function std:xinclude($primary,$secondary,$options) as item() {
 
 (: -------------------------------------------------------------------------- :)
 declare function std:identity($primary,$secondary,$options) {
-   $primary[2]
+   $primary
 };
-
 
 (: -------------------------------------------------------------------------- :)
 (: TODO this is wrong, its counting the elements needs to count the sequence :)
@@ -254,22 +253,19 @@ util:assert(fn:exists($options/p:option[@name='select']/@select),'p:option match
 let $v :=document{$primary}
 let $xpath := util:evalXPATH(fn:string($options/p:option[@name='select']/@select),$v)
 let $result := util:evalXPATH(fn:string($xpath),$v)
-    return 
-    if(fn:exists($result)) then
-        $result
-    else 
-        $xpath
+    return
+        if(fn:exists($result)) then
+            $result
+        else
+            $xpath
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:wrap($primary,$secondary,$options) as item() {
-(: TODO - not quite certain this step is working as intended :)
 (: TODO - The match option must only match element, text, processing instruction, and comment nodes. It is a dynamic error (err:XC0041) if the match pattern matches any other kind of node. :)
-(: this should be caught as a static error someday ... will do it in refactoring :)
-util:assert(fn:exists($options/p:option[@name='match']/@select),'p:option match is required'),
 
-(: this should be caught as a static error someday ... will do it in refactoring :)
+util:assert(fn:exists($options/p:option[@name='match']/@select),'p:option match is required'),
 util:assert(fn:exists($options/p:option[@name='wrapper']/@select),'p:option wrapper is required'),
 
     let $v :=document{$primary}

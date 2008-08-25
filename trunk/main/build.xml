@@ -699,7 +699,7 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                   maxmemory="256m"
                   output="@{dest}/">
 
-                <arg line="-sa -s @{input} @{query} +xproc=@{xproc} +stdin=@{input}"/>
+                <arg line="-sa -s @{input} @{query} +xproc=@{xproc} +stdin=@{input} dflag='' oval='' ival=''"/>
                 <classpath>
                     <pathelement location="${p.dir.lib.classes}"/>
                     <pathelement location="${p.dir.lib.saxon-ext}"/>

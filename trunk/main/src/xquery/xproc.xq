@@ -32,9 +32,9 @@ declare variable $stdin as item() external;
 
 declare variable $dflag as item() external;
 
-declare variable $oflag as item() external;
+declare variable $oval as item() external;
 
-declare variable $iflag as item() external;
+declare variable $ival as item() external;
 
 (: :)
 declare variable $source := document{.};

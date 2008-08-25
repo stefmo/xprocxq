@@ -202,13 +202,18 @@ declare function util:pipeline-step-sort($unsorted, $sorted )   {
 
 (: -------------------------------------------------------------------------- :)
 declare function util:final-result($primaryresult,$pipeline,$resulttree){
-    ($primaryresult)
+    ($primaryresult,$pipeline,$resulttree)
 };
 
 
 
 (: -------------------------------------------------------------------------- :)
-declare function util:step-fold ($pipeline,$steps,$stepfuncs, $evalstep, $primaryinput, $resulttree) {
+declare function util:step-fold1 ($pipeline,$steps,$stepfuncs, $evalstep, $primaryinput, $resulttree) {
+$primaryinput
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function util:step-fold($pipeline,$steps,$stepfuncs, $evalstep, $primaryinput, $resulttree) {
   
     if (empty($steps)) then
        (: no more steps return the results :)
