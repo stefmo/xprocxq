@@ -30,6 +30,12 @@ declare variable $xproc as item() external;
 
 declare variable $stdin as item() external;
 
+declare variable $dflag as item() external;
+
+declare variable $oflag as item() external;
+
+declare variable $iflag as item() external;
+
 (: :)
 declare variable $source := document{.};
 
@@ -51,12 +57,20 @@ declare variable $source := document{.};
     let $end-time := util:timing()
 
     return
-    document
-       {
-        <xproc:result xproc:timing="{$end-time - $start-time}ms" xproc:ts="{current-dateTime()}">
-            {
-                $serialized_result
-            }
-        </xproc:result>
-        }
+        if ($dflag="1") then
+            document
+               {
+                <xproc:result xproc:timing="{$end-time - $start-time}ms" xproc:ts="{current-dateTime()}">
+                    {
+                        $serialized_result
+                    }
+                </xproc:result>
+                }
+         else
+
+            document
+               {
+                        $serialized_result
+                    }
+
 (: -------------------------------------------------------------------------- :)
