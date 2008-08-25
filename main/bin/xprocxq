@@ -49,14 +49,10 @@ do
 done
 shift $(($OPTIND - 1))
 
-#printf "oval=$oval\n\n"
-#printf "ival=$ival\n\n"
-
 if [[ -z $1 ]] || [[ -z $2 ]]
 then
      usage
      exit 1
 fi
 
-
-java net.sf.saxon.Query $xiflag -sa -s:$2 -ext:on -q:$XPROCXQ_HOME/src/xquery/xproc.xq +xproc="$1" +stdin="$2" dflag="$dflag" iflag="$ival" oflag="$oval"
+java net.sf.saxon.Query $xiflag -sa -s:$2 -ext:on -q:$XPROCXQ_HOME/src/xquery/xproc.xq +xproc="$1" +stdin="$2" dflag="$dflag" ival="$ival" oval="$oval"

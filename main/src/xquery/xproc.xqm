@@ -381,18 +381,22 @@ declare function xproc:gensteps2($steps) as xs:string*
 
 (: -------------------------------------------------------------------------- :)
 (: Parse pipeline XML, generating xquery code, throwing some static errors if neccesary :)
-declare function xproc:parse($xproc as item(),$stdin) {
+declare function xproc:parse($xproc as item(),$stdin as item()) {
 
-    let $O0 := $stdin
     let $pipeline := $xproc
     let $steps := xproc:gensteps1($xproc)
     let $stepfunc := xproc:gensteps2($xproc)
     return
-        xproc:evaltree($steps,$stepfunc,$pipeline,$O0)
+        xproc:evaltree($steps,$stepfunc,$pipeline,$stdin)
 };
 
 declare function xproc:evaltree($steps,$stepfunc,$pipeline,$stdin){
-	util:step-fold($pipeline,$steps,$stepfunc,saxon:function("xproc:evalstep", 5),(),())
+	util:step-fold($pipeline,
+                       $steps,
+                       $stepfunc,
+                       saxon:function("xproc:evalstep", 5),
+                       $stdin,
+                       ())
 };
 
 declare function xproc:output($evalresult,$flag){
@@ -470,6 +474,9 @@ let $output :=<xproc:outputs>{
 
     return
         util:call( 
-                   util:xquery($stepfunc),$primary,$secondary,$options
-        )
+                   util:xquery($stepfunc),
+                   $primary,
+                   $secondary,
+                   $options
+                  )
 };

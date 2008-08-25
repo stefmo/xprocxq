@@ -1,13 +1,10 @@
  <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
 
-        <p:input port="source" primary="true"/>
-        <p:output port="result" primary="true"/>
-
     <p:wrap>
         <p:input port="source" primary="true"/>
         <p:with-option name="wrapper" select="aaaaaaaaaaaaa"/>   
-        <p:with-option name="match" select="/test/node()"/> 
+        <p:with-option name="match" select="//c/node()"/> 
         <p:output port="result" primary="true"/>
     </p:wrap>
 
