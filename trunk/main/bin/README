@@ -3,20 +3,22 @@ Usage: xprocxq [options] [--import library|pipeline] pipeline source
 xprocxq is a W3C XProc pipeline processor
 
 OPTIONS:
-   -h      Show this message
-   -d      Show debug information
-   -t      Show timing information
-   -i      Set input port document
-   -o      Set output port document
-   -x      Enable XInclude processing in all XML documents
 
-   -d      Enable DTD validation
+   -i source=file   Set input port document
+   -o result=file   Set output port document
+
+   -h               Show this message
+   -d               Show debug information
+   -t               Show timing information
+
+   -x               Enable XInclude processing in all XML documents
+   -v dtd           Enable dtd validation on all XML documents
 
 
 Examples:
 
-Common 
->xprocxq pipeline.xpl source.xml
+    Common
+    >xprocxq pipeline.xpl source.xml
 
-You can supply primary source input as standard input
-> cat test/data/test.xml | xprocxq test/xproc/inputs/inputs_1_1.xml -
+    You can supply primary source input as standard input
+    > cat test/data/test.xml | xprocxq test/xproc/inputs/inputs_1_1.xml -

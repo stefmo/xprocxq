@@ -471,8 +471,7 @@ let $options :=<xproc:options>{
 let $output :=<xproc:outputs>{
                               $pipeline/*[@xproc:defaultname=$step]/p:output
                        }
-                       </xproc:outputs> 
-
+                       </xproc:outputs>
     return
         util:call( 
                    util:xquery($stepfunc),
