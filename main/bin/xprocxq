@@ -2,12 +2,61 @@
 XPROCXQ_HOME=/Users/jimfuller/Source/Webcomposite/xprocxq/main
 CLASSPATH=/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib/net:/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib/saxon9/saxon9sa.jar:/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib/saxon9:/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib
 export CLASSPATH XPROCXQ_HOME
+
 MINPARAMS=1
 
-if [ $# -lt "$MINPARAMS" ]
+usage()
+{
+cat << EOF
+Usage: xprocxq [options] [--import library|pipeline] pipeline source
+
+xprocxq processes XProc pipeline documents.
+
+OPTIONS:
+   -h      Show this message
+   -d      Enable Debug and Timing information
+   -i      Set input port document
+   -o      Set output port document
+   -xi     Enable XInclude processing
+EOF
+}
+
+oval=
+ival=
+dval=
+dflag=
+iflag=
+oflag=
+xiflag=
+while getopts 'di:o:xh' OPTION
+do
+  case $OPTION in
+  d)	dflag=1
+                dval="$OPTARG"
+                ;;
+  i)	iflag=1
+                ival="$OPTARG"
+                ;;
+  o)	oflag=1
+                oval="$OPTARG"
+                ;;
+  x)	xiflag="-xi"
+                ;;
+  h)	usage
+                exit 2
+                ;;
+  esac
+done
+shift $(($OPTIND - 1))
+
+#printf "oval=$oval\n\n"
+#printf "ival=$ival\n\n"
+
+if [[ -z $1 ]] || [[ -z $2 ]]
 then
-  echo "Usage: xprocxq  [xproc] [xml source]"
-  exit
+     usage
+     exit 1
 fi
 
-java net.sf.saxon.Query -sa -ext:on $XPROCXQ_HOME/src/xquery/xproc.xq +xproc="$1" +stdin="$2"
+
+java net.sf.saxon.Query $xiflag -sa -s:$2 -ext:on -q:$XPROCXQ_HOME/src/xquery/xproc.xq +xproc="$1" +stdin="$2" dflag="$dflag" iflag="$ival" oflag="$oval"
