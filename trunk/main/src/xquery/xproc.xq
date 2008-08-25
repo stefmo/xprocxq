@@ -34,6 +34,8 @@ declare variable $stdin as item() external;
 
 declare variable $dflag as item() external;
 
+declare variable $tflag as item() external;
+
 declare variable $oval as item() external;
 
 declare variable $ival as item() external;
@@ -51,7 +53,7 @@ declare variable $source := document{.};
     let $preparse := xproc:preparse($xproc/p:*)
 
     (: STEP II: parse and eval tree :)
-    let $eval_result := xproc:parse($preparse,$stdin)
+    let $eval_result := xproc:parse($preparse,$source)
 
     (: STEP III: serialize and return results :)
     let $serialized_result := xproc:output($eval_result,$dflag)
@@ -59,7 +61,7 @@ declare variable $source := document{.};
     let $end-time := util:timing()
 
     return
-        if ($dflag="1") then
+        if ($tflag="1") then
             document
                {
                 <xproc:result xproc:timing="{$end-time - $start-time}ms" xproc:ts="{current-dateTime()}">
