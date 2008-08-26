@@ -22,3 +22,5 @@ Examples:
 
     You can supply primary source input as standard input
     > cat test/data/test.xml | xprocxq test/xproc/inputs/inputs_1_1.xml -
+
+
