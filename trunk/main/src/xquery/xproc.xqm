@@ -119,52 +119,55 @@ let $explicitnames :=
             (: handle step element ------------------------------------------------------------ :)
                 if(xproc:step-available($stepname,$declare-step)) then
 
-(: util:step is a convention for wrapping top level ports :)
-if($stepname eq "util:step") then
+                        (: ext:pre is a convention for wrapping top level port bindings :)
+                        if($stepname eq "ext:pre") then
 
-            (: generate input/output ports :)
-                element {$stepname} {
-                     attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
-                     $step/*
-                     }
-else
-            (: generate step :)
-                element {$stepname} {
-                     attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
-                     (
+                                    (: generate input/output ports :)
+                                        element {$stepname} {
+                                             attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
+                                             $step/*
+                                             }
+                        else
+                                    (: generate step :)
+                                        element {$stepname} {
+                                             attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
+                                             (
 
-                        (: generate bindings for input and output:)
-                        for $binding in $allstep/p:*[name(.)='p:input' or name(.)='p:output'] 
-                            return
-                              element {name($binding)}{
-                                 attribute port{$binding/@port},
-                                 attribute primary{$binding/@primary},
-                                 attribute select{$step/p:input[@port=$binding/@port]/@select},
-                                 $step/p:input[@port=$binding/@port]/*
-                              },
+                                                (: generate bindings for input and output:)
+                                                for $binding in $allstep/p:*[name(.)='p:input' or name(.)='p:output']
+                                                    return
+                                                      element {name($binding)}{
+                                                         attribute port{$binding/@port},
+                                                         attribute primary{$binding/@primary},
+                                                         attribute select{$step/p:input[@port=$binding/@port]/@select},
+                                                         $step/p:input[@port=$binding/@port]/*
+                                                      },
 
-                        (: convert step attributes to options :)
-                        (for $option-from-attribute in $step/@* 
-                            return 
-                            if (not(name($option-from-attribute)='name')) then
-                                <p:option name="{name($option-from-attribute)}" select="{$option-from-attribute}"/>
-                            else
-                                ()
-                         ),
+                                                (: convert step attributes to options :)
+                                                (for $option-from-attribute in $step/@*
+                                                    return
+                                                    if (not(name($option-from-attribute)='name')) then
+                                                        <p:option name="{name($option-from-attribute)}" select="{$option-from-attribute}"/>
+                                                    else
+                                                        ()
+                                                 ),
 
-                        (: match options with step definitions and generate options:)
-                        for $option in $allstep//p:option 
-                            return
-                                if ($step//p:with-option[@name=$option/@name]/@select) then
-                                  element {name($option)}{
-                                       attribute name{$option/@name},
-                                       attribute required{$option/@required},
-                                       attribute select{$step//p:with-option[@name=$option/@name]/@select}
-                                  }
-                                else
-                                    ()
-                     )
-                }
+                                                (: match options with step definitions and generate options:)
+                                                for $option in $allstep//p:option
+                                                    return
+                                                        if ($step//p:with-option[@name=$option/@name]/@select) then
+                                                          element {name($option)}{
+                                                               attribute name{$option/@name},
+                                                               attribute required{$option/@required},
+                                                               attribute select{$step//p:with-option[@name=$option/@name]/@select}
+                                                          }
+                                                        else
+                                                            ()
+                                             )
+                                        }
+
+
+
 
         (: handle xproc components ------------------------------------------------------------- :)
  
@@ -176,7 +179,10 @@ else
                            xproc:explicitnames(<util:ignore>{$step/*}</util:ignore>,fn:concat($unique_current,':'))
                     )                   
                 }
+                
             else
+
+
 
  (: STATIC ERROR  ---------------------------------------------------------------------------------- :)
             util:staticError("X0001", concat($stepname,":",$step/@name))
@@ -297,7 +303,7 @@ let $explicitbindings :=
 (: -------------------------------------------------------------------------- :)
 (: Fix up all top level imports  :)
 (: -------------------------------------------------------------------------- :)
-(: TODO: temporary measure to use util:step :)
+(: TODO: temporary measure to use p:import :)
 declare function xproc:import-fixup($xproc as item()){
 
         <p:pipeline name="{$xproc/@name}">
@@ -319,7 +325,7 @@ declare function xproc:import-fixup($xproc as item()){
 (: -------------------------------------------------------------------------- :)
 (: Fix up top level input/output with ext:pre :)
 (: -------------------------------------------------------------------------- :)
-(: TODO: temporary measure to use util:step :)
+(: TODO: temporary measure to use ext:pre :)
 declare function xproc:port-fixup($xproc as item()){
 
         <p:pipeline name="{$xproc/@name}">

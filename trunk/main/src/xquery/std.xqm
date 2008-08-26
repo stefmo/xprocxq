@@ -73,7 +73,9 @@ util:assert(fn:exists($options/p:option[@name='path']),'p:directory-list path op
 
 (: -------------------------------------------------------------------------- :)
 declare function std:declare-step($primary,$secondary,$options) as item() {
-    $primary
+
+    <todo>need to process this step, this will also be used for embedded p:group and subpipelines</todo>
+
 };
 
 
