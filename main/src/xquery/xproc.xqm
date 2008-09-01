@@ -381,18 +381,13 @@ declare function xproc:gensteps2($steps) as xs:string*
 
 (: -------------------------------------------------------------------------- :)
 (: Parse pipeline XML, generating xquery code, throwing some static errors if neccesary :)
-declare function xproc:parse($xproc as item(),$stdin as item()) {
+declare function xproc:parse_and_eval($xproc as item(),$stdin as item()) {
 
     let $pipeline := $xproc
     let $steps := xproc:gensteps1($xproc)
     let $stepfunc := xproc:gensteps2($xproc)
     return
-        xproc:evaltree($steps,$stepfunc,$pipeline,$stdin)
-};
-
-
-declare function xproc:evaltree($steps,$stepfunc,$pipeline,$stdin){
-	util:step-fold($pipeline,
+        util:step-fold($pipeline,
                        $steps,
                        $stepfunc,
                        saxon:function("xproc:evalstep", 5),
@@ -406,7 +401,7 @@ declare function xproc:output($result,$dflag){
         $result
     else
         if (name($result[1]) eq 'p:empty') then
-            ()
+            (<!-- empty result //-->)
         else
             let $rev := reverse($result)
             return
@@ -492,4 +487,38 @@ let $output :=<xproc:outputs>{
                    $secondary,
                    $options
                   )
+};
+
+
+
+declare function xproc:run($pipeline,$stdin,$dflag,$tflag){
+
+    let $start-time := util:timing()
+
+    (: STEP I: generate parse tree :)
+    let $preparse := xproc:preparse($pipeline/p:*)
+
+    (: STEP II: parse and eval tree :)
+    let $eval_result := xproc:parse_and_eval($preparse,$stdin)
+
+    (: STEP III: serialize and return results :)
+    let $serialized_result := xproc:output($eval_result,$dflag)
+
+    let $end-time := util:timing()
+
+    return
+        if ($tflag="1") then
+            document
+               {
+                <xproc:result xproc:timing="{$end-time - $start-time}ms" xproc:ts="{current-dateTime()}">
+                    {
+                     $serialized_result
+                    }
+                </xproc:result>
+                }
+         else
+            document
+               {
+                $serialized_result
+               }
 };

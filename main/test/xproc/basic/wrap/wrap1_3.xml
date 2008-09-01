@@ -1,4 +1,4 @@
- <p:pipeline name="pipeline"
+ <p:declare-step name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
 
         <p:input port="source" primary="true"/>
@@ -11,4 +11,4 @@
         <p:output port="result" primary="true"/>
     </p:wrap>
 
-</p:pipeline>
+</p:declare-step>
