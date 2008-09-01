@@ -15,6 +15,7 @@ declare namespace func="java:net.xproc.saxon.evalXQuery";
 declare namespace system="java:java.lang.System";
 declare namespace math="http://exslt.org/math";
 declare namespace comp = "http://xproc.net/xproc/comp";
+declare namespace xproc = "http://xproc.net/xproc";
 
 (: Module Imports :)
 import module namespace const = "http://xproc.net/xproc/const"
@@ -228,20 +229,25 @@ $primaryinput
 };
 
 (: -------------------------------------------------------------------------- :)
-declare function util:step-fold($pipeline,$steps,$stepfuncs, $evalstep, $primaryinput, $resulttree) {
+declare function util:step-fold( $pipeline, $steps, $stepfuncs, $evalstep-function, $primaryinput, $outputs) {
   
     if (empty($steps)) then
        (: no more steps return the results :)
-           util:final-result($primaryinput,$pipeline,$resulttree)
-    else 
+
+           (: Check if primary input is empty:)
+           if (empty($primaryinput)) then
+               util:final-result(<p:empty/>,$pipeline,$outputs)
+           else
+               util:final-result($primaryinput,$pipeline,$outputs)
+
+    else
        (: perform evalstep function, generating new primary input :)
-       let $result := util:call($evalstep, 
+       let $result := util:call($evalstep-function,
                                   $steps[1],
                                   $stepfuncs[1],
                                   $primaryinput,
                                   $pipeline,
-                                  $resulttree)
-
+                                  $outputs)
     return
 
        (: TODO: tail end recursion, could probably optimise this manually; will investigate
@@ -249,9 +255,12 @@ declare function util:step-fold($pipeline,$steps,$stepfuncs, $evalstep, $primary
         util:step-fold($pipeline,
                        remove($steps, 1),
                        remove($stepfuncs, 1),
-                       $evalstep,
+                       $evalstep-function,
                        $result,
-                       ($resulttree,<util:step-state output-port="" name="{$steps[1]}" func="{$stepfuncs[1]}">{$result[1]}</util:step-state>) 
+                       ($outputs,<xproc:output
+                                    stepname="{$pipeline//*[@xproc:defaultname=$steps[1]]/@name}"
+                                    port="{$pipeline//*[@xproc:defaultname=$steps[1]]/p:output/@port}"
+                                    defaultname="{$steps[1]}" func="{$stepfuncs[1]}">{$result}</xproc:output>)
                        )
 };
 

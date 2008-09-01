@@ -629,9 +629,7 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
     <!-- generate svn changelog                                -->
     <!-- ===================================================== -->
     <target name="svn.changelog">
-
-        <!-- svn log -xml -verbose | xsltproc etc/svn2cl-0.9/svn2cl.xsl - > ChangeLog  //-->
-
+        <exec executable="${p.exe.changelog}" />
     </target>
 
 
