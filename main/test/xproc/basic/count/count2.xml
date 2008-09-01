@@ -1,5 +1,6 @@
-<p:pipeline name="pipeline"
+<p:declare-step name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
+
 
     <p:input port="source">
         <p:document href = "file:test/data/test1.xml" />
@@ -9,4 +10,4 @@
 
     <p:count name="step1"/>
     
-</p:pipeline>
+</p:declare-step>

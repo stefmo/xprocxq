@@ -1,13 +1,10 @@
- <p:pipeline name="pipeline"
+ <p:declare-step name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
-
-        <p:input port="source" primary="true"/>
-        <p:output port="result" primary="true"/>
 
     <p:unwrap name="step1">
         <p:input port="source" primary="true"/>
-        <p:with-option name="match" select="/test/a/text()"/> 
+        <p:with-option name="match" select="/test/a/."/> 
         <p:output port="result" primary="true"/>
     </p:unwrap>
 
-</p:pipeline>
+</p:declare-step>

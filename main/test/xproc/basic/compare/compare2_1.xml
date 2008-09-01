@@ -1,4 +1,4 @@
- <p:pipeline name="pipeline"
+ <p:declare-step name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
 
 
@@ -12,4 +12,4 @@
         <p:with-option name="fail-if-not-equal" select="'true'"/> 
    </p:compare>
 
-</p:pipeline>
+</p:declare-step>

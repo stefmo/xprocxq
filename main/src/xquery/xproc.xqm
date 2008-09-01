@@ -117,20 +117,10 @@ let $explicitnames :=
 
         return
 
-
             (: handle step element ------------------------------------------------------------ :)
                 if(xproc:step-available($stepname,$declare-step)) then
 
-                        (: ext:pre is a convention for wrapping top level port bindings :)
-                        if($stepname eq "ext:pre") then
-
-                                    (: generate input/output ports :)
-                                        element {$stepname} {
-                                             attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
-                                             $step/*
-                                             }
-                        else
-                                    (: generate step :)
+                            (: generate step :)
                                         element {$stepname} {
                                              attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
                                              (
@@ -331,19 +321,12 @@ declare function xproc:port-fixup($xproc as item()){
         <p:pipeline name="{$xproc/@name}">
             <ext:pre name="{$xproc/@name}">
 {
- if (exists($xproc/p:input[@port='source']))
-    then
-        $xproc/p:input
-    else
-        $xproc/p:input
-        ,<p:input port="source" primary="true"/>
 
-, if (exists($xproc/p:output[@port='result']))
-    then
+        $xproc/p:input
+        ,<p:input port="source" primary="true" xproc:type="std"/>,
+
         $xproc/p:output
-    else
-        $xproc/p:output
-        ,<p:output port="result" primary="true"/>
+        ,<p:output port="result" primary="true" xproc:type="std"/>
 
 }
             </ext:pre>
@@ -392,7 +375,7 @@ declare function xproc:gensteps2($steps) as xs:string*
     return
         let $func := concat("$",$step/@xproc:type,":",local-name($step))
         return
-             $func                            
+             $func
 };
 
 
@@ -425,7 +408,9 @@ declare function xproc:output($result,$dflag){
         if (name($result[1]) eq 'p:empty') then
             ()
         else
-            $result[1]
+            let $rev := reverse($result)
+            return
+                $rev[1]/*
 };
 
 
@@ -439,41 +424,35 @@ let $currentstep := $pipeline/*[@xproc:defaultname=$step]
 
 let $primary := ( if($currentstep/p:input[@primary='true'][@select='']) then
 
-                           for $child in $currentstep/p:input/*
+                       for $child in $currentstep/p:input/*
+                       return
+                       (
+                            if(name($child)='p:empty') then
+                                ()
+                            else if(name($child)='p:inline') then
+                                $child/*
+                            else if($child/@href) then
+                                     if (fn:doc-available($child/@href)) then
+                                           fn:doc($child/@href)
+                                     else
+                                           util:dynamicError('err:XD0002',fn:concat(" cannot access document ",$child/@href))
+                            else
+                                $primaryinput
+                        )
+
+                  else if($currentstep/p:input[@primary='true'][@select]) then
+
+                           let $selectval :=util:evalXPATH(fn:string($pipeline/*[@xproc:defaultname=$step]/p:input[@primary='true'][@select]/@select),document{$primaryinput})
                            return
-                           (
-                                if(name($child)='p:empty') then
-
-                                    ()
-
-                                else if(name($child)='p:inline') then
-
-                                    $child/*
-
-                                else if($child/@href) then
-
-                                             if (fn:doc-available($child/@href)) then
-                                                   fn:doc($child/@href)
-                                             else
-                                                   util:dynamicError('err:XD0002',fn:concat(" cannot access document ",$child/@href))
-
-                                else
-                                    $primaryinput[1]
-                            )
-
-                           else if($currentstep/p:input[@primary='true'][@select]) then
-                               let $selectval :=util:evalXPATH(fn:string($pipeline/*[@xproc:defaultname=$step]/p:input[@primary='true'][@select]/@select),document{$primaryinput[1]})
-                               return
                                if(empty($selectval))
                                then
                                     util:dynamicError('err:XD0001',fn:concat(fn:string($pipeline/*[@xproc:defaultname=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@xproc:defaultname=$step])))
                                else
                                     $selectval
 
-
-                           else 
-                               (<p:empty/>)
-                               )
+                  else
+                           (<p:empty/>)
+                           )
 
 
 let $secondary :=  <xproc:inputs>{
@@ -497,9 +476,11 @@ let $secondary :=  <xproc:inputs>{
                                     else
                                         <xproc:warning message="xproc.xqm: generated automatically"/>                                            
                        }</xproc:inputs>
+
 let $options :=<xproc:options>{
                               $pipeline/*[@xproc:defaultname=$step]/p:option
                        }</xproc:options>
+
 let $output :=<xproc:outputs>{
                               $pipeline/*[@xproc:defaultname=$step]/p:output
                        }
@@ -507,7 +488,7 @@ let $output :=<xproc:outputs>{
     return
         util:call( 
                    util:xquery($stepfunc),
-                   $primary,
+                   ($primary),
                    $secondary,
                    $options
                   )

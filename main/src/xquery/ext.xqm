@@ -22,20 +22,24 @@ declare variable $ext:step :=saxon:function("ext:step", 3);
 
 (: -------------------------------------------------------------------------- :)
 declare function ext:pre($primary,$secondary,$options){
-   ($primary,<test/>)
+   $primary
 };
+
 
 (: -------------------------------------------------------------------------- :)
 declare function ext:step($primary,$secondary,$options) as item()* {
     $primary
 };
 
+
 declare function ext:post($primary,$secondary,$options) as item()* {
     $primary
 };
 
+
 declare function ext:test($primary,$secondary,$options) as item()* {
     $primary
 };
+
 
 (: -------------------------------------------------------------------------- :)

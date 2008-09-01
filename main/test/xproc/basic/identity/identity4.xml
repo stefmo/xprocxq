@@ -1,4 +1,4 @@
- <p:pipeline name="pipeline"
+ <p:declare-step name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
                 
   <p:identity>
@@ -7,4 +7,4 @@
     </p:input>
   </p:identity>
   
-</p:pipeline>
+</p:declare-step>

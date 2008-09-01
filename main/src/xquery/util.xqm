@@ -217,51 +217,42 @@ declare function util:strip-namespace($e as element()) as element() {
 
 
 (: -------------------------------------------------------------------------- :)
-declare function util:final-result($primaryresult,$pipeline,$resulttree){
-    ($primaryresult,$pipeline,$resulttree)
+declare function util:final-result($pipeline,$resulttree){
+    ($pipeline,$resulttree)
 };
 
 
-
 (: -------------------------------------------------------------------------- :)
-declare function util:step-fold1 ($pipeline,$steps,$stepfuncs, $evalstep, $primaryinput, $resulttree) {
-$primaryinput
-};
-
-(: -------------------------------------------------------------------------- :)
-declare function util:step-fold( $pipeline, $steps, $stepfuncs, $evalstep-function, $primaryinput, $outputs) {
+declare function util:step-fold( $pipeline,
+                                 $steps,
+                                 $stepfuncs,
+                                 $evalstep-function,
+                                 $primaryinput as item()*,
+                                 $outputs) {
   
     if (empty($steps)) then
-       (: no more steps return the results :)
 
-           (: Check if primary input is empty:)
-           if (empty($primaryinput)) then
-               util:final-result(<p:empty/>,$pipeline,$outputs)
-           else
-               util:final-result($primaryinput,$pipeline,$outputs)
+           util:final-result($pipeline,$outputs)
 
     else
-       (: perform evalstep function, generating new primary input :)
-       let $result := util:call($evalstep-function,
-                                  $steps[1],
-                                  $stepfuncs[1],
-                                  $primaryinput,
-                                  $pipeline,
-                                  $outputs)
+        let $result := util:call($evalstep-function,
+                              $steps[1],
+                              $stepfuncs[1],
+                              ($primaryinput),
+                              $pipeline,
+                              $outputs)
     return
 
-       (: TODO: tail end recursion, could probably optimise this manually; will investigate
-                if the xquery processor is not already optimizing :)
         util:step-fold($pipeline,
-                       remove($steps, 1),
-                       remove($stepfuncs, 1),
-                       $evalstep-function,
-                       $result,
-                       ($outputs,<xproc:output
-                                    stepname="{$pipeline//*[@xproc:defaultname=$steps[1]]/@name}"
-                                    port="{$pipeline//*[@xproc:defaultname=$steps[1]]/p:output/@port}"
-                                    defaultname="{$steps[1]}" func="{$stepfuncs[1]}">{$result}</xproc:output>)
-                       )
+                   remove($steps, 1),
+                   remove($stepfuncs, 1),
+                   $evalstep-function,
+                   ($result),
+                   ($outputs,<xproc:output
+                                stepname="{$pipeline//*[@xproc:defaultname=$steps[1]]/@name}"
+                                port="{$pipeline//*[@xproc:defaultname=$steps[1]]/p:output/@port}"
+                                defaultname="{$steps[1]}" func="{$stepfuncs[1]}">{$result}</xproc:output>)
+                   )
 };
 
 (: -------------------------------------------------------------------------- :)
