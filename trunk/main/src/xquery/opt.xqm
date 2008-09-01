@@ -31,9 +31,7 @@ declare variable $opt:xsl-formatter :=saxon:function("opt:xsl-formatter", 3);
 (: -------------------------------------------------------------------------- :)
 declare function opt:xquery($primary,$secondary,$options) {
 
-(: this should be caught as a static error someday ... will do it in refactoring 
 util:assert(fn:exists($secondary/p:input[@port='query']/c:query),'p:input query is required'),
-:)
 
 (:TODO: need to sort out multiple c:query elements :)
 let $xquery := $secondary/p:input[@port='query']/c:query/text()

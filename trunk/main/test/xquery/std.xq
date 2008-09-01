@@ -24,6 +24,23 @@ declare variable $source := document{*};
     <expected>true</expected>
 </test>
 
+
+<test>
+    <name>test sequences in p:identity </name>
+    <result>
+        {std:identity((<test/>,<test1/>),<secondary/>,<options/>)}
+    </result>
+    <expected>true</expected>
+</test>
+
+<test>
+    <name>test sequences in p:identity </name>
+    <result>
+        {std:count((<test/>,<test1/>,<test/>),<secondary/>,<options/>)}
+    </result>
+    <expected>true</expected>
+</test>
+
 </testsuite>
 
 (: -------------------------------------------------------------------------- :)

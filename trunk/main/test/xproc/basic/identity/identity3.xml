@@ -1,9 +1,9 @@
- <p:pipeline name="pipeline"
+ <p:declare-step name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
  
  <p:store/>
-  <!-- store has no output //-->
+  <!-- store has no output, so what happens after a sink like this ? //-->
  
  <p:identity/>
 
-</p:pipeline>
+</p:declare-step>

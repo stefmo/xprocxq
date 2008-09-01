@@ -1,9 +1,9 @@
- <p:pipeline name="pipeline"
+ <p:declare-step name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
 
     <p:input port="qry">
          <p:inline>
-             <c:query xmlns:c="http://www.w3.org/ns/xproc-step">let $a := 3 return $a</c:query>
+             <c:query xmlns:c="http://www.w3.org/ns/xproc-step">let $a := 4 return $a</c:query>
          </p:inline>
     </p:input>
 
@@ -16,13 +16,10 @@
 
 <!-- TODO: piping of non primary ports //-->
      <p:input port="query">
-         <p:inline>
-             <c:query xmlns:c="http://www.w3.org/ns/xproc-step">let $a := 3 return $a</c:query>
-         </p:inline>
-         </p:input>
-
+           <p:pipe step="pipeline" port="qry"/>
      </p:input>
+
      <p:output port="result" sequence="true"/>
 </p:xquery>
 
-</p:pipeline>
+</p:declare-step>

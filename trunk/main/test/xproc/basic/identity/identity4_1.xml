@@ -1,11 +1,12 @@
- <p:pipeline name="pipeline"
+ <p:declare-step name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
-
-    <p:input port="source" primary="true">
-        <p:empty/>
-    </p:input>    
-    <p:output port="result" primary="true"/>
                 
-  <p:identity/>
+  <p:identity>
+    <p:input port="source">
+      <p:inline>
+        <inline_test_works/>
+       </p:inline>
+    </p:input>
+  </p:identity>
   
-</p:pipeline>
+</p:declare-step>
