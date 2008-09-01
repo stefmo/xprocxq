@@ -13,5 +13,8 @@
 <jar>
     <saxon>lib/saxonsa/saxon9sa.jar</saxon>
 </jar>
+<exe>
+    <changelog>../trash/svn2cl-0.9/svn2cl.sh</changelog>
+</exe>
 </p>
 

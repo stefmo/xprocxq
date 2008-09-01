@@ -114,7 +114,9 @@ let $explicitnames :=
         (: look up defined step in library :)
         let $allstep := xproc:get-step($stepname,$declare-step)
 
+
         return
+
 
             (: handle step element ------------------------------------------------------------ :)
                 if(xproc:step-available($stepname,$declare-step)) then
@@ -165,8 +167,6 @@ let $explicitnames :=
                                                             ()
                                              )
                                         }
-
-
 
 
         (: handle xproc components ------------------------------------------------------------- :)
@@ -330,8 +330,22 @@ declare function xproc:port-fixup($xproc as item()){
 
         <p:pipeline name="{$xproc/@name}">
             <ext:pre name="{$xproc/@name}">
-                {$xproc/p:input}
-                {$xproc/p:output}
+{
+ if (exists($xproc/p:input[@port='source']))
+    then
+        $xproc/p:input
+    else
+        $xproc/p:input
+        ,<p:input port="source" primary="true"/>
+
+, if (exists($xproc/p:output[@port='result']))
+    then
+        $xproc/p:output
+    else
+        $xproc/p:output
+        ,<p:output port="result" primary="true"/>
+
+}
             </ext:pre>
             {$xproc/p:*[not(name(.)="p:input")][not(name(.)="p:output")]}
         </p:pipeline>
@@ -382,7 +396,6 @@ declare function xproc:gensteps2($steps) as xs:string*
 };
 
 
-
 (: -------------------------------------------------------------------------- :)
 (: Parse pipeline XML, generating xquery code, throwing some static errors if neccesary :)
 declare function xproc:parse($xproc as item(),$stdin as item()) {
@@ -394,6 +407,7 @@ declare function xproc:parse($xproc as item(),$stdin as item()) {
         xproc:evaltree($steps,$stepfunc,$pipeline,$stdin)
 };
 
+
 declare function xproc:evaltree($steps,$stepfunc,$pipeline,$stdin){
 	util:step-fold($pipeline,
                        $steps,
@@ -403,12 +417,17 @@ declare function xproc:evaltree($steps,$stepfunc,$pipeline,$stdin){
                        ())
 };
 
+
 declare function xproc:output($result,$dflag){
     if($dflag="1") then
         $result
     else
-        $result[1]
+        if (name($result[1]) eq 'p:empty') then
+            ()
+        else
+            $result[1]
 };
+
 
 (: -------------------------------------------------------------------------- :)
 (: runtime evaluation of xproc steps; throwing dynamic errors and writing output along the way :)
