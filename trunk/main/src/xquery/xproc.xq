@@ -47,33 +47,6 @@ declare variable $source := document{.};
 (: -------------------------------------------------------------------------- :)
 (: XProc Processing :)
 
-    let $start-time := util:timing()
-
-    (: STEP I: generate parse tree :)
-    let $preparse := xproc:preparse($xproc/p:*)
-
-    (: STEP II: parse and eval tree :)
-    let $eval_result := xproc:parse($preparse,$source)
-
-    (: STEP III: serialize and return results :)
-    let $serialized_result := xproc:output($eval_result,$dflag)
-
-    let $end-time := util:timing()
-
-    return
-        if ($tflag="1") then
-            document
-               {
-                <xproc:result xproc:timing="{$end-time - $start-time}ms" xproc:ts="{current-dateTime()}">
-                    {
-                     $serialized_result
-                    }
-                </xproc:result>
-                }
-         else
-            document
-               {
-                $serialized_result
-               }
+    xproc:run($xproc,$source,$dflag,$tflag)
 
 (: -------------------------------------------------------------------------- :)

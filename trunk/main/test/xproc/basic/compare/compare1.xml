@@ -2,7 +2,7 @@
             xmlns:p="http://www.w3.org/ns/xproc">
 
    <p:compare name="step1">
-        <p:input port="source" primary="true"/>
+       <p:input port="source" type="primary"/>
         <p:input port="alternate">
               <p:document href="file:test/data/test.xml"/>
         </p:input>

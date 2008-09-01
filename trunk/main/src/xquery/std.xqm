@@ -194,7 +194,7 @@ declare function std:identity($primary,$secondary,$options) {
 
 (: -------------------------------------------------------------------------- :)
 (: TODO this is wrong, its counting the elements needs to count the sequence :)
-declare function std:count($primary,$secondary,$options) as item() {
+declare function std:count($primary,$secondary,$options) {
    util:outputResultElement(
         fn:count($primary)
     )
@@ -202,12 +202,11 @@ declare function std:count($primary,$secondary,$options) as item() {
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:compare($primary,$secondary,$options) as item() {
-(: TODO: xproc namespace is leaking into alternate, must fix :)
+declare function std:compare($primary,$secondary,$options) {
 
 util:assert(fn:exists($secondary/p:input[@port='alternate']),'p:compare alternate port does not exist'),
 
-let $result := fn:deep-equal($primary,$secondary/p:input[@port='alternate']/node())
+let $result := fn:deep-equal($primary[1]/*,$secondary/p:input[@port='alternate']/*)
 let $option := util:boolean($options/p:option[@name='fail-if-not-equal']/@select)
     return
 
@@ -218,7 +217,6 @@ let $option := util:boolean($options/p:option[@name='fail-if-not-equal']/@select
                 (util:dynamicError('err:XC0020','p:compare fail-if-not-equal option is enabled and documents were not equal'))
         else
             (util:outputResultElement($result))
-
 };
 
 
