@@ -1,7 +1,8 @@
  <p:declare-step name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
                 
-  <p:input port="source">
+  <p:input port="src" primary="true">
+                    <p:document href="file:test/data/test2.xml"/>
               <p:inline>
                   <anothertest/>
               </p:inline>
@@ -11,7 +12,7 @@
 
    <p:identity name="step1">
         <p:input port="source" primary="true">
-              <p:pipe step="pipeline" port="source" />
+              <p:pipe step="pipeline" port="src" />
         </p:input>
         <p:output port="result"/>
    </p:identity>
