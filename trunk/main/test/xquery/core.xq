@@ -41,7 +41,7 @@ declare variable $source := document{*};
 <test>
     <name>run xproc util:eval which evals to true</name>
     <result>
-    {util:eval('fn:boolean(1)')}
+    {util:eval('boolean(1)')}
     </result>
     <expected>true</expected>
 </test>
@@ -50,7 +50,7 @@ declare variable $source := document{*};
 <test>
     <name>run xproc util:eval which evals to false</name>
     <result>
-    {util:eval('fn:boolean(0)')}
+    {util:eval('boolean(0)')}
     </result>
     <expected>false</expected>
 </test>
@@ -188,7 +188,7 @@ declare variable $source := document{*};
 </test>
 
 <test>
-    <name>testing fn:trace</name>
+    <name>testing trace</name>
     <result>false</result>
     <expected>false</expected>
 </test>

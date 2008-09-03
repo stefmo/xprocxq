@@ -53,6 +53,8 @@ declare variable $const:vendor-uri :="http://www.xproc.net/xproc.xq";
 (: XPATH Version :)
 declare variable $const:xpath-version :="2.0";
 
+declare variable $const:init_unique_id :="!1";
+
 (: -------------------------------------------------------------------------- :)
 (: define default imported modules :)
 declare variable $const:default-imports :='

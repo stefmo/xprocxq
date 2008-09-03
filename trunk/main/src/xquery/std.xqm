@@ -64,9 +64,9 @@ declare function std:add-xml-base($primary,$secondary,$options) as item() {
 declare function std:directory-list($primary,$secondary,$options) as item() {
  
 (: this should be caught as a static error someday ... will do it in refactoring  :)
-util:assert(fn:exists($options/p:option[@name='path']),'p:directory-list path option does not exist'),
+util:assert(exists($options/p:option[@name='path']),'p:directory-list path option does not exist'),
 
-    (util:outputResultElement(fn:collection('file:/')))
+    (util:outputResultElement(collection('file:/')))
 
 };
 
@@ -196,7 +196,7 @@ declare function std:identity($primary,$secondary,$options) {
 (: TODO this is wrong, its counting the elements needs to count the sequence :)
 declare function std:count($primary,$secondary,$options) {
    util:outputResultElement(
-        fn:count($primary)
+        count($primary)
     )
 };
 
@@ -204,14 +204,14 @@ declare function std:count($primary,$secondary,$options) {
 (: -------------------------------------------------------------------------- :)
 declare function std:compare($primary,$secondary,$options) {
 
-util:assert(fn:exists($secondary/p:input[@port='alternate']),'p:compare alternate port does not exist'),
+util:assert(exists($secondary/p:input[@port='alternate']),'p:compare alternate port does not exist'),
 
-let $result := fn:deep-equal($primary[1]/*,$secondary/p:input[@port='alternate']/*)
+let $result := deep-equal($primary[1]/*,$secondary/p:input[@port='alternate']/*)
 let $option := util:boolean($options/p:option[@name='fail-if-not-equal']/@select)
     return
 
-        if($option eq fn:true()) then
-            if ( $result eq fn:true())then
+        if($option eq true()) then
+            if ( $result eq true())then
                 (util:outputResultElement($result))
             else
                 (util:dynamicError('err:XC0020','p:compare fail-if-not-equal option is enabled and documents were not equal'))
@@ -248,13 +248,13 @@ declare function std:error($primary,$secondary,$options) as item() {
 declare function std:filter($primary,$secondary,$options) as item() {
 
 (: this should be caught as a static error someday ... will do it in refactoring :)
-util:assert(fn:exists($options/p:option[@name='select']/@select),'p:option match is required'),
+util:assert(exists($options/p:option[@name='select']/@select),'p:option match is required'),
 
 let $v :=document{$primary}
-let $xpath := util:evalXPATH(fn:string($options/p:option[@name='select']/@select),$v)
-let $result := util:evalXPATH(fn:string($xpath),$v)
+let $xpath := util:evalXPATH(string($options/p:option[@name='select']/@select),$v)
+let $result := util:evalXPATH(string($xpath),$v)
     return
-        if(fn:exists($result)) then
+        if(exists($result)) then
             $result
         else
             $xpath
@@ -265,14 +265,14 @@ let $result := util:evalXPATH(fn:string($xpath),$v)
 declare function std:wrap($primary,$secondary,$options) as item() {
 (: TODO - The match option must only match element, text, processing instruction, and comment nodes. It is a dynamic error (err:XC0041) if the match pattern matches any other kind of node. :)
 
-util:assert(fn:exists($options/p:option[@name='match']/@select),'p:option match is required'),
-util:assert(fn:exists($options/p:option[@name='wrapper']/@select),'p:option wrapper is required'),
+util:assert(exists($options/p:option[@name='match']/@select),'p:option match is required'),
+util:assert(exists($options/p:option[@name='wrapper']/@select),'p:option wrapper is required'),
 
     let $v :=document{$primary}
     return
        document 
        {
-        element {fn:string($options/p:option[@name='wrapper']/@select)} {
+        element {string($options/p:option[@name='wrapper']/@select)} {
             util:evalXPATH($options/p:option[@name='match']/@select,$v)
         }
        } 
@@ -283,7 +283,7 @@ util:assert(fn:exists($options/p:option[@name='wrapper']/@select),'p:option wrap
 declare function std:unwrap($primary,$secondary,$options) as item() {
 
 (: this should be caught as a static error someday ... will do it in refactoring :)
-util:assert(fn:exists($options/p:option[@name='match']/@select),'p:option match is required'),
+util:assert(exists($options/p:option[@name='match']/@select),'p:option match is required'),
 
 (: TODO - The value of the match option must be an XSLTMatchPattern. It is a dynamic error (err:XC0023) if that pattern matches anything other than element nodes. :)
 let $v :=document{$primary}
@@ -301,7 +301,7 @@ declare function std:wrap-sequence($primary,$secondary,$options){
 (: -------------------------------------------------------------------------- :)
 declare function std:xslt($primary,$secondary,$options){
 
-util:assert(fn:exists($secondary/p:input[@port='stylesheet']),'stylesheet is required'),
+util:assert(exists($secondary/p:input[@port='stylesheet']),'stylesheet is required'),
 
 let $v :=document{$primary[1]}
 return 

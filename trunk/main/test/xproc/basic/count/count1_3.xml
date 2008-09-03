@@ -1,0 +1,15 @@
+<p:declare-step name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc">
+
+
+    <p:count name="step1">
+    <p:input port="source">
+        <p:inline><test/></p:inline>
+        <p:inline><test/></p:inline>
+        <p:inline><test/></p:inline>
+        <p:inline><test/></p:inline>
+        <p:inline><test/></p:inline>
+    </p:input>
+    </p:count>
+    
+</p:declare-step>

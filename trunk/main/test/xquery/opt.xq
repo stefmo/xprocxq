@@ -17,7 +17,7 @@ declare variable $source := document{*};
 <test>
     <name>run successful test</name>
     <result>
-    {fn:true()}
+    {true()}
     </result>
     <expected>true</expected>
 </test>

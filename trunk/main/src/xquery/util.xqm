@@ -36,7 +36,7 @@ declare function util:timing() as xs:integer  {
 
 (: -------------------------------------------------------------------------- :)
 declare function util:assert($booleanexp as item(), $why as xs:string)  {
-if(fn:not($booleanexp) and fn:boolean($util:NDEBUG)) then 
+if(not($booleanexp) and boolean($util:NDEBUG)) then 
     util:dynamicError('err:XC0020',$why)
 else
     ()
@@ -44,7 +44,7 @@ else
 
 (: -------------------------------------------------------------------------- :)
 declare function util:assert($booleanexp as item(), $why as xs:string,$error)  {
-if(fn:not($booleanexp) and fn:boolean($util:NDEBUG)) then 
+if(not($booleanexp) and boolean($util:NDEBUG)) then 
     util:dynamicError($error,$why)
 else
     ()
@@ -61,19 +61,19 @@ else
 
 (: -------------------------------------------------------------------------- :)
 declare function util:dynamicError($error,$string) {
-    fn:error(QName('http://www.w3.org/ns/xproc-error',$error), $string)
+    error(QName('http://www.w3.org/ns/xproc-error',$error), $string)
 };
 
 (: -------------------------------------------------------------------------- :)
 declare function util:staticError($error,$string) {
 let $info := $const:error-xproc//error[code=$error]
 return
-    fn:error(QName('http://www.w3.org/ns/xproc-error',$error),concat("XProc Static Error: ",$string," ",$info/description/text()))
+    error(QName('http://www.w3.org/ns/xproc-error',$error),concat("XProc Static Error: ",$string," ",$info/description/text()))
 };
 
 (: -------------------------------------------------------------------------- :)
 declare function util:stepError($error,$string) {
-    fn:error(QName('http://www.w3.org/ns/xproc-error',$error), $string)
+    error(QName('http://www.w3.org/ns/xproc-error',$error), $string)
 };
 
 (: -------------------------------------------------------------------------- :)
@@ -249,9 +249,9 @@ declare function util:step-fold( $pipeline,
                    $evalstep-function,
                    ($result),
                    ($outputs,<xproc:output
-                                stepname="{$pipeline//*[@xproc:defaultname=$steps[1]]/@name}"
-                                port="{$pipeline//*[@xproc:defaultname=$steps[1]]/p:output/@port}"
-                                defaultname="{$steps[1]}" func="{$stepfuncs[1]}">{$result}</xproc:output>)
+                                step="{$steps[1]}"
+                                port="{$pipeline//*[@name=$steps[1]]/p:output/@port}"
+                                func="{$stepfuncs[1]}">{$result}</xproc:output>)
                    )
 };
 

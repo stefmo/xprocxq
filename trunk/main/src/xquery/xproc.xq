@@ -40,13 +40,12 @@ declare variable $oval as item() external;
 
 declare variable $ival as item() external;
 
-(: :)
-declare variable $source := document{.};
-
+(: will have to refactor stdin versus stdin2 at some point :)
+declare variable $stdin2 := document{.};
 
 (: -------------------------------------------------------------------------- :)
 (: XProc Processing :)
 
-    xproc:run($xproc,$source,$dflag,$tflag)
+    xproc:run($xproc,$stdin,$dflag,$tflag)
 
 (: -------------------------------------------------------------------------- :)

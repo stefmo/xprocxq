@@ -10,11 +10,11 @@ declare namespace saxon="http://saxon.sf.net/";
 (: ---------------------------------------------------------------------------- :)
 
 declare function test:assertXMLEqual($a as item()*, $b as item()*) as xs:boolean {
-    fn:deep-equal($a,$b)
+    deep-equal($a,$b)
 };
 
 declare function test:assertXMLNotEqual($a as item()*, $b as item()*) as xs:boolean {
-    fn:not(fn:deep-equal($a,$b))
+    not(deep-equal($a,$b))
 };
 
 (: ---------------------------------------------------------------------------- :)
@@ -22,19 +22,19 @@ declare function test:assertXMLNotEqual($a as item()*, $b as item()*) as xs:bool
 (: ---------------------------------------------------------------------------- :)
 
 declare function test:assertStringEqual($a as xs:string, $b as xs:string) as xs:boolean {  
- fn:not(fn:boolean(fn:compare($a, $b)))
+ not(boolean(compare($a, $b)))
 };
 
 declare function test:assertStringNotEqual($a as xs:string, $b as xs:string) as xs:boolean {  
- fn:boolean(fn:compare($a, $b))
+ boolean(compare($a, $b))
 };
 
 declare function test:assertStringContain($a as xs:string, $b as xs:string) as xs:boolean {
-    fn:contains($a, $b)
+    contains($a, $b)
 };
 
 declare function test:assertStringNotContain($a as xs:string, $b as xs:string) as xs:boolean {
-    fn:not(fn:contains($a, $b))
+    not(contains($a, $b))
 };
 
 (: ---------------------------------------------------------------------------- :)
@@ -42,11 +42,11 @@ declare function test:assertStringNotContain($a as xs:string, $b as xs:string) a
 (: ---------------------------------------------------------------------------- :)
 
 declare function test:assertIntegerEqual($a as xs:integer, $b as xs:integer) as xs:boolean {  
-  fn:boolean($a=$b) 
+  boolean($a=$b) 
 };
 
 declare function test:assertIsInteger($a as xs:integer) as xs:boolean {  
- fn:true() (: NOTE THIS IS A PROBLEM:)
+ true() (: NOTE THIS IS A PROBLEM:)
 };
 
 
@@ -59,19 +59,19 @@ declare function test:evalXPATH($xpathstring, $xml){
 };
 
 declare function test:assertXpathExist($xml as item(), $xpathstring as xs:string) as xs:boolean {
-    fn:exists(test:evalXPATH($xpathstring,$xml))
+    exists(test:evalXPATH($xpathstring,$xml))
 };
 
 declare function test:assertXpathNotExist($xml as item(), $xpathstring as xs:string) as xs:boolean {
-    fn:not(fn:exists(test:evalXPATH($xpathstring,$xml)))
+    not(exists(test:evalXPATH($xpathstring,$xml)))
 };
 
 declare function test:assertXpathEqual($a as element(), $b as xs:string, $c as xs:string ) as xs:boolean {
-fn:true()
+true()
 };
 
 declare function test:assertXpathNotEqual($a as element(), $b as xs:string, $c as xs:string ) as xs:boolean {
-fn:true()
+true()
 };
 
 (: ---------------------------------------------------------------------------- :)
