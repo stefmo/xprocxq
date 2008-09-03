@@ -31,11 +31,11 @@ declare variable $opt:xsl-formatter :=saxon:function("opt:xsl-formatter", 3);
 (: -------------------------------------------------------------------------- :)
 declare function opt:xquery($primary,$secondary,$options) {
 
-util:assert(fn:exists($secondary/p:input[@port='query']/c:query),'p:input query is required'),
+util:assert(exists($secondary/p:input[@port='query']/c:query),'p:input query is required'),
 
 (:TODO: need to sort out multiple c:query elements :)
 let $xquery := $secondary/p:input[@port='query']/c:query/text()
-let $result := fn:data(util:xquery($xquery))
+let $result := data(util:xquery($xquery))
 return 
             (util:outputResultElement($result))
 };
@@ -44,7 +44,7 @@ return
 declare function opt:exec($primary,$secondary,$options) {
     util:outputResultElement(
 
-(:        runtime:main(fn:string($options/p:option[@name='command']/@select))
+(:        runtime:main(string($options/p:option[@name='command']/@select))
 
 :)
 runtime:main("/bin/ls")

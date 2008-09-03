@@ -187,6 +187,10 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test_2.xml"
                      xproc="file:test/xproc/basic/count/count1.xml"/>
+        <xproc-saxon dest="result/xproc_count_result_1_3.xml"
+                     query="src/xquery/xproc.xq"
+                     input="file:test/data/test.xml"
+                     xproc="file:test/xproc/basic/count/count1_3.xml"/>
         <xproc-saxon dest="result/xproc_count_result_1_1.xml"
                      query="src/xquery/xproc.xq"
                      input="file:test/data/test.xml"

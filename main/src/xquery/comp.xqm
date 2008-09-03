@@ -15,7 +15,7 @@ declare variable $comp:components := doc("../../etc/xproc-component.xml");
 (: -------------------------------------------------------------------------- :)
 
 declare function comp:episode() as xs:string {
-   fn:string(util:random())
+   string(util:random())
 };
 
 declare function comp:product-name() as xs:string {

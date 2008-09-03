@@ -7,8 +7,6 @@
               </p:inline>
   </p:input>
       
-  <p:output port="result" primary="true"/>
-
    <p:identity name="step1">
         <p:input port="source" primary="true">
               <p:pipe step="pipeline" port="source" />
