@@ -13,6 +13,5 @@
         </p:input>
    </p:identity>
 
-   <p:count/>
 
 </p:declare-step>

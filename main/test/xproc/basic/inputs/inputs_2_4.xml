@@ -9,7 +9,9 @@
       
    <p:identity name="step1">
         <p:input port="source" primary="true">
-              <p:pipe step="pipeline" port="src"/>
+              <p:inline>
+                  <anothertest/>
+              </p:inline>
         </p:input>
         <p:output port="result"/>
    </p:identity>

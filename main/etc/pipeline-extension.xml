@@ -11,12 +11,12 @@
 <!-- top level inputs //-->
     <p:declare-step type="ext:pre">
         <p:input port="source" primary="true"/>
-        <p:output port="result" primary="true"/>
+        <p:output port="stdout" primary="true"/>
     </p:declare-step>
 
     <p:declare-step type="ext:post">
         <p:input port="source" primary="true"/>
-        <p:output port="result" primary="true"/>
+        <p:output port="stdout" primary="true"/>
     </p:declare-step>
     
     <p:declare-step type="ext:step">

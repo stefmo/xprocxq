@@ -1,15 +1,12 @@
- <p:pipeline name="pipeline"
+ <p:declare-step name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
 
-    <p:input port="source" primary="true"/>
-    <p:output port="result" primary="true"/>
+<p:identity/>
 
 <p:xslt>
-     <p:input port="source" primary="true"/>
      <p:input port="stylesheet">
               <p:document href="file:test/data/stylesheet.xml"/>         
      </p:input>
-     <p:output port="result" primary="true"/>
 </p:xslt>
 
-</p:pipeline>
+</p:declare-step>

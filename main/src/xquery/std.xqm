@@ -301,12 +301,10 @@ declare function std:wrap-sequence($primary,$secondary,$options){
 (: -------------------------------------------------------------------------- :)
 declare function std:xslt($primary,$secondary,$options){
 
-util:assert(exists($secondary/p:input[@port='stylesheet']),'stylesheet is required'),
-
-let $v :=document{$primary[1]}
-return 
-    util:xslt($secondary/p:input[@port='stylesheet']/*,$v)
-
+    util:assert(exists($secondary/p:input[@port='stylesheet']),'stylesheet is required'),
+    let $v :=document{$primary}
+    return
+        util:xslt($secondary/p:input[@port='stylesheet']/*,$v)
 };
 
 

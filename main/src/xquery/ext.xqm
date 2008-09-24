@@ -22,7 +22,7 @@ declare variable $ext:step :=saxon:function("ext:step", 3);
 
 (: -------------------------------------------------------------------------- :)
 declare function ext:pre($primary,$secondary,$options){
-   $primary
+   $primary[1]
 };
 
 

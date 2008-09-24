@@ -219,15 +219,19 @@
       <p:option name="fixup-xml-base" select="'false'"/>
       <p:option name="fixup-xml-lang" select="'false'"/>
    </p:declare-step>
+   
+   
    <p:declare-step type="p:xslt" xml:id="xslt">
-      <p:input port="source" sequence="true" primary="true"/>
+      <p:input port="source" primary="true" sequence="true"/>
       <p:input port="stylesheet"/>
       <p:input port="parameters" kind="parameter"/>
       <p:output port="result" primary="true"/>
       <p:output port="secondary" sequence="true"/>
+
       <p:option name="initial-mode"/>
       <p:option name="template-name"/>
       <p:option name="output-base-uri"/>
       <p:option name="version"/>
+
    </p:declare-step>
 </p:library>
