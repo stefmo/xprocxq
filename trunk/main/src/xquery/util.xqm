@@ -238,7 +238,7 @@ declare function util:step-fold( $pipeline,
         let $result := util:call($evalstep-function,
                               $steps[1],
                               $stepfuncs[1],
-                              ($primaryinput),
+                              $primaryinput,
                               $pipeline,
                               $outputs)
     return

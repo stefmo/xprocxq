@@ -1,16 +1,18 @@
  <p:declare-step name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
                 
-  <p:input port="src" primary="true">
-                    <p:document href="file:test/data/test2.xml"/>
+   <p:identity name="step1">
+        <p:input port="source" primary="true">
               <p:inline>
                   <anothertest/>
               </p:inline>
-  </p:input>
-      
-   <p:identity name="step1">
-        <p:input port="source" primary="true">
-              <p:pipe step="pipeline" port="src" />
+              <p:inline>
+                  <anothertest1/>
+              </p:inline>
+              <p:inline>
+                  <anothertest2/>
+              </p:inline>
+              <p:empty/>
         </p:input>
         <p:output port="result"/>
    </p:identity>

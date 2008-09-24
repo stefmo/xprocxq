@@ -18,8 +18,7 @@ OPTIONS:
    -t      Show timing information
    -i      Set input port document
    -o      Set output port document
-   -x      Enable XInclude processing in all XML documents 
-
+   -x      Enable XInclude processing 
    -d      Enable DTD validation
 
 
