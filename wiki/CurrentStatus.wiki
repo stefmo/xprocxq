@@ -2,7 +2,8 @@
 
 = Status =
 
-17/08/2008 working off latest editor spec ... aiming for a release Sept 6th.
+24/09/2008 getting down to the nitty gritty for an initial release .... subpipelines and compound steps are my biggest issues at the moment ... and trying to implement as many std and optional steps as possible .. alpha release is preeminent (promises, promises). 
+
 
 = Changelog =
 
@@ -20,16 +21,35 @@ There are so many issues to list .... so I will just highlight the major ones;
 
   * depends on one having bought Michael Kay's [http://www.saxonica.com Saxon-SA]  XSLT/XQUERY processor ... as dependent on SA version and even then it does very little ;)
 
+  * checking that sequences are correct everywhere
+
+  * sync all error messages
+
+  * select attribute on options
+
+  * working on subpipelines
+
+  * check that default naming is ok 
+
+  * tweaking top level input/output bindings
+
+  * ext:pre and ext:post roughly equiv to stdin and stdout
+
+  * tweaking non primary input/output handling
+
+  * range of performance issues (though I have removed all eval code)
+
+  * need to tweak step declarations and step validation with respect to honoring step functional signature
+
+  * need to implement imports and library import precedence
+
   * planned release version will support both eXist and SAXON
 
-  * its best to explicitly define input connections in XProc XML
 
 {{{
- <p:pipeline name="helloworld"
+ <p:declare-step name="helloworld"
             xmlns:p="http://www.w3.org/ns/xproc">
 
-  <p:input port="source"/>
-  <p:output port="result"/>
 
     <p:identity name="step2">
        <p:input port="step2-input">
@@ -51,11 +71,11 @@ There are so many issues to list .... so I will just highlight the major ones;
         <p:output port="step1-output"/>
     </p:count>
 
- </p:pipeline>
+ </p:declare-step>
 
 }}}
 
-  * no command line entry point .. all operation is via Ant script, which just means running unit tests
+
 
 _Note: Looking at the current trunk/TODO file will help you determine what I am focusing on for now._
 
