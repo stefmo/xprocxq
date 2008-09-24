@@ -69,9 +69,6 @@ let $pipeline :=
    <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
                 
-  <p:input port="source" primary="true"/>
-  <p:output port="result" primary="true"/>
-
    <p:identity name="step1">
         <p:input port="source" primary="true">
               <p:inline>
