@@ -195,9 +195,19 @@ declare function std:identity($primary,$secondary,$options) {
 (: -------------------------------------------------------------------------- :)
 (: TODO this is wrong, its counting the elements needs to count the sequence :)
 declare function std:count($primary,$secondary,$options) {
-   util:outputResultElement(
-        count($primary)
-    )
+
+let $limit := xs:integer($options/p:option[@name='limit']/@select)
+let $count := xs:integer(count($primary))
+return
+    if ($count > $limit) then
+       util:outputResultElement(
+        $limit
+       )
+    else
+       util:outputResultElement(
+         $count
+       )
+
 };
 
 

@@ -2,16 +2,14 @@
             xmlns:p="http://www.w3.org/ns/xproc">
 
 
-    <p:input port="src">
-        <p:inline><test/></p:inline>
-        <p:inline><test/></p:inline>
-        <p:inline><test/></p:inline>
-        <p:inline><test/></p:inline>
-        <p:inline><test/></p:inline>
-    </p:input>
-  
-    <p:output port="result"/>
-    
-    <p:count name="step1"/>
+    <p:count name="step1">
+        <p:input port="source">
+            <p:inline><test/></p:inline>
+            <p:inline><test/></p:inline>
+            <p:inline><test/></p:inline>
+            <p:inline><test/></p:inline>
+            <p:inline><test/></p:inline>
+        </p:input>
+    </p:count>
     
 </p:declare-step>
