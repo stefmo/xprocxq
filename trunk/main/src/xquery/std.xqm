@@ -188,26 +188,31 @@ declare function std:xinclude($primary,$secondary,$options) as item() {
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:identity($primary,$secondary,$options) {
+declare function std:identity($primary,$secondary,$options) as item()* {
    $primary
 };
 
+
 (: -------------------------------------------------------------------------- :)
 (: TODO this is wrong, its counting the elements needs to count the sequence :)
-declare function std:count($primary,$secondary,$options) {
+declare function std:count($primary,$secondary,$options){
 
+let $test := ($primary)
 let $limit := xs:integer($options/p:option[@name='limit']/@select)
-let $count := xs:integer(count($primary))
+let $count := count($test)
 return
-    if ($count > $limit) then
+    if (empty($limit)) then
        util:outputResultElement(
-        $limit
+        $count
+       )
+    else if ($count < $limit) then
+       util:outputResultElement(
+       $count
        )
     else
        util:outputResultElement(
-         $count
+         $limit
        )
-
 };
 
 

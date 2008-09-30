@@ -1,4 +1,4 @@
-<p:pipeline name="pipeline"
+<p:declare-step name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:mine="http://www.example.org/test/mine">
 
@@ -6,4 +6,4 @@
 
 <p:count/>
     
-</p:pipeline>
+</p:declare-step>

@@ -2,14 +2,12 @@
             xmlns:p="http://www.w3.org/ns/xproc">
 
 
-    <p:count name="step1">
-        <p:input port="source">
+    <p:input port="source" primary="true">
+        <p:document href = "file:test/data/test.xml" />
             <p:inline><test/></p:inline>
-            <p:inline><test/></p:inline>
-            <p:inline><test/></p:inline>
-            <p:inline><test/></p:inline>
-            <p:inline><test/></p:inline>
-        </p:input>
-    </p:count>
+            <p:inline><test/></p:inline>    
+    </p:input>
+  
     
+    <p:count name="step1"/>
 </p:declare-step>

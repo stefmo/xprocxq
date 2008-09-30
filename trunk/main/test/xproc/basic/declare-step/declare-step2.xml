@@ -3,8 +3,8 @@
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:mine="http://www.example.org/test/mine">
 
-    <p:input port="source" sequence="true"/>
-    <p:output port="result" sequence="true"/>
+    <p:input port="primary-source" primary="true" sequence="true"/>
+    <p:output port="primary-result" primary="true" sequence="true"/>
 
     <p:count/>
     

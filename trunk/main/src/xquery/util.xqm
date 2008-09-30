@@ -93,27 +93,27 @@ declare function util:eval($exp as xs:string) as item()*{
 
 (: -------------------------------------------------------------------------- :)
 (: TODO: refactor the following into a single function :)
-declare function util:call($func,$a){
+declare function util:call($func,$a) as item()*{
     saxon:call($func,$a)
 };
 
 
-declare function util:call($func,$a,$b){
+declare function util:call($func,$a,$b) as item()*{
     saxon:call($func,$a,$b)
 };
 
 
-declare function util:call($func,$a,$b,$c){
+declare function util:call($func,$a,$b,$c) as item()*{
     saxon:call($func,$a,$b,$c)
 };
 
 
-declare function util:call($func,$a,$b,$c,$d){
+declare function util:call($func,$a,$b,$c,$d) as item()*{
     saxon:call($func,$a,$b,$c,$d)
 };
 
 
-declare function util:call($func,$a,$b,$c,$d,$e){
+declare function util:call($func,$a,$b,$c,$d,$e) as item()*{
     saxon:call($func,$a,$b,$c,$d,$e)
 };
 
@@ -125,8 +125,9 @@ declare function util:function($func,$arity){
 :)
 
 (: -------------------------------------------------------------------------- :)
-declare function util:evalXPATH($xpathstring, $xml){
-    $xml/saxon:evaluate($xpathstring)
+declare function util:evalXPATH($xpathstring, $xml as item()*) as item()*{
+    let $test:= document{$xml}
+    return $test/saxon:evaluate($xpathstring)
 };
 
 
@@ -235,7 +236,7 @@ declare function util:step-fold( $pipeline,
            util:final-result($pipeline,$outputs)
 
     else
-        let $result := util:call($evalstep-function,
+        let $result:= util:call($evalstep-function,
                               $steps[1],
                               $stepfuncs[1],
                               $primaryinput,
@@ -247,10 +248,10 @@ declare function util:step-fold( $pipeline,
                    remove($steps, 1),
                    remove($stepfuncs, 1),
                    $evalstep-function,
-                   ($result),
+                   $result,
                    ($outputs,<xproc:output
                                 step="{$steps[1]}"
-                                port="{$pipeline//*[@name=$steps[1]]/p:output/@port}"
+                                port="{$pipeline/*[@name=$steps[1]]/p:output[1]/@port}"
                                 func="{$stepfuncs[1]}">{$result}</xproc:output>)
                    )
 };

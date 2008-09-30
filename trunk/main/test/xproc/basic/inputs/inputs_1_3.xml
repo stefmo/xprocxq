@@ -1,8 +1,8 @@
 <p:declare-step name="main"
             xmlns:p="http://www.w3.org/ns/xproc">
 
-      <p:identity name="mystep">
-        <p:input port="source" primary="true" select="//e"/>
+      <p:identity>
+        <p:input port="source" primary="true" select="/test/a/text()"/>
       </p:identity>
 
 </p:declare-step>
