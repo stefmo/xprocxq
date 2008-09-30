@@ -1,7 +1,7 @@
  <p:declare-step name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
                 
-  <p:input port="src">
+  <p:input port="src" primary="false">
               <p:inline>
                   <anothertest/>
               </p:inline>

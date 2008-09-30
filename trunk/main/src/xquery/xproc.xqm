@@ -237,7 +237,7 @@ let $explicitbindings :=
                                 <p:pipe step="{$pipelinename}|" port="stdin"/>
 
                            (: primary input step that takes in previous step :)
-                           else if (exists($input/p:pipe) and $input/@primary='true') then
+                           else if (exists($input/p:pipe) and $input/@primary='true' and not($xproc/*[last()]/@*:defaultname)) then
                                 <p:pipe step="{$xproc/*[$count - 1]/@name}" port="{$xproc/*[$count - 1]/p:output[@primary='true']/@port}"/>
 
                            (: non-primary inputs with pipe :)
@@ -447,7 +447,7 @@ let $primary := (
                                         $result/xproc:output[@port=$child/@port][@step=$child/@step]/*
                                     else
                                         util:dynamicError('err:XD0001',concat(" cannot bind to output port: ",$child/@port," step: ",$child/@step,' ',
-saxon:serialize($result,<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>)))
+saxon:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>)))
 
                             else
                                 document{$primaryinput}

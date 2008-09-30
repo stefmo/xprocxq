@@ -20,7 +20,7 @@
 
       <p:identity name="step3">
           <p:input port="source">
-              <p:pipe step="step1" port="result"/>
+              <p:pipe step="step2" port="result"/>
           </p:input>
       </p:identity>
       
