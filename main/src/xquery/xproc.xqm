@@ -147,7 +147,7 @@ let $explicitnames :=
                                          ),
 
                                         (: match options with step definitions and generate options:)
-                                        for $option in $allstep//p:option
+                                        for $option in $allstep/p:option
                                             return
                                                 if ($step//p:with-option[@name=$option/@name]/@select) then
                                                   element {name($option)}{
@@ -250,7 +250,7 @@ let $explicitbindings :=
 
                           },
 
-                          for $option in $step//p:option
+                          for $option in $step/p:option
                             return 
                                 $option
                           ,
@@ -303,7 +303,7 @@ declare function xproc:import-fixup($xproc as item()){
                 if (doc-available($import/@href)) then
                       doc($import/@href)
                 else
-                      util:dynamicError('err:XD0002',"cannot import pipeline document ")
+                      util:dynamicError('XD0002',"cannot import pipeline document ")
 }
             {$xproc/p:*[not(name(.)="p:import")]}
         </p:pipeline>
@@ -393,10 +393,12 @@ declare function xproc:parse_and_eval($xproc as item(),$stdin as item()) {
                        $stepfunc,
                        saxon:function("xproc:evalstep", 5),
                        $stdin,
-                       (<xproc:output
+                       (
+                        <xproc:output
                                 step="{$steps[1]}"
                                 port="stdin"
-                                func="">{$stdin}</xproc:output>))
+                                func="{$pipeline/@type}">{$stdin}</xproc:output>
+                        ))
 };
 
 
@@ -421,15 +423,7 @@ let $currentstep := $pipeline/*[@name=$step]
 
 let $primary := (
 
-                    if ( not(exists($currentstep/p:inputt[@primary="true"]/*))) then
-                       let $selectval :=util:evalXPATH(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select),document{$primaryinput})
-                       return
-                           if(empty($selectval)) then
-                                util:dynamicError('err:XD0001',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
-                           else
-                                $selectval
-                    else
-
+                    if ( exists($currentstep/p:input[@primary="true"]/*)) then
                        for $child in $currentstep/p:input[@primary="true"]/*
                        return
                        (
@@ -452,11 +446,26 @@ let $primary := (
                                     if ($result/xproc:output[@port=$child/@port][@step=$child/@step]) then
                                         $result/xproc:output[@port=$child/@port][@step=$child/@step]/*
                                     else
-                                        util:dynamicError('err:XD000?',concat(" cannot bind to output port",$child/@port))
+                                        util:dynamicError('err:XD0001',concat(" cannot bind to output port: ",$child/@port," step: ",$child/@step,' ',
+saxon:serialize($result,<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>)))
 
                             else
-                                $primaryinput
+                                document{$primaryinput}
                         )
+
+                    else
+
+                    if ($pipeline/*[@name=$step]/p:input[@primary='true'][not(@select='/')]) then
+
+                       let $selectval :=util:evalXPATH(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select),
+                                                       $primaryinput)
+                       return
+                            if (empty($selectval)) then
+                                util:dynamicError('err:XD0001',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
+                            else
+                                $selectval
+                    else
+                           $primaryinput
                 )
 
 
@@ -503,7 +512,7 @@ let $output :=<xproc:outputs>{
 };
 
 
-
+(: -------------------------------------------------------------------------- :)
 declare function xproc:run($pipeline,$input,$dflag,$tflag){
 
     let $start-time := util:timing()

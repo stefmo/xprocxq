@@ -1,0 +1,19 @@
+<p:declare-step name="main"
+            xmlns:p="http://www.w3.org/ns/xproc">
+
+      <p:identity name="step1">
+        <p:input port="source">
+            <p:inline>
+                <test/>
+            </p:inline>
+        </p:input>
+        <p:output port="result" primary="true"/>
+      </p:identity>
+      
+      <p:identity name="mystep">
+          <p:input port="source">
+              <p:pipe step="step1" port="result"/>
+          </p:input>
+      </p:identity>
+
+</p:declare-step>
