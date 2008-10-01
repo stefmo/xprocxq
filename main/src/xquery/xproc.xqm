@@ -404,12 +404,15 @@ declare function xproc:parse_and_eval($xproc as item(),$stdin as item()) {
 
 declare function xproc:output($result,$dflag){
     if($dflag="1") then
-        $result
+        <xproc:debug>
+            <xproc:pipeline>{subsequence($result,1,1)}</xproc:pipeline>
+            <xproc:outputs>{subsequence($result,2)}</xproc:outputs>
+        </xproc:debug>
     else
         if (name($result[1]) eq 'p:empty') then
             (<!-- empty result //-->)
         else
-            $result[@port='stdout']/*
+            $result[@port='stdout']/node()
 };
 
 
