@@ -1,0 +1,11 @@
+ <p:pipeline name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc">
+
+    <ext:xproc>
+        <p:input port="source"/>
+        <p:input port="xproc"/>
+        <p:with-option name="dflag" select="''"/>   
+        <p:with-option name="tflag" select="''"/> 
+    </p:wrap>
+
+</p:pipeline>

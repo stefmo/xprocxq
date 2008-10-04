@@ -1,11 +1,6 @@
- <p:declare-step name="pipeline"
+ <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
 
+   <p:filter name="step1" select="/test/a"/>
 
-   <p:filter name="step1">
-        <p:input port="source" primary="true"/>
-        <p:with-option name="select" select="/test/a"/> 
-        <p:output port="result" primary="true"/>
-   </p:filter>
-
-</p:declare-step>
+</p:pipeline>

@@ -3,11 +3,6 @@
             xmlns:my="http://www.example.org/test/mine">
 
                 
-
-    <p:input port="source" primary="true"/>
-    <p:output port="result" primary="true"/>
-
-
 <!-- should not evaluate this declare-step //-->
 <p:declare-step type="my:count">
     <p:input port="source" sequence="true"/>
@@ -15,6 +10,5 @@
     <p:count/>
 </p:declare-step>
 
-<my:count/>
     
 </p:pipeline>

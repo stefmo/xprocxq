@@ -1,0 +1,79 @@
+<t:test-suite xmlns:t='http://xproc.org/ns/testsuite'
+xmlns:p="http://www.w3.org/ns/xproc"
+        xmlns:c="http://www.w3.org/ns/xproc-step"
+        xmlns:err="http://www.w3.org/ns/xproc-error"
+        xmlns:xi="http://www.w3.org/2001/XInclude">
+
+<t:title>All Basic tests</t:title>
+
+<t:test xml:id="identity1">
+<t:title>p:identity1</t:title>
+<t:description>Simple identity test within p:pipeline</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="identity/identity1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/identity/identity1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="identity1_1">
+<t:title>p:identity1_1</t:title>
+<t:description>Simple identity test within p:declare-step</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="identity/identity1_1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/identity/identity1_1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="identity1_2">
+<t:title>p:identity1_2</t:title>
+<t:description>2 identity steps within p:pipeline</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="identity/identity1_2.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/identity/identity1_2.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="identity1_3">
+<t:title>p:identity1_3</t:title>
+<t:description>single identity step using a p:input with select attribute within p:declare-step</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="identity/identity1_3.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/identity/identity1_3.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="identity2">
+<t:title>p:identity2</t:title>
+<t:description>single identity step defining source p:input inline and with external documents within p:declare-step</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="identity/identity2.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/identity/identity2.xml"/>
+    </t:output>
+</t:test>
+
+</t:test-suite>

@@ -1,7 +1,7 @@
 <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:mine="http://www.example.org/test/mine">
-
+    
 <!-- should not evaluate this declare-step //-->
 <p:declare-step name="test1" type="mine:count">
     <p:input port="source" sequence="true"/>

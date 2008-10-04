@@ -1,8 +1,7 @@
-<p:pipeline name="main"
+<p:declare-step name="main"
             xmlns:p="http://www.w3.org/ns/xproc">
     
-    <p:identity/>
 
     <p:wrap wrapper="mytestwrapperlement" match="/"/>
 
-</p:pipeline>
+</p:declare-step>

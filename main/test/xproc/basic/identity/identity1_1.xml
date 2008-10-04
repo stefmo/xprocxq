@@ -1,7 +1,11 @@
 <p:declare-step 
             xmlns:p="http://www.w3.org/ns/xproc">
 
-    
+  <p:input port="source" primary="true"/>
+  <p:output port="result">
+    <p:pipe step="step1" port="result"/>
+  </p:output>
+   
    <p:identity/>
 
    <p:filter name="step1" select="/test/a"/>

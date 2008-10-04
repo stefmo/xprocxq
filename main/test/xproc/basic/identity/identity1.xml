@@ -1,6 +1,6 @@
-<p:declare-step name="pipeline"
-            xmlns:p="http://www.w3.org/ns/xproc">
+<p:pipeline xmlns:p="http://www.w3.org/ns/xproc"
+                name="pipeline">
+  
+  <p:identity name="test"/>
 
-   <p:identity name="test1"/>
-
-</p:declare-step>
+</p:pipeline>
