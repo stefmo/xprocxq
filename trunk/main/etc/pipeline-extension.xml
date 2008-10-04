@@ -27,6 +27,13 @@
         <p:input port="input" primary="true"/>
     </p:declare-step>
 
+    <p:declare-step type="ext:xproc">
+        <p:input port="source" primary="true"/>
+        <p:input port="xproc"/>
+        <p:option name="dflag" select="'0'"/>
+        <p:option name="tflag" select="'0'"/>
+    </p:declare-step>
+    
 <!-- Test Runner //-->
     <p:declare-step type="test:run">
         <p:input port="input" primary="true"/>

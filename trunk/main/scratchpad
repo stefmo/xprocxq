@@ -1,0 +1,7 @@
+
+
+testsuite
+
+xinclude
+
+xproc:run(xproc,stdin)

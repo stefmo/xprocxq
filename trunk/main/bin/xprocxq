@@ -65,4 +65,4 @@ then
      exit 1
 fi
 
-java net.sf.saxon.Query $valval $xiflag -sa -s:$1 -ext:on -q:$XPROCXQ_HOME/src/xquery/xproc.xq +xproc="$2" +stdin="$1" dflag="$dflag" tflag="$tflag" ival="$ival" oval="$oval"
+java net.sf.saxon.Query $valval $xiflag -sa -s:$1 -tree:linked -ext:on -q:$XPROCXQ_HOME/src/xquery/xproc.xq +xproc="$2" +stdin="$1" dflag="$dflag" tflag="$tflag" ival="$ival" oval="$oval"
