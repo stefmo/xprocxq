@@ -1,9 +1,11 @@
  <p:declare-step name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
 
-   <p:filter name="step1" select="/test/a">
-        <p:input port="source" primary="true"/>
-        <p:output port="result" primary="true"/>
-   </p:filter>
+<!-- FIXME: setup ports //-->
+
+<p:input/>
+<p:output/>
+
+   <p:filter name="step1" select="/test/a"/>
 
 </p:declare-step>

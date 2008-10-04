@@ -1,4 +1,4 @@
-<p:pipeline name="pipeline"
+<p:declare-step name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:c="http://www.w3.org/ns/xproc-step"
             xmlns:err="http://www.w3.org/ns/xproc-error">
@@ -17,4 +17,4 @@
     
     <p:count/>
     
-</p:pipeline>
+</p:declare-step>

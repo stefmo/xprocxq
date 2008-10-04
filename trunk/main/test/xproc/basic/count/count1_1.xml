@@ -1,6 +1,7 @@
 <p:declare-step name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
 
+<!-- FIXME: primary source is not getting recognized //-->
 <p:input port="source" primary="true">
 <p:document href="file:test/data/test1.xml"/>
   <p:inline>

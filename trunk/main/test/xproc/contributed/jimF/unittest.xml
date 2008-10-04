@@ -11,7 +11,7 @@
          <p:input port="source" primary="true"/>
          <p:with-option name="command" select="'xprocxq'"/>
          <!-- xprocxq p flag takes inlined pipeline//-->
-         <p:with-option name="args">
+         <p:with-option name="args" select="'-p'"/>
              <p:inline>
                  -p:
              </p:inline>

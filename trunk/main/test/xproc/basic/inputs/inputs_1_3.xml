@@ -1,8 +1,8 @@
-<p:declare-step name="main"
+<p:pipeline name="main"
             xmlns:p="http://www.w3.org/ns/xproc">
 
       <p:identity>
-        <p:input port="source" primary="true" select="/test/a/text()"/>
+        <p:input port="source" select="/test/a/text()"/>
       </p:identity>
 
-</p:declare-step>
+</p:pipeline>

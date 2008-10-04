@@ -1,0 +1,25 @@
+<p:pipeline name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc"
+            xmlns:mine="http://www.example.org/test/mine">
+    
+<!-- should not evaluate this declare-step //-->
+<p:declare-step name="test1" type="mine:count">
+    <p:input port="source" sequence="true"/>
+    <p:output port="result" sequence="true"/>
+    <p:count>
+        <p:input port="source">
+            <p:pipe step="test1" port="source"/>
+        </p:input>
+    </p:count>
+        
+</p:declare-step>
+
+<mine:count>
+    <p:input port="source">
+        <p:inline>
+            <test/>
+        </p:inline>
+    </p:input>
+</mine:count>
+
+</p:pipeline>
