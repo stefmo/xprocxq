@@ -409,10 +409,12 @@ declare function xproc:output($result,$dflag){
             <xproc:outputs>{subsequence($result,2)}</xproc:outputs>
         </xproc:debug>
     else
-        if (name($result[1]) eq 'p:empty') then
-            (<!-- empty result //-->)
+        if (name($result[@port='stdout']/node()) eq 'p:empty') then
+            (: FIXME: :)
+           (<!-- empty result //-->)
         else
-            $result[@port='stdout']/node()
+            (: FIXME: :)
+           ($result/.)[last()]/node()
 };
 
 
@@ -420,11 +422,11 @@ declare function xproc:output($result,$dflag){
 (: runtime evaluation of xproc steps; throwing dynamic errors and writing output along the way :)
 declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$resulttree) {
 
-let $stepfunc := concat($const:default-imports,$stepfunc1)
+    let $stepfunc := concat($const:default-imports,$stepfunc1)
 
-let $currentstep := $pipeline/*[@name=$step]
+    let $currentstep := $pipeline/*[@name=$step]
 
-let $primary := (
+    let $primary := (
 
                     if ( exists($currentstep/p:input[@primary="true"]/*)) then
                        for $child in $currentstep/p:input[@primary="true"]/*
@@ -472,7 +474,7 @@ saxon:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes"
                 )
 
 
-let $secondary :=  <xproc:inputs>{
+    let $secondary :=  <xproc:inputs>{
                             for $input in $pipeline/*[@name=$step]/p:input[not(@primary='true')]
                                 return 
                                     if ($input/p:document) then
@@ -496,11 +498,11 @@ let $secondary :=  <xproc:inputs>{
                                         <xproc:warning message="xproc.xqm: generated automatically"/>                                            
                        }</xproc:inputs>
 
-let $options :=<xproc:options>{
+    let $options :=<xproc:options>{
                               $pipeline/*[@name=$step]/p:option
                        }</xproc:options>
 
-let $output :=<xproc:outputs>{
+    let $output :=<xproc:outputs>{
                               $pipeline/*[@name=$step]/p:output
                        }
                        </xproc:outputs>

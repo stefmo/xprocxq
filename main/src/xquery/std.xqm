@@ -8,10 +8,12 @@ declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
+declare namespace xproc = "http://xproc.net/xproc";
 
 (: Module Imports :)
 import module namespace util = "http://xproc.net/xproc/util"
                         at "../xquery/util.xqm";
+
 
 (: Module Vars :)
 declare variable $std:steps := doc("../../etc/pipeline-standard.xml")/p:library;
@@ -57,6 +59,18 @@ declare function std:add-attribute($primary,$secondary,$options) as item() {
 (: -------------------------------------------------------------------------- :)
 declare function std:add-xml-base($primary,$secondary,$options) as item() {
     $primary
+};
+
+
+(: -------------------------------------------------------------------------- :)
+declare function std:delete($primary,$secondary,$options){
+
+let $match := string($options/p:option[@name='match']/@select)
+
+for $element in $primary
+   return element
+     {node-name($element)}
+     {$element/@*,$element/node()[not(name()=$match)]}
 };
 
 
@@ -153,7 +167,7 @@ declare function std:set-attributes($primary,$secondary,$options) as item() {
 
 (: -------------------------------------------------------------------------- :)
 declare function std:sink($primary,$secondary,$options) as item() {
-    $primary
+    (string(''))
 };
 
 
@@ -235,15 +249,10 @@ let $option := util:boolean($options/p:option[@name='fail-if-not-equal']/@select
 };
 
 
-(: -------------------------------------------------------------------------- :)
-declare function std:delete($primary,$secondary,$options) as item(){
-    $primary
-};
-
 
 (: -------------------------------------------------------------------------- :)
 declare function std:error($primary,$secondary,$options) as item() {
-(:TODO: this should be generated to the error port:)
+(: FIXME: this should be generated to the error port:)
 
 <c:errors xmlns:c="http://www.w3.org/ns/xproc-step"
           xmlns:p="http://www.w3.org/ns/xproc"
