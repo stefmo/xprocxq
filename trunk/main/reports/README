@@ -1,2 +1,19 @@
 Reports generated here are taken from results/ which are generated and not put into repository
 
+----------------------------------------
+Xquery Unit Test results
+----------------------------------------
+    result-baseline-test.html
+    result-comp-test.html
+    result-core-test.html
+    result-ext-test.html
+    result-opt-test.html
+    result-preparse-test.html
+    result-preparse-test_1.html
+    result-std-test.html
+
+----------------------------------------
+Xproc Unit Test results
+----------------------------------------
+
+    TBA
