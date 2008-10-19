@@ -2,9 +2,7 @@
 
 = Getting xquery.xq =
 
-I will be releasing a packaged version for eXist and SAXON on Sept 6th.
-
-currently, your only method of getting xproc.xq is checking it out from [http://code.google.com/p/xprocxq/source subversion].
+the only method of getting xproc.xq is checking it out from [http://code.google.com/p/xprocxq/source subversion].
 
 {{{
 # Non-members may svn check out a read-only working copy anonymously over HTTP.
@@ -16,9 +14,9 @@ svn checkout http://xprocxq.googlecode.com/svn/trunk/ xprocxq-read-only
 
 The current definition of dependencies is contained in the source code [http://xprocxq.googlecode.com/svn/trunk/main/README README] document.
 
-*I*: XQuery processor (only Saxon-SA currently supported).
+*I*: install XQuery processor (only Saxon-SA currently supported, eXist XMLDB targeted as well).
 
-*II*: You can use the Ant targets [http://ant.apache.org Apache Ant] to run unit tests and compile associated artifacts.
+*II*: You can use the Ant targets [http://ant.apache.org Apache Ant] to build java extension required by xprocxq and to run xquery and xproc unit tests.
 
 *III*: Run the saxon-compile Ant Target, to compile the small extension currently required for Saxon-SA (or compile manually)
 
@@ -26,9 +24,9 @@ The current definition of dependencies is contained in the source code [http://x
 
 = Usage =
 
-*warning:* xproc.xq DOES VERY LITTLE AT THIS MOMENT.
+*warning:* xproc.xq is *Alpha* software at the moment.
 
-In fact, it is not possible to run it without SAXON-SA, and even then, you are just running some pretty specific unit tests using Ant. There is now a primitive script, bin/xprocxq which will run things from the commandline, though this script may need to be amended to reflect your local conditions.
+In fact, it is not possible to run xproc.xq without SAXON-SA. There is now a primitive script, bin/xprocxq which will run things from the commandline, though this script may need to be amended to reflect your local conditions.
 
 to get Ant targets, run Apache Ant with -projecthelp switch  
 
