@@ -130,11 +130,11 @@ declare function util:evalXPATH($xpathstring, $xml as item()*) as item()*{
     return $test/saxon:evaluate($xpathstring)
 };
 
-
+(: -------------------------------------------------------------------------- :)
 declare function util:get-option($option,$v){
     if (empty($option)) then
         ()
-    else if(contains($option,"'")) then
+    else if(matches($option,"^'") and matches($option,"$'")) then
         string(replace($option,"'",""))
     else
         string(util:evalXPATH(string($option),$v))

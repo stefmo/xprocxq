@@ -1,7 +1,9 @@
 xquery version "1.0" encoding "UTF-8";
 
+
 module namespace std = "http://xproc.net/xproc/std";
 declare copy-namespaces no-preserve,inherit;
+
 
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
@@ -9,6 +11,7 @@ declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
 declare namespace xproc = "http://xproc.net/xproc";
+
 
 (: Module Imports :)
 import module namespace util = "http://xproc.net/xproc/util"
@@ -94,7 +97,6 @@ let $alternate := $secondary/p:input[@port='alternate']/*
 let $result := deep-equal($primary/*,$alternate/*)
 let $fail-if-not-equal := util:boolean($options/p:with-option[@name='fail-if-not-equal']/@select)
     return
-
         if($fail-if-not-equal eq true()) then
             if ( $result eq true())then
                 (util:outputResultElement($result))
@@ -102,8 +104,8 @@ let $fail-if-not-equal := util:boolean($options/p:with-option[@name='fail-if-not
                 (util:dynamicError('err:XC0020','p:compare fail-if-not-equal option is enabled and documents were not equal'))
         else
             (util:outputResultElement($result))
-};
 
+};
 
 
 (: -------------------------------------------------------------------------- :)
@@ -122,7 +124,6 @@ declare function std:error($primary,$secondary,$options) as item() {
 </c:errors>
 
 };
-
 
 
 (: -------------------------------------------------------------------------- :)
