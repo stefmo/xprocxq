@@ -1,12 +1,10 @@
- <p:declare-step name="pipeline"
+ <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
 
 <p:xquery>
-     <p:input port="source" primary="true"/>
      <p:input port="query">
               <p:document href="file:test/data/xquery.xml"/>         
      </p:input>
-     <p:output port="result" sequence="true"/>
 </p:xquery>
 
-</p:declare-step>
+</p:pipeline>

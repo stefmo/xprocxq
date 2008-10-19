@@ -2,12 +2,10 @@
             xmlns:p="http://www.w3.org/ns/xproc">
                 
    <p:compare name="step1">
-        <p:input port="source" primary="true"/>
         <p:input port="alternate">
-              <p:document href="file:test/data/test.xml"/>
+              <p:document href="file:test/data/test2.xml"/>
         </p:input>
-        <p:output port="result"/>
-        <p:with-option name="fail-if-not-equal" select="'true'"/> 
+        <p:with-option name="fail-if-not-equal" select="'false'"/> 
    </p:compare>
 
 </p:declare-step>

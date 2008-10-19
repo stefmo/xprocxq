@@ -2,9 +2,12 @@
 xmlns:p="http://www.w3.org/ns/xproc"
         xmlns:c="http://www.w3.org/ns/xproc-step"
         xmlns:err="http://www.w3.org/ns/xproc-error"
-        xmlns:xi="http://www.w3.org/2001/XInclude">
+        xmlns:xi="http://www.w3.org/2001/XInclude"
+        xmlns:xproc = "http://xproc.net/xproc">
 
 <t:title>All Basic tests</t:title>
+
+<!-- #################################################################### p:identity  //-->
 
 <t:test xml:id="identity1">
 <t:title>p:identity1</t:title>
@@ -16,7 +19,7 @@ xmlns:p="http://www.w3.org/ns/xproc"
           <xi:include href="identity/identity1.xml"/>
     </t:pipeline>
     <t:output port='result'>
-         <xi:include href="result/identity/identity1.xml"/>
+         <xi:include href="result/identity1.xml"/>
     </t:output>
 </t:test>
 
@@ -30,7 +33,7 @@ xmlns:p="http://www.w3.org/ns/xproc"
           <xi:include href="identity/identity1_1.xml"/>
     </t:pipeline>
     <t:output port='result'>
-         <xi:include href="result/identity/identity1_1.xml"/>
+         <xi:include href="result/identity1_1.xml"/>
     </t:output>
 </t:test>
 
@@ -44,7 +47,7 @@ xmlns:p="http://www.w3.org/ns/xproc"
           <xi:include href="identity/identity1_2.xml"/>
     </t:pipeline>
     <t:output port='result'>
-         <xi:include href="result/identity/identity1_2.xml"/>
+         <xi:include href="result/identity1_2.xml"/>
     </t:output>
 </t:test>
 
@@ -58,7 +61,7 @@ xmlns:p="http://www.w3.org/ns/xproc"
           <xi:include href="identity/identity1_3.xml"/>
     </t:pipeline>
     <t:output port='result'>
-         <xi:include href="result/identity/identity1_3.xml"/>
+         <xi:include href="result/identity1_3.xml"/>
     </t:output>
 </t:test>
 
@@ -72,8 +75,573 @@ xmlns:p="http://www.w3.org/ns/xproc"
           <xi:include href="identity/identity2.xml"/>
     </t:pipeline>
     <t:output port='result'>
-         <xi:include href="result/identity/identity2.xml"/>
+         <xi:include href="result/identity2.xml"/>
     </t:output>
 </t:test>
+
+<!-- #################################################################### p:count  //-->
+
+<t:test xml:id="count1">
+<t:title>p:count1</t:title>
+<t:description>simple count, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="count/count1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/count1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="count1_1">
+<t:title>p:count1_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple declare-step with use of p:inline document, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="count/count1_1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/count1_1.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="count1_2">
+<t:title>p:count1_2</t:title>
+<xproc:status xprocxq="no" calabash="no" comments="this is an incorrectly defined xproc, needs input binding definition"/>
+<t:description>simple declare-step using limit attribute, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="count/count1_2.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/count1_2.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="count1_3">
+<t:title>p:count1_3</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple declare-step using limit attribute, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="count/count1_3.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/count1_3.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="count1_3_1">
+<t:title>p:count1_3_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple declare-step using limit attribute, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="count/count1_3_1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/count1_3_1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="count1_4">
+<t:title>p:count1_4</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple declare-step using limit attribute, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="count/count1_4.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/count1_4.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="count2">
+<t:title>p:count2</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple declare-step using limit attribute, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="count/count2.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/count2.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="count3">
+<t:title>p:count3</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple declare-step using limit attribute, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="count/count3.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/count3.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="count3_1">
+<t:title>p:count3_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple declare-step using limit attribute, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="count/count3_1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/count3_1.xml"/>
+    </t:output>
+</t:test>
+
+
+<!-- #################################################################### p:compare  //-->
+
+<t:test xml:id="compare1">
+<t:title>p:compare1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple comparison using primary input, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="compare/compare1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/compare1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="compare1_2">
+<t:title>p:compare1_2</t:title>
+<xproc:status xprocxq="no" calabash="no" comments="wondering if calabash supports file: prefix"/>
+<t:description>simple comparison using primary input, should fail</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="compare/compare1_2.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/compare1_2.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="compare2">
+<t:title>p:compare2</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple comparison defining attribute on step element, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="compare/compare2.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/compare2.xml"/>
+    </t:output>
+</t:test>
+
+<!-- #################################################################### p:documentation  //-->
+
+<t:test xml:id="documentation1">
+<t:title>p:documentation1</t:title>
+<t:description>simple usage of p:documentation, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="documentation/documentation1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/documentation1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="documentation1_1">
+<t:title>p:documentation1_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>embeding xhtml namespaced elements inside of p:documentation, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="documentation/documentation1_1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/documentation1_1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="documentation1_2">
+<t:title>p:documentation1_2</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>simple usage of p:documentation, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="documentation/documentation1_2.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/documentation1_2.xml"/>
+    </t:output>
+</t:test>
+
+<!-- #################################################################### p:filter  //-->
+
+<t:test xml:id="filter1">
+<t:title>p:filter1</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>simple usage of p:filter, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="filter/filter1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/filter1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="filter1_1">
+<t:title>p:filter1_1</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>simple usage of p:filter, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="filter/filter1_1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/filter1_1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="filter2">
+<t:title>p:filter2</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>simple usage of p:filter with dynamic xpath as step attribute, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="filter/filter2.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/filter2.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="filter3">
+<t:title>p:filter3</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>simple usage of p:filter with dynamic xpath as p:with-option, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="filter/filter3.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/filter3.xml"/>
+    </t:output>
+</t:test>
+
+<!-- #################################################################### p:xquery  //-->
+
+<t:test xml:id="xquery1">
+<t:title>p:xquery1</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments="p:document in file: prefix"/>
+<t:description>simple usage of p:xquery, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="xquery/xquery1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/xquery1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="xquery2">
+<t:title>p:xquery2</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>simple usage of p:xquery and p:inline, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="xquery/xquery2.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/xquery2.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="xquery3">
+<t:title>p:xquery3</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple usage of p:xquery and p:declare-step, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="xquery/xquery3.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/xquery3.xml"/>
+    </t:output>
+</t:test>
+
+<!-- #################################################################### p:xslt  //-->
+
+<t:test xml:id="xslt1">
+<t:title>p:xslt1</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments="p:document uses file: prefix"/>
+<t:description>simple usage of p:xslt, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="xslt/xslt1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/xslt1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="xslt1_1">
+<t:title>p:xslt1_1</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments="p:document uses file: prefix"/>
+<t:description>simple usage of p:xslt, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="xslt/xslt1_1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/xslt1_1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="xslt2">
+<t:title>p:xslt2</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments="p:inline with declare-step"/>
+<t:description>simple usage of p:xslt, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="xslt/xslt2.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/xslt2.xml"/>
+    </t:output>
+</t:test>
+
+<!-- #################################################################### p:wrap  //-->
+
+<t:test xml:id="wrap1">
+<t:title>p:wrap1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple usage of p:wrap, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="wrap/wrap1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/wrap1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="wrap1_1">
+<t:title>p:wrap1_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple usage of p:wrap, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="wrap/wrap1_1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/wrap1_1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="wrap1_2">
+<t:title>p:wrap1_@</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple usage of p:wrap, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="wrap/wrap1_2.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/wrap1_2.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="wrap1_3">
+<t:title>p:wrap1_3</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple usage of p:wrap, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="wrap/wrap1_3.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/wrap1_3.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="wrap1_4">
+<t:title>p:wrap1_$</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple usage of p:wrap, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="wrap/wrap1_4.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/wrap1_4.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="wrap2">
+<t:title>p:wrap2</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple usage of p:wrap, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="wrap/wrap2.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/wrap2.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="wrap2_1">
+<t:title>p:wrap2_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple usage of p:wrap, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="wrap/wrap2_1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/wrap2_1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="wrap3">
+<t:title>p:wrap3</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple usage of p:wrap, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="wrap/wrap3.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/wrap3.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="wrap3_1">
+<t:title>p:wrap3_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple usage of p:wrap, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="wrap/wrap3_1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/wrap3_1.xml"/>
+    </t:output>
+</t:test>
+
+<!-- #################################################################### p:unwrap  //-->
+
+<t:test xml:id="unwrap1">
+<t:title>p:unwrap1</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments="xprocxq needs better error handling"/>
+<t:description>simple usage of p:unwrap, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="unwrap/unwrap1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/unwrap1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="unwrap1_1">
+<t:title>p:unwrap1_1</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments="xprocxq needs better error handling"/>
+<t:description>simple usage of p:unwrap, slight variation on xpath, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="unwrap/unwrap1_1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/unwrap1_1.xml"/>
+    </t:output>
+</t:test>
+
+<!-- #################################################################### p:unwrap  //-->
+
+
 
 </t:test-suite>

@@ -1,7 +1,0 @@
-#!/bin/bash
-
-sudo /Users/jimfuller/Source/Webcomposite/xprocxq/main/bin/xprocxq data/test.xml identity/identity1.xml >> result/identity/identity1.xml
-sudo /Users/jimfuller/Source/Webcomposite/xprocxq/main/bin/xprocxq data/test.xml identity/identity1_1.xml > result/identity/identity1_1.xml
-sudo /Users/jimfuller/Source/Webcomposite/xprocxq/main/bin/xprocxq data/test.xml identity/identity1_2.xml > result/identity/identity1_2.xml
-sudo /Users/jimfuller/Source/Webcomposite/xprocxq/main/bin/xprocxq data/test.xml identity/identity1_3.xml > result/identity/identity1_3.xml
-sudo /Users/jimfuller/Source/Webcomposite/xprocxq/main/bin/xprocxq data/test.xml identity/identity2.xml > result/identity/identity2.xml

@@ -1,11 +1,8 @@
-<p:declare-step name="pipeline"
+<p:pipeline
             xmlns:p="http://www.w3.org/ns/xproc">
 
-    <p:input port="source" primary="true"/>
-    <p:output port="result" primary="true"/>
+<!-- no pipeline name //-->
+
+<p:identity/>
     
-    <p:group name="version">
-            <p:identity name="step1"/>
-    </p:group>
-    
-</p:declare-step>
+</p:pipeline>
