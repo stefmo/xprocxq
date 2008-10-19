@@ -3,7 +3,7 @@
                 
 
    <p:compare name="step1">
-        <p:input port="source" primary="true"/>
+        <p:input port="source"/>
         <p:input port="alternate"/>
         <p:output port="result"/>
    </p:compare>

@@ -3,7 +3,7 @@
 
    <p:compare name="step1">
         <p:input port="alternate">
-              <p:document href="/test.xml"/>
+              <p:document href="file:test/data/test1.xml"/>
         </p:input>
       <p:with-option name="fail-if-not-equal" select="'false'"/>
    </p:compare>

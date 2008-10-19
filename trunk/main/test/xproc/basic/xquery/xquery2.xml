@@ -1,14 +1,12 @@
- <p:declare-step name="pipeline"
+<p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
 
 <p:xquery>
-     <p:input port="source" primary="true"/>
      <p:input port="query">
          <p:inline>
              <c:query xmlns:c="http://www.w3.org/ns/xproc-step">let $a := 2 return $a</c:query>
          </p:inline>
      </p:input>
-     <p:output port="result" sequence="true"/>
 </p:xquery>
 
-</p:declare-step>
+</p:pipeline>
