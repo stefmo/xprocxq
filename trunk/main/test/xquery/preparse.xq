@@ -99,7 +99,6 @@ return
 </test>
 
 
-//-->
 
 <test>
     <name>preparse simple</name>
@@ -146,6 +145,7 @@ return
 </test>
 
 
+//-->
 
 </testsuite>
 
