@@ -1,8 +1,8 @@
- <p:declare-step name="pipeline"
+ <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
 
    <p:filter>
         <p:with-option name="select" select="concat('//','a')"/> 
    </p:filter>
 
-</p:declare-step>
+</p:pipeline>
