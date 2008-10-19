@@ -1,6 +1,8 @@
 <p:declare-step name="main"
             xmlns:p="http://www.w3.org/ns/xproc">
 
+<!-- should not have primary attribute //-->
+
       <p:identity>
         <p:input port="source" primary="true" select="//c"/>
       </p:identity>

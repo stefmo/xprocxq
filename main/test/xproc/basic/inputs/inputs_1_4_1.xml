@@ -2,16 +2,15 @@
             xmlns:p="http://www.w3.org/ns/xproc">
 
       <p:identity name="step1">
-        <p:input port="source" primary="true">
+        <p:input port="source">
             <p:inline>
                 <mytest1/>
             </p:inline>
         </p:input>
-        <p:output port="result" primary="true"/>
       </p:identity>
       
       <p:identity name="step2">
-        <p:input port="source" primary="true">
+        <p:input port="source">
             <p:inline>
                 <mytest2/>
             </p:inline>

@@ -2,7 +2,7 @@
             xmlns:p="http://www.w3.org/ns/xproc">
 
       <p:identity name="mystep">
-        <p:input port="source" primary="true" select="//e"/>
+        <p:input port="source" select="//e"/>
       </p:identity>
 
 </p:declare-step>

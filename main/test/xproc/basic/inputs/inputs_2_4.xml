@@ -8,12 +8,11 @@
   </p:input>
       
    <p:identity name="step1">
-        <p:input port="source" primary="true">
+        <p:input port="source">
               <p:inline>
                   <anothertest/>
               </p:inline>
         </p:input>
-        <p:output port="result"/>
    </p:identity>
    
 </p:declare-step>

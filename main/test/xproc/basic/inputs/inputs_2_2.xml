@@ -2,11 +2,10 @@
             xmlns:p="http://www.w3.org/ns/xproc">
 
    <p:identity name="step1">
-        <p:input port="source" primary="true">
+        <p:input port="source">
               <p:document href="file:test/data/test2.xml"/>
               <p:document href="file:test/data/test2.xml"/>
         </p:input>
-        <p:output port="result"/>
    </p:identity>
 
 </p:declare-step>
