@@ -18,51 +18,28 @@ The current definition of dependencies is contained in the source code [http://x
 
 *I*: XQuery processor (only Saxon-SA currently supported).
 
-*II*: For now, one will require [http://ant.apache.org Apache Ant] to run unit tests and compile associated artifacts.
+*II*: You can use the Ant targets [http://ant.apache.org Apache Ant] to run unit tests and compile associated artifacts.
 
 *III*: Run the saxon-compile Ant Target, to compile the small extension currently required for Saxon-SA (or compile manually)
 
 *IV*: Amend your local [http://xprocxq.googlecode.com/svn/trunk/main/properties.xml properties.xml] to reflect your setup and where your Xquery processor jars are.
 
-
 = Usage =
 
 *warning:* xproc.xq DOES VERY LITTLE AT THIS MOMENT.
 
-In fact, it is not possible to run it without SAXON-SA and ANT, and even then, you are just running some pretty specific unit tests.
+In fact, it is not possible to run it without SAXON-SA, and even then, you are just running some pretty specific unit tests using Ant. There is now a primitive script, bin/xprocxq which will run things from the commandline, though this script may need to be amended to reflect your local conditions.
 
 to get Ant targets, run Apache Ant with -projecthelp switch  
 
 > ant -projecthelp
 
-Buildfile: build.xml
+Here are the Main targets of interest:
 
-This build file builds the single java extension needed for Saxon-SA. Past that,
-it is mostly a unit test runner for firing off XQuery and XProc tests.
-Main targets:
+ basic-xprocxq-test-suite    generates run script for xprocxq unit test suite
 
- saxon-compile             compile xquery java extension\
+ basic-calabash-test-suite   generates run script for calabash unit test suite
 
- test-all-xquery           run all xquery tests
+ test-all-xquery             run all xquery tests
 
- test-comp                 test comp unit tests
-
- test-core                 run core xquery unit tests
-
- test-ext                  test ext unit tests
-
- test-opt                  run optional xquery unit tests
-
- test-std                  run std xquery unit tests
-
- test-step-seq             run core xquery unit tests
-
- test-test                 test baseline unit tests
-
- xproc-documentation-test  run xproc.xq on basic documentation xproc
-
- xproc-helloworld-test     run xproc on basic helloworld.xml xproc
-
- xproc-ordering-test       run xproc.xq on basic ordering xproc
-
- xproc-perf-test           run xproc.xq for basic performance testing
+ xproc-all                   run all significant xproc tests
