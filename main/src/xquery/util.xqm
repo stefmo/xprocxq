@@ -131,6 +131,15 @@ declare function util:evalXPATH($xpathstring, $xml as item()*) as item()*{
 };
 
 
+declare function util:get-option($option,$v){
+    if (empty($option)) then
+        ()
+    else if(contains($option,"'")) then
+        string(replace($option,"'",""))
+    else
+        string(util:evalXPATH(string($option),$v))
+};
+
 (: -------------------------------------------------------------------------- :)
 declare function util:xquery($exp as xs:string){
     let $a := func:compileQuery($exp)
