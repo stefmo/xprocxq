@@ -1,4 +1,4 @@
- <p:declare-step name="pipeline"
+ <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
 
 <p:xslt>
@@ -8,4 +8,4 @@
       <p:with-option name="version" select="'1.0'"/>
 </p:xslt>
 
-</p:declare-step>
+</p:pipeline>

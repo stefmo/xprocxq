@@ -213,7 +213,7 @@ declare function std:count($primary,$secondary,$options){
 
 let $v := document{$primary}
 let $limit := xs:integer(util:get-option($options/p:option[@name='limit']/@select,$v))
-let $count := count($v)
+let $count := count($v/*)
 return
     if (empty($limit)) then
        util:outputResultElement(
