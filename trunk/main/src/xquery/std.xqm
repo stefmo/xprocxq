@@ -211,9 +211,9 @@ declare function std:identity($primary,$secondary,$options) as item()* {
 (: TODO this is wrong, its counting the elements needs to count the sequence :)
 declare function std:count($primary,$secondary,$options){
 
-let $test := ($primary)
-let $limit := xs:integer($options/p:option[@name='limit']/@select)
-let $count := count($test)
+let $v := document{$primary}
+let $limit := xs:integer(util:get-option($options/p:option[@name='limit']/@select,$v))
+let $count := count($v)
 return
     if (empty($limit)) then
        util:outputResultElement(
@@ -236,10 +236,10 @@ declare function std:compare($primary,$secondary,$options) {
 util:assert(exists($secondary/p:input[@port='alternate']),'p:compare alternate port does not exist'),
 
 let $result := deep-equal($primary[1]/*,$secondary/p:input[@port='alternate']/*)
-let $option := util:boolean($options/p:option[@name='fail-if-not-equal']/@select)
+let $fail-if-not-equal := util:boolean($options/p:option[@name='fail-if-not-equal']/@select)
     return
 
-        if($option eq true()) then
+        if($fail-if-not-equal eq true()) then
             if ( $result eq true())then
                 (util:outputResultElement($result))
             else
@@ -275,7 +275,7 @@ declare function std:filter($primary,$secondary,$options) as item() {
 util:assert(exists($options/p:option[@name='select']/@select),'p:option match is required'),
 
 let $v :=document{$primary}
-let $xpath := util:evalXPATH(string($options/p:option[@name='select']/@select),$v)
+let $xpath := util:get-option($options/p:option[@name='select']/@select,$v)
 let $result := util:evalXPATH(string($xpath),$v)
     return
         if(exists($result)) then
@@ -293,13 +293,23 @@ util:assert(exists($options/p:option[@name='match']/@select),'p:option match is 
 util:assert(exists($options/p:option[@name='wrapper']/@select),'p:option wrapper is required'),
 
     let $v :=document{$primary}
+    let $wrapper := util:get-option($options/p:option[@name='wrapper']/@select,$v)
+    let $match := util:get-option($options/p:option[@name='match']/@select,$v)
+    let $replace := util:evalXPATH($match,$v)
+
     return
        document 
        {
-        element {string($options/p:option[@name='wrapper']/@select)} {
-            util:evalXPATH($options/p:option[@name='match']/@select,$v)
+        element {string($wrapper)} {
+            util:evalXPATH($match,$v)
         }
        } 
+};
+
+
+(: -------------------------------------------------------------------------- :)
+declare function std:wrap-sequence($primary,$secondary,$options){
+    $primary
 };
 
 
@@ -311,14 +321,9 @@ util:assert(exists($options/p:option[@name='match']/@select),'p:option match is 
 
 (: TODO - The value of the match option must be an XSLTMatchPattern. It is a dynamic error (err:XC0023) if that pattern matches anything other than element nodes. :)
 let $v :=document{$primary}
+let $match := util:get-option($options/p:option[@name='match']/@select,$v)
     return
-         util:evalXPATH($options/p:option[@name='match']/@select,$v)
-};
-
-
-(: -------------------------------------------------------------------------- :)
-declare function std:wrap-sequence($primary,$secondary,$options){
-    $primary
+         util:evalXPATH($match,$v)
 };
 
 

@@ -141,7 +141,7 @@ let $explicitnames :=
                                         (for $option-from-attribute in $step/@*
                                             return
                                             if (not(name($option-from-attribute)='name')) then
-                                                <p:option name="{name($option-from-attribute)}" select="{$option-from-attribute}"/>
+                                                <p:option name="{name($option-from-attribute)}" select="'{$option-from-attribute}'"/>
                                             else
                                                 ()
                                          ),

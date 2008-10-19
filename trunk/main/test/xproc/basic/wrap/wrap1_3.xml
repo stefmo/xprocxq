@@ -5,10 +5,8 @@
         <p:output port="result" primary="true"/>
 
     <p:wrap name="step1">
-        <p:input port="source" primary="true"/>
-        <p:with-option name="wrapper" select="c"/>   
-        <p:with-option name="match" select="//a"/> 
-        <p:output port="result" primary="true"/>
+        <p:with-option name="wrapper" select="'c'"/>
+        <p:with-option name="match" select="'//a'"/> 
     </p:wrap>
 
 </p:declare-step>
