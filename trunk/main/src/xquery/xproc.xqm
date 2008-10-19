@@ -169,7 +169,6 @@ let $explicitnames :=
                        xproc:explicitnames(<util:ignore>{$step/*}</util:ignore>,$unique_current)
                )
             }
-
         else
             util:staticError("X0001", concat($stepname,":",$step/@name))
 
