@@ -63,9 +63,72 @@ declare function std:add-xml-base($primary,$secondary,$options) as item() {
 
 
 (: -------------------------------------------------------------------------- :)
+(: TODO this is wrong, its counting the elements needs to count the sequence :)
+declare function std:count($primary,$secondary,$options){
+
+let $v := document{$primary}
+let $limit := xs:integer(util:get-option($options/p:with-option[@name='limit']/@select,$v))
+let $count := count($v/*)
+return
+    if (empty($limit)) then
+       util:outputResultElement(
+        $count
+       )
+    else if ($count < $limit) then
+       util:outputResultElement(
+       $count
+       )
+    else
+       util:outputResultElement(
+         $limit
+       )
+};
+
+
+(: -------------------------------------------------------------------------- :)
+declare function std:compare($primary,$secondary,$options) {
+
+util:assert(exists($secondary/p:input[@port='alternate']),'p:compare alternate port does not exist'),
+
+let $alternate := $secondary/p:input[@port='alternate']/*
+let $result := deep-equal($primary/*,$alternate/*)
+let $fail-if-not-equal := util:boolean($options/p:with-option[@name='fail-if-not-equal']/@select)
+    return
+
+        if($fail-if-not-equal eq true()) then
+            if ( $result eq true())then
+                (util:outputResultElement($result))
+            else
+                (util:dynamicError('err:XC0020','p:compare fail-if-not-equal option is enabled and documents were not equal'))
+        else
+            (util:outputResultElement($result))
+};
+
+
+
+(: -------------------------------------------------------------------------- :)
+declare function std:error($primary,$secondary,$options) as item() {
+(: FIXME: this should be generated to the error port:)
+
+<c:errors xmlns:c="http://www.w3.org/ns/xproc-step"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xmlns:my="http://www.example.org/error">
+<!-- WARNING: this output should be generated to std error and/or error port //-->
+<c:error href="" column="" offset=""
+         name="step-name" type="p:error"
+         code="{$options/p:with-option[@name='code']/@value}">
+    <message>{$primary}</message>
+</c:error>
+</c:errors>
+
+};
+
+
+
+(: -------------------------------------------------------------------------- :)
 declare function std:delete($primary,$secondary,$options){
 
-let $match := string($options/p:option[@name='match']/@select)
+let $match := util:get-option($options/p:with-option[@name='match']/@select,$primary)
 
 for $element in $primary
    return element
@@ -78,7 +141,7 @@ for $element in $primary
 declare function std:directory-list($primary,$secondary,$options) as item() {
  
 (: this should be caught as a static error someday ... will do it in refactoring  :)
-util:assert(exists($options/p:option[@name='path']),'p:directory-list path option does not exist'),
+util:assert(exists($options/p:with-option[@name='path']),'p:directory-list path option does not exist'),
 
     (util:outputResultElement(collection('file:/')))
 
@@ -100,8 +163,29 @@ declare function std:escape-markup($primary,$secondary,$options) as item() {
 
 
 (: -------------------------------------------------------------------------- :)
+declare function std:filter($primary,$secondary,$options) as item() {
+
+(: this should be caught as a static error someday ... will do it in refactoring :)
+util:assert(exists($options/p:with-option[@name='select']/@select),'p:with-option match is required'),
+
+let $v :=document{$primary}
+let $xpath := util:get-option($options/p:with-option[@name='select']/@select,$v)
+let $result := util:evalXPATH(string($xpath),$v)
+    return
+        if(exists($result)) then
+            $result
+        else
+            $xpath
+};
+
+(: -------------------------------------------------------------------------- :)
 declare function std:http-request($primary,$secondary,$options) as item() {
     $primary
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function std:identity($primary,$secondary,$options) as item()* {
+   $primary
 };
 
 
@@ -201,100 +285,18 @@ declare function std:xinclude($primary,$secondary,$options) as item() {
 };
 
 
-(: -------------------------------------------------------------------------- :)
-declare function std:identity($primary,$secondary,$options) as item()* {
-   $primary
-};
-
-
-(: -------------------------------------------------------------------------- :)
-(: TODO this is wrong, its counting the elements needs to count the sequence :)
-declare function std:count($primary,$secondary,$options){
-
-let $v := document{$primary}
-let $limit := xs:integer(util:get-option($options/p:option[@name='limit']/@select,$v))
-let $count := count($v/*)
-return
-    if (empty($limit)) then
-       util:outputResultElement(
-        $count
-       )
-    else if ($count < $limit) then
-       util:outputResultElement(
-       $count
-       )
-    else
-       util:outputResultElement(
-         $limit
-       )
-};
-
-
-(: -------------------------------------------------------------------------- :)
-declare function std:compare($primary,$secondary,$options) {
-
-util:assert(exists($secondary/p:input[@port='alternate']),'p:compare alternate port does not exist'),
-
-let $result := deep-equal($primary[1]/*,$secondary/p:input[@port='alternate']/*)
-let $fail-if-not-equal := util:boolean($options/p:option[@name='fail-if-not-equal']/@select)
-    return
-
-        if($fail-if-not-equal eq true()) then
-            if ( $result eq true())then
-                (util:outputResultElement($result))
-            else
-                (util:dynamicError('err:XC0020','p:compare fail-if-not-equal option is enabled and documents were not equal'))
-        else
-            (util:outputResultElement($result))
-};
-
-
-
-(: -------------------------------------------------------------------------- :)
-declare function std:error($primary,$secondary,$options) as item() {
-(: FIXME: this should be generated to the error port:)
-
-<c:errors xmlns:c="http://www.w3.org/ns/xproc-step"
-          xmlns:p="http://www.w3.org/ns/xproc"
-          xmlns:my="http://www.example.org/error">
-<!-- WARNING: this output should be generated to std error and/or error port //-->
-<c:error href="" column="" offset="" 
-         name="step-name" type="p:error" 
-         code="{$options/p:option[@name='code']/@value}">
-    <message>{$primary}</message>
-</c:error>
-</c:errors>
-
-};
-
-
-(: -------------------------------------------------------------------------- :)
-declare function std:filter($primary,$secondary,$options) as item() {
-
-(: this should be caught as a static error someday ... will do it in refactoring :)
-util:assert(exists($options/p:option[@name='select']/@select),'p:option match is required'),
-
-let $v :=document{$primary}
-let $xpath := util:get-option($options/p:option[@name='select']/@select,$v)
-let $result := util:evalXPATH(string($xpath),$v)
-    return
-        if(exists($result)) then
-            $result
-        else
-            $xpath
-};
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:wrap($primary,$secondary,$options) as item() {
 (: TODO - The match option must only match element, text, processing instruction, and comment nodes. It is a dynamic error (err:XC0041) if the match pattern matches any other kind of node. :)
 
-util:assert(exists($options/p:option[@name='match']/@select),'p:option match is required'),
-util:assert(exists($options/p:option[@name='wrapper']/@select),'p:option wrapper is required'),
+util:assert(exists($options/p:with-option[@name='match']/@select),'p:with-option match is required'),
+util:assert(exists($options/p:with-option[@name='wrapper']/@select),'p:with-option wrapper is required'),
 
     let $v :=document{$primary}
-    let $wrapper := util:get-option($options/p:option[@name='wrapper']/@select,$v)
-    let $match := util:get-option($options/p:option[@name='match']/@select,$v)
+    let $wrapper := util:get-option($options/p:with-option[@name='wrapper']/@select,$v)
+    let $match := util:get-option($options/p:with-option[@name='match']/@select,$v)
     let $replace := util:evalXPATH($match,$v)
 
     return
@@ -317,11 +319,11 @@ declare function std:wrap-sequence($primary,$secondary,$options){
 declare function std:unwrap($primary,$secondary,$options) as item() {
 
 (: this should be caught as a static error someday ... will do it in refactoring :)
-util:assert(exists($options/p:option[@name='match']/@select),'p:option match is required'),
+util:assert(exists($options/p:with-option[@name='match']/@select),'p:with-option match is required'),
 
 (: TODO - The value of the match option must be an XSLTMatchPattern. It is a dynamic error (err:XC0023) if that pattern matches anything other than element nodes. :)
 let $v :=document{$primary}
-let $match := util:get-option($options/p:option[@name='match']/@select,$v)
+let $match := util:get-option($options/p:with-option[@name='match']/@select,$v)
     return
          util:evalXPATH($match,$v)
 };

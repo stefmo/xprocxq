@@ -1,26 +1,25 @@
 <p:pipeline xmlns:p="http://www.w3.org/ns/xproc">
 
   <p:choose>
-    <p:when test="/*[@version &lt; 2.0]">
-      <p:validate-with-xml-schema>
-        <p:input port="schema">
-          <p:document href="v1schema.xsd"/>
-        </p:input>
-      </p:validate-with-xml-schema>
+    <p:when test="count(.)=1">
+        <p:identity>
+            <p:input port="source">
+                <p:inline>
+                    <test1/>
+                </p:inline>
+            </p:input>
+        </p:identity>
     </p:when>
 
     <p:otherwise>
-      <p:validate-with-xml-schema>
-        <p:input port="schema">
-          <p:document href="v2schema.xsd"/>
-        </p:input>
-      </p:validate-with-xml-schema>
+        <p:identity>
+            <p:input port="source">
+                <p:inline>
+                    <test2/>
+                </p:inline>
+            </p:input>
+        </p:identity>
     </p:otherwise>
   </p:choose>
 
-  <p:xslt>
-    <p:input port="stylesheet">
-      <p:document href="stylesheet.xsl"/>
-    </p:input>
-  </p:xslt>
 </p:pipeline>
