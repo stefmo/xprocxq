@@ -1,3 +1,307 @@
+2008-10-19 11:58  James.Fuller.2007
+
+	* test/xproc/basic, test/xproc/basic/compare/compare1.xml,
+	  test/xproc/basic/compare/compare1_1.xml,
+	  test/xproc/basic/compare/compare1_2.xml,
+	  test/xproc/basic/documentation/documentation.xml,
+	  test/xproc/basic/documentation/documentation1.xml,
+	  test/xproc/basic/documentation/documentation1_1.xml,
+	  test/xproc/basic/documentation/documentation1_2.xml,
+	  test/xproc/basic/documentation/documentation_1.xml,
+	  test/xproc/basic/documentation/documentation_2.xml,
+	  test/xproc/basic/helloworld/helloworld_1.xml,
+	  test/xproc/basic/helloworld/helloworld_1_4.xml,
+	  test/xproc/basic/runtest, test/xproc/basic/store/store1.xml,
+	  test/xproc/basic/store/store1_1.xml,
+	  test/xproc/basic/store/store1_2.xml,
+	  test/xproc/basic/store/store2.xml,
+	  test/xproc/basic/test-suite.xml,
+	  test/xproc/basic/unwrap/unwrap1.xml,
+	  test/xproc/basic/unwrap/unwrap1_1.xml,
+	  test/xproc/basic/xquery/xquery1.xml,
+	  test/xproc/basic/xquery/xquery2.xml,
+	  test/xproc/basic/xquery/xquery3.xml,
+	  test/xproc/basic/xslt/xslt2.xml:
+
+2008-10-19 11:57  James.Fuller.2007
+
+	* test/xproc/basic/data: creating revised testrunner based on
+	  simple xslt transform on testsuite.xml
+
+2008-10-04 18:52  James.Fuller.2007
+
+	* bin/xprocxq, build.xml, etc/generate-test-script.xsl,
+	  etc/pipeline-extension.xml, scratchpad, src/xquery/ext.xqm,
+	  src/xquery/std.xqm, src/xquery/xproc.xqm: creating revised
+	  testrunner based on simple xslt transform on testsuite.xml
+
+2008-10-04 18:49  James.Fuller.2007
+
+	* test/xproc/basic/compare/compare1.xml,
+	  test/xproc/basic/count/count1.xml,
+	  test/xproc/basic/count/count1_1.xml, test/xproc/basic/data,
+	  test/xproc/basic/data/build.xml,
+	  test/xproc/basic/data/filter.xml,
+	  test/xproc/basic/data/not_well_formed.xml,
+	  test/xproc/basic/data/pipeline.xml,
+	  test/xproc/basic/data/schema-example.xml,
+	  test/xproc/basic/data/stylesheet.xml,
+	  test/xproc/basic/data/test.xml, test/xproc/basic/data/test1.xml,
+	  test/xproc/basic/data/test2.xml,
+	  test/xproc/basic/data/test_1.xml,
+	  test/xproc/basic/data/test_2.xml,
+	  test/xproc/basic/data/w3schema.xml,
+	  test/xproc/basic/data/xquery.xml,
+	  test/xproc/basic/declare-step/declare-step1.xml,
+	  test/xproc/basic/declare-step/declare-step1_1.xml,
+	  test/xproc/basic/declare-step/declare-step1_2.xml,
+	  test/xproc/basic/declare-step/declare-step1_3.xml,
+	  test/xproc/basic/delete/delete1.xml,
+	  test/xproc/basic/directory-list/dirlist1.xml,
+	  test/xproc/basic/documentation/documentation.xml,
+	  test/xproc/basic/documentation/documentation_1.xml,
+	  test/xproc/basic/documentation/documentation_2.xml,
+	  test/xproc/basic/error/error1.xml,
+	  test/xproc/basic/error/error1_1.xml,
+	  test/xproc/basic/error/error1_2.xml,
+	  test/xproc/basic/errors/repeatedelements.xml,
+	  test/xproc/basic/errors/test1.xml,
+	  test/xproc/basic/exec/exec1.xml,
+	  test/xproc/basic/filter/filter1.xml,
+	  test/xproc/basic/filter/filter1_1.xml,
+	  test/xproc/basic/filter/filter2.xml,
+	  test/xproc/basic/filter/filter3.xml,
+	  test/xproc/basic/helloworld/helloworld_1.xml,
+	  test/xproc/basic/helloworld/helloworld_1_1.xml,
+	  test/xproc/basic/helloworld/helloworld_1_2.xml,
+	  test/xproc/basic/helloworld/helloworld_1_3.xml,
+	  test/xproc/basic/helloworld/helloworld_2.xml,
+	  test/xproc/basic/helloworld/helloworld_3.xml,
+	  test/xproc/basic/identity/identity1.xml,
+	  test/xproc/basic/identity/identity1_1.xml,
+	  test/xproc/basic/identity/identity1_2.xml,
+	  test/xproc/basic/inputs/inputs_1.xml,
+	  test/xproc/basic/inputs/inputs_1_3.xml,
+	  test/xproc/basic/inputs/inputs_1_4_2.xml,
+	  test/xproc/basic/inputs/inputs_1_4_3.xml,
+	  test/xproc/basic/insert/insert1.xml,
+	  test/xproc/basic/options/options_1.xml,
+	  test/xproc/basic/options/options_2.xml,
+	  test/xproc/basic/ordering/inputordering1.xml,
+	  test/xproc/basic/ordering/inputordering2.xml,
+	  test/xproc/basic/ordering/inputordering3.xml,
+	  test/xproc/basic/ordering/stepordering1.xml,
+	  test/xproc/basic/ordering/stepordering2.xml,
+	  test/xproc/basic/ordering/stepordering3.xml,
+	  test/xproc/basic/runtest, test/xproc/basic/sink,
+	  test/xproc/basic/sink/sink1.xml,
+	  test/xproc/basic/sink/sink1_1.xml,
+	  test/xproc/basic/sink/sink2.xml,
+	  test/xproc/basic/split-sequence/split_1.xml,
+	  test/xproc/basic/split-sequence/split_1_1.xml,
+	  test/xproc/basic/test-suite.xml,
+	  test/xproc/basic/urlencode/urlencode1.xml,
+	  test/xproc/basic/xproc-optional-steps/xquery_4.xml,
+	  test/xproc/basic/xprocxq, test/xproc/basic/xprocxq/xproc1.xml,
+	  test/xproc/contributed/jimF/unittest.xml,
+	  test/xproc/contributed/mohamedZ/recursive.xml,
+	  test/xproc/test-suite.xml:
+
+2008-10-01 09:47  James.Fuller.2007
+
+	* src/xquery/xproc.xqm: made debug output well formed xml
+
+2008-09-30 18:25  James.Fuller.2007
+
+	* src/xquery/xproc.xqm, test/xproc/basic/inputs/inputs_1_4.xml,
+	  test/xproc/basic/inputs/inputs_1_4_1.xml,
+	  test/xproc/basic/inputs/inputs_2_1.xml,
+	  test/xproc/test-suite.xml: fixed missing boundary condition for
+	  default binding of last step to stdout
+
+2008-09-30 08:50  James.Fuller.2007
+
+	* build.xml, etc/pipeline-extension.xml, src/xquery/std.xqm,
+	  src/xquery/util.xqm, src/xquery/xproc.xqm,
+	  test/xproc/basic/count/count1_3.xml,
+	  test/xproc/basic/count/count1_3_1.xml,
+	  test/xproc/basic/count/count1_4.xml,
+	  test/xproc/basic/count/count3_1.xml,
+	  test/xproc/basic/declare-step/declare-step2.xml,
+	  test/xproc/basic/import/import1.xml,
+	  test/xproc/basic/import/import2.xml,
+	  test/xproc/basic/inputs/inputs_1_2.xml,
+	  test/xproc/basic/inputs/inputs_1_3.xml,
+	  test/xproc/basic/inputs/inputs_1_4.xml,
+	  test/xproc/basic/inputs/inputs_2_1.xml,
+	  test/xproc/basic/schema/schema1.xml,
+	  test/xproc/basic/schema/schema2.xml, test/xproc/basic/store,
+	  test/xproc/basic/store/store1.xml,
+	  test/xproc/basic/xslt/xslt1_1.xml,
+	  test/xproc/contributed/henrystory,
+	  test/xproc/contributed/henrystory/schema1.xml,
+	  test/xproc/contributed/quine/quine1.xml, test/xproc/result:
+	  adding back p:pipe functionality
+
+2008-09-24 18:07  James.Fuller.2007
+
+	* src/xquery/std.xqm, test/xproc/basic/compare/compare2_2.xml,
+	  test/xproc/basic/compare/compare2_3.xml,
+	  test/xproc/basic/compare/compare3.xml,
+	  test/xproc/basic/count/count3_1.xml,
+	  test/xproc/basic/delete/delete1.xml, test/xquery/preparse.xq:
+	  fixed primary input handling
+
+2008-09-24 17:09  James.Fuller.2007
+
+	* bin/xprocxq, build.xml, etc/pipeline-extension.xml,
+	  etc/pipeline-standard.xml, scratchpad, src/xquery/ext.xqm,
+	  src/xquery/std.xqm, src/xquery/util.xqm, src/xquery/xproc.xqm,
+	  test/xproc/basic/compare/compare1_1.xml,
+	  test/xproc/basic/compare/compare1_2.xml,
+	  test/xproc/basic/compare/compare2_1.xml,
+	  test/xproc/basic/filter/filter1.xml,
+	  test/xproc/basic/filter/filter1_1.xml,
+	  test/xproc/basic/filter/filter2.xml,
+	  test/xproc/basic/filter/filter3.xml,
+	  test/xproc/basic/identity/identity1.xml,
+	  test/xproc/basic/identity/identity1_2.xml,
+	  test/xproc/basic/identity/identity1_3.xml,
+	  test/xproc/basic/identity/identity2.xml,
+	  test/xproc/basic/inputs/inputs_2_2.xml,
+	  test/xproc/basic/inputs/inputs_2_3.xml,
+	  test/xproc/basic/inputs/inputs_2_4.xml,
+	  test/xproc/basic/inputs/inputs_3.xml, test/xproc/basic/misc,
+	  test/xproc/basic/misc/example1.xml,
+	  test/xproc/basic/wrap/wrap3_1.xml,
+	  test/xproc/basic/xquery/xquery1.xml,
+	  test/xproc/basic/xquery/xquery2.xml,
+	  test/xproc/basic/xslt/xslt1.xml, test/xproc/basic/xslt/xslt2.xml:
+	  fixed primary input handling
+
+2008-09-03 21:47  James.Fuller.2007
+
+	* build.xml, reports/result-core-test.html, src/xquery/comp.xqm,
+	  src/xquery/const.xqm, src/xquery/opt.xqm, src/xquery/std.xqm,
+	  src/xquery/util.xqm, src/xquery/xproc.xq, src/xquery/xproc.xqm,
+	  test/data/xquery.xml, test/xproc/basic/choose/choose1.xml,
+	  test/xproc/basic/count/count1_3.xml,
+	  test/xproc/basic/filter/filter1.xml,
+	  test/xproc/basic/filter/filter1_1.xml,
+	  test/xproc/basic/filter/filter2.xml,
+	  test/xproc/basic/filter/filter3.xml,
+	  test/xproc/basic/inputs/inputs_2_1.xml,
+	  test/xproc/basic/inputs/inputs_2_5.xml,
+	  test/xproc/basic/performance/perf.xml, test/xquery/core.xq,
+	  test/xquery/opt.xq, test/xquery/test.xqm: implemented normative
+	  step naming, preparing for refactor of explicitbinding, leaving
+	  undefined inputs to be bound late
+
+2008-09-02 19:27  James.Fuller.2007
+
+	* bin/xprocxq, src/xquery/xproc.xqm,
+	  test/xproc/basic/inputs/inputs_2.xml,
+	  test/xproc/basic/inputs/inputs_2_1.xml,
+	  test/xproc/basic/inputs/inputs_2_2.xml,
+	  test/xproc/basic/inputs/inputs_2_3.xml,
+	  test/xproc/basic/inputs/inputs_2_4.xml: streamlined
+	  explicitnaming, working on explicitbinding now, esp where the
+	  p:pipe is
+
+2008-09-01 22:29  James.Fuller.2007
+
+	* build.xml, src/xquery/std.xqm, src/xquery/xproc.xq,
+	  src/xquery/xproc.xqm, test/xproc/basic/compare/compare1.xml,
+	  test/xproc/basic/compare/compare2.xml, test/xproc/basic/unittest,
+	  test/xproc/basic/unittest/unitest1.xml,
+	  test/xproc/basic/wrap/wrap1.xml,
+	  test/xproc/basic/wrap/wrap1_1.xml,
+	  test/xproc/basic/wrap/wrap1_2.xml,
+	  test/xproc/basic/wrap/wrap1_3.xml,
+	  test/xproc/basic/wrap/wrap1_4.xml,
+	  test/xproc/basic/wrap/wrap2.xml,
+	  test/xproc/basic/wrap/wrap2_1.xml,
+	  test/xproc/basic/wrap/wrap3.xml,
+	  test/xproc/basic/wrap/wrap3_1.xml: tweaks, now moving onto step
+	  functionality and test conversion/runner
+
+2008-09-01 21:02  James.Fuller.2007
+
+	* src/xquery/ext.xqm, src/xquery/opt.xqm, src/xquery/util.xqm,
+	  src/xquery/xproc.xqm, test/data/test2.xml,
+	  test/xproc/basic/compare/compare1.xml,
+	  test/xproc/basic/compare/compare1_1.xml,
+	  test/xproc/basic/compare/compare1_2.xml,
+	  test/xproc/basic/compare/compare2.xml,
+	  test/xproc/basic/compare/compare2_1.xml,
+	  test/xproc/basic/compare/compare2_2.xml,
+	  test/xproc/basic/compare/compare2_3.xml,
+	  test/xproc/basic/compare/compare3.xml,
+	  test/xproc/basic/count/count1.xml,
+	  test/xproc/basic/count/count1_1.xml,
+	  test/xproc/basic/count/count1_2.xml,
+	  test/xproc/basic/count/count2.xml,
+	  test/xproc/basic/count/count3.xml,
+	  test/xproc/basic/count/count3_1.xml,
+	  test/xproc/basic/delete/delete1.xml,
+	  test/xproc/basic/identity/identity1.xml,
+	  test/xproc/basic/identity/identity1_1.xml,
+	  test/xproc/basic/identity/identity2.xml,
+	  test/xproc/basic/identity/identity3.xml,
+	  test/xproc/basic/identity/identity4.xml,
+	  test/xproc/basic/identity/identity4_1.xml,
+	  test/xproc/basic/identity/identity4_2.xml,
+	  test/xproc/basic/identity/identity4_3.xml,
+	  test/xproc/basic/identity/identity4_4.xml,
+	  test/xproc/basic/inputs/inputs_1.xml,
+	  test/xproc/basic/inputs/inputs_1_1.xml,
+	  test/xproc/basic/inputs/inputs_1_2.xml,
+	  test/xproc/basic/inputs/inputs_2.xml,
+	  test/xproc/basic/inputs/inputs_2_1.xml,
+	  test/xproc/basic/ordering/inputordering1.xml,
+	  test/xproc/basic/ordering/inputordering2.xml,
+	  test/xproc/basic/ordering/inputordering3.xml,
+	  test/xproc/basic/unwrap/unwrap1.xml,
+	  test/xproc/basic/unwrap/unwrap1_1.xml,
+	  test/xproc/basic/xquery/xquery1.xml,
+	  test/xproc/basic/xquery/xquery2.xml,
+	  test/xproc/basic/xquery/xquery3.xml, test/xquery/ant.xq,
+	  test/xquery/std.xq: fixed sequences finally, changed all
+	  p:pipeline to p:declare-step in basic test area
+
+2008-09-01 13:28  James.Fuller.2007
+
+	* build.xml, properties.xml, src/xquery/util.xqm,
+	  src/xquery/xproc.xqm, test/xproc/basic/identity/identity1.xml,
+	  test/xproc/basic/xquery/xquery3.xml: final release changes
+
+2008-08-26 11:03  James.Fuller.2007
+
+	* ChangeLog: working on release
+
+2008-08-26 10:52  James.Fuller.2007
+
+	* bin/README, build.xml, src/xquery/std.xqm, src/xquery/xproc.xqm,
+	  test/xproc/basic/count/count3.xml,
+	  test/xproc/basic/declare-step/declare-step1_1.xml,
+	  test/xproc/contributed/jimF,
+	  test/xproc/contributed/jimF/unittest.xml,
+	  test/xproc/testsuite/required/001.identity.xml: working on
+	  release
+
+2008-08-25 19:43  James.Fuller.2007
+
+	* src/xquery/xproc.xqm: working on release
+
+2008-08-25 17:54  James.Fuller.2007
+
+	* bin/README, src/xquery/xproc.xq, src/xquery/xproc.xqm: working on
+	  release
+
+2008-08-25 17:44  James.Fuller.2007
+
+	* bin/README, bin/xprocxq, src/xquery/xproc.xq: working on release
+
 2008-08-25 16:10  James.Fuller.2007
 
 	* build.xml, properties.xml, src/net/xproc/saxon/evalXQuery.java,
