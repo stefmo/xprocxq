@@ -44,7 +44,7 @@ return
 declare function opt:exec($primary,$secondary,$options) {
     util:outputResultElement(
 
-(:        runtime:main(string($options/p:option[@name='command']/@select))
+(:        runtime:main(string($options/p:with-option[@name='command']/@select))
 
 :)
 runtime:main("/bin/ls")

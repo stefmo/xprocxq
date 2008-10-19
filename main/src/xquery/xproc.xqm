@@ -141,7 +141,7 @@ let $explicitnames :=
                                         (for $option-from-attribute in $step/@*
                                             return
                                             if (not(name($option-from-attribute)='name')) then
-                                                <p:option name="{name($option-from-attribute)}" select="'{$option-from-attribute}'"/>
+                                                <p:with-option name="{name($option-from-attribute)}" select="'{$option-from-attribute}'"/>
                                             else
                                                 ()
                                          ),
@@ -150,11 +150,10 @@ let $explicitnames :=
                                         for $option in $allstep/p:option
                                             return
                                                 if ($step//p:with-option[@name=$option/@name]/@select) then
-                                                  element {name($option)}{
+                                                  <p:with-option>{
                                                        attribute name{$option/@name},
-                                                       attribute required{$option/@required},
                                                        attribute select{$step//p:with-option[@name=$option/@name]/@select}
-                                                  }
+                                                  }</p:with-option>
                                                 else
                                                     ()
                                      )
@@ -249,7 +248,7 @@ let $explicitbindings :=
 
                           },
 
-                          for $option in $step/p:option
+                          for $option in $step/p:with-option
                             return 
                                 $option
                           ,
@@ -497,7 +496,7 @@ saxon:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes"
                        }</xproc:inputs>
 
     let $options :=<xproc:options>{
-                              $pipeline/*[@name=$step]/p:option
+                              $pipeline/*[@name=$step]/p:with-option
                        }</xproc:options>
 
     let $output :=<xproc:outputs>{

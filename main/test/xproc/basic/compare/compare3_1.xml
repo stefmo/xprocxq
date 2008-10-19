@@ -5,7 +5,7 @@
         <p:input port="alternate">
               <p:inline><test/></p:inline>
         </p:input>
-        <p:with-option name="fail-if-not-equal" select="'false'"/> 
+        <p:with-option name="fail-if-not-equal" select="'true'"/>
    </p:compare>
 
 </p:pipeline>
