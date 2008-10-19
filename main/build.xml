@@ -145,13 +145,48 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
 
 
     <!-- ===================================================== -->
+    <!-- generate basic unit test suite                        -->
+    <!-- ===================================================== -->
+    <target name="generate-test-suite" depends="basic-calabash-test-suite,basic-xprocxq-test-suite" description="generate testscripts and run calabash"/>
+
+
+    <!-- ===================================================== -->
+    <!-- basic calabash unit test suite                           -->
+    <!-- ===================================================== -->
+    <target name="basic-calabash-test-suite" description="generate testscripts and run calabash">
+
+        <delete dir="result"/>
+        <mkdir dir="result"/>
+        
+        <xslt-saxon dest="test-calabash"
+                    style="etc/generate-calabash-script.xsl"
+                    xml="test/xproc/basic/test-suite.xml"/>
+        <chmod file="test-calabash" perm="755"/>
+    </target>
+
+
+    <!-- ===================================================== -->
+    <!-- basic xproc unit test suite                           -->
+    <!-- ===================================================== -->
+    <target name="basic-xprocxq-test-suite" description="generate testscripts and run xproc">
+
+        <delete dir="result"/>
+        <mkdir dir="result"/>
+        
+        <xslt-saxon dest="test-xprocxq"
+                    style="etc/generate-xprocxq-script.xsl"
+                    xml="test/xproc/basic/test-suite.xml"/>
+        <chmod file="test-xprocxq" perm="755"/>
+    </target>
+
+
+    <!-- ===================================================== -->
     <!-- run all xquery unit tests                             -->
     <!-- ===================================================== -->
     <target name="test-all-xquery" depends="clean,test-test,test-core,test-preparse,test-std,test-opt,test-comp,test-ext"
             description="run all xquery tests">
 
     </target>
-
 
 
     <!-- ===================================================== -->
@@ -670,7 +705,7 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
                   maxmemory="256m"
                   output="@{dest}/">
 
-                <arg line="@{xml} @{style} "/>
+                <arg line="-novw @{xml} @{style} "/>
                 <classpath>
                     <pathelement location="${p.dir.lib.saxon}"/>
                     <fileset dir="${p.dir.lib.saxon}">
