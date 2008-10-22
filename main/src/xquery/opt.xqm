@@ -34,9 +34,9 @@ declare function opt:xquery($primary,$secondary,$options) {
 util:assert(exists($secondary/p:input[@port='query']/c:query),'p:input query is required'),
 
 (:TODO: need to sort out multiple c:query elements :)
-let $xquery := $secondary/p:input[@port='query']/c:query/text()
-let $result := data(util:xquery($xquery))
-return 
+    let $xquery := $secondary/p:input[@port='query']/c:query/text()
+    let $result := data(util:xquery($xquery))
+        return
             (util:outputResultElement($result))
 };
 

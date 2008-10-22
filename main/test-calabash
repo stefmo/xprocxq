@@ -16,8 +16,16 @@ calabash test/data/test.xml test/xproc/basic/count/count2.xml > result/count2.xm
 calabash test/data/test.xml test/xproc/basic/count/count3.xml > result/count3.xml
 calabash test/data/test.xml test/xproc/basic/count/count3_1.xml > result/count3_1.xml
 calabash test/data/test.xml test/xproc/basic/compare/compare1.xml > result/compare1.xml
+calabash test/data/test.xml test/xproc/basic/compare/compare1_1.xml > result/compare1_1.xml
 calabash test/data/test.xml test/xproc/basic/compare/compare1_2.xml > result/compare1_2.xml
 calabash test/data/test.xml test/xproc/basic/compare/compare2.xml > result/compare2.xml
+calabash test/data/test.xml test/xproc/basic/compare/compare2_1.xml > result/compare2_1.xml
+calabash test/data/test.xml test/xproc/basic/compare/compare3.xml > result/compare3.xml
+calabash test/data/test.xml test/xproc/basic/compare/compare3_1.xml > result/compare3_1.xml
+calabash test/data/test.xml test/xproc/basic/compare/compare3_1_1.xml > result/compare3_1_1.xml
+calabash test/data/test.xml test/xproc/basic/compare/compare4.xml > result/compare4.xml
+calabash test/data/test.xml test/xproc/basic/compare/compare4_1.xml > result/compare4_1.xml
+calabash test/data/test.xml test/xproc/basic/compare/compare4_1_1.xml > result/compare4_1_1.xml
 calabash test/data/test.xml test/xproc/basic/documentation/documentation1.xml > result/documentation1.xml
 calabash test/data/test.xml test/xproc/basic/documentation/documentation1_1.xml > result/documentation1_1.xml
 calabash test/data/test.xml test/xproc/basic/documentation/documentation1_2.xml > result/documentation1_2.xml
