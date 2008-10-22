@@ -1,22 +1,22 @@
 This is xproc.xq v.5                                      
 ------------------------------
 
-xproc.xq is a bootstrap implementation of W3C XProc Specification, written in xquery
+xproc.xq is an experimental bootstrap implementation of W3C XProc Specification, written in xquery
 
 
 LICENSE INFORMATION
 -------------------
 
-xproc.xq is released under Mozilla Public License (MPL) v1.1, of which a copy is included 
+xproc.xq is released under Mozilla Public License (MPL) v1.1, a copy of which is included
 in this distribution, under a file named LICENSE.
 
 
 PREREQUISITES
 -------------
 
-To run unit tests and build stuff xproc.xq is completely dependent on Saxon-SA ... yes that is the one you
-buy. I recommend purchasing SAXON (if not just to support the heroic efforts of Michael Kay), but you will be
-disappointed if you do so just to run xproc.xq ;). 
+To run unit tests and build stuff xproc.xq is dependent on Saxon-SA ... yes that is the one you
+buy. I recommend purchasing SAXON (if not just to support the heroic efforts of Michael Kay),
+but you will be disappointed if you do so just to run xproc.xq.
 
 
     Saxon-SA (www.saxonica.com) (NOTE: only support SAXON at the moment)
@@ -29,9 +29,20 @@ Saxon-SA for the time being.
 Note: Apache Ant is useful for building associated artifacts via the supplied
 build.xml file, as well as running unit tests
 
+INSTALL
+-------
+
+tba
+
 
 INSTRUCTIONS
 ------------
+
+tba
+
+
+DISTRO
+-------
 
 The distribution consists of:
 
@@ -60,30 +71,27 @@ The distribution consists of:
 When the distro matures a little bit, you will be able to execute a run 
 wrapper, under the bin directory.
 
-For now, all one can really do is execute XQuery Unit tests from the Apache Ant build file.
-
 
 NOTES
 -----
 
-xproc.xq is ALPHA software ... its also completely dependent on SAXON-SA currently. 
-conventions
-It currently implements a very small subset of the XML WG XProc current draft and 
-has a few non-standard conventions ... to make things work.
+xproc.xq is ALPHA software ... its also currently dependent on SAXON-SA.
+
+As xquery.xq is implemented in XQuery, errors will first start out as an XQuery error
+e.g. you will see that errors are reported to originate from util.xqm as this is
+where static and dynamic errors are evaluated.
 
 
 CHANGES
 -------
 
-Check out the Changelog file which is from time to time, generated from svn history
+Check out the Changelog file which is from time to time, generated from svn history.
 
 
 TODO
 ----
 
-Check out the issues list http://code.google.com/p/xprocxq/issues/list or TODO file
-contained in the distribution.
-
+Check out the issues list http://code.google.com/p/xprocxq/issues/list.
 
 
 WEBSITES
@@ -107,4 +115,5 @@ xprocxq@googlegroups.com
 COPYRIGHT
 ---------
 
-xproc.xq and related material is the Copyright (C) 2007 of James Fuller (jim.fuller@webcomposite.com), All rights reserved.
+xproc.xq and related material is the Copyright (C) 2007,2008
+of James Fuller (jim.fuller@webcomposite.com), All rights reserved.

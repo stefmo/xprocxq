@@ -239,6 +239,21 @@ xmlns:p="http://www.w3.org/ns/xproc"
     </t:output>
 </t:test>
 
+<t:test xml:id="compare1_1">
+<t:title>p:compare1_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple comparison using primary input, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="compare/compare1_1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/compare1_1.xml"/>
+    </t:output>
+</t:test>
+
 <t:test xml:id="compare1_2">
 <t:title>p:compare1_2</t:title>
 <xproc:status xprocxq="no" calabash="no" comments="wondering if calabash supports file: prefix"/>
@@ -268,6 +283,114 @@ xmlns:p="http://www.w3.org/ns/xproc"
          <xi:include href="result/compare2.xml"/>
     </t:output>
 </t:test>
+
+<t:test xml:id="compare2_1">
+<t:title>p:compare2_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple comparison defining attribute on step element, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="compare/compare2_1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/compare2_1.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="compare3">
+<t:title>p:compare3</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple comparison defining attribute on step element, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="compare/compare3.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/compare3.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="compare3_1">
+<t:title>p:compare3_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple comparison defining attribute on step element, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="compare/compare3_1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/compare3_1.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="compare3_1_1">
+<t:title>p:compare3_1_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple comparison defining attribute on step element, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="compare/compare3_1_1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/compare3_1_1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="compare4">
+<t:title>p:compare4</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple comparison defining attribute on step element, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="compare/compare4.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/compare4.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="compare4_1">
+<t:title>p:compare4_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple comparison defining attribute on step element, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="compare/compare4_1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/compare4_1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="compare4_1_1">
+<t:title>p:compare4_1_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple comparison defining attribute on step element, should succeed</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="compare/compare4_1_1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/compare4_1_1.xml"/>
+    </t:output>
+</t:test>
+
 
 <!-- #################################################################### p:documentation  //-->
 

@@ -58,23 +58,27 @@ else
     true()
 };
 
-
 (: -------------------------------------------------------------------------- :)
+(: TODO: consider combining error throwing functions :)
+
 declare function util:dynamicError($error,$string) {
-    error(QName('http://www.w3.org/ns/xproc-error',$error), $string)
+let $info := $const:error-dynamic//error[code=$error]
+return
+    error(QName('http://www.w3.org/ns/xproc-error',$error),concat("XProc Dynamic Error: ",$string," ",$info/description/text()))
 };
 
-(: -------------------------------------------------------------------------- :)
 declare function util:staticError($error,$string) {
-let $info := $const:error-xproc//error[code=$error]
+let $info := $const:error-static//error[code=$error]
 return
     error(QName('http://www.w3.org/ns/xproc-error',$error),concat("XProc Static Error: ",$string," ",$info/description/text()))
 };
 
-(: -------------------------------------------------------------------------- :)
 declare function util:stepError($error,$string) {
-    error(QName('http://www.w3.org/ns/xproc-error',$error), $string)
+let $info := $const:error-step//error[code=$error]
+return
+    error(QName('http://www.w3.org/ns/xproc-error',$error),concat("XProc Step Error: ",$string," ",$info/description/text()))
 };
+
 
 (: -------------------------------------------------------------------------- :)
 declare function util:outputResultElement($exp){
@@ -258,7 +262,8 @@ declare function util:step-fold( $pipeline,
                    remove($stepfuncs, 1),
                    $evalstep-function,
                    $result,
-                   ($outputs,<xproc:output
+                   ($outputs
+                            ,<xproc:output
                                 step="{$steps[1]}"
                                 port="{$pipeline/*[@name=$steps[1]]/p:output[1]/@port}"
                                 func="{$stepfuncs[1]}">{$result}</xproc:output>)

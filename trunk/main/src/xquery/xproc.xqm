@@ -169,7 +169,7 @@ let $explicitnames :=
                )
             }
         else
-            util:staticError("X0001", concat($stepname,":",$step/@name))
+            util:staticError('err:XS0044', concat($stepname,":",$step/@name))
 
 return
     (: return topologically sorted pipeline  --------------------------------------------------- :)
@@ -269,7 +269,7 @@ let $explicitbindings :=
                 )
             }
          else 
-            util:staticError("X0001", concat($stepname,$step/@name))
+            util:staticError('err:XS0044', concat($stepname,$step/@name))
 
 return 
     (: if dealing with nested components --------------------------------------------------------- :)
@@ -399,6 +399,7 @@ declare function xproc:parse_and_eval($xproc as item(),$stdin as item()) {
 };
 
 
+(: -------------------------------------------------------------------------- :)
 declare function xproc:output($result,$dflag){
     if($dflag="1") then
         <xproc:debug>
@@ -406,12 +407,12 @@ declare function xproc:output($result,$dflag){
             <xproc:outputs>{subsequence($result,2)}</xproc:outputs>
         </xproc:debug>
     else
-        if (name($result[@port='stdout']/node()) eq 'p:empty') then
+        if (name($result[@port='stdout']) eq 'p:empty') then
             (: FIXME: :)
            (<!-- empty result //-->)
         else
             (: FIXME: :)
-           ($result/.)[last()]/node()
+           ($result/.)[last()]/*
 };
 
 
@@ -463,7 +464,7 @@ saxon:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes"
                                                        $primaryinput)
                        return
                             if (empty($selectval)) then
-                                util:dynamicError('err:XD0001',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
+                                util:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
                             else
                                 $selectval
                     else
@@ -505,7 +506,7 @@ saxon:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes"
                        </xproc:outputs>
     return
 
-        util:call( 
+        util:call(
                    util:xquery($stepfunc),
                    $primary,
                    $secondary,

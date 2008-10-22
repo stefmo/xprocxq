@@ -54,13 +54,13 @@ declare variable $std:xslt :=saxon:function("std:xslt", 3);
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:add-attribute($primary,$secondary,$options) as item() {
+declare function std:add-attribute($primary,$secondary,$options) {
     $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:add-xml-base($primary,$secondary,$options) as item() {
+declare function std:add-xml-base($primary,$secondary,$options) {
     $primary
 };
 
@@ -101,7 +101,7 @@ let $fail-if-not-equal := util:boolean($options/p:with-option[@name='fail-if-not
             if ( $result eq true())then
                 (util:outputResultElement($result))
             else
-                (util:dynamicError('err:XC0020','p:compare fail-if-not-equal option is enabled and documents were not equal'))
+                (util:stepError('err:XC0019','p:compare fail-if-not-equal option is enabled and documents were not equal'))
         else
             (util:outputResultElement($result))
 
@@ -109,7 +109,7 @@ let $fail-if-not-equal := util:boolean($options/p:with-option[@name='fail-if-not
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:error($primary,$secondary,$options) as item() {
+declare function std:error($primary,$secondary,$options) {
 (: FIXME: this should be generated to the error port:)
 
 <c:errors xmlns:c="http://www.w3.org/ns/xproc-step"
@@ -139,7 +139,7 @@ for $element in $primary
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:directory-list($primary,$secondary,$options) as item() {
+declare function std:directory-list($primary,$secondary,$options) {
  
 (: this should be caught as a static error someday ... will do it in refactoring  :)
 util:assert(exists($options/p:with-option[@name='path']),'p:directory-list path option does not exist'),
@@ -150,7 +150,7 @@ util:assert(exists($options/p:with-option[@name='path']),'p:directory-list path 
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:declare-step($primary,$secondary,$options) as item() {
+declare function std:declare-step($primary,$secondary,$options) {
 
     <todo>need to process this step, this will also be used for embedded p:group and subpipelines</todo>
 
@@ -158,13 +158,13 @@ declare function std:declare-step($primary,$secondary,$options) as item() {
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:escape-markup($primary,$secondary,$options) as item() {
+declare function std:escape-markup($primary,$secondary,$options) {
     $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:filter($primary,$secondary,$options) as item() {
+declare function std:filter($primary,$secondary,$options) {
 
 (: this should be caught as a static error someday ... will do it in refactoring :)
 util:assert(exists($options/p:with-option[@name='select']/@select),'p:with-option match is required'),
@@ -180,116 +180,114 @@ let $result := util:evalXPATH(string($xpath),$v)
 };
 
 (: -------------------------------------------------------------------------- :)
-declare function std:http-request($primary,$secondary,$options) as item() {
+declare function std:http-request($primary,$secondary,$options) {
     $primary
 };
 
 (: -------------------------------------------------------------------------- :)
-declare function std:identity($primary,$secondary,$options) as item()* {
+declare function std:identity($primary,$secondary,$options) {
    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:insert($primary,$secondary,$options) as item() {
+declare function std:insert($primary,$secondary,$options) {
     $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:label-elements($primary,$secondary,$options) as item() {
+declare function std:label-elements($primary,$secondary,$options) {
     $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:load($primary,$secondary,$options) as item() {
+declare function std:load($primary,$secondary,$options) {
     $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:make-absolute-uris($primary,$secondary,$options) as item() {
+declare function std:make-absolute-uris($primary,$secondary,$options) {
     $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:namespace-rename($primary,$secondary,$options) as item() {
+declare function std:namespace-rename($primary,$secondary,$options) {
     $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:pack($primary,$secondary,$options) as item() {
+declare function std:pack($primary,$secondary,$options) {
     $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:parameters($primary,$secondary,$options) as item() {
+declare function std:parameters($primary,$secondary,$options) {
     $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:rename($primary,$secondary,$options) as item() {
+declare function std:rename($primary,$secondary,$options) {
     $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:replace($primary,$secondary,$options) as item() {
+declare function std:replace($primary,$secondary,$options) {
     $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:set-attributes($primary,$secondary,$options) as item() {
+declare function std:set-attributes($primary,$secondary,$options) {
     $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:sink($primary,$secondary,$options) as item() {
+declare function std:sink($primary,$secondary,$options) {
     (string(''))
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:split-sequence($primary,$secondary,$options) as item() {
+declare function std:split-sequence($primary,$secondary,$options) {
     $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:store($primary,$secondary,$options) as item() {
+declare function std:store($primary,$secondary,$options) {
     $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:string-replace($primary,$secondary,$options) as item() {
+declare function std:string-replace($primary,$secondary,$options) {
     $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:unescape-markup($primary,$secondary,$options) as item() {
+declare function std:unescape-markup($primary,$secondary,$options){
     $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:xinclude($primary,$secondary,$options) as item() {
+declare function std:xinclude($primary,$secondary,$options){
     $primary
 };
 
 
-
-
 (: -------------------------------------------------------------------------- :)
-declare function std:wrap($primary,$secondary,$options) as item() {
+declare function std:wrap($primary,$secondary,$options) {
 (: TODO - The match option must only match element, text, processing instruction, and comment nodes. It is a dynamic error (err:XC0041) if the match pattern matches any other kind of node. :)
 
 util:assert(exists($options/p:with-option[@name='match']/@select),'p:with-option match is required'),
@@ -317,12 +315,13 @@ declare function std:wrap-sequence($primary,$secondary,$options){
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:unwrap($primary,$secondary,$options) as item() {
+declare function std:unwrap($primary,$secondary,$options) {
 
 (: this should be caught as a static error someday ... will do it in refactoring :)
 util:assert(exists($options/p:with-option[@name='match']/@select),'p:with-option match is required'),
 
-(: TODO - The value of the match option must be an XSLTMatchPattern. It is a dynamic error (err:XC0023) if that pattern matches anything other than element nodes. :)
+(: TODO - The value of the match option must be an XSLTMatchPattern. It is a dynamic error (err:XC0023)
+if that pattern matches anything other than element nodes. :)
 let $v :=document{$primary}
 let $match := util:get-option($options/p:with-option[@name='match']/@select,$v)
     return
@@ -335,8 +334,9 @@ declare function std:xslt($primary,$secondary,$options){
 
     util:assert(exists($secondary/p:input[@port='stylesheet']),'stylesheet is required'),
     let $v :=document{$primary}
+    let $stylesheet := $secondary/p:input[@port='stylesheet']/*
     return
-        util:xslt($secondary/p:input[@port='stylesheet']/*,$v)
+        (util:xslt($stylesheet,$v))
 };
 
 

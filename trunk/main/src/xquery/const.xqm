@@ -25,10 +25,10 @@ declare variable  $const:evalstep := saxon:function("xproc:evalstep", 5);
 
 (: -------------------------------------------------------------------------- :)
 (: error dictionaries :)
-declare variable  $const:error-static := doc("../../etc/error-dynamic.xml")/errors/error;
-declare variable  $const:error-dynamic := doc("../../etc/error-dynamic.xml")/errors/error;
-declare variable  $const:error-step := doc("../../etc/error-step.xml")/errors/error;
-declare variable  $const:error-xproc := doc("../../etc/error-xproc.xml");
+declare variable  $const:error-static := doc("etc/error-static.xml");
+declare variable  $const:error-dynamic := doc("etc/error-dynamic.xml");
+declare variable  $const:error-step := doc("etc/error-step.xml");
+declare variable  $const:error-xproc := doc("etc/error-xproc.xml");
 
 (: -------------------------------------------------------------------------- :)
 
