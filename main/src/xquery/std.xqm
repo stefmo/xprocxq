@@ -55,13 +55,63 @@ declare variable $std:xslt :=saxon:function("std:xslt", 3);
 
 (: -------------------------------------------------------------------------- :)
 declare function std:add-attribute($primary,$secondary,$options) {
-    $primary
+
+let $attrNames := util:get-option($options/p:with-option[@name='attribute-name']/@select,$primary)
+let $attrValues := util:get-option($options/p:with-option[@name='attribute-value']/@select,$primary)
+return
+   for $element in $primary[1]/.
+   return element { node-name($element)}
+                  { for $attrName at $seq in $attrNames
+                    return if ($element/@*[node-name(.) = $attrName])
+                           then ()
+                           else attribute {$attrName}
+                                          {$attrValues[$seq]},
+                    $element/@*,
+                    $element/node() }
+
+
+(:
+util:treewalker(document{$primary[1]},
+                saxon:function("util:attrHandler", 3),
+                saxon:function("util:textHandler", 1),
+                $attName,
+                $attValue)
+
+:)
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:add-xml-base($primary,$secondary,$options) {
-    $primary
+
+(: TODO: need to refactor to pass in pipeline uri and any external input uri :)
+
+let $all := xs:boolean(util:get-option($options/p:with-option[@name='all']/@select,$primary))
+let $relative := xs:boolean(util:get-option($options/p:with-option[@name='relative']/@select,$primary))
+let $attrNames := xs:QName('xml:base')
+let $attrValues := base-uri($primary[1]) 
+
+return
+    if ($all) then
+    for $element in $primary[1]/*
+       return element { node-name($element)}
+                      { for $attrName at $seq in $attrNames
+                        return if ($element/@*[node-name(.) = $attrName])
+                               then ()
+                               else attribute {$attrName}
+                                              {$attrValues[$seq]},
+                        $element/@*,
+                        $element/node() }
+else
+    for $element in $primary[1]/.
+       return element { node-name($element)}
+                      { for $attrName at $seq in $attrNames
+                        return if ($element/@*[node-name(.) = $attrName])
+                               then ()
+                               else attribute {$attrName}
+                                              {$attrValues[$seq]},
+                        $element/@*,
+                        $element/node() }
 };
 
 
@@ -94,7 +144,7 @@ declare function std:compare($primary,$secondary,$options) {
 util:assert(exists($secondary/p:input[@port='alternate']),'p:compare alternate port does not exist'),
 
 let $alternate := $secondary/p:input[@port='alternate']/*
-let $result := deep-equal($primary/*,$alternate/*)
+let $result := deep-equal($primary[1]/*,$alternate/*)
 let $fail-if-not-equal := util:boolean($options/p:with-option[@name='fail-if-not-equal']/@select)
     return
         if($fail-if-not-equal eq true()) then
@@ -130,11 +180,8 @@ declare function std:error($primary,$secondary,$options) {
 declare function std:delete($primary,$secondary,$options){
 
 let $match := util:get-option($options/p:with-option[@name='match']/@select,$primary)
-
-for $element in $primary
-   return element
-     {node-name($element)}
-     {$element/@*,$element/node()[not(name()=$match)]}
+return
+    util:remove-elements($primary[1],$match)
 };
 
 

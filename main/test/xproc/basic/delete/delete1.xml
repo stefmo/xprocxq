@@ -3,6 +3,6 @@
 
 <!-- FIXME: only does element names, need to handle quotes for values //-->
 
-   <p:delete name="step1" match="a"/>
+   <p:delete name="step1" match="c"/>
 
 </p:pipeline>

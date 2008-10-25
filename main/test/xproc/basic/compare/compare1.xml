@@ -1,6 +1,8 @@
  <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
 
+<!-- should throw an error, no binding to result, as p:compare result output is non-primary //-->
+
    <p:compare name="step1">
         <p:input port="alternate">
               <p:document href="file:test/data/test.xml"/>
