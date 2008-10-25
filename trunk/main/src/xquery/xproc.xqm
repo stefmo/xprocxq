@@ -505,13 +505,12 @@ saxon:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes"
                        }
                        </xproc:outputs>
     return
-
         util:call(
                    util:xquery($stepfunc),
                    $primary,
                    $secondary,
                    $options
-                  )
+                  ),trace($stepfunc1,'processing step:')
 };
 
 
@@ -532,7 +531,7 @@ declare function xproc:run($pipeline,$input,$dflag,$tflag){
     let $end-time := util:timing()
 
     return
-
+(
      if ($tflag="1") then
             document
                {
@@ -546,5 +545,8 @@ declare function xproc:run($pipeline,$input,$dflag,$tflag){
             document
                {
                 $serialized_result
-               }
+                }
+
+)
+
 };

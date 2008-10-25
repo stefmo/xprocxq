@@ -1,9 +1,7 @@
  <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
 
-<!-- throws an error in calabash //-->
-
-   <p:compare name="step1" fail-if-not-equal="true">
+   <p:compare name="step1">
         <p:input port="alternate">
               <p:document href="file:test/data/test.xml"/>
         </p:input>

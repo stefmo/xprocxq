@@ -1,15 +1,12 @@
-<p:declare-step name="pipeline"
+<p:pipeline name="pipeline"
 	    xmlns:p="http://www.w3.org/ns/xproc">
-
-<p:input port="source" primary="true"/>
-<p:output port="result" primary="true"/>
 
 <p:insert>
   <p:input port="insertion">
     <p:inline><p>New first paragraph</p></p:inline>
   </p:input>
-  <p:with-option name="match" select="p"/>
+  <p:with-option name="match" select="/"/>
   <p:with-option name="position" select="first-child"/>
 </p:insert>
 
-</p:declare-step>
+</p:pipeline>

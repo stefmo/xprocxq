@@ -1,4 +1,4 @@
-<p:pipeline xmlns:p="http://www.w3.org/ns/xproc">
+<p:pipeline name="pipeline" xmlns:p="http://www.w3.org/ns/xproc">
 
   <p:choose>
     <p:when test="count(.)=1">

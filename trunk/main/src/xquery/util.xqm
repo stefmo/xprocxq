@@ -145,6 +145,103 @@ declare function util:get-option($option,$v){
 };
 
 (: -------------------------------------------------------------------------- :)
+declare function util:treewalker ($html) {
+
+  let $children := $html/*
+  return
+      if(empty($children)) then ()
+      else
+        for $c in $children
+            return
+                ( element {name($c)}{
+                    $c/@*,
+                    $c/text(),
+                    util:treewalker($c)
+                })
+ };
+
+
+(: -------------------------------------------------------------------------- :)
+declare function util:remove-elements
+  ( $elements ,
+    $names as xs:string* )  as element()* {
+
+   for $element in $elements
+   return element
+     {node-name($element)}
+     {$element/@*,
+      $element/node()[not(util:name-test(name(),$names))] }
+ } ;
+
+declare function util:name-test
+  ( $testname as xs:string? ,
+    $names as xs:string* )  as xs:boolean {
+
+$testname = $names
+or
+$names = '*'
+or
+util:substring-after-if-contains($testname,':') =
+   (for $name in $names
+   return substring-after($name,'*:'))
+or
+substring-before($testname,':') =
+   (for $name in $names[contains(.,':*')]
+   return substring-before($name,':*'))
+ } ;
+
+declare function util:substring-after-if-contains 
+  ( $arg as xs:string? ,
+    $delim as xs:string )  as xs:string? {
+
+   if (contains($arg,$delim))
+   then substring-after($arg,$delim)
+   else $arg
+ } ;
+
+declare function util:add-attributes
+  ( $elements as element()* ,
+    $attrNames as xs:QName* ,
+    $attrValues as xs:anyAtomicType* )  as element()? {
+
+   for $element in $elements
+   return element { node-name($element)}
+                  { for $attrName at $seq in $attrNames
+                    return if ($element/@*[node-name(.) = $attrName])
+                           then ()
+                           else attribute {$attrName}
+                                          {$attrValues[$seq]},
+                    $element/@*,
+                    $element/node() }
+ } ;
+
+(: -------------------------------------------------------------------------- :)
+declare function util:treewalker ($tree,$attrFunc,$textFunc,$attName,$attValue) {
+
+  let $children := $tree/*
+  return
+      if(empty($children)) then ()
+      else
+        for $c in $children
+            return
+                ( element {name($c)}{
+                            saxon:call($attrFunc,$c/@*,$attName,$attValue),
+                            saxon:call($textFunc,$c/text()),
+                        util:treewalker($c,$attrFunc,$textFunc,$attName,$attValue)
+                })
+};
+
+
+declare function util:attrHandler ($attr,$attName,$attValue) {
+	$attr, attribute {string($attName)}{string($attValue)}
+ };
+
+declare function util:textHandler ($text) {
+	$text
+ };
+
+
+(: -------------------------------------------------------------------------- :)
 declare function util:xquery($exp as xs:string){
     let $a := func:compileQuery($exp)
     let $result := func:query($a)
