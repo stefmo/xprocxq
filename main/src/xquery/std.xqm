@@ -206,14 +206,15 @@ declare function std:declare-step($primary,$secondary,$options) {
 
 (: -------------------------------------------------------------------------- :)
 declare function std:escape-markup($primary,$secondary,$options) {
+(: TODO: might need extension function to implement this :)
     $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:filter($primary,$secondary,$options) {
+(: TODO: is it an error for a empty match ? :)
 
-(: this should be caught as a static error someday ... will do it in refactoring :)
 util:assert(exists($options/p:with-option[@name='select']/@select),'p:with-option match is required'),
 
 let $v :=document{$primary}

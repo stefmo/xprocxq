@@ -7,3 +7,12 @@ fix top level ports
 ensure that bindings work properly
 
 ensure that sequences work properly
+
+XS0018:  if a step is missing required option definition (required, default value, etc)
+
+need to fix copy attributes to p:with-options, should happen before static analysis
+
+need to validate required options, which should remove most of the util:asserts in step code
+
+
+
