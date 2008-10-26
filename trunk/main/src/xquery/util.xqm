@@ -45,7 +45,7 @@ else
 (: -------------------------------------------------------------------------- :)
 declare function util:assert($booleanexp as item(), $why as xs:string,$error)  {
 if(not($booleanexp) and boolean($util:NDEBUG)) then 
-    util:dynamicError($error,$why)
+    util:stepError($error,$why)
 else
     ()
 };

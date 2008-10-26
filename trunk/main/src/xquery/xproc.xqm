@@ -138,6 +138,7 @@ let $explicitnames :=
                                               ,
 
                                         (: convert step attributes to options :)
+                                        (: TODO: probably best to refactor this into a preprocess step :)
                                         (for $option-from-attribute in $step/@*
                                             return
                                             if (not(name($option-from-attribute)='name')) then
@@ -147,12 +148,13 @@ let $explicitnames :=
                                          ),
 
                                         (: match options with step definitions and generate options:)
+                                        (: TODO: need to refactor to take into accordance required and default values :)
                                         for $option in $allstep/p:option
                                             return
-                                                if ($step//p:with-option[@name=$option/@name]/@select) then
+                                                if ($step/p:with-option[@name=$option/@name]) then
                                                   <p:with-option>{
                                                        attribute name{$option/@name},
-                                                       attribute select{$step//p:with-option[@name=$option/@name]/@select}
+                                                       attribute select{$step/p:with-option[@name=$option/@name]/@select}
                                                   }</p:with-option>
                                                 else
                                                     ()
