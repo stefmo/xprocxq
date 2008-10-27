@@ -22,7 +22,7 @@ import module namespace const = "http://xproc.net/xproc/const"
                         at "../xquery/const.xqm";
 
 (: set to 1 to enable debugging :)
-declare variable $util:NDEBUG:=1;
+declare variable $util:NDEBUG :=1;
 
 (: -------------------------------------------------------------------------- :)
 declare function util:help() as xs:string {
@@ -38,6 +38,14 @@ declare function util:timing() as xs:integer  {
 declare function util:assert($booleanexp as item(), $why as xs:string)  {
 if(not($booleanexp) and boolean($util:NDEBUG)) then 
     util:dynamicError('err:XC0020',$why)
+else
+    ()
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function util:trace($value as item()*, $what as xs:string)  {
+if(boolean($util:NDEBUG)) then
+    trace($value,$what)
 else
     ()
 };

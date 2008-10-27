@@ -684,9 +684,20 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
     <!-- generate svn changelog                                -->
     <!-- ===================================================== -->
     <target name="svn.changelog">
-        <exec executable="${p.exe.changelog}" />
+        <exec executable="${p.exe.changelog}" dir="."/>
+            
     </target>
 
+
+    <!-- ===================================================== -->
+    <!-- generate test suite for W3C                           -->
+    <!-- ===================================================== -->
+    <target name="generate.test-suite" description="generates test suite submission">
+        <delete file="generated.test-suite.xml"/>
+        <exec executable="xmllint" dir="test/xproc/basic" output="generated.test-suite.xml">
+            <arg line="-xinclude test-suite.xml"/>
+        </exec>
+    </target>
 
 
     <!-- ===================================================== -->
