@@ -143,22 +143,18 @@ let $explicitnames :=
 
                                                 if ($step/p:with-option[@name=$option/@name] and $step/@*[name(.)=$option/@name]) then
                                                     util:staticError('err:XS0027', concat($stepname,":",$step/@name,' option:',$option/@name,' duplicate options'))
+                                                else if ($option/@required eq 'true' and $option/@select) then
+                                                    util:staticError('err:XS0017', concat($stepname,":",$step/@name,' option:',$option/@name,' duplicate options'))
                                                 else if ($step/p:with-option[@name=$option/@name]) then
-                                                  <p:with-option>{
-                                                       attribute name{$option/@name},
-                                                       attribute select{$step/p:with-option[@name=$option/@name]/@select}
-                                                  }</p:with-option>
+                                                  <p:with-option name="{$option/@name}" select="{$step/p:with-option[@name=$option/@name]/@select}"/>
                                                 else if($step/@*[name(.)=$option/@name]) then
-                                                  <p:with-option>{
-                                                       attribute name{$option/@name},
-                                                       attribute select{concat("'",$step/@*[name(.)=$option/@name],"'")}
-                                                  }</p:with-option>
-
+                                                  <p:with-option name="{$option/@name}" select="{concat("'",$step/@*[name(.)=$option/@name],"'")}"/>
+                                                else if($option/@select) then
+                                                  <p:with-option name="{$option/@name}" select="{$option/@select}"/>
                                                 else if(not($step/p:with-option[@name=$option/@name] and $step/@*[name(.)=$option/@name]) and $option/@required eq 'true') then
                                                     util:staticError('err:XS0010', concat($stepname,":",$step/@name,' option:',$option/@name,' does not conform to step signature'))
                                                 else
                                                     util:trace($step/*,"option conforms to step signature")
-
                                      )
                                 }
 
