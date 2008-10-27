@@ -153,7 +153,7 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
     <!-- ===================================================== -->
     <!-- basic calabash unit test suite                           -->
     <!-- ===================================================== -->
-    <target name="basic-calabash-test-suite" description="generate testscripts and run calabash">
+    <target name="generate.calabash-test-suite" description="generate testscripts and run calabash">
 
         <delete dir="result"/>
         <mkdir dir="result"/>
@@ -168,7 +168,7 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
     <!-- ===================================================== -->
     <!-- basic xproc unit test suite                           -->
     <!-- ===================================================== -->
-    <target name="basic-xprocxq-test-suite" description="generate testscripts and run xproc">
+    <target name="generate.xprocxq-test-suite" description="generate testscripts and run xproc">
 
         <delete dir="result"/>
         <mkdir dir="result"/>

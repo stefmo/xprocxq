@@ -137,27 +137,28 @@ let $explicitnames :=
                                                ()
                                               ,
 
-                                        (: convert step attributes to options :)
-                                        (: TODO: probably best to refactor this into a preprocess step :)
-                                        (for $option-from-attribute in $step/@*
-                                            return
-                                            if (not(name($option-from-attribute)='name')) then
-                                                <p:with-option name="{name($option-from-attribute)}" select="'{$option-from-attribute}'"/>
-                                            else
-                                                ()
-                                         ),
-
-                                        (: match options with step definitions and generate options:)
-                                        (: TODO: need to refactor to take into accordance required and default values :)
+                                        (: match options with step definitions and generate p:with-option:)
                                         for $option in $allstep/p:option
                                             return
-                                                if ($step/p:with-option[@name=$option/@name]) then
+
+                                                if ($step/p:with-option[@name=$option/@name] and $step/@*[name(.)=$option/@name]) then
+                                                    util:staticError('err:XS0027', concat($stepname,":",$step/@name,' option:',$option/@name,' duplicate options'))
+                                                else if ($step/p:with-option[@name=$option/@name]) then
                                                   <p:with-option>{
                                                        attribute name{$option/@name},
                                                        attribute select{$step/p:with-option[@name=$option/@name]/@select}
                                                   }</p:with-option>
+                                                else if($step/@*[name(.)=$option/@name]) then
+                                                  <p:with-option>{
+                                                       attribute name{$option/@name},
+                                                       attribute select{concat("'",$step/@*[name(.)=$option/@name],"'")}
+                                                  }</p:with-option>
+
+                                                else if(not($step/p:with-option[@name=$option/@name] and $step/@*[name(.)=$option/@name]) and $option/@required eq 'true') then
+                                                    util:staticError('err:XS0010', concat($stepname,":",$step/@name,' option:',$option/@name,' does not conform to step signature'))
                                                 else
-                                                    ()
+                                                    util:trace($step/*,"option conforms to step signature")
+
                                      )
                                 }
 
