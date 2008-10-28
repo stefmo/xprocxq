@@ -123,7 +123,7 @@ let $v := document{$primary}
 let $limit := xs:integer(util:get-option($options/p:with-option[@name='limit']/@select,$v))
 let $count := count($v/*)
 return
-    if (empty($limit)) then
+    if (empty($limit) or $limit=0) then
        util:outputResultElement(
         $count
        )
@@ -132,9 +132,8 @@ return
        $count
        )
     else
-       util:outputResultElement(
-         $limit
-       )
+    (: TODO: not the right error, but will do for now:)
+        util:stepError('err:XC0016','')
 };
 
 
@@ -151,16 +150,15 @@ let $fail-if-not-equal := util:boolean($options/p:with-option[@name='fail-if-not
             if ( $result eq true())then
                 (util:outputResultElement($result))
             else
-                (util:stepError('err:XC0019','p:compare fail-if-not-equal option is enabled and documents were not equal'))
+                util:stepError('err:XC0019','p:compare fail-if-not-equal option is enabled and documents were not equal')
         else
             (util:outputResultElement($result))
-
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:error($primary,$secondary,$options) {
-(: FIXME: this should be generated to the error port:)
+(: TODO: this should be generated to the error port:)
 
 <c:errors xmlns:c="http://www.w3.org/ns/xproc-step"
           xmlns:p="http://www.w3.org/ns/xproc"
@@ -206,8 +204,10 @@ declare function std:declare-step($primary,$secondary,$options) {
 
 (: -------------------------------------------------------------------------- :)
 declare function std:escape-markup($primary,$secondary,$options) {
-(: TODO: might need extension function to implement this :)
-    $primary
+    util:serialize($primary,<xsl:output method="xml"
+                                 omit-xml-declaration="yes"
+                                 indent="yes"
+                                 saxon:indent-spaces="1"/>)
 };
 
 
@@ -324,7 +324,7 @@ declare function std:string-replace($primary,$secondary,$options) {
 
 (: -------------------------------------------------------------------------- :)
 declare function std:unescape-markup($primary,$secondary,$options){
-    $primary
+    util:parse-string($primary)
 };
 
 

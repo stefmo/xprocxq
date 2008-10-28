@@ -1,6 +1,8 @@
  <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
 
-   <p:escape-markup name="step1"/>
+<!-- run with test3.xml //-->
+
+   <p:unescape-markup name="step1"/>
 
 </p:pipeline>

@@ -1,4 +1,11 @@
-
+&lt;test xmlns:xproc="http://xproc.net/xproc"&gt;
+    &lt;a&gt;test1&lt;/a&gt;
+    &lt;b/&gt;
+    &lt;c&gt;
+        I wish I was a fish
+          &lt;d/&gt;
+    &lt;/c&gt;
+&lt;/test&gt;
 
 
 
