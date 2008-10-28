@@ -89,7 +89,7 @@ declare function xproc:type($stepname as xs:string) as xs:string {
 
 
 (: -------------------------------------------------------------------------- :)
-(: Walking the tree I. make all step and input/output pipe names explicit :)
+(: Walking the tree I. name everything :)
 (: -------------------------------------------------------------------------- :)
 declare function xproc:explicitnames($xproc as item(), $unique_id){
 
@@ -103,7 +103,6 @@ let $explicitnames :=
         let $stepname := name($step)
 
         (: generate unique name :)
-
         let $unique_before := concat($unique_id,'.',$count - 1)
         let $unique_current := concat($unique_id,'.',$count)
 
@@ -140,7 +139,6 @@ let $explicitnames :=
                                         (: match options with step definitions and generate p:with-option:)
                                         for $option in $allstep/p:option
                                             return
-
                                                 if ($step/p:with-option[@name=$option/@name] and $step/@*[name(.)=$option/@name]) then
                                                     util:staticError('err:XS0027', concat($stepname,":",$step/@name,' option:',$option/@name,' duplicate options'))
                                                 else if ($option/@required eq 'true' and $option/@select) then
@@ -152,9 +150,10 @@ let $explicitnames :=
                                                 else if($option/@select) then
                                                   <p:with-option name="{$option/@name}" select="{$option/@select}"/>
                                                 else if(not($step/p:with-option[@name=$option/@name] and $step/@*[name(.)=$option/@name]) and $option/@required eq 'true') then
-                                                    util:staticError('err:XS0010', concat($stepname,":",$step/@name,' option:',$option/@name,' does not conform to step signature'))
+                                                    util:staticError('err:XS0018', concat($stepname,":",$step/@name,' option:',$option/@name,' is required and seems to be missing or incorrect'))
                                                 else
-                                                    util:trace($step/*,"option conforms to step signature")
+                                                    (: TODO: need to possibly throw err:XS0010 error on unrecognized options :)
+                                                    util:trace($option,"option conforms to step signature")
                                      )
                                 }
 
@@ -163,11 +162,13 @@ let $explicitnames :=
                  attribute name{if ($step/@name eq '') then $unique_current else $step/@name},
                  attribute xproc:defaultname{$unique_current},
                  (
-                       (: need to recurse to get to nested subpipelines and steps :)
-                       xproc:explicitnames(<util:ignore>{$step/*}</util:ignore>,$unique_current)
-               )
+                     (: TODO: need to recurse to get to nested subpipelines and steps :)
+                           xproc:explicitnames(<util:ignore>{$step/*}</util:ignore>,$unique_current)
+                 )
             }
+
         else
+            (: TODO: throws error on unknown element in pipeline namespace :)
             util:staticError('err:XS0044', concat($stepname,":",$step/@name))
 
 return
@@ -175,16 +176,15 @@ return
     if(empty($pipelinename))then
         util:pipeline-step-sort($explicitnames,())
     else
-    (: if dealing with p:pipeline component ------------------------------------------------------ :)
+    (: if dealing with p:pipeline  ------------------------------------------------------------- :)
         <p:pipeline xmlns:xproc="http://xproc.net/xproc" name="{if ($pipelinename eq '') then $unique_id else $pipelinename}" xproc:defaultname="{$unique_id}">
             { util:pipeline-step-sort($explicitnames,())}
         </p:pipeline>
-
 };
 
 
 (: -------------------------------------------------------------------------- :)
-(: Walking the tree II. explicitly bind output to input ports :)
+(: Walking the tree II. bind output to input ports :)
 (: -------------------------------------------------------------------------- :)
 (: make all input/output pipe bindings to steps explicit :)
 declare function xproc:explicitbindings($xproc as item()){
@@ -410,8 +410,8 @@ declare function xproc:output($result,$dflag){
             (: FIXME: :)
            (<!-- empty result //-->)
         else
-            (: FIXME: :)
-           ($result/.)[last()]/*
+            (: TODO:  needs some attention :)
+            ($result/.)[last()]/node()
 };
 
 

@@ -273,8 +273,13 @@ $exp
 };
 
 (: -------------------------------------------------------------------------- :)
-declare function util:serialize($xproc,$output){
-     saxon:serialize($xproc,$output)
+declare function util:serialize($xml,$output){
+     saxon:serialize($xml,$output)
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function util:parse-string($string){
+     saxon:parse($string)
 };
 
 (: -------------------------------------------------------------------------- :)
