@@ -67,8 +67,32 @@ else
 };
 
 (: -------------------------------------------------------------------------- :)
-(: TODO: consider combining error throwing functions :)
+declare function util:unparsed-text($uri as xs:string, $mediatype as xs:string)  {
 
+let $xslt := saxon:compile-stylesheet(
+document {
+  <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                  xmlns:c="http://www.w3.org/ns/xproc-step"
+                  version="2.0">
+    <xsl:template match="/">
+    <c:data content-type="{$mediatype}">
+        <xsl:copy-of select="unparsed-text('{$uri}')"/>
+    </c:data>
+    </xsl:template>
+  </xsl:stylesheet>
+}
+)
+let $source :=
+  document { <empty/>}
+
+return
+     saxon:transform($xslt, $source)
+
+};
+
+(: -------------------------------------------------------------------------- :)
+(: TODO: consider combining error throwing functions :)
+(: consider adding saxon:line-number()  :)
 declare function util:dynamicError($error,$string) {
 let $info := $const:error-dynamic//error[code=$error]
 return
@@ -279,7 +303,7 @@ declare function util:serialize($xml,$output){
 
 (: -------------------------------------------------------------------------- :)
 declare function util:parse-string($string){
-     saxon:parse($string)
+    saxon:parse($string)
 };
 
 (: -------------------------------------------------------------------------- :)

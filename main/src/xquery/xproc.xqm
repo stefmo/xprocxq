@@ -122,7 +122,7 @@ let $explicitnames :=
                                             return
                                               element {name($binding)}{
                                                  attribute port{$binding/@port},
-                                                 attribute primary{if ($binding/@primary eq '') then 'false' else $binding/@primary},
+                                                 attribute primary{if ($binding/@primary eq '') then 'true' else $binding/@primary},
                                                  attribute select{$step/p:input[@port=$binding/@port]/@select},
                                                  $step/p:input[@port=$binding/@port]/*
                                               },
@@ -214,7 +214,7 @@ let $explicitbindings :=
                         return
                           element {name($input)}{
                              attribute port{$input/@port},
-                             attribute primary{if ($input/@primary eq '') then 'false' else $input/@primary},
+                             attribute primary{if ($input/@primary eq '') then 'true' else $input/@primary},
                              attribute select{if($input/@select eq '') then string('/') else $input/@select},
 
                                 if ($input/p:document or $input/p:inline or $input/p:empty) then
@@ -435,11 +435,19 @@ declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$resul
                             else if(name($child)='p:inline') then
                                 $child/*
 
-                            else if($child/@href) then
+                            else if(name($child)='p:document') then
+
                                      if (doc-available($child/@href)) then
                                            doc($child/@href)
                                      else
-                                           util:dynamicError('err:XD0002',concat(" cannot access document ",$child/@href))
+                                           util:dynamicError('err:XD0002',concat(" p:document cannot access document ",$child/@href))
+
+                            else if(name($child)='p:data') then
+
+                                     if ($child/@href) then
+                                             util:unparsed-text($child/@href,'text/plain')
+                                     else
+                                           util:dynamicError('err:XD0002',concat(" p:data cannot access document ",$child/@href))
 
                             else if ($child/@port) then
 
