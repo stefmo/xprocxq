@@ -16,7 +16,7 @@
 </xsl:template>
     
     <xsl:template match="t:test">
-calabash test/<xsl:value-of select="concat(string(t:input[@port='source']/xi:include/@href),'')"/> test/xproc/basic/<xsl:value-of select="t:pipeline/xi:include/@href"/> &gt; <xsl:value-of select="t:output[@port='result']/xi:include/@href"/>
+calabash test/<xsl:value-of select="concat(string(t:input[@port='source']/xi:include/@href),'')"/> test/xproc/basic/<xsl:value-of select="t:pipeline/xi:include/@href"/> &amp;&gt; <xsl:value-of select="t:output[@port='result']/xi:include/@href"/>
 
     </xsl:template>
 

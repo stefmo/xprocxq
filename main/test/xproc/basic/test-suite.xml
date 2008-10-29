@@ -766,5 +766,116 @@ xmlns:p="http://www.w3.org/ns/xproc"
 <!-- #################################################################### p:unwrap  //-->
 
 
+<!-- #################################################################### step error-codes  //-->
+
+<t:test xml:id="xs0010a">
+<t:title>xs0010a</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>throw err:xs0010a</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="error-codes/xs0010a.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/xs0010a.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="xs0010b">
+<t:title>xs0010b</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>throw err:xs0010b</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="error-codes/xs0010b.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/xs0010b.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="xs0018">
+<t:title>xs0018</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>throw err:xs0018</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="error-codes/xs0018.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/xs0018.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="xs0027">
+<t:title>xs0027</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>throw err:xs0027</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="error-codes/xs0027.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/xs0027.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="xs0044">
+<t:title>xs0044</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>throw err:xs0044</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="error-codes/xs0044.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/xs0044.xml"/>
+    </t:output>
+</t:test>
+
+<!-- #################################################################### dynamic error-codes  //-->
+
+<t:test xml:id="xd0002a">
+<t:title>xd0002a</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>throw err:xd0002a</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="error-codes/xd0002a.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/xd0002a.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="xd0002b">
+<t:title>xd0002b</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>throw err:xd0002b</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="error-codes/xd0002b.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/xd0002b.xml"/>
+    </t:output>
+</t:test>
 
 </t:test-suite>
