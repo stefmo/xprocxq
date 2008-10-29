@@ -19,7 +19,7 @@ declare namespace xproc = "http://xproc.net/xproc";
 
 (: Module Imports :)
 import module namespace const = "http://xproc.net/xproc/const"
-                        at "../xquery/const.xqm";
+                        at "const.xqm";
 
 (: set to 1 to enable debugging :)
 declare variable $util:NDEBUG :=1;
@@ -53,7 +53,7 @@ else
 (: -------------------------------------------------------------------------- :)
 declare function util:assert($booleanexp as item(), $why as xs:string,$error)  {
 if(not($booleanexp) and boolean($util:NDEBUG)) then 
-    util:stepError($error,$why)
+    error(QName('http://www.w3.org/ns/xproc-error',$error),concat("XProc Assert Error: ",$why))
 else
     ()
 };

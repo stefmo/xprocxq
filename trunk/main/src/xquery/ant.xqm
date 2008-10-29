@@ -7,7 +7,7 @@ declare namespace comp = "http://xproc.net/xproc/comp";
 
 (: Module Imports :)
 import module namespace util = "http://xproc.net/xproc/util"
-                        at "../xquery/util.xqm";
+                        at "util.xqm";
 
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";

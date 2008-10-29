@@ -10,19 +10,20 @@ declare namespace fn ="http://www.w3.org/TR/xpath-functions/";
 
 (: Module Imports :)
 import module namespace const = "http://xproc.net/xproc/const"
-                        at "../xquery/const.xqm";
+                        at "const.xqm";
 import module namespace util = "http://xproc.net/xproc/util"
-                        at "../xquery/util.xqm";
+                        at "util.xqm";
 import module namespace xproc = "http://xproc.net/xproc"
-                        at "../xquery/xproc.xqm";
+                        at "xproc.xqm";
 import module namespace std = "http://xproc.net/xproc/std"
-                        at "../xquery/std.xqm";
+                        at "std.xqm";
 import module namespace opt = "http://xproc.net/xproc/opt"
-                        at "../xquery/opt.xqm";
+                        at "opt.xqm";
 import module namespace ext = "http://xproc.net/xproc/ext"
-                        at "../xquery/ext.xqm";
+                        at "ext.xqm";
 import module namespace comp = "http://xproc.net/xproc/comp"
-                        at "../xquery/comp.xqm";
+                        at "comp.xqm";
+
 (: Module Vars :)
 (: load in xproc xml :)
 

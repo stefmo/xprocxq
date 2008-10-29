@@ -10,7 +10,7 @@ declare namespace err="http://www.w3.org/ns/xproc-error";
 
 (: Module Imports :)
 import module namespace util = "http://xproc.net/xproc/util"
-                        at "../xquery/util.xqm";
+                        at "util.xqm";
 
 (: Module Vars :)
 declare variable  $ext:steps := doc("../../etc/pipeline-extension.xml")/p:library;
