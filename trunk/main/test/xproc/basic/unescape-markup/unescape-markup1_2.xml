@@ -9,8 +9,6 @@
          </p:input>
    </p:identity>
 
-<p:unescape-markup name="step2">
-    <input port="source" select="/c:data/description"/>
-</p:unescape-markup>
+<p:unescape-markup name="step2"/>
 
 </p:pipeline>

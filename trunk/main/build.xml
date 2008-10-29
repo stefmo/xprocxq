@@ -147,8 +147,7 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
     <!-- ===================================================== -->
     <!-- generate basic unit test suite                        -->
     <!-- ===================================================== -->
-    <target name="generate-test-suite" depends="basic-calabash-test-suite,basic-xprocxq-test-suite" description="generate testscripts and run calabash"/>
-
+    <target name="generate-test-suite" depends="generate.calabash-test-suite,generate.xprocxq-test-suite" description="generate testscripts and run calabash"/>
 
     <!-- ===================================================== -->
     <!-- basic calabash unit test suite                           -->

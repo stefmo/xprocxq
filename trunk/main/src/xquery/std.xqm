@@ -324,7 +324,13 @@ declare function std:string-replace($primary,$secondary,$options) {
 
 (: -------------------------------------------------------------------------- :)
 declare function std:unescape-markup($primary,$secondary,$options){
-    util:parse-string($primary)
+(: TODO: doesnt work with nested xml elements :)
+let $parsed := document{util:serialize($primary,<xsl:output method="xml"
+                                 omit-xml-declaration="yes"
+                                 indent="yes"
+                                 saxon:indent-spaces="1"/>)}
+return
+    saxon:parse($parsed)
 };
 
 
