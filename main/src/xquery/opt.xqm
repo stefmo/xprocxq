@@ -12,7 +12,7 @@ declare namespace comp="http://xproc.net/xproc/comp";
 
 (: Module Imports :)
 import module namespace util = "http://xproc.net/xproc/util"
-                        at "../xquery/util.xqm";
+                        at "util.xqm";
 
 (: Module Vars :)
 declare variable $opt:steps := doc("../../etc/pipeline-optional.xml")/p:library;

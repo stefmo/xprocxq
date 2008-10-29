@@ -15,7 +15,7 @@ declare namespace xproc = "http://xproc.net/xproc";
 
 (: Module Imports :)
 import module namespace util = "http://xproc.net/xproc/util"
-                        at "../xquery/util.xqm";
+                        at "util.xqm";
 
 
 (: Module Vars :)
@@ -68,16 +68,6 @@ return
                                           {$attrValues[$seq]},
                     $element/@*,
                     $element/node() }
-
-
-(:
-util:treewalker(document{$primary[1]},
-                saxon:function("util:attrHandler", 3),
-                saxon:function("util:textHandler", 1),
-                $attName,
-                $attValue)
-
-:)
 };
 
 
@@ -139,8 +129,6 @@ return
 
 (: -------------------------------------------------------------------------- :)
 declare function std:compare($primary,$secondary,$options) {
-
-util:assert(exists($secondary/p:input[@port='alternate']),'p:compare alternate port does not exist'),
 
 let $alternate := $secondary/p:input[@port='alternate']/*
 let $result := deep-equal($primary[1]/*,$alternate/*)
@@ -386,7 +374,7 @@ let $match := util:get-option($options/p:with-option[@name='match']/@select,$v)
 (: -------------------------------------------------------------------------- :)
 declare function std:xslt($primary,$secondary,$options){
 
-    util:assert(exists($secondary/p:input[@port='stylesheet']),'stylesheet is required'),
+    util:assert(exists($secondary/p:input[@port='stylesheet']/*),'stylesheet is required'),
     let $v :=document{$primary}
     let $stylesheet := $secondary/p:input[@port='stylesheet']/*
     return

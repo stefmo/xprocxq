@@ -6,7 +6,7 @@ declare copy-namespaces no-preserve,inherit;
 (: Module Imports :)
 
 import module namespace util = "http://xproc.net/xproc/util"
-                        at "../../src/xquery/util.xqm";
+                        at "util.xqm";
 
 (: -------------------------------------------------------------------------- :)
 

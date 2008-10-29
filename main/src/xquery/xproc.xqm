@@ -11,17 +11,17 @@ declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
 
 (: Module Imports :)
 import module namespace const = "http://xproc.net/xproc/const"
-                        at "../xquery/const.xqm";
+                        at "const.xqm";
 import module namespace util = "http://xproc.net/xproc/util"
-                        at "../xquery/util.xqm";
+                        at "util.xqm";
 import module namespace std = "http://xproc.net/xproc/std"
-                        at "../xquery/std.xqm";
+                        at "std.xqm";
 import module namespace opt = "http://xproc.net/xproc/opt"
-                        at "../xquery/opt.xqm";
+                        at "opt.xqm";
 import module namespace ext = "http://xproc.net/xproc/ext"
-                        at "../xquery/ext.xqm";
+                        at "ext.xqm";
 import module namespace comp = "http://xproc.net/xproc/comp"
-                        at "../xquery/comp.xqm";
+                        at "comp.xqm";
 
 
 (: -------------------------------------------------------------------------- :)
@@ -481,7 +481,8 @@ saxon:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes"
 
     let $secondary :=  <xproc:inputs>{
                             for $input in $pipeline/*[@name=$step]/p:input[not(@primary='true')]
-                                return 
+                                return
+
                                     if ($input/p:document) then
                                         element {name($input)}{
                                          attribute port{$input/@port},
@@ -502,6 +503,7 @@ saxon:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes"
                                     else
                                         <xproc:warning message="xproc.xqm: generated automatically"/>                                            
                        }</xproc:inputs>
+
 
     let $options :=<xproc:options>{
                               $pipeline/*[@name=$step]/p:with-option

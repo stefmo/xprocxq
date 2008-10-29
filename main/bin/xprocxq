@@ -1,7 +1,11 @@
 #!/bin/bash
+
 XPROCXQ_HOME=/Users/jimfuller/Source/Webcomposite/xprocxq/main
 CLASSPATH=/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib/net:/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib/saxon9sa/saxon9sa.jar:/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib/saxon9sa:/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib
 export CLASSPATH XPROCXQ_HOME
+
+cdir=$PWD
+cd $XPROCXQ_HOME
 
 MINPARAMS=1
 
@@ -65,4 +69,5 @@ then
      exit 1
 fi
 
-java net.sf.saxon.Query $valval $xiflag -sa -s:$1  -tree:linked -l -update:on -ext:on -q:$XPROCXQ_HOME/src/xquery/xproc.xq +xproc="$2" +stdin="$1" dflag="$dflag" tflag="$tflag" ival="$ival" oval="$oval"
+
+java net.sf.saxon.Query $valval $xiflag -sa -s:$cdir/$1 -tree:linked -l -update:on -ext:on -q:$XPROCXQ_HOME/src/xquery/xproc.xq +xproc="$cdir/$2" +stdin="$cdir/$1" dflag="$dflag" tflag="$tflag" ival="$ival" oval="$oval"
