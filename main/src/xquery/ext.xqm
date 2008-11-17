@@ -28,32 +28,23 @@ declare variable $ext:xproc :=saxon:function("ext:xproc", 3);
 declare function ext:pre($primary,$secondary,$options){
    $primary[1]
 };
-
-
-(: -------------------------------------------------------------------------- :)
 declare function ext:step($primary,$secondary,$options) as item()* {
     $primary
 };
-
-
 declare function ext:post($primary,$secondary,$options) as item()* {
     $primary
 };
-
-
 declare function ext:test($primary,$secondary,$options) as item()* {
     $primary
 };
-
+(: -------------------------------------------------------------------------- :)
 
 declare function ext:xproc($primary,$secondary,$options) as item()* {
 
-    <run-xproc-pipeline/>
-(:
-util:assert(exists($secondary/p:input[@port='xproc']),'xproc port is required'),
-    xproc:run($secondary/p:input[@port='xproc'],$primary,0,0)
-:)
-
+let $v :=document{$primary}
+let $xproc := $secondary/p:input[@port='xproc']/*
+return
+    <fix-me-circular-references-with-module-imports/>
 };
 
 
