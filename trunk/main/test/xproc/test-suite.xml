@@ -1,8 +1,0 @@
-<t:test-suite xmlns:t='http://xproc.org/ns/testsuite'>
-<t:title>All tests</t:title>
-    <t:test href='basic/*'/>
-<!--
-    <t:test href='contributed/tests.xml'/>
-    <t:test href='testsuite/tests.xml'/>
-//-->
-</t:test-suite>

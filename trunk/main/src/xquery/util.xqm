@@ -274,6 +274,7 @@ declare function util:textHandler ($text) {
 
 
 (: -------------------------------------------------------------------------- :)
+(: TODO - uses SAXON extension function, need to abstract this out :)
 declare function util:xquery($exp as xs:string){
     let $a := func:compileQuery($exp)
     let $result := func:query($a)

@@ -1,0 +1,9 @@
+<p:declare-step name="count1"
+            xmlns:p="http://www.w3.org/ns/xproc">
+
+<p:input port="source"/>
+<p:output port="result"/>
+
+    <p:count/>
+
+</p:declare-step>

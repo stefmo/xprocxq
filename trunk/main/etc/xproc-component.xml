@@ -1,16 +1,19 @@
-<xproc:library xmlns:p ="http://www.w3.org/ns/xproc" 
+<xproc:components xmlns:p ="http://www.w3.org/ns/xproc"
                xmlns:xproc = "http://xproc.net/xproc"
                name="xproc-components">
 
-<!-- //-->    
     <xproc:root-element type="p:pipeline"/>
-
-<!-- //-->    
 
     <xproc:element type="p:pipeline"/>
 
     <xproc:element type="p:library"/>
-    <xproc:element type="p:declare-step"/>
+    
+    <xproc:element type="p:declare-step">
+      <p:input port="source"/>
+      <p:output port="result"/>
+    </xproc:element>
+
+
     <xproc:element type="p:import"/>
     <xproc:element type="p:import-schema"/>
 
@@ -23,7 +26,11 @@
 
 <!-- //-->    
     <xproc:element type="p:for-each"/>
+
     <xproc:element type="p:choose"/>
+    <xproc:element type="p:when"/>            
+    <xproc:element type="p:otherwise"/>     
+
     <xproc:element type="p:viewport"/>
     <xproc:element type="p:try"/>
     <xproc:element type="p:catch"/>
@@ -36,8 +43,7 @@
 
     <xproc:element type="p:iteration-source"/>
     <xproc:element type="p:viewport-source"/>
-    <xproc:element type="p:when"/>            
-    <xproc:element type="p:otherwise"/>            
+           
     <xproc:element type="p:variable"/>            
     <xproc:element type="p:namespaces"/>            
 
@@ -59,4 +65,4 @@
     <xproc:element type="p:document"/>
     <xproc:element type="p:file"/>
         
-</xproc:library>
+</xproc:components>

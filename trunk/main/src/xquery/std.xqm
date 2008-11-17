@@ -56,10 +56,13 @@ declare variable $std:xslt :=saxon:function("std:xslt", 3);
 (: -------------------------------------------------------------------------- :)
 declare function std:add-attribute($primary,$secondary,$options) {
 
+(: TODO: need to implement match attribute :)
+
+let $match := util:get-option($options/p:with-option[@name='match']/@select,$primary)
 let $attrNames := util:get-option($options/p:with-option[@name='attribute-name']/@select,$primary)
 let $attrValues := util:get-option($options/p:with-option[@name='attribute-value']/@select,$primary)
 return
-   for $element in $primary[1]/.
+   for $element in $primary[1]
    return element { node-name($element)}
                   { for $attrName at $seq in $attrNames
                     return if ($element/@*[node-name(.) = $attrName])
@@ -145,19 +148,8 @@ let $fail-if-not-equal := util:boolean($options/p:with-option[@name='fail-if-not
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:error($primary,$secondary,$options) {
-(: TODO: this should be generated to the error port:)
-
-<c:errors xmlns:c="http://www.w3.org/ns/xproc-step"
-          xmlns:p="http://www.w3.org/ns/xproc"
-          xmlns:my="http://www.example.org/error">
-<!-- WARNING: this output should be generated to std error and/or error port //-->
-<c:error href="" column="" offset=""
-         name="step-name" type="p:error"
-         code="{$options/p:with-option[@name='code']/@value}">
-    <message>{$primary}</message>
-</c:error>
-</c:errors>
+declare function std:declare-step($primary,$secondary,$options) {
+<test/>
 
 };
 
@@ -183,19 +175,29 @@ util:assert(exists($options/p:with-option[@name='path']),'p:directory-list path 
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:declare-step($primary,$secondary,$options) {
-
-    <todo>need to process this step, this will also be used for embedded p:group and subpipelines</todo>
-
-};
-
-
-(: -------------------------------------------------------------------------- :)
 declare function std:escape-markup($primary,$secondary,$options) {
     util:serialize($primary,<xsl:output method="xml"
                                  omit-xml-declaration="yes"
                                  indent="yes"
                                  saxon:indent-spaces="1"/>)
+};
+
+
+(: -------------------------------------------------------------------------- :)
+declare function std:error($primary,$secondary,$options) {
+(: TODO: this should be generated to the error port:)
+
+<c:errors xmlns:c="http://www.w3.org/ns/xproc-step"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xmlns:my="http://www.example.org/error">
+<!-- WARNING: this output should be generated to std error and/or error port //-->
+<c:error href="" column="" offset=""
+         name="step-name" type="p:error"
+         code="{$options/p:with-option[@name='code']/@value}">
+    <message>{$primary}</message>
+</c:error>
+</c:errors>
+
 };
 
 

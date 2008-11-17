@@ -1,6 +1,12 @@
+need to define top level input and output port on declare-step or its an error
+
+need to determine base uri of stdin and all external inputs for add-xml-base step
+
+dont have correct line numbers in error messages
+
+p:xquery currently uses c:result and has problems with some query formats
 
 
+fixed
 
-
-
-xmllint -xinclude test-suite.xml outputs test-suite.xml for submission to W3C folks
+- fixed xproc component checking

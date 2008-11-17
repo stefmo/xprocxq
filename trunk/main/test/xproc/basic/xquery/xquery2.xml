@@ -4,7 +4,7 @@
 <p:xquery>
      <p:input port="query">
          <p:inline>
-             <c:query xmlns:c="http://www.w3.org/ns/xproc-step">let $a := 2 return $a</c:query>
+             <c:query xmlns:c="http://www.w3.org/ns/xproc-step">let $a := 2 return ($a,<test/>)</c:query>
          </p:inline>
      </p:input>
 </p:xquery>

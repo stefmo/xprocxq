@@ -4,11 +4,16 @@
     
 <!-- should not evaluate this declare-step //-->
 <p:declare-step name="test1" type="mine:count">
-    <p:input port="source" sequence="true"/>
-    <p:output port="result" sequence="true"/>
-    <p:count/>
+    
+    <p:identity>
+        <p:input port="source">
+            <p:inline>
+                <test/>
+            </p:inline>
+        </p:input>
+    </p:identity>
 </p:declare-step>
 
-<mine:count/>
+<mine:count name="here1"/>
     
 </p:pipeline>

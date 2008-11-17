@@ -1,13 +1,6 @@
 XProc Tests
 
-I am in the process of converting xproc.xq testsuite to Norman Walsh XProc Testsuite format.
 
-    testsuite/extension: XProc.net (e.g. xproc.xq own extensions) tests
-    testsuite/optional: W3C XProc optional step tests
-    testsuite/required: W3C XProc standard step tests
 
-Basic tests for unit test purposes are kept under
-
-    basic/
 
 
