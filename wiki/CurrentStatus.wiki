@@ -2,7 +2,7 @@
 
 = Status =
 
-19/10/2008 *Alpha* release is very soon (promises, promises) 
+22/11/2008  working out some very tricky and deep bugs, just got through a 2 week bug hunt, I hope this means a release is soon
 
 = Changelog =
 
@@ -24,19 +24,9 @@ There are so many issues to list .... so I will just highlight the major ones;
 
   * sync all error messages
 
-  * select attribute on options
-
   * working on subpipelines, imports and libraries and related issues such as precedence, etc
 
-  * ext:pre and ext:post roughly equiv to stdin and stdout
-
   * fixing non primary input/output handling
-
-  * range of performance issues (though I have removed most eval code)
-
-  * need to tweak step declarations and step validation with respect to honor step functional signatures
-
-  * planned release version will support both eXist and SAXON
 
 
 This example pipeline, using p:identity step
