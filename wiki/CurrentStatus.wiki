@@ -1,18 +1,16 @@
-= Current Status =
-
 22/11/2008  working out some very tricky and deep bugs, just got through a 2 week bug hunt, I hope this means a release is soon
 
-= Changelog =
+== Changelog ==
 
 Check out the [http://xprocxq.googlecode.com/svn/trunk/main/ChangeLog Changelog] included in the source code. This file is  not always up to date in trunk but will reflect reality for tag releases.
 
 
-= ISSUES/TODO =
+== ISSUES/TODO ==
 
 The project [http://code.google.com/p/xprocxq/issues/list issue tracker] is the best place to find this information.
 
 
-= Limitations and Issues=
+== Limitations and Issues ==
 
 There are many issues to list .... so I will just highlight the major ones;
 
