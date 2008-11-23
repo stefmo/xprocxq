@@ -55,9 +55,9 @@ would generate the following output (using test.xml)
 
 _Note: Looking at the current trunk/TODO file will help you determine what I am focusing on for now._
 
-= When will you release and will xproc.xq be compliant ? =
+== Roadmap ==
 
-If I had a road map it would be;
+Looks like this for now.
 
   * update testsuite
   * implement all standard steps
