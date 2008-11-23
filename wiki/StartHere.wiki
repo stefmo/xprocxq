@@ -26,18 +26,20 @@ The current definition of dependencies is contained in the source code [http://x
 
 *warning:* xproc.xq is *Alpha* software at the moment.
 
-In fact, it is not possible to run xproc.xq without SAXON-SA. There is now a primitive script, bin/xprocxq which will run things from the commandline, though this script may need to be amended to reflect your local conditions.
+It is not possible to run xproc.xq without SAXON-SA. 
 
-to get Ant targets, run Apache Ant with -projecthelp switch  
+There is a primitive script, bin/xprocxq which will run things from the commandline, though this script must be amended to reflect your local conditions ... mainly means adjusting the classpath env variable.
+
+In addition, you can use Ant to run unit tests; run Apache Ant with -projecthelp switch to view options e.g. 
 
 > ant -projecthelp
 
 Here are the Main targets of interest:
 
- basic-xprocxq-test-suite    generates run script for xprocxq unit test suite
+ basic-xprocxq-test-suite    generates run script for xprocxq test xproc suite
 
- basic-calabash-test-suite   generates run script for calabash unit test suite
+ basic-calabash-test-suite   generates run script for calabash test xproc suite
 
- test-all-xquery             run all xquery tests
+ xproc-all                   run all significant xproc tests from Ant
 
- xproc-all                   run all significant xproc tests
+ test-all-xquery             run all xquery unit tests
