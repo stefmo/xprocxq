@@ -5,7 +5,7 @@
 Check out the [http://xprocxq.googlecode.com/svn/trunk/main/ChangeLog Changelog] included in the source code. This file is  not always up to date in trunk but will reflect reality for tag releases.
 
 
-== ISSUES/TODO ==
+== Issues / TODO ==
 
 The project [http://code.google.com/p/xprocxq/issues/list issue tracker] is the best place to find this information.
 
