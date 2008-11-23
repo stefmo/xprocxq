@@ -1,6 +1,4 @@
-#summary Describes current 'state of play' with xproc.xq
-
-= Status =
+= Current Status =
 
 22/11/2008  working out some very tricky and deep bugs, just got through a 2 week bug hunt, I hope this means a release is soon
 
