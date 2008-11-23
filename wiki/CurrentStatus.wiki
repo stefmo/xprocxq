@@ -9,18 +9,18 @@
 Check out the [http://xprocxq.googlecode.com/svn/trunk/main/ChangeLog Changelog] included in the source code. This file is  not always up to date in trunk but will reflect reality for tag releases.
 
 
-= TODO =
+= ISSUES/TODO =
 
-The source code [http://xprocxq.googlecode.com/svn/trunk/main/TODO TODO] file is the best place to find this information.
+The project [http://code.google.com/p/xprocxq/issues/list issue tracker] is the best place to find this information.
 
 
 = Limitations and Issues=
 
-There are so many issues to list .... so I will just highlight the major ones;
-
-  * depends on one having bought Michael Kay's [http://www.saxonica.com Saxon-SA]  XSLT/XQUERY processor ... as dependent on SA version and even then it does very little ;)
+There are many issues to list .... so I will just highlight the major ones;
 
   * sequences inconsistent
+
+  * depends on one having bought Michael Kay's [http://www.saxonica.com Saxon-SA]  XSLT/XQUERY processor ... as dependent on SA version and even then it does very little ;)
 
   * sync all error messages
 
@@ -41,34 +41,11 @@ This example pipeline, using p:identity step
 
 }}}
 
-would generate the following debug output (-d option)
+would generate the following output (using test.xml)
 
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
-<xproc:debug xmlns:xproc="http://xproc.net/xproc">
-   <xproc:pipeline>
-      <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" xproc:defaultname="!1" name="pipeline">
-         <ext:pre xmlns:ext="http://xproc.net/xproc/ext" name="pipeline|" xproc:defaultname="!1.1"
-                  xproc:type="ext">
-            <p:input port="source" primary="true" select="/">
-               <p:pipe step="pipeline|" port="stdin"/>
-            </p:input>
-            <p:output port="result" primary="true" select=""/>
-            <p:output primary="true" port="result"/>
-         </ext:pre>
-         <p:identity name="test" xproc:defaultname="!1.2" xproc:type="std">
-            <p:input port="source" primary="true" select="/"/>
-            <p:output port="result" primary="true" select=""/>
-         </p:identity>
-         <ext:post xmlns:ext="http://xproc.net/xproc/ext" name="!1.3" xproc:defaultname="!1.3"
-                   xproc:type="ext">
-            <p:input port="source" primary="true" select="/"/>
-            <p:output port="stdout" primary="true" select=""/>
-         </ext:post>
-      </p:declare-step>
-   </xproc:pipeline>
-   <xproc:outputs>
-      <xproc:output func="" step="pipeline|" port="stdin">
+
          <test>
             <a>test1</a>
             <b/>
@@ -77,39 +54,6 @@ would generate the following debug output (-d option)
           <d/>
             </c>
          </test>
-      </xproc:output>
-      <xproc:output func="$ext:pre" step="pipeline|" port="result">
-         <test>
-            <a>test1</a>
-            <b/>
-            <c>
-        I wish I was a fish
-          <d/>
-            </c>
-         </test>
-      </xproc:output>
-      <xproc:output func="$std:identity" step="test" port="result">
-         <test>
-            <a>test1</a>
-            <b/>
-            <c>
-        I wish I was a fish
-          <d/>
-            </c>
-         </test>
-      </xproc:output>
-      <xproc:output func="$ext:post" step="!1.3" port="stdout">
-         <test>
-            <a>test1</a>
-            <b/>
-            <c>
-        I wish I was a fish
-          <d/>
-            </c>
-         </test>
-      </xproc:output>
-   </xproc:outputs>
-</xproc:debug>
 
 }}}
 
@@ -119,17 +63,11 @@ _Note: Looking at the current trunk/TODO file will help you determine what I am 
 
 If I had a road map it would be;
 
-  * update testsuite (50% done)
-  * do standard steps implementations (60% done)
-  * do optional & extension steps implementations (60% done)
-  * ensure static and dynamic error checking is working properly (40% done)
-  * ensure namespaces are fixed up properly (20% done)
-  * build process to derive eXist and Saxon impl from same codebase (20% done)
+  * update testsuite
+  * implement all standard steps
+  * implement optional & extension steps
+  * ensure static and dynamic error checking is working properly
+  * check namespace fixup works as outlined in spec
+  * create code fork to derive eXist and Saxon impl
 
 I will need to get each of the above nearer 100% before I release.
-
-So far, the real problems with XProc compliance revolve around;
-
-  * Try/Catch mechanism
-  * import mechanisms
-  * validating functional signatures
