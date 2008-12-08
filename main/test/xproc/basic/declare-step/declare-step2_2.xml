@@ -1,4 +1,4 @@
-<p:declare-step name="count1"
+<p:declare-step name="count1" type="count1"
             xmlns:p="http://www.w3.org/ns/xproc">
 
 <p:input port="source"/>

@@ -1,8 +1,8 @@
 <p:pipeline name="pipeline"
-            xmlns:p="http://www.w3.org/ns/xproc">
+                xmlns:p="http://www.w3.org/ns/xproc">
 
-<p:import href="file:test/xproc/basic/declare-step/declare-step2_2.xml"/>
+    <p:import href="file:test/xproc/basic/declare-step/declare-step2_2.xml"/>
 
-<p:count1/>
-    
+    <p:count1/>
+
 </p:pipeline>

@@ -6,7 +6,24 @@ dont have correct line numbers in error messages
 
 p:xquery currently uses c:result and has problems with some query formats
 
+If p:log or p:serialization elements appear in the declaration of an atomic step, they
+will only be used if the atomic step is directly evaluated by the processor.
+They have no effect if the step appears in a subpipeline; only the serialization options of
+the “top level” step or pipeline are used because that is the only step which the processor
+is required to serialize.
 
+
+need to correct xproc:default name in p:choose
+
+race condition when p:pipe calls a step that does not exist
+
+-----------------------------------------------------------
 fixed
+-----------------------------------------------------------
 
 - fixed xproc component checking
+
+
+
+
+

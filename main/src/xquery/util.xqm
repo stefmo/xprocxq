@@ -1,7 +1,7 @@
 xquery version "1.0" encoding "UTF-8";
 
 module namespace util = "http://xproc.net/xproc/util";
-declare copy-namespaces no-preserve,inherit;
+declare copy-namespaces preserve,inherit;
 
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";

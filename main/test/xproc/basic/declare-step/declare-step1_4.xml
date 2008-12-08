@@ -1,0 +1,27 @@
+<p:pipeline name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc"
+            xmlns:mine="http://www.example.org/test/mine">
+
+    <p:identity name="joey">
+        <p:input port="source">
+            <p:inline>
+                <test/>
+            </p:inline>
+        </p:input>
+    </p:identity>
+
+<p:declare-step name="test1" type="mine:identity1">
+    <p:input port="source" primary="true"/>
+    <p:output port="result" primary="true"/>
+    <p:option name="testoption" select="'false'"/>
+    <p:identity name="nested_identity_step"/>
+</p:declare-step>
+
+<mine:identity1>
+    <p:input port="source">
+        <p:pipe step="joey" port="result"/>
+    </p:input>
+    <p:with-option name="testoption" select="'true'"/>
+</mine:identity1>
+    
+</p:pipeline>
