@@ -2,11 +2,11 @@
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:my="http://www.example.org/test/mine">
 
-                
-<!-- should not evaluate this declare-step //-->
-<p:declare-step type="my:count">
-    <p:input port="source" sequence="true"/>
-    <p:output port="result" sequence="true"/>
+
+<p:declare-step>
+    <p:input port="source"/>
+    <p:output port="result"/>
+
     <p:identity>
         <p:input port="source">
             <p:inline>
@@ -14,10 +14,10 @@
             </p:inline>
         </p:input>
     </p:identity>
-    <p:wrap>
-        <p:with-option name="wrapper" select="'wrapper_element'"/>
-        <p:with-option name="match" select="'/'"/> 
-    </p:wrap>
+
+    <p:wrap match="//*" wrapper="some_element"/>
+    
 </p:declare-step>
+
 
 </p:pipeline>
