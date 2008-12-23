@@ -1,29 +1,26 @@
-need to define top level input and output port on declare-step or its an error
+* p:declare-step requires input/output port definition
 
-need to determine base uri of stdin and all external inputs for add-xml-base step
+* p:pipeline defines default input/output ports with sequence="false"
 
-dont have correct line numbers in error messages
+* need to define base uri of stdin and all external inputs for add-xml-base step
 
-p:xquery currently uses c:result and has problems with some query formats
+* dont have correct line numbers in error messages
 
-If p:log or p:serialization elements appear in the declaration of an atomic step, they
+* p:xquery currently uses c:result and has problems with some query formats
+
+* If p:log or p:serialization elements appear in the declaration of an atomic step, they
 will only be used if the atomic step is directly evaluated by the processor.
 They have no effect if the step appears in a subpipeline; only the serialization options of
 the “top level” step or pipeline are used because that is the only step which the processor
 is required to serialize.
 
+* need to correct xproc:default name in p:choose
 
-need to correct xproc:default name in p:choose
+* race condition when p:pipe calls a step that does not exist
 
-race condition when p:pipe calls a step that does not exist
+* swap out xprocxq xproc tests with standard tests
 
------------------------------------------------------------
-fixed
------------------------------------------------------------
-
-- fixed xproc component checking
-
-
+* clean up xquery tests
 
 
 
