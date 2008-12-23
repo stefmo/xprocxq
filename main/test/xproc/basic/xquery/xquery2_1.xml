@@ -4,10 +4,7 @@
 <p:xquery>
      <p:input port="query">
          <p:inline>
-             <c:query xmlns:c="http://www.w3.org/ns/xproc-step">
-                 declare variable $s:='test'
-return //c
-             </c:query>
+             <c:query xmlns:c="http://www.w3.org/ns/xproc-step"><test/></c:query>
          </p:inline>
      </p:input>
 </p:xquery>

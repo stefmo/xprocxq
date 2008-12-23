@@ -2,7 +2,7 @@
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:mine="http://www.example.org/test/mine">
     
-<p:declare-step name="test1" type="mine:identity">
+<p:declare-step type="mine:identity1">
     <p:input port="source"/>
     <p:output port="result"/>
 
@@ -16,6 +16,7 @@
     
 </p:declare-step>
 
-<mine:identity/>
+<mine:identity1/>
     
 </p:pipeline>
+

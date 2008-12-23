@@ -15,8 +15,6 @@
         </p:input>
     </p:identity>
 
-    <p:wrap match="//*" wrapper="some_element"/>
-    
 </p:declare-step>
 
 

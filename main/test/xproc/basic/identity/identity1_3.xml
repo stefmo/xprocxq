@@ -4,5 +4,5 @@
    <p:identity name="test1">
        <p:input port="source" select="/test/a"/>
    </p:identity>
-
+ 
 </p:pipeline>
