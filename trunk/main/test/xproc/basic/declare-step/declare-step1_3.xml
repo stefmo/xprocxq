@@ -2,7 +2,6 @@
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:mine="http://www.example.org/test/mine">
     
-<!-- should not evaluate this declare-step //-->
 <p:declare-step name="test1" type="mine:count">
     <p:input port="source" sequence="true"/>
     <p:output port="result" sequence="true"/>
@@ -17,7 +16,10 @@
 <mine:count>
     <p:input port="source">
         <p:inline>
-            <test/>
+            <root1/>
+        </p:inline>
+        <p:inline>
+            <root2/>
         </p:inline>
     </p:input>
 </mine:count>

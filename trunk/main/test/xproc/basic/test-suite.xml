@@ -390,6 +390,135 @@ xmlns:p="http://www.w3.org/ns/xproc"
          <xi:include href="result/compare4_1_1.xml"/>
     </t:output>
 </t:test>
+<!-- #################################################################### p:declare-step  //-->
+
+<t:test xml:id="declare-step1">
+<t:title>p:declare-step1</t:title>
+<t:description>defines a new step, mine:identity1, and invokes it</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="declare-step/declare-step1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/declare-step1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="declare-step1_1">
+<t:title>p:declare-step1_1</t:title>
+<t:description>declares a new step with no type or name and does not invoke it</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="declare-step/declare-step1_1.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/declare-step1_1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="declare-step1_2">
+<t:title>p:declare-step1_2</t:title>
+<t:description>tries to redeclare p:identity, should throw a static error XS0036</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="declare-step/declare-step1_2.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/declare-step1_2.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="declare-step1_3">
+<t:title>p:declare-step1_3</t:title>
+<t:description>declares a mine:count step, invokation overrides input port with 2 inline elements</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="declare-step/declare-step1_3.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/declare-step1_3.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="declare-step1_4">
+<t:title>p:declare-step1_4</t:title>
+<t:description>declares a mine:identity step, invokation binds input with pipeline source input</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="declare-step/declare-step1_4.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/declare-step1_4.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="declare-step1_6">
+<t:title>p:declaret-step1</t:title>
+<t:description>simple usage of p:declare-step as pipeline</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="declare-step/declare-step1_6.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/declare-step1.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="declare-step1_7">
+<t:title>p:declaret-step1_7</t:title>
+<t:description>declaration of p:declare-step as pipeline, should have empty output</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="declare-step/declare-step1_7.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/declare-step1_7.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="declare-step1_8">
+<t:title>p:declaret-step1_8</t:title>
+<t:description>declaration of p:declare-step with an option,as pipeline</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="declare-step/declare-step1_8.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/declare-step1_8.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="declare-step3">
+<t:title>p:declaret-step3</t:title>
+<t:description>import a pipeline declaration and invoke</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="declare-step/declare-step3.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/declare-step3.xml"/>
+    </t:output>
+</t:test>
 
 
 <!-- #################################################################### p:documentation  //-->
@@ -848,6 +977,23 @@ xmlns:p="http://www.w3.org/ns/xproc"
     </t:output>
 </t:test>
 
+
+<t:test xml:id="xs0036">
+<t:title>XS0036</t:title>
+<!-- will define a new error for this //-->
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>throw err:xs0036</t:description>
+    <t:input port="source">
+        <xi:include href="data/test.xml"/>
+    </t:input>
+    <t:pipeline >
+          <xi:include href="declare-step/declare-step1_2.xml"/>
+    </t:pipeline>
+    <t:output port='result'>
+         <xi:include href="result/declare-step1_2.xml"/>
+    </t:output>
+</t:test>
+
 <!-- #################################################################### dynamic error-codes  //-->
 
 <t:test xml:id="xd0002a">
@@ -880,5 +1026,6 @@ xmlns:p="http://www.w3.org/ns/xproc"
          <xi:include href="result/xd0002b.xml"/>
     </t:output>
 </t:test>
+
 
 </t:test-suite>
