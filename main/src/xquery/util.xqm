@@ -402,7 +402,7 @@ declare function util:step-fold( $pipeline,
                    ($outputs
                             ,<xproc:output
                                 step="{$steps[1]}"
-                                port="{$pipeline/*[@name=$steps[1]]/p:output[1]/@port}"
+                                port="{$pipeline//*[@name=$steps[1]]/p:output/@port}"
                                 func="{$stepfuncs[1]}">{$result}</xproc:output>)
                    )
 };
