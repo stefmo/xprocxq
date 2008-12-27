@@ -138,10 +138,10 @@ let $explicitnames :=
                                                             $step/p:output[@port=$binding/@port]/*
                                       },
 
-
                                 (: non-primary input and output :)
-                                (: TODO: need to handle attributes :)
-                                      $step/p:*[name(.)='p:input' or name(.)='p:output'][@primary='false']
+                                      $step/p:input
+                                      ,
+                                      $step/p:output
                                       ,
 
                                 (: match options with step definitions and generate p:with-option:)
@@ -243,7 +243,6 @@ return
         <p:pipeline xmlns:xproc="http://xproc.net/xproc" name="{if ($pipelinename eq '') then $unique_id else $pipelinename}" xproc:defaultname="{$unique_id}">
             { util:pipeline-step-sort($explicitnames,())}
         </p:pipeline>
-
 
 };
 
@@ -534,6 +533,9 @@ declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$resul
                                         util:dynamicError('err:XD0001',concat(" cannot bind to output port: ",$child/@port," step: ",$child/@step,' ',
 saxon:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>)))
 
+(: need to add p:pipe with @select option :)
+
+
                             else
                                 document{$primaryinput}
                         )
@@ -576,7 +578,7 @@ saxon:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes"
                                             $input/p:inline/node()
                                         }
                                     else
-                                        <xproc:warning message="xproc.xqm: generated automatically"/>                                            
+                                        <test/>
                        }</xproc:inputs>
 
     let $options :=<xproc:options>{

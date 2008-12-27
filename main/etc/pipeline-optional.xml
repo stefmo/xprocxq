@@ -80,7 +80,7 @@
       <p:input port="source" sequence="true" primary="true"/>
       <p:input port="query"  primary="false"/>
       <p:input port="parameters" kind="parameter"/>
-      <p:output port="result" sequence="true"/>
+      <p:output port="result" primary="true" sequence="true"/>
    </p:declare-step>
    <p:declare-step type="p:xsl-formatter" xml:id="xsl-formatter">
       <p:input port="source" primary="true"/>
