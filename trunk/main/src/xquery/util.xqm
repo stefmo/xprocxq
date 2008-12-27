@@ -8,6 +8,7 @@ declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
 
+(:todo - needed to resolve @select on p:input related to compile- to investigate why I need to add this xmlns:)
 declare namespace t="http://xproc.org/ns/testsuite";
 
 (: Other Namespace Declaration :)
@@ -153,6 +154,10 @@ declare function util:call($func,$a,$b,$c,$d) as item()*{
 
 declare function util:call($func,$a,$b,$c,$d,$e) as item()*{
     saxon:call($func,$a,$b,$c,$d,$e)
+};
+
+declare function util:call($func,$a,$b,$c,$d,$e,$f) as item()*{
+    saxon:call($func,$a,$b,$c,$d,$e,$f)
 };
 
 (: -------------------------------------------------------------------------- :)
@@ -391,7 +396,8 @@ declare function util:step-fold( $pipeline,
                               $stepfuncs[1],
                               $primaryinput,
                               $pipeline,
-                              $outputs)
+                              $outputs
+                              )
     return
 
         util:step-fold($pipeline,
@@ -403,7 +409,7 @@ declare function util:step-fold( $pipeline,
                             ,<xproc:output
                                 step="{$steps[1]}"
                                 port="{$pipeline//*[@name=$steps[1]]/p:output/@port}"
-                                func="{$stepfuncs[1]}">{$result}</xproc:output>)
+                                func="{$stepfuncs[1]}">{$result/*}</xproc:output>)
                    )
 };
 

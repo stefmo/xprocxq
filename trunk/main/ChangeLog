@@ -1,3 +1,347 @@
+2008-12-27 16:21  James.Fuller.2007
+
+	* generated.test-suite.xml, nbproject/project.xml,
+	  src/xquery/std.xqm, src/xquery/util.xqm, src/xquery/xproc.xqm,
+	  test, test/test-runner.xml:
+
+2008-12-23 21:39  James.Fuller.2007
+
+	* scratchpad, test-calabash: added svn:externals link to
+	  tests.xproc.org
+
+2008-12-23 20:04  James.Fuller.2007
+
+	* test/xproc/tests.xproc.org:
+
+2008-12-23 19:59  James.Fuller.2007
+
+	* test/xproc/tests.xproc.org:
+
+2008-12-23 19:56  James.Fuller.2007
+
+	* test/xproc/basic/compare/compare4_2_1.xml,
+	  test/xproc/basic/declare-step/declare-step1.xml,
+	  test/xproc/basic/declare-step/declare-step1_1.xml,
+	  test/xproc/basic/declare-step/declare-step1_2.xml,
+	  test/xproc/basic/declare-step/declare-step1_3.xml,
+	  test/xproc/basic/declare-step/declare-step1_4.xml,
+	  test/xproc/basic/declare-step/declare-step1_5.xml,
+	  test/xproc/basic/declare-step/declare-step1_6.xml,
+	  test/xproc/basic/declare-step/declare-step1_6_1.xml,
+	  test/xproc/basic/declare-step/declare-step1_7.xml,
+	  test/xproc/basic/declare-step/declare-step1_8.xml,
+	  test/xproc/basic/declare-step/declare-step2.xml,
+	  test/xproc/basic/declare-step/declare-step2_1.xml,
+	  test/xproc/basic/declare-step/declare-step2_2.xml,
+	  test/xproc/basic/declare-step/declare-step2_3.xml,
+	  test/xproc/basic/declare-step/declare-step3.xml,
+	  test/xproc/basic/delete/delete1_1.xml,
+	  test/xproc/basic/error-codes/xs0008.xml,
+	  test/xproc/basic/error-codes/xs0010a.xml,
+	  test/xproc/basic/error-codes/xs0010b.xml,
+	  test/xproc/basic/filter/filter1_4.xml,
+	  test/xproc/basic/filter/filter2.xml,
+	  test/xproc/basic/identity/identity1_2.xml,
+	  test/xproc/basic/identity/identity1_3.xml,
+	  test/xproc/basic/identity/identity1_4.xml,
+	  test/xproc/basic/identity/identity3.xml,
+	  test/xproc/basic/identity/identity4_4.xml,
+	  test/xproc/basic/inputs/inputs_1_4.xml,
+	  test/xproc/basic/inputs/inputs_2_1.xml,
+	  test/xproc/basic/inputs/inputs_2_4.xml,
+	  test/xproc/basic/inputs/inputs_3.xml,
+	  test/xproc/basic/test-suite.xml,
+	  test/xproc/basic/xquery/xquery2.xml,
+	  test/xproc/basic/xquery/xquery2_1.xml,
+	  test/xproc/basic/xslt/xslt2_1.xml: preparing for next code sync
+
+2008-12-23 19:48  James.Fuller.2007
+
+	* test/xproc/tests.xproc.org: preparing for next code sync
+
+2008-12-08 21:21  James.Fuller.2007
+
+	* etc/xproc-component.xml, scratchpad, src/xquery/ant.xqm,
+	  src/xquery/comp.xqm, src/xquery/const.xqm, src/xquery/ext.xqm,
+	  src/xquery/opt.xqm, src/xquery/std.xqm, src/xquery/util.xqm,
+	  src/xquery/xproc.xq, src/xquery/xproc.xqm,
+	  test/xproc/basic/declare-step/declare-step1.xml,
+	  test/xproc/basic/declare-step/declare-step1_1.xml,
+	  test/xproc/basic/declare-step/declare-step1_4.xml,
+	  test/xproc/basic/declare-step/declare-step2_2.xml,
+	  test/xproc/basic/declare-step/declare-step3.xml,
+	  test/xproc/basic/group/group1.xml: preparing for next code sync
+
+2008-11-17 19:19  James.Fuller.2007
+
+	* build.xml, etc/pipeline-extension.xml, etc/xproc-component.xml,
+	  scratchpad, src/xquery/comp.xqm, src/xquery/ext.xqm,
+	  src/xquery/std.xqm, src/xquery/util.xqm, src/xquery/xproc.xqm,
+	  test/xproc/README,
+	  test/xproc/basic/add-attribute/add-attribute1_1.xml,
+	  test/xproc/basic/data, test/xproc/basic/data/build.xml,
+	  test/xproc/basic/data/filter.xml,
+	  test/xproc/basic/data/not_well_formed.xml,
+	  test/xproc/basic/data/pipeline.xml,
+	  test/xproc/basic/data/schema-example.xml,
+	  test/xproc/basic/data/stylesheet.xml,
+	  test/xproc/basic/data/test.xml, test/xproc/basic/data/test1.xml,
+	  test/xproc/basic/data/test2.xml,
+	  test/xproc/basic/data/test_1.xml,
+	  test/xproc/basic/data/test_2.xml,
+	  test/xproc/basic/data/w3schema.xml,
+	  test/xproc/basic/data/xquery.xml,
+	  test/xproc/basic/declare-step/declare-step1.xml,
+	  test/xproc/basic/declare-step/declare-step1_1.xml,
+	  test/xproc/basic/declare-step/declare-step2.xml,
+	  test/xproc/basic/declare-step/declare-step2_1.xml,
+	  test/xproc/basic/declare-step/declare-step2_2.xml,
+	  test/xproc/basic/declare-step/declare-step2_3.xml,
+	  test/xproc/basic/declare-step/declare-step3.xml,
+	  test/xproc/basic/declare-step/declare-step3_1.xml,
+	  test/xproc/basic/misc/repeatedelements.xml,
+	  test/xproc/basic/misc/test1.xml,
+	  test/xproc/basic/store/store1_1.xml,
+	  test/xproc/basic/xprocxq/xproc1.xml,
+	  test/xproc/basic/xquery/xquery2.xml,
+	  test/xproc/basic/xquery/xquery4.xml, test/xproc/test-suite.xml:
+	  declare-step seems to work again
+
+2008-11-17 19:19  James.Fuller.2007
+
+	* test/xproc/basic/errors, test/xproc/basic/xproc-optional-steps,
+	  test/xproc/testsuite: declare-step seems to work again
+
+2008-10-29 19:27  James.Fuller.2007
+
+	* .backups, bin/xprocxq, etc/pipeline-optional.xml,
+	  etc/pipeline-standard.xml, src/xquery/ant.xqm,
+	  src/xquery/comp.xqm, src/xquery/ext.xqm, src/xquery/opt.xqm,
+	  src/xquery/std.xqm, src/xquery/util.xqm, src/xquery/xproc.xq,
+	  src/xquery/xproc.xqm, test/xproc/basic/test-suite.xml: fixed
+	  relative path in module import and bash entrypoint, fixed all
+	  secondary non primary input ports
+
+2008-10-29 12:47  James.Fuller.2007
+
+	* build.xml, etc/generate-calabash-script.xsl,
+	  etc/generate-xprocxq-script.xsl, scratchpad, src/xquery/std.xqm,
+	  test-xprocxq, test/data/text-file.xml,
+	  test/xproc/basic/error-codes/xd0002a.xml,
+	  test/xproc/basic/error-codes/xd0002b.xml,
+	  test/xproc/basic/error-codes/xs0010.xml,
+	  test/xproc/basic/error-codes/xs0010a.xml,
+	  test/xproc/basic/error-codes/xs0010b.xml,
+	  test/xproc/basic/inputs/inputs1.xml,
+	  test/xproc/basic/inputs/inputs_1.xml,
+	  test/xproc/basic/test-suite.xml,
+	  test/xproc/basic/unescape-markup/unescape-markup1_2.xml: adding
+	  error-codes to test suite, amended test suite scripts to redirect
+	  error output to stdout for now
+
+2008-10-28 21:26  James.Fuller.2007
+
+	* scratchpad, src/xquery/util.xqm, src/xquery/xproc.xqm,
+	  test/data/escaped.xml, test/data/text-file.xml,
+	  test/xproc/basic/inputs/inputs4.xml,
+	  test/xproc/basic/unescape-markup/unescape-markup1_2.xml:
+	  debugging unescape step
+
+2008-10-28 00:14  James.Fuller.2007
+
+	* etc/pipeline-standard.xml, scratchpad, src/xquery/std.xqm,
+	  src/xquery/util.xqm, src/xquery/xproc.xqm, test/data/test3.xml,
+	  test/xproc/basic/error-codes/xs0010.xml,
+	  test/xproc/basic/error-codes/xs0018.xml,
+	  test/xproc/basic/error-codes/xs0044.xml,
+	  test/xproc/basic/escape-markup/escape-markup1.xml,
+	  test/xproc/basic/unescape-markup,
+	  test/xproc/basic/unescape-markup/unescape-markup1.xml,
+	  test/xproc/basic/unescape-markup/unescape-markup1_1.xml: first
+	  cut implementation of escape and unescape steps
+
+2008-10-27 21:51  James.Fuller.2007
+
+	* etc/pipeline-standard.xml: added required and select error
+	  handling
+
+2008-10-27 21:51  James.Fuller.2007
+
+	* etc/pipeline-standard.xml, src/xquery/xproc.xqm,
+	  test/xproc/basic/count/count1.xml: added required and select
+	  error handling
+
+2008-10-27 21:27  James.Fuller.2007
+
+	* bin/xprocxq, build.xml, etc/pipeline-standard.xml,
+	  src/xquery/xproc.xqm, test/xproc/basic/count/count1.xml,
+	  test/xproc/basic/error-codes,
+	  test/xproc/basic/error-codes/xs0010.xml,
+	  test/xproc/basic/error-codes/xs0027.xml:
+
+2008-10-27 18:36  James.Fuller.2007
+
+	* bin/xprocxq, build.xml, generated.test-suite.xml, scratchpad,
+	  src/xquery/util.xqm, src/xquery/xproc.xqm,
+	  test/xproc/basic/count/count1_1.xml,
+	  test/xproc/basic/identity/identity2.xml: preping for submitting
+	  xprocxq basic test suite
+
+2008-10-26 20:52  James.Fuller.2007
+
+	* scratchpad, src/xquery/std.xqm, src/xquery/util.xqm,
+	  src/xquery/xproc.xqm, test/xproc/basic/filter/filter1_3.xml,
+	  test/xproc/basic/filter/filter1_4.xml: preparing for implementing
+	  validation of step signatures
+
+2008-10-25 19:56  James.Fuller.2007
+
+	* bin/xprocxq, etc/pipeline-standard.xml, src/xquery/comp.xqm,
+	  src/xquery/const.xqm, src/xquery/std.xqm, src/xquery/util.xqm,
+	  src/xquery/xproc.xqm, test/xproc/basic/add-attribute,
+	  test/xproc/basic/add-attribute/add-attribute1.xml,
+	  test/xproc/basic/add-xml-base,
+	  test/xproc/basic/add-xml-base/add-xml-base1.xml,
+	  test/xproc/basic/add-xml-base/add-xml-base1_1.xml,
+	  test/xproc/basic/choose/choose1.xml,
+	  test/xproc/basic/compare/compare1.xml,
+	  test/xproc/basic/compare/compare1_3.xml,
+	  test/xproc/basic/compare/compare2.xml,
+	  test/xproc/basic/compare/compare4_2.xml,
+	  test/xproc/basic/delete/delete1.xml,
+	  test/xproc/basic/delete/delete1_1.xml,
+	  test/xproc/basic/escape-markup,
+	  test/xproc/basic/escape-markup/escape-markup1.xml,
+	  test/xproc/basic/for-each, test/xproc/basic/group,
+	  test/xproc/basic/http-request,
+	  test/xproc/basic/http-request/http-request1.xml,
+	  test/xproc/basic/insert/insert1.xml, test/xproc/basic/library,
+	  test/xproc/basic/misc/example3.xml, test/xproc/basic/try,
+	  test/xproc/basic/viewport: adding impartial steps
+
+2008-10-24 09:40  James.Fuller.2007
+
+	* LOC: adding LOC
+
+2008-10-22 20:53  James.Fuller.2007
+
+	* .backups, .backups/emacs, README, compare.sh, scratchpad,
+	  src/xquery/const.xqm, src/xquery/opt.xqm, src/xquery/std.xqm,
+	  src/xquery/util.xqm, src/xquery/xproc.xqm, test-calabash,
+	  test-xprocxq, test/xproc/basic/compare/compare1.xml,
+	  test/xproc/basic/compare/compare4_1.xml,
+	  test/xproc/basic/compare/compare4_1_1.xml,
+	  test/xproc/basic/compare/compare4_1_2.xml,
+	  test/xproc/basic/inputs/inputs_1_2.xml,
+	  test/xproc/basic/misc/example2.xml,
+	  test/xproc/basic/test-suite.xml: 1st stage refactoring of error
+	  handling
+
+2008-10-19 19:57  James.Fuller.2007
+
+	* test/xproc/basic/filter/filter3.xml,
+	  test/xproc/basic/inputs/inputs_1_1.xml,
+	  test/xproc/basic/inputs/inputs_1_2.xml,
+	  test/xproc/basic/inputs/inputs_1_4.xml,
+	  test/xproc/basic/inputs/inputs_1_4_1.xml,
+	  test/xproc/basic/inputs/inputs_1_4_2.xml,
+	  test/xproc/basic/inputs/inputs_1_4_3.xml,
+	  test/xproc/basic/inputs/inputs_2.xml,
+	  test/xproc/basic/inputs/inputs_2_1.xml,
+	  test/xproc/basic/inputs/inputs_2_2.xml,
+	  test/xproc/basic/inputs/inputs_2_3.xml,
+	  test/xproc/basic/inputs/inputs_2_4.xml: adjusted inputs unit
+	  tests ... lots of work still there to test things
+
+2008-10-19 19:45  James.Fuller.2007
+
+	* src/xquery/std.xqm, src/xquery/util.xqm,
+	  test/xproc/basic/compare/compare4.xml,
+	  test/xproc/basic/directory-list/dirlist1.xml,
+	  test/xproc/basic/directory-list/dirlist1_1.xml,
+	  test/xproc/basic/filter/filter2.xml: change contains to matches
+	  for testing quotes around p:with-option select statements
+
+2008-10-19 19:32  James.Fuller.2007
+
+	* properties.xml, scratchpad, src/xquery/opt.xqm,
+	  src/xquery/std.xqm, src/xquery/xproc.xqm,
+	  test/xproc/basic/choose/choose1.xml,
+	  test/xproc/basic/choose/choose1_1.xml,
+	  test/xproc/basic/compare/compare1_1.xml,
+	  test/xproc/basic/compare/compare1_2.xml,
+	  test/xproc/basic/compare/compare3.xml,
+	  test/xproc/basic/compare/compare3_1.xml,
+	  test/xproc/basic/compare/compare3_1_1.xml,
+	  test/xproc/basic/identity/identity1_3.xml,
+	  test/xproc/basic/identity/identity4.xml,
+	  test/xproc/basic/identity/identity4_5.xml, wrap.sh: fixed
+	  p:compare
+
+2008-10-19 17:44  James.Fuller.2007
+
+	* src/xquery/std.xqm, test/xproc/basic/count/count1_1.xml,
+	  test/xproc/basic/count/count1_3.xml,
+	  test/xproc/basic/count/count1_3_2.xml,
+	  test/xproc/basic/count/count1_4.xml,
+	  test/xproc/basic/count/count3_1.xml,
+	  test/xproc/basic/xquery/xquery3.xml,
+	  test/xproc/basic/xquery/xquery3_1.xml,
+	  test/xproc/basic/xslt/xslt1.xml,
+	  test/xproc/basic/xslt/xslt1_1.xml,
+	  test/xproc/basic/xslt/xslt2.xml: fixed p:count, still ruminating
+	  on p:declare-step refactoring of top level ports
+
+2008-10-19 17:28  James.Fuller.2007
+
+	* TODO, src/xquery/std.xqm, src/xquery/util.xqm,
+	  src/xquery/xproc.xqm, test/xproc/basic/count/count1.xml,
+	  test/xproc/basic/filter/filter1_2.xml,
+	  test/xproc/basic/unwrap/unwrap1_1.xml,
+	  test/xproc/basic/wrap/wrap1.xml,
+	  test/xproc/basic/wrap/wrap1_1.xml,
+	  test/xproc/basic/wrap/wrap1_2.xml,
+	  test/xproc/basic/wrap/wrap1_3.xml,
+	  test/xproc/basic/wrap/wrap1_4.xml,
+	  test/xproc/basic/wrap/wrap1_5.xml,
+	  test/xproc/basic/wrap/wrap2.xml,
+	  test/xproc/basic/wrap/wrap2_1.xml,
+	  test/xproc/basic/wrap/wrap3.xml,
+	  test/xproc/basic/wrap/wrap3_1.xml, test/xproc/result, wrap.sh:
+	  created util:get-option to facilitate extraction of options
+
+2008-10-19 13:23  James.Fuller.2007
+
+	* ChangeLog, src/xquery/xproc.xqm, test/xquery/preparse.xq:
+	  generated changelog, minor changes in README for unit test
+	  results
+
+2008-10-19 12:15  James.Fuller.2007
+
+	* reports/README, reports/result-baseline-test.html,
+	  reports/result-comp-test.html, reports/result-core-test.html,
+	  reports/result-ext-test.html, reports/result-opt-test.html,
+	  reports/result-preparse-test.html,
+	  reports/result-preparse-test_1.html,
+	  reports/result-std-test.html: added correct mimetype
+
+2008-10-19 12:10  James.Fuller.2007
+
+	* reports/result-baseline-test.html, reports/result-comp-test.html,
+	  reports/result-core-test.html, reports/result-ext-test.html,
+	  reports/result-opt-test.html,
+	  reports/result-preparse-test_1.html,
+	  reports/result-std-test.html: genereted new xquery unit test
+	  results
+
+2008-10-19 12:04  James.Fuller.2007
+
+	* TODO, build.xml, etc/generate-calabash-script.xsl,
+	  etc/generate-test-script.xsl, etc/generate-xprocxq-script.xsl,
+	  src/xquery/xproc.xqm, test-calabash, test-xprocxq: creating
+	  revised testrunner based on simple xslt transform on
+	  testsuite.xml
+
 2008-10-19 11:58  James.Fuller.2007
 
 	* test/xproc/basic, test/xproc/basic/compare/compare1.xml,
