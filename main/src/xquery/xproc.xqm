@@ -463,12 +463,11 @@ declare function xproc:parse_and_eval($xproc as item(),$stdin as item()) {
                        $stepfunc,
                        saxon:function("xproc:evalstep", 5),
                        $stdin,
-                       (
-                        <xproc:output
+                       (<xproc:output
                                 step="{if ($steps[1] = '|') then '!1|' else $steps[1]}"
                                 port="stdin"
-                                func="{$pipeline/@type}">{$stdin}</xproc:output>
-                        ))
+                                func="{$pipeline/@type}">{$stdin}</xproc:output>)
+                        )
 };
 
 
@@ -491,7 +490,7 @@ declare function xproc:output($result,$dflag){
 
 (: -------------------------------------------------------------------------- :)
 (: runtime evaluation of xproc steps; throwing dynamic errors and writing output along the way :)
-declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$resulttree) {
+declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$outputs) {
 
     let $stepfunc := concat($const:default-imports,$stepfunc1)
 
@@ -525,7 +524,7 @@ declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$resul
 
                             else if ($child/@port) then
 
-                                let $result := document {$resulttree}
+                                let $result := document {$outputs}
                                     return
                                     if ($result/xproc:output[@port=$child/@port][@step=$child/@step]) then
                                         $result/xproc:output[@port=$child/@port][@step=$child/@step]/*
@@ -589,28 +588,31 @@ saxon:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes"
                               $pipeline/*[@name=$step]/p:output
                        }
                        </xproc:outputs>
+
     return
 
-    (: handle p:declare-step component/step:)
+    (: TODO -- handle p:declare-step component/step:)
     if (name($currentstep) eq 'p:declare-step') then
         xproc:run(
             document{<p:pipeline name="pipeline|{$currentstep/@xproc:defaultname}"
                 xmlns:p="http://www.w3.org/ns/xproc">{$currentstep/node()}</p:pipeline>},$primary,'0','0')
 
-(:
+(: TODO ----------------------------------------------------------------------------------------
     else if(name($currentstep) eq 'ext:xproc') then
         xproc:run(
             document{<p:pipeline name="pipeline|{$currentstep/@xproc:defaultname}"
                 xmlns:p="http://www.w3.org/ns/xproc">{$pipeline//p:declare-step[@type=$currentstep/@type]}</p:pipeline>},$primary,'0','0')
-:)
+     ---------------------------------------------------------------------------------------- :)
 
     else
-        util:call(
+        (: call the actual step function :)
+        (util:call(
                    util:xquery($stepfunc),
                    $primary,
                    $secondary,
                    $options
                   )
+        )
 
 
 };
