@@ -90,7 +90,7 @@
             </compilation-unit>
             <compilation-unit>
                 <package-root>src</package-root>
-                <classpath mode="compile">lib/net:lib/saxon9/saxon9sa.jar:/Users/jimfuller/Source/Thirdparty/ant/dist/lib/ant.jar:/Users/jimfuller/Source/Thirdparty/ant/dist/lib/xercesImpl.jar:/Users/jimfuller/Source/Thirdparty/ant/dist/lib/xml-apis.jar</classpath>
+                <classpath mode="compile">lib/net:/Users/jimfuller/Source/Thirdparty/ant/dist/lib/ant.jar:/Users/jimfuller/Source/Thirdparty/ant/dist/lib/xercesImpl.jar:/Users/jimfuller/Source/Thirdparty/ant/dist/lib/xml-apis.jar:lib/saxon9sa/saxon9-dom.jar:lib/saxon9sa/saxon9-dom4j.jar:lib/saxon9sa/saxon9-jdom.jar:lib/saxon9sa/saxon9-s9api.jar:lib/saxon9sa/saxon9-sql.jar:lib/saxon9sa/saxon9-xom.jar:lib/saxon9sa/saxon9-xpath.jar:lib/saxon9sa/saxon9-xqj.jar:lib/saxon9sa/saxon9.jar:lib/saxon9sa/saxon9sa-jaxp.jar:lib/saxon9sa/saxon9sa-qc.jar:lib/saxon9sa/saxon9sa.jar</classpath>
                 <source-level>1.5</source-level>
             </compilation-unit>
         </java-data>

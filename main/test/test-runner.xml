@@ -1,0 +1,17 @@
+ <p:declare-step name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc"
+            xmlns:t="http://xproc.org/ns/testsuite"
+            xmlns:c="http://www.w3.org/ns/xproc-step">
+
+<p:input port="source" select="//t:input[@port='source']"/>
+<p:input port="pipeline" select="//t:pipeline/*"/>
+
+<p:output port="result"/>
+
+   <p:identity name="">
+    <p:input port="source">
+        <p:pipe step="pipeline" port="source"/>
+    </p:input>
+   </p:identity>
+   
+</p:declare-step>
