@@ -181,28 +181,28 @@
       <p:option name="replace" required="true"/>
    </p:declare-step>
    <p:declare-step type="p:unescape-markup" xml:id="unescape-markup">
-      <p:input port="source"/>
-      <p:output port="result"/>
+      <p:input port="source" primary="true"/>
+      <p:output port="result" primary="true"/>
       <p:option name="namespace"/>
       <p:option name="content-type" select="'application/xml'"/>
       <p:option name="encoding"/>
       <p:option name="charset" select="'UTF-8'"/>
    </p:declare-step>
    <p:declare-step type="p:unwrap" xml:id="unwrap">
-      <p:input port="source"/>
-      <p:output port="result"/>
+      <p:input port="source" primary="true"/>
+      <p:output port="result" primary="true"/>
       <p:option name="match" required="true"/>
    </p:declare-step>
    <p:declare-step type="p:wrap" xml:id="wrap">
-      <p:input port="source"/>
-      <p:output port="result"/>
+      <p:input port="source" primary="true"/>
+      <p:output port="result" primary="true"/>
       <p:option name="wrapper" required="true"/>
       <p:option name="match" required="true"/>
       <p:option name="group-adjacent"/>
    </p:declare-step>
    <p:declare-step type="p:wrap-sequence" xml:id="wrap-sequence">
-      <p:input port="source" sequence="true"/>
-      <p:output port="result" sequence="true"/>
+      <p:input port="source" sequence="true" primary="true"/>
+      <p:output port="result" sequence="true" primary="true"/>
       <p:option name="wrapper" required="true"/>
       <p:option name="group-adjacent"/>
    </p:declare-step>
@@ -217,7 +217,7 @@
       <p:input port="stylesheet" primary="false"/>
       <p:input port="parameters" primary="false" kind="parameter"/>
       <p:output port="result" primary="true"/>
-      <p:output port="secondary" sequence="true"/>
+      <p:output port="secondary" primary="false" sequence="true"/>
       <p:option name="initial-mode"/>
       <p:option name="template-name"/>
       <p:option name="output-base-uri"/>

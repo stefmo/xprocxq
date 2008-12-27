@@ -24,7 +24,7 @@ import module namespace const = "http://xproc.net/xproc/const"
                         at "const.xqm";
 
 (: set to 1 to enable debugging :)
-declare variable $util:NDEBUG :=1;
+declare variable $util:NDEBUG :=0;
 
 (: -------------------------------------------------------------------------- :)
 declare function util:help() as xs:string {
@@ -344,7 +344,7 @@ declare function util:pipeline-step-sort($unsorted, $sorted )   {
     if (empty($unsorted))      
        then $sorted 
     else
-       let $allnodes := $unsorted [ every $step in p:input/p:pipe/@step 
+       let $allnodes := $unsorted [ every $step in p:*/p:input/p:pipe/@step 
                                                     satisfies $step = $sorted/@name]
        return 
            util:pipeline-step-sort( $unsorted except $allnodes, 
