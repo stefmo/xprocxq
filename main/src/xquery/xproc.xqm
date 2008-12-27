@@ -121,7 +121,7 @@ let $explicitnames :=
                         element {node-name($step)} {                                                                                                                                                                                                      attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
                              (
                                 (: primary input and output:)
-                                for $binding in $allstep/p:*[name(.)='p:input' or name(.)='p:output'][not(@primary) or @primary="true"]
+                                for $binding in $allstep/p:*[name(.)='p:input' or name(.)='p:output'][@primary='true']
                                     return
                                       element {name($binding)}{
                                          attribute port{$binding/@port},
@@ -141,7 +141,7 @@ let $explicitnames :=
 
                                 (: non-primary input and output :)
                                 (: TODO: need to handle attributes :)
-                                      $step/p:*[name(.)='p:input' or name(.)='p:output'][@primary="false"]
+                                      $step/p:*[name(.)='p:input' or name(.)='p:output'][@primary='false']
                                       ,
 
                                 (: match options with step definitions and generate p:with-option:)
@@ -390,13 +390,13 @@ declare function xproc:port-fixup($xproc as item()){
         <p:pipeline name="{$xproc/@name}">
             <ext:pre name="{$xproc/@name}|">
 {
-        <p:input port="source" primary="true"/>,
-        <p:output port="result" primary="true"/>,
-        $xproc/p:input[not(@primary)],
-        $xproc/p:output[not(@primary)]
+        <p:input port="source" select="{$xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/p:input[@port='source']/@select}"/>,
+        <p:output port="result" select="{$xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/p:output[@port='result']/@select}"/>,
+        $xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/p:input[not(@port='source')],
+        $xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/p:output[not(@port='result')]
 }
             </ext:pre>
-            {$xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declere-step"]/*[not(name(.)="p:input")][not(name(.)="p:output")]}
+            {$xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/*[not(name(.)="p:input")][not(name(.)="p:output")]}
 
             <ext:post/>
 </p:pipeline>
@@ -500,7 +500,7 @@ declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$resul
 
     let $primary := (
 
-                    if ( exists($currentstep/p:input[@primary="true"]/*)) then
+                    if ( exists($currentstep/p:input[@primary="true"][@select='/']/*)) then
                        for $child in $currentstep/p:input[@primary="true"]/*
                        return
                        (
@@ -579,7 +579,6 @@ saxon:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes"
                                         <xproc:warning message="xproc.xqm: generated automatically"/>                                            
                        }</xproc:inputs>
 
-
     let $options :=<xproc:options>{
                               $pipeline/*[@name=$step]/p:with-option
                        }</xproc:options>
@@ -596,10 +595,12 @@ saxon:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes"
             document{<p:pipeline name="pipeline|{$currentstep/@xproc:defaultname}"
                 xmlns:p="http://www.w3.org/ns/xproc">{$currentstep/node()}</p:pipeline>},$primary,'0','0')
 
+(:
     else if(name($currentstep) eq 'ext:xproc') then
         xproc:run(
             document{<p:pipeline name="pipeline|{$currentstep/@xproc:defaultname}"
                 xmlns:p="http://www.w3.org/ns/xproc">{$pipeline//p:declare-step[@type=$currentstep/@type]}</p:pipeline>},$primary,'0','0')
+:)
 
     else
         util:call(
@@ -629,18 +630,18 @@ declare function xproc:run($pipeline,$input,$dflag,$tflag){
 
     let $end-time := util:timing()
 
+    let $dbg :=0
+
     return
-(:
-    xproc:explicitbindings(
-          xproc:explicitnames(
-                xproc:port-fixup(
-                      xproc:import-fixup($pipeline)
-                )
-          ,$const:init_unique_id)
-    )
+    if ($dbg eq 1) then
 
+              xproc:explicitnames(
+                    xproc:port-fixup(
+                          xproc:import-fixup($pipeline)
+                    )
+              ,$const:init_unique_id)
 
-:)
+    else
     (
      if ($tflag="1") then
             document
@@ -657,5 +658,7 @@ declare function xproc:run($pipeline,$input,$dflag,$tflag){
                 $serialized_result
                 }
     )
+
+
 
 };

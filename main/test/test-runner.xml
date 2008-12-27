@@ -3,15 +3,10 @@
             xmlns:t="http://xproc.org/ns/testsuite"
             xmlns:c="http://www.w3.org/ns/xproc-step">
 
-<p:input port="source" select="//t:title"/>
-<p:input port="pipeline" select="//t:title"/>
+<p:input port="source" primary="true" select="//t:title"/>
+<p:input port="pipeline" primary="false" select="//t:title"/>
+<p:output port="result" primary="true"/>
 
-<p:output port="result"/>
-
-   <p:identity>
-    <p:input port="source">
-        <p:pipe step="pipeline" port="source"/>
-    </p:input>
-   </p:identity>
+   <p:identity/>
    
 </p:declare-step>
