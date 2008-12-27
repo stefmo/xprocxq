@@ -12,7 +12,6 @@ declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
 declare namespace xproc = "http://xproc.net/xproc";
 
-
 (: Module Imports :)
 import module namespace util = "http://xproc.net/xproc/util"
                         at "util.xqm";

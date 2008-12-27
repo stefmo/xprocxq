@@ -8,6 +8,8 @@ declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
 
+declare namespace t="http://xproc.org/ns/testsuite";
+
 (: Other Namespace Declaration :)
 declare namespace saxon="http://saxon.sf.net/";
 declare namespace jt="http://net.sf.saxon/java-type";
