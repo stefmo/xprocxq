@@ -3,12 +3,12 @@
             xmlns:t="http://xproc.org/ns/testsuite"
             xmlns:c="http://www.w3.org/ns/xproc-step">
 
-<p:input port="source" select="//t:input[@port='source']"/>
-<p:input port="pipeline" select="//t:pipeline/*"/>
+<p:input port="source" select="//t:title"/>
+<p:input port="pipeline" select="//t:title"/>
 
 <p:output port="result"/>
 
-   <p:identity name="">
+   <p:identity>
     <p:input port="source">
         <p:pipe step="pipeline" port="source"/>
     </p:input>
