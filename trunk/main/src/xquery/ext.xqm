@@ -26,7 +26,7 @@ declare variable $ext:xproc :=saxon:function("ext:xproc", 3);
 
 (: -------------------------------------------------------------------------- :)
 declare function ext:pre($primary,$secondary,$options){
-   $primary[1]
+   $primary
 };
 declare function ext:step($primary,$secondary,$options) as item()* {
     $primary
