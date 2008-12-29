@@ -148,7 +148,7 @@ let $fail-if-not-equal := util:boolean($options/p:with-option[@name='fail-if-not
 
 (: -------------------------------------------------------------------------- :)
 declare function std:declare-step($primary,$secondary,$options) {
-<test/>
+<declare-step-test/>
 
 };
 
@@ -216,10 +216,12 @@ let $result := util:evalXPATH(string($xpath),$v)
             $xpath
 };
 
+
 (: -------------------------------------------------------------------------- :)
 declare function std:http-request($primary,$secondary,$options) {
     $primary
 };
+
 
 (: -------------------------------------------------------------------------- :)
 declare function std:identity($primary,$secondary,$options) {

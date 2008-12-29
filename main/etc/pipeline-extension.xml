@@ -9,9 +9,8 @@
     </p:declare-step>                        
                         
 <!-- top level inputs //-->
-    <p:declare-step type="ext:pre">
+    <p:declare-step type="ext:pre" xproc:input="true" xproc:output="true">
         <p:input port="source" primary="true"/>
-        <p:input port="pipeline" primary="false"/>
         <p:output port="result" primary="true"/>
     </p:declare-step>
 

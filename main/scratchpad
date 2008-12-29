@@ -1,3 +1,8 @@
+* how to bind data from the outside world ? = restriction means top level input/outputs must be
+explicitly defined with p:document or p:inline except for stdin
+
+* empty stdin defaults to defined p:pipe,p:inline,p:document,p:data
+
 * p:declare-step requires input/output port definition
 
 * p:pipeline defines default input/output ports with sequence="false"
