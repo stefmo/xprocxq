@@ -12,7 +12,7 @@
 
    <p:identity/>
 
-<!--
+
 <p:identity name="mystep1">
        <p:input port="source">
            <p:inline>
@@ -21,6 +21,7 @@
        </p:input>
 </p:identity>
 
+<!--
 
 <p:identity name="mystep2">
        <p:input port="source">

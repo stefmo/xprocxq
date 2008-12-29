@@ -403,21 +403,20 @@ declare function xproc:import-fixup($xproc as item()){
 declare function xproc:port-fixup($xproc as item(),$stdin){
 
         <p:pipeline name="{$xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/@name}">
-            <ext:pre name="{$xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/@name}|">
-{
-        <p:input port="source" select="{$xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/p:input[@port='source']/@select}">
-        {if($stdin) then
-            <p:pipe step="{$xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/@name}|" port="stdin"/>
-        else
-            $xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/p:input[@port='source']/*
-        }
-        </p:input>,
+            <ext:pre>
+            {
+            <p:input port="source" select="{$xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/p:input[@port='source']/@select}">
+            {if($stdin) then
+                <p:pipe step="{$xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/@name}" port="stdin"/>
+            else
+                $xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/p:input[@port='source']/*
+            }
+            </p:input>,
 
-
-        <p:output port="result" select="{$xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/p:output[@port='result']/@select}"/>,
-        $xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/p:input[not(@port='source')],
-        $xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/p:output[not(@port='result')]
-}
+            <p:output port="result" select="{$xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/p:output[@port='result']/@select}"/>,
+            $xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/p:input[not(@port='source')],
+            $xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/p:output[not(@port='result')]
+            }
             </ext:pre>
             {$xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/*[not(name(.)="p:input")][not(name(.)="p:output")]}
 
@@ -430,28 +429,25 @@ declare function xproc:port-fixup($xproc as item(),$stdin){
 (: Preparse pipeline XML, sorting steps by input, throwing some static errors :)
 (: apply explicitnames then explicitbindings :)
 (: -------------------------------------------------------------------------- :)
-declare function xproc:preparse($xproc as item(),$stdin){
-
+declare function xproc:preparse($pipeline as item(),$stdin){
     xproc:explicitbindings(
           xproc:explicitnames(
                 xproc:port-fixup(
-                      xproc:import-fixup($xproc)
+                      xproc:import-fixup($pipeline)
                 ,$stdin)
           ,$const:init_unique_id)
     )
-
 };
 
 
 (: -------------------------------------------------------------------------- :)
 (: Generate xquery steps sequence :)
 declare function xproc:gensteps1($steps) as xs:string* {
-
     for $step in $steps/*[not(name()='p:documentation')] 
     return
         let $name := $step/@name
         return
-             $name                            
+            $name
 };
 
 
@@ -460,18 +456,18 @@ declare function xproc:gensteps1($steps) as xs:string* {
 (: Generate xquery function sequence :)
 declare function xproc:gensteps2($steps) as xs:string*
 {
-
     for $step in $steps/*[not(name()='p:documentation')] 
     return
         let $func := concat("$",$step/@xproc:type,":",local-name($step))
         return
-             $func
+            $func
 };
 
 
 declare function xproc:parse($xproc as item(),$stdin as item()) {
     xproc:parse_and_eval($xproc,$stdin)
 };
+
 
 (: -------------------------------------------------------------------------- :)
 (: Parse pipeline XML, generating xquery code, throwing some static errors if neccesary :)
@@ -545,6 +541,10 @@ declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$outpu
                                      else
                                            util:dynamicError('err:XD0002',concat(" p:data cannot access document ",$child/@href))
 
+                            else if ($child/@port eq 'stdin' and $child/@step eq $pipeline/@name) then
+                                let $result := document {$outputs}
+                                    return
+                                      $result/xproc:output[@port='stdin'][@step=$currentstep/@name]/*
                             else if ($child/@port) then
 
                                 let $result := document {$outputs}
@@ -552,6 +552,8 @@ declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$outpu
                                     if ($result/xproc:output[@port=$child/@port][@step=$child/@step]) then
                                         $result/xproc:output[@port=$child/@port][@step=$child/@step]/*
                                     else
+
+
 (:
 <piperesult step="{$child/@step}" port="{$child/@port}"/>
 :)
@@ -659,16 +661,12 @@ declare function xproc:run($pipeline,$stdin,$dflag,$tflag){
 
     let $end-time := util:timing()
 
-    let $dbg :=0
+    let $dbg :=1
 
     return
     if ($dbg eq 1) then
 
-          xproc:explicitnames(
-                xproc:port-fixup(
-                      xproc:import-fixup($pipeline)
-                ,'')
-          ,$const:init_unique_id)
+        $eval_result
  
     else
     (
