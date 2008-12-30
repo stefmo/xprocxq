@@ -512,76 +512,62 @@ declare function xproc:output($result,$dflag){
 declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$outputs) {
 
     let $stepfunc := concat($const:default-imports,$stepfunc1)
-
+    let $result := document{$outputs}
     let $currentstep := $pipeline/*[@name=$step]
 
     let $primary := (
 
-                    if ( exists($currentstep/p:input[@primary="true"][@select='/']/*)) then
-                       for $child in $currentstep/p:input[@primary="true"]/*
+                       for $child in $currentstep/p:input/*
                        return
-                       (
+
+                        let $primaryresult := document{
                             if(name($child)='p:empty') then
                                 (<!-- returned empty //-->)
 
-                            else if(name($child)='p:inline') then
+(: inline :)                else if(name($child)='p:inline') then
                                 $child/*
 
-                            else if(name($child)='p:document') then
-
+(: document :)              else if(name($child)='p:document') then
                                      if (doc-available($child/@href)) then
                                            doc($child/@href)
                                      else
                                            util:dynamicError('err:XD0002',concat(" p:document cannot access document ",$child/@href))
 
-                            else if(name($child)='p:data') then
-
+(: data :)                  else if(name($child)='p:data') then
                                      if ($child/@href) then
                                              util:unparsed-text($child/@href,'text/plain')
                                      else
                                            util:dynamicError('err:XD0002',concat(" p:data cannot access document ",$child/@href))
 
-                            else if ($child/@port eq 'stdin' and $child/@step eq $pipeline/@name) then
-                                let $result := document {$outputs}
-                                    return
+(: stdin :)                 else if ($child/@port eq 'stdin' and $child/@step eq $pipeline/@name) then
                                       $result/xproc:output[@port='stdin'][@step=$currentstep/@name]/*
-                            else if ($child/@port) then
 
-                                let $result := document {$outputs}
-                                    return
+(: prmy top level input :)  else if ($child/@port eq 'source' and $child/@step eq $pipeline/@name) then
+                                      $result/xproc:output[@port='result'][@step='!1.1']/*
+
+(: top level input :)       else if ($child/@step eq $pipeline/@name) then
+                                      $result/xproc:output[@port='result'][@step='!1.1']/xproc:inputs/p:input[@port=$child/@port]
+
+                            else if ($child/@port) then
                                     if ($result/xproc:output[@port=$child/@port][@step=$child/@step]) then
                                         $result/xproc:output[@port=$child/@port][@step=$child/@step]/*
                                     else
-
-
-(:
-<piperesult step="{$child/@step}" port="{$child/@port}"/>
-:)
                                         util:dynamicError('err:XD0001',concat(" cannot bind to port: ",$child/@port," step: ",$child/@step,' ',
 saxon:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>)))
 
-
-
-(: need to add p:pipe with @select option :)
-
-
                             else
                                 document{$primaryinput}
-                        )
+                        }
 
-                    else
-
-                        if ($pipeline/*[@name=$step]/p:input[@primary='true'][not(@select='/')]) then
-
-                           let $selectval :=util:evalXPATH(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select),
-                                                           $primaryinput)
+(:NEEEEEEDS WOOOORK :)
+                           let $selectval :=util:evalXPATH(string($pipeline/*[@name=$step]/p:input[@primary='[@select]/@select),$primaryresult)
                            return
                                 if (empty($selectval)) then
                                     util:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
                                 else
                                     $selectval
-                        else
-                               $primaryinput
+                        
+
                 )
 
 
