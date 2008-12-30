@@ -3,23 +3,19 @@
             xmlns:t="http://xproc.org/ns/testsuite"
             xmlns:c="http://www.w3.org/ns/xproc-step">
 
-<p:input port="source" primary="true"/>
+<p:input port="source" primary="true" select="/"/>
 
-<p:input port="style" primary="false">
+<p:input port="style" primary="false" select="//a">
     <p:document href="file:test/data/test2.xml"/>
 </p:input>
 <p:output port="result" primary="true"/>
 
-   <p:identity/>
-
-
-<p:identity name="mystep1">
+<p:identity name="mystep2">
        <p:input port="source">
-           <p:inline>
-                <a>test1</a>
-           </p:inline>
+           <p:pipe step="pipeline" port="style"/>
        </p:input>
 </p:identity>
+
 
 <!--
 
