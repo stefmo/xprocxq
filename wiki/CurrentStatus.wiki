@@ -1,4 +1,4 @@
-22/11/2008  working out some very tricky and deep bugs, just got through a 2 week bug hunt, I hope this means a release is soon
+31/12/2008 refactored all of the port bindings ... which has had an impact everywhere ... tracking and fixing
 
 == Changelog ==
 
@@ -18,12 +18,11 @@ There are many issues to list .... so I will just highlight the major ones;
 
   * depends on one having bought Michael Kay's [http://www.saxonica.com Saxon-SA]  XSLT/XQUERY processor ... as dependent on SA version and even then it does very little ;)
 
-  * sync all error messages
+  * error messages are not in sync
 
-  * working on subpipelines, imports and libraries and related issues such as precedence, etc
+  * still working on subpipelines, imports and libraries and related issues such as precedence, etc
 
-  * fixing non primary input/output handling
-
+  * pipeline bindings must explicitly declare @primary 
 
 This example pipeline, using p:identity step
 
@@ -59,7 +58,6 @@ _Note: Looking at the current trunk/TODO file will help you determine what I am 
 
 Looks like this for now.
 
-  * update testsuite
   * implement all standard steps
   * implement optional & extension steps
   * ensure static and dynamic error checking is working properly
