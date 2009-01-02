@@ -59,18 +59,18 @@ declare variable $const:init_unique_id :="!1";
 (: -------------------------------------------------------------------------- :)
 (: define default imported modules :)
 declare variable $const:default-imports :='
-import module namespace xproc = "http://xproc.net/xproc"
-                        at "src/xquery/xproc.xqm";
-import module namespace util = "http://xproc.net/xproc/util"
-                        at "src/xquery/util.xqm";
-import module namespace std = "http://xproc.net/xproc/std"
-                        at "src/xquery/std.xqm";
-import module namespace ext = "http://xproc.net/xproc/ext"
-                        at "src/xquery/ext.xqm";
-import module namespace opt = "http://xproc.net/xproc/opt"
-                        at "src/xquery/opt.xqm";
-import module namespace comp = "http://xproc.net/xproc/comp"
-                        at "src/xquery/comp.xqm";
+    import module namespace xproc = "http://xproc.net/xproc"
+                            at "src/xquery/xproc.xqm";
+    import module namespace util = "http://xproc.net/xproc/util"
+                            at "src/xquery/util.xqm";
+    import module namespace std = "http://xproc.net/xproc/std"
+                            at "src/xquery/std.xqm";
+    import module namespace ext = "http://xproc.net/xproc/ext"
+                            at "src/xquery/ext.xqm";
+    import module namespace opt = "http://xproc.net/xproc/opt"
+                            at "src/xquery/opt.xqm";
+    import module namespace comp = "http://xproc.net/xproc/comp"
+                            at "src/xquery/comp.xqm";
 ';
 
 (: -------------------------------------------------------------------------- :)

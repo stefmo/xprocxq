@@ -25,7 +25,7 @@ import module namespace const = "http://xproc.net/xproc/const"
                         at "const.xqm";
 
 (: set to 1 to enable debugging :)
-declare variable $util:NDEBUG :=0;
+declare variable $util:NDEBUG :=1;
 
 (: -------------------------------------------------------------------------- :)
 declare function util:help() as xs:string {
@@ -403,7 +403,7 @@ declare function util:step-fold( $pipeline,
                    $evalstep-function,
                    $result,
                    ($outputs,<xproc:output step="{$steps[1]}"
-                                           port="{$pipeline//*[@name=$steps[1]]/p:output/@port}"
+                                           port="{$pipeline/*[@name=$steps[1]]/p:output[1]/@port}"
                                            func="{$stepfuncs[1]}">{$result}
                              </xproc:output>)
         )
