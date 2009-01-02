@@ -70,7 +70,7 @@ else
 };
 
 (: -------------------------------------------------------------------------- :)
-declare function util:unparsed-text($uri as xs:string, $mediatype as xs:string)  {
+declare function util:unparsed-data($uri as xs:string, $mediatype as xs:string)  {
 
 let $xslt := saxon:compile-stylesheet(
 document {

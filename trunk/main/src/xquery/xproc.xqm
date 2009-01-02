@@ -503,38 +503,42 @@ declare function xproc:output($result,$dflag){
 
 (:---------------------------------------------------------------------------:)
 
+
 declare function xproc:generate-primary($pipeline,$step,$currentstep,$primaryinput,$result){
 
-for $child in $currentstep/p:input/*
-    return
+let $primaryresult := document{
 
-    let $primaryresult := document{
+    if($currentstep/p:input/*) then
+
+        for $child in $currentstep/p:input/*
+
+        return
 
 (: empty step:)            if(name($child)='p:empty') then
 
                                 (<!-- returned empty //-->)
 
-(: inline :)                else if(name($child)='p:inline') then
+(: inline :)               else if(name($child)='p:inline') then
 
                                  $child/*
 
-(: document :)              else if(name($child)='p:document') then
+(: document :)             else if(name($child)='p:document') then
 
                                  if (doc-available($child/@href)) then
                                        doc($child/@href)
                                  else
                                        util:dynamicError('err:XD0002',concat(" p:document cannot access document ",$child/@href))
 
-(: data :)                  else if(name($child)='p:data') then
+(: data :)                 else if(name($child)='p:data') then
 
                                  if ($child/@href) then
-                                         util:unparsed-text($child/@href,'text/plain')
+                                         util:unparsed-data($child/@href,'text/plain')
                                  else
                                        util:dynamicError('err:XD0002',concat(" p:data cannot access document ",$child/@href))
 
-(: stdin :)                 else if ($child/@port eq 'stdin' and $child/@step eq $pipeline/@name) then
+(: stdin :)                else if ($child/@port eq 'stdin' and $child/@step eq $pipeline/@name) then
 
-                                  $result/xproc:output[@port='stdin'][@step=$currentstep/@name]/*
+                                 $result/xproc:output[@port='stdin'][@step=$currentstep/@name]/*
 
 (: prmy top level input :)  else if ($child/@port eq 'source' and $child/@step eq $pipeline/@name) then
 
@@ -547,58 +551,104 @@ for $child in $currentstep/p:input/*
 (: pipe :)                  else if ($child/@port) then
 
                                   if ($result/xproc:output[@port=$child/@port][@step=$child/@step]) then
-                                    $result/xproc:output[@port=$child/@port][@step=$child/@step]/*
+                                       $result/xproc:output[@port=$child/@port][@step=$child/@step]/*
                                   else
-                                    util:dynamicError('err:XD0001',concat(" cannot bind to port: ",$child/@port," step: ",$child/@step,' ',util:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>)))
-
-(:identity copy of primary input :)
+                                       util:dynamicError('err:XD0001',concat(" cannot bind to port: ",$child/@port," step: ",$child/@step,' ',util:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>)))
                             else
-                                  document{$primaryinput}
-                        }
+                                ()
 
+    else
+           $primaryinput
+    }
 
-    (: apply select xpath :)
     let $select := string( if ($currentstep/p:input[@primary='true'][@select]/@select) then
                         $currentstep/p:input[@primary='true'][@select]/@select
                    else
                         '/'
                     )
+
     let $selectval :=util:evalXPATH($select,$primaryresult)
        return
-           if (empty($selectval)) then
-            util:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
-           else
-            $selectval
+            if (empty($selectval)) then
+                util:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
+            else
+                $selectval
 };
+
 
 declare function xproc:generate-secondary($pipeline,$step,$currentstep,$primaryinput,$result){
 <xproc:inputs>{
-                            for $input in $pipeline/*[@name=$step]/p:input[not(@primary='true')]
-                                return
+    for $input in $currentstep/p:input[not(@primary='true')]
+        return
+        <p:input port="{$input/@port}">
 
-                                    if ($input/p:document) then
-                                        element {name($input)}{
-                                         attribute port{$input/@port},
-                                         attribute primary{'false'},
-                                         attribute select{$input/@select},
-                                         if (doc-available($input/p:document/@href)) then
-                                               doc($input/p:document/@href)
-                                         else
-                                               util:dynamicError('err:XD0002',concat($step," p:input ",$input/@port," cannot access document ",$input/p:document/@href))
-                                        }
-                                    else if($input/p:inline) then
-                                       element {name($input)}{
-                                        attribute port{$input/@port},
-                                        attribute primary{$input/@primary},
-                                        attribute select{$input/@select},
-                                            $input/p:inline/node()
-                                        }
-                                    else if ($input/p:pipe) then
-                                        <pipetest step="{$input/p:pipe/@step}" port="{$input/p:pipe/@port}"/>
-                                    else
-                                        <secondary_test/>
+      let $primaryresult := document{
 
-                       }</xproc:inputs>
+        for $child in $input/*
+
+        return
+
+(: empty step:)            if(name($child)='p:empty') then
+
+                                (<!-- returned empty //-->)
+
+(: inline :)               else if(name($child)='p:inline') then
+
+                                 $child/*
+
+(: document :)             else if(name($child)='p:document') then
+
+                                 if (doc-available($child/@href)) then
+                                       doc($child/@href)
+                                 else
+                                       util:dynamicError('err:XD0002',concat(" p:document cannot access document ",$child/@href))
+
+(: data :)                 else if(name($child)='p:data') then
+
+                                 if ($child/@href) then
+                                         util:unparsed-data($child/@href,'text/plain')
+                                 else
+                                       util:dynamicError('err:XD0002',concat(" p:data cannot access document ",$child/@href))
+
+(: stdin :)                else if ($child/@port eq 'stdin' and $child/@step eq $pipeline/@name) then
+
+                                 $result/xproc:output[@port='stdin'][@step=$currentstep/@name]/*
+
+(: prmy top level input :)  else if ($child/@port eq 'source' and $child/@step eq $pipeline/@name) then
+
+                                  $result/xproc:output[@port='result'][@step='!1.1']/*
+
+(: top level input :)       else if ($child/@step eq $pipeline/@name) then
+
+                                  $result/xproc:output[@port='result'][@step='!1.1']/xproc:inputs/p:input[@port=$child/@port]
+
+(: pipe :)                  else if ($child/@port) then
+
+                                  if ($result/xproc:output[@port=$child/@port][@step=$child/@step]) then
+                                       $result/xproc:output[@port=$child/@port][@step=$child/@step]/*
+                                  else
+                                       util:dynamicError('err:XD0001',concat(" cannot bind to port: ",$child/@port," step: ",$child/@step,' ',util:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>)))
+                            else
+                                ()
+    }
+
+  let $select := string( if ($input/@select) then
+                        $input/@select
+                   else
+                        '/'
+                    )
+
+    let $selectval :=util:evalXPATH($select,$primaryresult)
+       return
+            if (empty($selectval)) then
+                util:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
+            else
+                $selectval
+
+
+        </p:input>
+
+}</xproc:inputs>
 };
 
 
