@@ -250,7 +250,7 @@ let $explicitnames :=
 
         else
             (: TODO: throws error on unknown element in pipeline namespace :)
-            util:staticError('err:XS0044', concat("Parser explicit naming pass:  ",$stepname,":",$step/@name,saxon:serialize($declare-step,<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>)))
+            util:staticError('err:XS0044', concat("Parser explicit naming pass:  ",$stepname,":",$step/@name,util:serialize($declare-step,<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>)))
 
 
 return
@@ -378,50 +378,46 @@ return
 
 
 (: -------------------------------------------------------------------------- :)
-(: Fix up all top level imports  :)
-(: -------------------------------------------------------------------------- :)
-(: TODO: temporary measure to use p:import :)
-declare function xproc:import-fixup($xproc as item()){
-
-        <p:pipeline name="{$xproc/@name}" xmlns:xproc="http://xproc.net/xproc">
-{          
-        for $import in $xproc/p:import
-            return            
-                if (doc-available($import/@href)) then
-                      doc($import/@href)
-                else
-                      util:dynamicError('XD0002',"cannot import pipeline document ")
-}
-            {$xproc/*[not(name(.)="p:import")]}
-        </p:pipeline>
-};
-
-
-(: -------------------------------------------------------------------------- :)
 (: Fix up top level input/output with ext:pre :)
 (: -------------------------------------------------------------------------- :)
-declare function xproc:port-fixup($xproc as item(),$stdin){
+declare function xproc:fixup($xproc as item(),$stdin){
 
-        <p:pipeline name="{$xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/@name}">
+let $pipeline := $xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]
+    return
+        <p:declare-step name="{$pipeline/@name}">
             <ext:pre>
             {
-            <p:input port="source" select="{$xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/p:input[@port='source']/@select}">
+            <p:input port="source"
+                     kind="document"
+                     select="{$pipeline/p:input[@port='source']/@select}"
+                     sequence="{$pipeline/p:input[@port='source']/@sequence}">
             {if($stdin) then
-                <p:pipe step="{$xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/@name}" port="stdin"/>
+                <p:pipe step="{$pipeline/@name}" port="stdin"/>
             else
-                $xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/p:input[@port='source']/*
+                $pipeline/p:input[@port='source']/*
             }
             </p:input>,
 
-            <p:output port="result" select="{$xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/p:output[@port='result']/@select}"/>,
-            $xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/p:input[not(@port='source')],
-            $xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/p:output[not(@port='result')]
+            <p:output port="result" select="{$pipeline/p:output[@port='result']/@select}"/>,
+
+            $pipeline/p:input[not(@port='source')],
+
+            $pipeline/p:output[not(@port='result')]
             }
-            </ext:pre>
-            {$xproc/p:*[name(.) = "p:pipeline" or name(.) ="p:declare-step"]/*[not(name(.)="p:input")][not(name(.)="p:output")]}
+           </ext:pre>
+            {
+               for $import in $xproc/p:import
+                return            
+                    if (doc-available($import/@href)) then
+                          doc($import/@href)
+                    else
+                          util:dynamicError('XD0002',"cannot import pipeline document ")
+            }
+
+            {$pipeline/*[not(name(.)="p:input")][not(name(.)="p:output")]}
 
             <ext:post/>
-</p:pipeline>
+</p:declare-step>
 };
 
 
@@ -432,9 +428,7 @@ declare function xproc:port-fixup($xproc as item(),$stdin){
 declare function xproc:preparse($pipeline as item(),$stdin){
     xproc:explicitbindings(
           xproc:explicitnames(
-                xproc:port-fixup(
-                      xproc:import-fixup($pipeline)
-                ,$stdin)
+                xproc:fixup($pipeline,$stdin)
           ,$const:init_unique_id)
     )
 };
@@ -451,7 +445,6 @@ declare function xproc:gensteps1($steps) as xs:string* {
 };
 
 
-
 (: -------------------------------------------------------------------------- :)
 (: Generate xquery function sequence :)
 declare function xproc:gensteps2($steps) as xs:string*
@@ -464,6 +457,7 @@ declare function xproc:gensteps2($steps) as xs:string*
 };
 
 
+(: -------------------------------------------------------------------------- :)
 declare function xproc:parse($xproc as item(),$stdin as item()) {
     xproc:parse_and_eval($xproc,$stdin)
 };
@@ -507,71 +501,78 @@ declare function xproc:output($result,$dflag){
 };
 
 
-(: -------------------------------------------------------------------------- :)
-(: runtime evaluation of xproc steps; throwing dynamic errors and writing output along the way :)
-declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$outputs) {
+(:---------------------------------------------------------------------------:)
 
-    let $stepfunc := concat($const:default-imports,$stepfunc1)
-    let $result := document{$outputs}
-    let $currentstep := $pipeline/*[@name=$step]
+declare function xproc:generate-primary($pipeline,$step,$currentstep,$primaryinput,$result){
 
-    let $primary := (
+for $child in $currentstep/p:input/*
+    return
 
-                       for $child in $currentstep/p:input/*
-                       return
+    let $primaryresult := document{
 
-                        let $primaryresult := document{
-                            if(name($child)='p:empty') then
+(: empty step:)            if(name($child)='p:empty') then
+
                                 (<!-- returned empty //-->)
 
 (: inline :)                else if(name($child)='p:inline') then
-                                $child/*
+
+                                 $child/*
 
 (: document :)              else if(name($child)='p:document') then
-                                     if (doc-available($child/@href)) then
-                                           doc($child/@href)
-                                     else
-                                           util:dynamicError('err:XD0002',concat(" p:document cannot access document ",$child/@href))
+
+                                 if (doc-available($child/@href)) then
+                                       doc($child/@href)
+                                 else
+                                       util:dynamicError('err:XD0002',concat(" p:document cannot access document ",$child/@href))
 
 (: data :)                  else if(name($child)='p:data') then
-                                     if ($child/@href) then
-                                             util:unparsed-text($child/@href,'text/plain')
-                                     else
-                                           util:dynamicError('err:XD0002',concat(" p:data cannot access document ",$child/@href))
+
+                                 if ($child/@href) then
+                                         util:unparsed-text($child/@href,'text/plain')
+                                 else
+                                       util:dynamicError('err:XD0002',concat(" p:data cannot access document ",$child/@href))
 
 (: stdin :)                 else if ($child/@port eq 'stdin' and $child/@step eq $pipeline/@name) then
-                                      $result/xproc:output[@port='stdin'][@step=$currentstep/@name]/*
+
+                                  $result/xproc:output[@port='stdin'][@step=$currentstep/@name]/*
 
 (: prmy top level input :)  else if ($child/@port eq 'source' and $child/@step eq $pipeline/@name) then
-                                      $result/xproc:output[@port='result'][@step='!1.1']/*
+
+                                  $result/xproc:output[@port='result'][@step='!1.1']/*
 
 (: top level input :)       else if ($child/@step eq $pipeline/@name) then
-                                      $result/xproc:output[@port='result'][@step='!1.1']/xproc:inputs/p:input[@port=$child/@port]
 
-                            else if ($child/@port) then
-                                    if ($result/xproc:output[@port=$child/@port][@step=$child/@step]) then
-                                        $result/xproc:output[@port=$child/@port][@step=$child/@step]/*
-                                    else
-                                        util:dynamicError('err:XD0001',concat(" cannot bind to port: ",$child/@port," step: ",$child/@step,' ',
-saxon:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>)))
+                                  $result/xproc:output[@port='result'][@step='!1.1']/xproc:inputs/p:input[@port=$child/@port]
 
+(: pipe :)                  else if ($child/@port) then
+
+                                  if ($result/xproc:output[@port=$child/@port][@step=$child/@step]) then
+                                    $result/xproc:output[@port=$child/@port][@step=$child/@step]/*
+                                  else
+                                    util:dynamicError('err:XD0001',concat(" cannot bind to port: ",$child/@port," step: ",$child/@step,' ',util:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>)))
+
+(:identity copy of primary input :)
                             else
-                                document{$primaryinput}
+                                  document{$primaryinput}
                         }
 
-(:NEEEEEEDS WOOOORK :)
-                           let $selectval :=util:evalXPATH(string($pipeline/*[@name=$step]/p:input[@primary='[@select]/@select),$primaryresult)
-                           return
-                                if (empty($selectval)) then
-                                    util:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
-                                else
-                                    $selectval
-                        
 
-                )
+    (: apply select xpath :)
+    let $select := string( if ($currentstep/p:input[@primary='true'][@select]/@select) then
+                        $currentstep/p:input[@primary='true'][@select]/@select
+                   else
+                        '/'
+                    )
+    let $selectval :=util:evalXPATH($select,$primaryresult)
+       return
+           if (empty($selectval)) then
+            util:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
+           else
+            $selectval
+};
 
-
-    let $secondary :=  <xproc:inputs>{
+declare function xproc:generate-secondary($pipeline,$step,$currentstep,$primaryinput,$result){
+<xproc:inputs>{
                             for $input in $pipeline/*[@name=$step]/p:input[not(@primary='true')]
                                 return
 
@@ -598,37 +599,68 @@ saxon:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes"
                                         <secondary_test/>
 
                        }</xproc:inputs>
+};
 
-    let $options :=<xproc:options>{
-                              $pipeline/*[@name=$step]/p:with-option
-                       }</xproc:options>
 
-    let $output :=<xproc:outputs>{
-                              $pipeline/*[@name=$step]/p:output
-                       }
-                       </xproc:outputs>
+declare function xproc:generate-options($pipeline,$step){
+    <xproc:options>
+    {
+        $pipeline/*[@name=$step]/p:with-option
+    }
+    </xproc:options>
+};
+
+
+declare function xproc:generate-outputs($pipeline,$step){
+    <xproc:outputs>
+    {
+        $pipeline/*[@name=$step]/p:output
+    }
+    </xproc:outputs>
+};
+
+
+(: -------------------------------------------------------------------------- :)
+(: runtime evaluation of xproc steps; throwing dynamic errors and writing output along the way :)
+declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$outputs) {
+
+    let $currentstep := $pipeline/*[@name=$step]
+    let $stepfunc := concat($const:default-imports,$stepfunc1)
+    let $outputs := document{$outputs}
+    let $primary := xproc:generate-primary($pipeline,$step,$currentstep,$primaryinput,$outputs)
+    let $secondary := xproc:generate-secondary($pipeline,$step,$currentstep,$primaryinput,$outputs)
+    let $options := xproc:generate-options($pipeline,$step)
+    let $output := xproc:generate-outputs($pipeline,$step)
 
     return
 
-    (: TODO -- handle p:declare-step component/step:)
-    if (name($currentstep) eq 'p:declare-step') then
-        xproc:run(
-            document{<p:pipeline name="pipeline|{$currentstep/@xproc:defaultname}"
-                xmlns:p="http://www.w3.org/ns/xproc">{$currentstep/node()}</p:pipeline>},$primary,'0','0')
-
-(: TODO ----------------------------------------------------------------------------------------
-    else if(name($currentstep) eq 'ext:xproc') then
-        xproc:run(
-            document{<p:pipeline name="pipeline|{$currentstep/@xproc:defaultname}"
-                xmlns:p="http://www.w3.org/ns/xproc">{$pipeline//p:declare-step[@type=$currentstep/@type]}</p:pipeline>},$primary,'0','0')
-     ---------------------------------------------------------------------------------------- :)
-
-    else
-        (: call the actual step function :)
-        let $result := document{util:call(util:xquery($stepfunc),$primary,$secondary,$options)}
-            return
-                ($result/*[not(name()='xproc:inputs')],$secondary)
+        if (name($currentstep) eq 'p:declare-step') then
+            xproc:run(document{<p:pipeline name="{$currentstep/@xproc:defaultname}"
+                                    xmlns:p="http://www.w3.org/ns/xproc">
+                                          {$currentstep/node()}
+                                </p:pipeline>},$primary,'0','0')
+        else
+            util:call(util:xquery($stepfunc),$primary,$secondary,$options)
 };
+
+(:---------------------------------------------------------------------------:)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 (: -------------------------------------------------------------------------- :)
@@ -647,13 +679,17 @@ declare function xproc:run($pipeline,$stdin,$dflag,$tflag){
 
     let $end-time := util:timing()
 
-    let $dbg :=1
+    let $dbg :=0
 
     return
     if ($dbg eq 1) then
 
-        $eval_result
- 
+        xproc:explicitbindings(
+                  xproc:explicitnames(
+                        xproc:fixup($pipeline,$stdin)
+                  ,$const:init_unique_id)
+        )
+
     else
     (
      if ($tflag="1") then
