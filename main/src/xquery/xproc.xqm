@@ -486,33 +486,24 @@ declare function xproc:parse_and_eval($xproc as item(),$stdin as item()) {
 
 (: -------------------------------------------------------------------------- :)
 declare function xproc:output($result,$dflag){
-    if($dflag="1") then
-        <xproc:debug>
-            <xproc:pipeline>{subsequence($result,1,1)}</xproc:pipeline>
-            <xproc:outputs>{subsequence($result,2)}</xproc:outputs>
-        </xproc:debug>
-    else
-        if (name($result[@port='stdout']) eq 'p:empty') then
-            (: FIXME: :)
-           (<!-- empty result //-->)
+
+let $pipeline :=subsequence($result,1,1)
+let $output := subsequence($result,2)
+    return
+        if($dflag="1") then
+            <xproc:debug>
+                <xproc:pipeline>{$pipeline}</xproc:pipeline>
+                <xproc:outputs>{$output}</xproc:outputs>
+            </xproc:debug>
         else
-            (: TODO:  needs some attention :)
-            ($result/.)[last()]/node()[not(name()='xproc:inputs')]
+           ($output/.)[last()]/node()
 };
 
 
 (:---------------------------------------------------------------------------:)
 
+declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentstep){
 
-declare function xproc:generate-primary($pipeline,$step,$currentstep,$primaryinput,$result){
-
-let $primaryresult := document{
-
-    if($currentstep/p:input/*) then
-
-        for $child in $currentstep/p:input/*
-
-        return
 
 (: empty step:)            if(name($child)='p:empty') then
 
@@ -546,7 +537,7 @@ let $primaryresult := document{
 
 (: top level input :)       else if ($child/@step eq $pipeline/@name) then
 
-                                  $result/xproc:output[@port='result'][@step='!1.1']/xproc:inputs/p:input[@port=$child/@port]
+                                  $result/xproc:output[@port='result'][@step='!1.1']/xproc:inputs/p:input[@port=$child/@port]/*
 
 (: pipe :)                  else if ($child/@port) then
 
@@ -556,9 +547,22 @@ let $primaryresult := document{
                                        util:dynamicError('err:XD0001',concat(" cannot bind to port: ",$child/@port," step: ",$child/@step,' ',util:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>)))
                             else
                                 ()
+};
+
+declare function xproc:generate-primary($pipeline,$step,$currentstep,$primaryinput,$result){
+
+let $primaryresult := document{
+
+    if($currentstep/p:input/*) then
+
+        for $child in $currentstep/p:input/*
+
+        return
+
+            xproc:resolve-port-binding($child,$result,$pipeline,$currentstep)
 
     else
-           $primaryinput
+           $primaryinput/*
     }
 
     let $select := string( if ($currentstep/p:input[@primary='true'][@select]/@select) then
@@ -582,61 +586,18 @@ declare function xproc:generate-secondary($pipeline,$step,$currentstep,$primaryi
         return
         <p:input port="{$input/@port}">
 
-      let $primaryresult := document{
-
+    let $primaryresult := document{
         for $child in $input/*
-
         return
-
-(: empty step:)            if(name($child)='p:empty') then
-
-                                (<!-- returned empty //-->)
-
-(: inline :)               else if(name($child)='p:inline') then
-
-                                 $child/*
-
-(: document :)             else if(name($child)='p:document') then
-
-                                 if (doc-available($child/@href)) then
-                                       doc($child/@href)
-                                 else
-                                       util:dynamicError('err:XD0002',concat(" p:document cannot access document ",$child/@href))
-
-(: data :)                 else if(name($child)='p:data') then
-
-                                 if ($child/@href) then
-                                         util:unparsed-data($child/@href,'text/plain')
-                                 else
-                                       util:dynamicError('err:XD0002',concat(" p:data cannot access document ",$child/@href))
-
-(: stdin :)                else if ($child/@port eq 'stdin' and $child/@step eq $pipeline/@name) then
-
-                                 $result/xproc:output[@port='stdin'][@step=$currentstep/@name]/*
-
-(: prmy top level input :)  else if ($child/@port eq 'source' and $child/@step eq $pipeline/@name) then
-
-                                  $result/xproc:output[@port='result'][@step='!1.1']/*
-
-(: top level input :)       else if ($child/@step eq $pipeline/@name) then
-
-                                  $result/xproc:output[@port='result'][@step='!1.1']/xproc:inputs/p:input[@port=$child/@port]
-
-(: pipe :)                  else if ($child/@port) then
-
-                                  if ($result/xproc:output[@port=$child/@port][@step=$child/@step]) then
-                                       $result/xproc:output[@port=$child/@port][@step=$child/@step]/*
-                                  else
-                                       util:dynamicError('err:XD0001',concat(" cannot bind to port: ",$child/@port," step: ",$child/@step,' ',util:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>)))
-                            else
-                                ()
+            xproc:resolve-port-binding($child,$result,$pipeline,$currentstep)
     }
 
-  let $select := string( if ($input/@select) then
-                        $input/@select
-                   else
-                        '/'
-                    )
+    let $select := string(
+               if ($input/@select) then
+                    $input/@select
+               else
+                    '/'
+                )
 
     let $selectval :=util:evalXPATH($select,$primaryresult)
        return
@@ -644,7 +605,6 @@ declare function xproc:generate-secondary($pipeline,$step,$currentstep,$primaryi
                 util:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
             else
                 $selectval
-
 
         </p:input>
 
@@ -690,7 +650,35 @@ declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$outpu
                                           {$currentstep/node()}
                                 </p:pipeline>},$primary,'0','0')
         else
-            util:call(util:xquery($stepfunc),$primary,$secondary,$options)
+
+            (
+            for $child in $secondary/p:input
+                return
+                    <xproc:output step="{$step}"
+                                  port-type="input"
+                                  primary="false"
+                                  port="{$child/@port}"
+                                  func="{$stepfunc1}">{
+                                    $child/*
+                                  }
+                    </xproc:output>,
+             <xproc:output step="{$step}"
+                           port-type="input"
+                           primary="true"
+                           port="{$currentstep/p:input[@primary='true']/@port}"
+                           func="{$stepfunc1}">{
+                            $primaryinput/*
+                          }
+             </xproc:output>,
+             <xproc:output step="{$step}"
+                          port-type="output"
+                          primary="true"
+                          port="{$currentstep/p:output[@primary='true']/@port}"
+                          func="{$stepfunc1}">{
+                            util:call(util:xquery($stepfunc),$primary,$secondary,$options)
+                          }
+             </xproc:output>
+            )
 };
 
 (:---------------------------------------------------------------------------:)
@@ -729,10 +717,10 @@ declare function xproc:run($pipeline,$stdin,$dflag,$tflag){
 
     let $end-time := util:timing()
 
-    let $dbg :=0
+    let $internaldbg :=0
 
     return
-    if ($dbg eq 1) then
+    if ($internaldbg eq 1) then
 
         xproc:explicitbindings(
                   xproc:explicitnames(

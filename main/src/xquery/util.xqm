@@ -383,30 +383,30 @@ declare function util:step-fold( $pipeline,
                                  $steps,
                                  $stepfuncs,
                                  $evalstep-function,
-                                 $primaryinput as item()*,
+                                 $primaryinput,
                                  $outputs) {
   
     if (empty($steps)) then
+
         util:final-result($pipeline,$outputs)
+
     else
+
         let $result:= util:call($evalstep-function,
                                 $steps[1],
                                 $stepfuncs[1],
                                 $primaryinput,
                                 $pipeline,
-                                $outputs
-        )
+                                $outputs)
     return
+
         util:step-fold($pipeline,
-                   remove($steps, 1),
-                   remove($stepfuncs, 1),
-                   $evalstep-function,
-                   $result,
-                   ($outputs,<xproc:output step="{$steps[1]}"
-                                           port="{$pipeline/*[@name=$steps[1]]/p:output[1]/@port}"
-                                           func="{$stepfuncs[1]}">{$result}
-                             </xproc:output>)
-        )
+                       remove($steps, 1),
+                       remove($stepfuncs, 1),
+                       $evalstep-function,
+                       $result[last()],
+                       ($outputs,$result))
+        
 };
 
 (: -------------------------------------------------------------------------- :)

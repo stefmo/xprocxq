@@ -11,7 +11,7 @@ declare namespace err="http://www.w3.org/ns/xproc-error";
 (: Module Imports :)
 import module namespace util = "http://xproc.net/xproc/util"
                         at "util.xqm";
-
+ 
 (: Module Vars :)
 declare variable  $ext:steps := doc("../../etc/pipeline-extension.xml")/p:library;
 
@@ -28,13 +28,13 @@ declare variable $ext:xproc :=saxon:function("ext:xproc", 3);
 declare function ext:pre($primary,$secondary,$options){
    $primary
 };
-declare function ext:step($primary,$secondary,$options) as item()* {
+declare function ext:step($primary,$secondary,$options){
     $primary
 };
-declare function ext:post($primary,$secondary,$options) as item()* {
+declare function ext:post($primary,$secondary,$options){
     $primary
 };
-declare function ext:test($primary,$secondary,$options) as item()* {
+declare function ext:test($primary,$secondary,$options){
     $primary
 };
 (: -------------------------------------------------------------------------- :)
