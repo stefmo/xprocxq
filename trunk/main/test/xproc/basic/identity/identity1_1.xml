@@ -1,5 +1,5 @@
 <p:declare-step 
-            xmlns:p="http://www.w3.org/ns/xproc">
+            xmlns:p="http://www.w3.org/ns/xproc" name="pipeline">
 
   <p:input port="source" primary="true"/>
   <p:output port="result" primary="true"/>
