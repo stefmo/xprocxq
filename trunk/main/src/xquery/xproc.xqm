@@ -522,15 +522,13 @@ declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentste
                                  $result/xproc:output[@port='stdin'][@step=$currentstep/@name]/*
 
 (: prmy top level input :)  else if ($child/@port eq 'source' and $child/@step eq $pipeline/@name) then
-
+(: TODO - fix :)
                                   $result/xproc:output[@port='result'][@step='!1.1']/*
 
 (: top level input :)       else if ($child/@step eq $pipeline/@name) then
+(: TODO - fix :)
+                                  $result/xproc:output[@port=$child/@port][@step='!1.1']/*
 
-                                <not_implemented_yet/>
-(:
-                                  $result/xproc:output[@port='result'][@step='!1.1']/xproc:inputs/p:input[@port=$child/@port]/*
-:)
 (: pipe :)                  else if ($child/@port) then
 
                                   if ($result/xproc:output[@port=$child/@port][@step=$child/@step]) then
@@ -538,7 +536,7 @@ declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentste
                                   else
                                        util:dynamicError('err:XD0001',concat(" cannot bind to port: ",$child/@port," step: ",$child/@step,' ',util:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>)))
                             else
-
+(: TODO - fix :)
                                  $result/xproc:output[@port='stdin'][@step=$currentstep/@name]/*
 };
 
