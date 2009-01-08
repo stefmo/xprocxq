@@ -626,7 +626,8 @@ declare function xproc:generate-outputs($pipeline,$step){
 declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
 
     let $currentstep := $pipeline/*[@name=$step]
-    let $stepfunc := concat($const:default-imports,$currentstep/@xproc:step)
+    let $stepfuncname := $currentstep/@xproc:step
+    let $stepfunc := concat($const:default-imports,$stepfuncname)    
     let $outputs := document{$outputs}
     let $primary := xproc:generate-primary($pipeline,$step,$currentstep,$primaryinput,$outputs)
     let $secondary := xproc:generate-secondary($pipeline,$step,$currentstep,$primaryinput,$outputs)
@@ -650,7 +651,7 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
                                   port-type="input"
                                   primary="false"
                                   port="{$child/@port}"
-                                  func="{$currentstep/@xproc:step}">{
+                                  func="{$stepfuncname}">{
                                     $child/*
                                   }
                     </xproc:output>,
@@ -658,7 +659,7 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
                            port-type="input"
                            primary="true"
                            port="{$currentstep/p:input[@primary='true']/@port}"
-                           func="{$currentstep/@xproc:step}">{
+                           func="{$stepfuncname}">{
                             $primaryinput/*
                           }
              </xproc:output>,
@@ -666,7 +667,7 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
                           port-type="output"
                           primary="true"
                           port="{$currentstep/p:output[@primary='true']/@port}"
-                          func="{$currentstep/@xproc:step}">{
+                          func="{$stepfuncname}">{
                             util:call(util:xquery($stepfunc),$primary,$secondary,$options)
                           }
              </xproc:output>
