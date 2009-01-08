@@ -1,38 +1,20 @@
-* how to bind data from the outside world ? = restriction means top level input/outputs must be
-explicitly defined with p:document or p:inline except for stdin
-
+REMINDERS
 * empty stdin defaults to defined p:pipe,p:inline,p:document,p:data
-
 * p:declare-step requires input/output port definition which needs binding from the outside
-
 * p:pipeline defines default input/output ports with sequence="false"
-
-* need to define base uri of stdin and all external inputs for add-xml-base step
-
-* dont have correct line numbers in error messages
-
-* p:xquery currently uses c:result and has problems with some query formats
-
 * If p:log or p:serialization elements appear in the declaration of an atomic step, they
 will only be used if the atomic step is directly evaluated by the processor.
 They have no effect if the step appears in a subpipeline; only the serialization options of
 the “top level” step or pipeline are used because that is the only step which the processor
 is required to serialize.
 
-* check to correct xproc:default name in p:choose
+ISSUES
 
-* race condition when p:pipe calls a step that does not exist
-
--------------------
-
-external binding: cracked it
-external options: cracked it
-namespaces
-sequences
-top level inputs
-p:choose
-
-p:try in evalstep ?
+* top level inputs (once bindings are in place most of this is fixed)
+* namespace fixups
+* sequences
+* p:choose
+* p:try in evalstep ?
 
 
 

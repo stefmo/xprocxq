@@ -25,7 +25,6 @@ import module namespace comp = "http://xproc.net/xproc/comp"
                         at "comp.xqm";
 
 (: Module Vars :)
-(: load in xproc xml :)
 
 declare variable $flag external;
 

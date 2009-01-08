@@ -5,10 +5,7 @@
 
 <p:input port="source" primary="true" select="/"/>
 
-<p:input port="input-source" primary="false" select="t:test/t:input">
-    <p:pipe step="pipeline" port="stdin"/>
-</p:input>
-
+<p:input port="input-port" primary="false" select="t:test/t:input"/>
 
 <p:output port="result" primary="true"/>
 
