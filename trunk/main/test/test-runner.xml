@@ -4,8 +4,15 @@
             xmlns:c="http://www.w3.org/ns/xproc-step">
 
 <p:input port="source" primary="true" select="/"/>
-
-<p:input port="input-port" primary="false" select="t:test/t:input"/>
+<p:input port="input-port" primary="false" select="/t:test/t:input/*">
+    <p:pipe step="pipeline" port="stdin"/>
+</p:input>
+<p:input port="output-port" primary="false" select="/t:test/t:output/*">
+    <p:pipe step="pipeline" port="stdin"/>
+</p:input>
+<p:input port="pipeline-port" primary="false" select="/t:test/t:pipeline/*">
+    <p:pipe step="pipeline" port="stdin"/>
+</p:input>
 
 <p:output port="result" primary="true"/>
 
@@ -15,22 +22,4 @@
     </p:input>
 </p:identity>
 
-
-<!--
-
-<p:identity name="mystep2">
-       <p:input port="source">
-           <p:inline>
-                <a>test2</a>
-           </p:inline>
-       </p:input>
-</p:identity>
-
-       <p:input port="source">
-           <p:pipe port="result" step="mystep2"/>
-       </p:input>
-   </p:identity>
-   
-   //-->
-   
 </p:declare-step>

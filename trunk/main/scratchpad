@@ -20,4 +20,30 @@ ISSUES
 
 
 
+<xproc:inputs>{
+    for $input in $currentstep/p:input[not(@primary='true')]
+        return
+        <p:input port="{$input/@port}" select="{$input/@select}">
 
+    let $primaryresult := document{
+        for $child in $input/*
+        return
+            xproc:resolve-port-binding($child,$result,$pipeline,$currentstep)
+    }
+
+    let $select := string(
+               if ($input/@select) then
+                    string($input/@select)
+               else
+                    '/'
+                )
+
+    let $selectval :=util:evalXPATH(string($select),$primaryresult)
+       return
+            if (empty($selectval)) then
+                util:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
+            else
+                <secondary_test/>
+        </p:input>
+
+}</xproc:inputs>

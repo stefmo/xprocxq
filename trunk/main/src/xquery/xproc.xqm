@@ -467,6 +467,8 @@ declare function xproc:parse_and_eval($xproc as item(),$stdin as item()) {
                        (<xproc:output
                                 step="{if ($steps[1] = '|') then '!1|' else $steps[1]}"
                                 port="stdin"
+                                port-type="external"
+                                primary="false" 
                                 func="{$pipeline/@type}">{$stdin}</xproc:output>)
                         )
 };
@@ -562,7 +564,7 @@ let $primaryresult := document{
                         '/'
                     )
 
-    let $selectval :=util:evalXPATH($select,$primaryresult)
+    let $selectval :=util:evalXPATH(string($select),$primaryresult)
        return
             if (empty($selectval)) then
                 util:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
@@ -573,10 +575,10 @@ let $primaryresult := document{
 
 declare function xproc:generate-secondary($pipeline,$step,$currentstep,$primaryinput,$result){
 <xproc:inputs>{
-    for $input in $currentstep/p:input[not(@primary='true')]
+    for $input in $currentstep/p:input[@primary='false']
         return
-        <p:input port="{$input/@port}">
-
+        <p:input port="{$input/@port}" select="{$input/@select}">
+{
     let $primaryresult := document{
         for $child in $input/*
         return
@@ -585,18 +587,18 @@ declare function xproc:generate-secondary($pipeline,$step,$currentstep,$primaryi
 
     let $select := string(
                if ($input/@select) then
-                    $input/@select
+                    string($input/@select)
                else
                     '/'
                 )
 
-    let $selectval :=util:evalXPATH($select,$primaryresult)
+    let $selectval :=util:evalXPATH(string($select),$primaryresult)
        return
             if (empty($selectval)) then
                 util:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
             else
                 $selectval
-
+}
         </p:input>
 
 }</xproc:inputs>
@@ -647,9 +649,10 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
             (
             for $child in $secondary/p:input
                 return
-                    <xproc:output  step="{$step}"
+                    <xproc:output step="{$step}"
                                   port-type="input"
                                   primary="false"
+                                  select="{$child/@select}"
                                   port="{$child/@port}"
                                   func="{$stepfuncname}">{
                                     $child/*
@@ -658,6 +661,7 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
              <xproc:output step="{$step}"
                            port-type="input"
                            primary="true"
+                           select="{$currentstep/p:input[@primary='true']/@select}"
                            port="{$currentstep/p:input[@primary='true']/@port}"
                            func="{$stepfuncname}">{
                             $primaryinput/*
@@ -666,6 +670,7 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
              <xproc:output step="{$step}"
                           port-type="output"
                           primary="true"
+                          select="{$currentstep/p:output[@primary='true']/@select}"
                           port="{$currentstep/p:output[@primary='true']/@port}"
                           func="{$stepfuncname}">{
                             util:call(util:xquery($stepfunc),$primary,$secondary,$options)
