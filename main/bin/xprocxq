@@ -12,11 +12,13 @@ MINPARAMS=1
 usage()
 {
 cat << EOF
-Usage: xprocxq [options] [--import library|pipeline] source pipeline
 
-xprocxq processes XProc pipeline documents.
+COMMANDLINE USAGE:
 
-OPTIONS:
+xprocxq [switches] [--import library|pipeline] SOURCE PIPELINE bindings="port=file," options="name=value,"
+
+
+SWITCHES:
    -h      Show this message
    -d      Show debug information
    -t      Show timing information
@@ -25,6 +27,24 @@ OPTIONS:
    -x      Enable XInclude processing 
    -d      Enable DTD validation
 
+BINDINGS:
+
+    supply port bindings by associating port with a file e.g. bindings="port=file, port=file"
+
+    ex. bindings="myportname=test/data/test.xml, otherport=test/data/test2.xml"
+
+OPTIONS
+
+    supply options using name=value pairs e.g. options="name=value, name=value"
+
+    ex. options="level=warning, limit=3"
+
+SERIALIZATION
+
+
+DESCRIPTION
+
+    xprocxq processes XProc pipeline documents.
 
 EOF
 }
@@ -70,4 +90,4 @@ then
 fi
 
 
-java net.sf.saxon.Query $valval $xiflag -sa -s:$cdir/$1 -tree:linked -l -update:on -ext:on -q:$XPROCXQ_HOME/src/xquery/xproc.xq +xproc="$cdir/$2" +stdin="$cdir/$1" dflag="$dflag" tflag="$tflag" ival="$ival" oval="$oval"
+java net.sf.saxon.Query $valval $xiflag -sa -s:$cdir/$1 -tree:linked -l -update:on -ext:on -q:$XPROCXQ_HOME/src/xquery/xproc.xq +xproc="$cdir/$2" +stdin="$cdir/$1" dflag="$dflag" tflag="$tflag" ival="$ival" oval="$oval" $3 $4
