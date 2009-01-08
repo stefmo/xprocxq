@@ -1,6 +1,10 @@
 <p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
 
+<p:input port="input-source" primary="false" select="/test/a">
+               <p:pipe step="pipeline" port="stdin"/>
+</p:input>
+
    <p:identity name="test1">
        <p:input port="source" select="/test/a"/>
    </p:identity>
