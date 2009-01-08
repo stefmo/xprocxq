@@ -1,7 +1,8 @@
 <p:declare-step name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:t="http://xproc.org/ns/testsuite"
-            xmlns:c="http://www.w3.org/ns/xproc-step">
+            xmlns:c="http://www.w3.org/ns/xproc-step"
+            xmlns:mine="http://www.example.org/mine">
 
 <p:input port="source" primary="true" select="/"/>
 <p:input port="input-port" primary="false" select="/t:test/t:input/*">
@@ -16,10 +17,30 @@
 
 <p:output port="result" primary="true"/>
 
-<p:identity>
+<p:declare-step type="mine:test" name="unittest">
+    <p:input port="source" primary="true"/>
+    <p:input port="pipeline" primary="false"/>
+    <p:input port="output" primary="false"/>
+    <p:output port="result" primary="true"/>
+    
+   <p:compare name="step1">
+        <p:input port="alternate">
+              <p:pipe port="output" step="unittest"/>
+        </p:input>
+   </p:compare>
+    
+</p:declare-step>
+
+<mine:test>
     <p:input port="source">
         <p:pipe port="input-source" step="pipeline"/>
     </p:input>
-</p:identity>
+    <p:input port="output">
+        <p:pipe port="output-source" step="pipeline"/>
+    </p:input>
+    <p:pipeline port="pipeline">
+        <p:pipe port="pipeline-port" step="pipeline"/>
+    </p:pipeline>
+</mine:test>
 
 </p:declare-step>
