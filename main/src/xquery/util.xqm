@@ -381,7 +381,6 @@ declare function util:final-result($pipeline,$resulttree){
 (: -------------------------------------------------------------------------- :)
 declare function util:step-fold( $pipeline,
                                  $steps,
-                                 $stepfuncs,
                                  $evalstep-function,
                                  $primaryinput,
                                  $outputs) {
@@ -394,7 +393,6 @@ declare function util:step-fold( $pipeline,
 
         let $result:= util:call($evalstep-function,
                                 $steps[1],
-                                $stepfuncs[1],
                                 $primaryinput,
                                 $pipeline,
                                 $outputs)
@@ -402,7 +400,6 @@ declare function util:step-fold( $pipeline,
 
         util:step-fold($pipeline,
                        remove($steps, 1),
-                       remove($stepfuncs, 1),
                        $evalstep-function,
                        $result[last()],
                        ($outputs,$result))
