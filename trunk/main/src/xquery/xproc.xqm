@@ -292,6 +292,7 @@ let $explicitbindings :=
                  attribute name{if($step/@name eq '') then $step/@xproc:defaultname else $step/@name},
                  attribute xproc:defaultname{$step/@xproc:defaultname},
                  attribute xproc:type{xproc:type($stepname)},
+                 attribute xproc:step{concat('$',xproc:type($stepname),':',local-name($step))},
                  (
 
                     (: generate bindings for input---------------------------------------------- :)
@@ -351,6 +352,7 @@ let $explicitbindings :=
                 attribute name{$step/@name},
                 attribute xproc:defaultname{$step/@xproc:defaultname},
                 attribute xproc:type{xproc:type($stepname)},
+                 attribute xproc:step{concat('$',xproc:type($stepname),':',local-name($step))},
                 
                    xproc:explicitbindings(document{$step/*})
                 
@@ -446,18 +448,6 @@ declare function xproc:gensteps1($steps) as xs:string* {
 
 
 (: -------------------------------------------------------------------------- :)
-(: Generate xquery function sequence :)
-declare function xproc:gensteps2($steps) as xs:string*
-{
-    for $step in $steps/*[not(name()='p:documentation')] 
-    return
-        let $func := concat("$",$step/@xproc:type,":",local-name($step))
-        return
-            $func
-};
-
-
-(: -------------------------------------------------------------------------- :)
 declare function xproc:parse($xproc as item(),$stdin as item()) {
     xproc:parse_and_eval($xproc,$stdin)
 };
@@ -469,12 +459,10 @@ declare function xproc:parse_and_eval($xproc as item(),$stdin as item()) {
 
     let $pipeline := $xproc
     let $steps := xproc:gensteps1($xproc)
-    let $stepfunc := xproc:gensteps2($xproc)
     return
         util:step-fold($pipeline,
                        $steps,
-                       $stepfunc,
-                       saxon:function("xproc:evalstep", 5),
+                       saxon:function("xproc:evalstep", 4),
                        $stdin,
                        (<xproc:output
                                 step="{if ($steps[1] = '|') then '!1|' else $steps[1]}"
@@ -635,10 +623,10 @@ declare function xproc:generate-outputs($pipeline,$step){
 
 (: -------------------------------------------------------------------------- :)
 (: runtime evaluation of xproc steps; throwing dynamic errors and writing output along the way :)
-declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$outputs) {
+declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
 
     let $currentstep := $pipeline/*[@name=$step]
-    let $stepfunc := concat($const:default-imports,$stepfunc1)
+    let $stepfunc := concat($const:default-imports,$currentstep/@xproc:step)
     let $outputs := document{$outputs}
     let $primary := xproc:generate-primary($pipeline,$step,$currentstep,$primaryinput,$outputs)
     let $secondary := xproc:generate-secondary($pipeline,$step,$currentstep,$primaryinput,$outputs)
@@ -655,7 +643,6 @@ declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$outpu
                                 </p:pipeline>},$primary,'0','0',
                                  '','')
         else
-
             (
             for $child in $secondary/p:input
                 return
@@ -663,7 +650,7 @@ declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$outpu
                                   port-type="input"
                                   primary="false"
                                   port="{$child/@port}"
-                                  func="{$stepfunc1}">{
+                                  func="{$currentstep/@xproc:step}">{
                                     $child/*
                                   }
                     </xproc:output>,
@@ -671,7 +658,7 @@ declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$outpu
                            port-type="input"
                            primary="true"
                            port="{$currentstep/p:input[@primary='true']/@port}"
-                           func="{$stepfunc1}">{
+                           func="{$currentstep/@xproc:step}">{
                             $primaryinput/*
                           }
              </xproc:output>,
@@ -679,7 +666,7 @@ declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$outpu
                           port-type="output"
                           primary="true"
                           port="{$currentstep/p:output[@primary='true']/@port}"
-                          func="{$stepfunc1}">{
+                          func="{$currentstep/@xproc:step}">{
                             util:call(util:xquery($stepfunc),$primary,$secondary,$options)
                           }
              </xproc:output>
@@ -742,13 +729,12 @@ declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options){
                     {
                      $serialized_result
                     }
-                    {$bindings[1]}
                 </xproc:result>
                 }
          else
             document
                {
-                $serialized_result,$bindings[2]
+                $serialized_result
                 }
     )
 

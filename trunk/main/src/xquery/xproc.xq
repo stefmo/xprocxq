@@ -51,6 +51,6 @@ declare variable $stdin2 := document{.};
 (: -------------------------------------------------------------------------- :)
 (: XProc Processing :)
 
-    xproc:run($xproc,$stdin,$dflag,$tflag,tokenize($bindings,','),tokenize($options))
+    xproc:run($xproc,$stdin,$dflag,$tflag,tokenize($bindings,','),tokenize($options,','))
 
 (: -------------------------------------------------------------------------- :)
