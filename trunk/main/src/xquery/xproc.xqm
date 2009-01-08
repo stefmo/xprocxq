@@ -537,8 +537,10 @@ declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentste
 
 (: top level input :)       else if ($child/@step eq $pipeline/@name) then
 
+                                <not_implemented_yet/>
+(:
                                   $result/xproc:output[@port='result'][@step='!1.1']/xproc:inputs/p:input[@port=$child/@port]/*
-
+:)
 (: pipe :)                  else if ($child/@port) then
 
                                   if ($result/xproc:output[@port=$child/@port][@step=$child/@step]) then
@@ -546,7 +548,8 @@ declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentste
                                   else
                                        util:dynamicError('err:XD0001',concat(" cannot bind to port: ",$child/@port," step: ",$child/@step,' ',util:serialize($currentstep,<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>)))
                             else
-                                ()
+
+                                 $result/xproc:output[@port='stdin'][@step=$currentstep/@name]/*
 };
 
 declare function xproc:generate-primary($pipeline,$step,$currentstep,$primaryinput,$result){
@@ -645,16 +648,18 @@ declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$outpu
     return
 
         if (name($currentstep) eq 'p:declare-step') then
+            (:TODO add in bindings and options when they are done :)
             xproc:run(document{<p:pipeline name="{$currentstep/@xproc:defaultname}"
                                     xmlns:p="http://www.w3.org/ns/xproc">
                                           {$currentstep/node()}
-                                </p:pipeline>},$primary,'0','0')
+                                </p:pipeline>},$primary,'0','0',
+                                 '','')
         else
 
             (
             for $child in $secondary/p:input
                 return
-                    <xproc:output step="{$step}"
+                    <xproc:output  step="{$step}"
                                   port-type="input"
                                   primary="false"
                                   port="{$child/@port}"
@@ -702,7 +707,7 @@ declare function xproc:evalstep ($step,$stepfunc1,$primaryinput,$pipeline,$outpu
 
 
 (: -------------------------------------------------------------------------- :)
-declare function xproc:run($pipeline,$stdin,$dflag,$tflag){
+declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options){
 
     let $start-time := util:timing()
 
@@ -737,12 +742,13 @@ declare function xproc:run($pipeline,$stdin,$dflag,$tflag){
                     {
                      $serialized_result
                     }
+                    {$bindings[1]}
                 </xproc:result>
                 }
          else
             document
                {
-                $serialized_result
+                $serialized_result,$bindings[2]
                 }
     )
 

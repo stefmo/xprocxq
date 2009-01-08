@@ -5,15 +5,17 @@
 
 <p:input port="source" primary="true" select="/"/>
 
-<p:input port="style" primary="false" select="//a">
-    <p:document href="file:test/data/test2.xml"/>
+<p:input port="input-source" primary="false" select="t:test/t:input">
+    <p:pipe step="pipeline" port="stdin"/>
 </p:input>
+
+
 <p:output port="result" primary="true"/>
 
-<p:identity name="mystep2">
-       <p:input port="source">
-           <p:pipe step="pipeline" port="style"/>
-       </p:input>
+<p:identity>
+    <p:input port="source">
+        <p:pipe port="input-source" step="pipeline"/>
+    </p:input>
 </p:identity>
 
 

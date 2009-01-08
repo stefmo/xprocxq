@@ -3,7 +3,7 @@ explicitly defined with p:document or p:inline except for stdin
 
 * empty stdin defaults to defined p:pipe,p:inline,p:document,p:data
 
-* p:declare-step requires input/output port definition
+* p:declare-step requires input/output port definition which needs binding from the outside
 
 * p:pipeline defines default input/output ports with sequence="false"
 
@@ -19,13 +19,23 @@ They have no effect if the step appears in a subpipeline; only the serialization
 the “top level” step or pipeline are used because that is the only step which the processor
 is required to serialize.
 
-* need to correct xproc:default name in p:choose
+* check to correct xproc:default name in p:choose
 
 * race condition when p:pipe calls a step that does not exist
 
-* swap out xprocxq xproc tests with standard tests
+-------------------
 
-* clean up xquery tests
+external binding: cracked it
+external options: cracked it
+namespaces
+sequences
+top level inputs
+p:choose
+
+p:try in evalstep ?
+
+
+
 
 
 
