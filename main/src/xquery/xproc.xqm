@@ -706,7 +706,7 @@ declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options){
 
     let $end-time := util:timing()
 
-    let $internaldbg :=1
+    let $internaldbg :=0
 
     return
     if ($internaldbg eq 1) then
