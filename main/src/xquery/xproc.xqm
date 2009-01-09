@@ -196,8 +196,10 @@ let $explicitnames :=
                 if ($step/@exclude-inline-prefixes) then attribute exclude-inline-prefixes{$step/@exclude-inline-prefixes} else (), 
                 if ($allcomp/@xproc:step = "true") then attribute name{$unique_current} else attribute name{$step/@name},
                 if ($allcomp/@xproc:step = "true") then attribute xproc:defaultname{$unique_current} else (),
+
                 (: TODO: will need to fixup top level input/output ports :)
                 xproc:explicitnames(document{$step/*},$unique_current)
+
             }
 
         else if ($xproc/p:declare-step[@type=$stepname]) then
@@ -635,15 +637,6 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
     let $output := xproc:generate-outputs($pipeline,$step)
 
     return
-
-        if (name($currentstep) eq 'p:declare-step') then
-            (:TODO add in bindings and options when they are done :)
-            xproc:run(document{<p:pipeline name="{$currentstep/@xproc:defaultname}"
-                                    xmlns:p="http://www.w3.org/ns/xproc">
-                                          {$currentstep/node()}
-                                </p:pipeline>},$primary,'0','0',
-                                 '','')
-        else
             (
             for $child in $secondary/p:input
                 return
@@ -713,7 +706,7 @@ declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options){
 
     let $end-time := util:timing()
 
-    let $internaldbg :=0
+    let $internaldbg :=1
 
     return
     if ($internaldbg eq 1) then
