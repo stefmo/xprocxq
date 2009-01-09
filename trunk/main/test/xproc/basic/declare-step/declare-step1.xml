@@ -9,13 +9,7 @@
     <p:input port="source" primary="true"/>
     <p:output port="result" primary="true"/>
 
-    <p:identity>
-        <p:input port="source">
-            <p:inline>
-                <inline_identity_test/>
-            </p:inline>
-        </p:input>
-    </p:identity>
+    <p:identity/>
     
 </p:declare-step>
 

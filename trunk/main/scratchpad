@@ -1,4 +1,4 @@
-REMINDERS
+SPEC REMINDERS
 * empty stdin defaults to defined p:pipe,p:inline,p:document,p:data
 * p:declare-step requires input/output port definition which needs binding from the outside
 * p:pipeline defines default input/output ports with sequence="false"
@@ -8,42 +8,14 @@ They have no effect if the step appears in a subpipeline; only the serialization
 the “top level” step or pipeline are used because that is the only step which the processor
 is required to serialize.
 
-ISSUES
 
-* top level inputs (once bindings are in place most of this is fixed)
+ISSUES
+* inputs in nested p:declare-steps need fixing due to $allcomp in xproc:explicitnames
 * namespace fixups
-* sequences
+* ensure sequences are working properly
 * p:choose
 * p:try in evalstep ?
 
-
-
-
-
-<xproc:inputs>{
-    for $input in $currentstep/p:input[not(@primary='true')]
-        return
-        <p:input port="{$input/@port}" select="{$input/@select}">
-
-    let $primaryresult := document{
-        for $child in $input/*
-        return
-            xproc:resolve-port-binding($child,$result,$pipeline,$currentstep)
-    }
-
-    let $select := string(
-               if ($input/@select) then
-                    string($input/@select)
-               else
-                    '/'
-                )
-
-    let $selectval :=util:evalXPATH(string($select),$primaryresult)
-       return
-            if (empty($selectval)) then
-                util:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
-            else
-                <secondary_test/>
-        </p:input>
-
-}</xproc:inputs>
+GOALS
+* once we get unit test step running we should be pretty stable
+* update/retire xquery unit tests
