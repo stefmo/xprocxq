@@ -87,35 +87,7 @@ declare function xproc:type($stepname as xs:string) as xs:string {
 };
 
 
-(: -------------------------------------------------------------------------- :)
-(: PREPARSE I: give everything a name if it doesn't already have one :)
-(: -------------------------------------------------------------------------- :)
-declare function xproc:explicitnames($xproc as item(), $unique_id){
-
-let $pipelinename := $xproc/@name
-
-(: TODO: the definitive test for detecting an atomic declare-step is to check that no subpipeline exists:)
-let $declare-step := $xproc//p:declare-step[@type]
-
-let $explicitnames := 
-
-    for $step at $count in $xproc/*
-
-        let $stepname := name($step)
-
-        (: generate unique default name :)
-        let $unique_before := concat($unique_id,'.',$count - 1)
-        let $unique_current := concat($unique_id,'.',$count)
-        let $unique_after := concat($unique_id,'.',$count + 1)
-
-        (: look up defined step in library :)
-        let $allstep := xproc:get-step($stepname)
-        let $allcomp := xproc:get-comp($stepname)
-
-        return
-
-            (: handle step element ------------------------------------------------------------ :)
-            if($allstep) then
+declare function xproc:generate-step($step,$stepname,$allstep,$unique_current){
 
             (: generate step :)
                         element {node-name($step)} {                                                                                                                                                                                                      attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
@@ -127,7 +99,7 @@ let $explicitnames :=
                                          attribute port{$binding/@port},
                                           attribute primary{"true"},
 
-                                         attribute select{if (name($binding) = 'p:input') then 
+                                         attribute select{if (name($binding) = 'p:input') then
                                                             $step/p:input[@port=$binding/@port]/@select
                                                           else
                                                             $step/p:output[@port=$binding/@port]/@select
@@ -143,7 +115,7 @@ let $explicitnames :=
                                 else
                                     ()
                                 ,
-                              
+
                                 if($allstep/@xproc:output) then
                                     $step/p:output[@primary="false"]
                                 else
@@ -188,22 +160,27 @@ let $explicitnames :=
                              )
                         }
 
-         else if ($allcomp) then
+};
+
+declare function xproc:generate-component($allcomp,$step,$unique_current){
+
             element {node-name($step)} {
                 if ($step/@type) then attribute type{$step/@type} else (),
                 if ($step/@psvi-required) then attribute psvi-required{$step/@psvi-required} else (),
                 if ($step/@xpath-version) then attribute xpath-version{$step/@xpath-version} else (),
-                if ($step/@exclude-inline-prefixes) then attribute exclude-inline-prefixes{$step/@exclude-inline-prefixes} else (), 
+                if ($step/@exclude-inline-prefixes) then attribute exclude-inline-prefixes{$step/@exclude-inline-prefixes} else (),
                 if ($allcomp/@xproc:step = "true") then attribute name{$unique_current} else attribute name{$step/@name},
                 if ($allcomp/@xproc:step = "true") then attribute xproc:defaultname{$unique_current} else (),
 
                 (: TODO: will need to fixup top level input/output ports :)
-                xproc:explicitnames(document{$step/*},$unique_current)
+                xproc:explicitnames(document{$step},$unique_current)
 
             }
 
-        else if ($xproc/p:declare-step[@type=$stepname]) then
-                        element {node-name($step)} {                                                                                                                                                                                                      attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
+};
+
+declare function xproc:generate-declare-step($xproc,$allcomp,$step,$stepname,$unique_current){
+                       element {node-name($step)} {                                                                                                                                                                                                      attribute name{$step/@name},attribute xproc:defaultname{$unique_current},
                              (
                                 (: primary input and output:)
                                 for $binding in $xproc/p:declare-step[@type=$stepname]/p:*[name(.)='p:input' or name(.)='p:output'][not(@primary) or @primary="true"]
@@ -249,23 +226,55 @@ let $explicitnames :=
                                             util:trace($option,"option conforms to step signature")
                              )
                         }
-
-        else
-            (: TODO: throws error on unknown element in pipeline namespace :)
-            util:staticError('err:XS0044', concat("Parser explicit naming pass:  ",$stepname,":",$step/@name,util:serialize($declare-step,<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>)))
+};
 
 
-return
 
-    (: return topologically sorted pipeline  --------------------------------------------------- :)
+(: -------------------------------------------------------------------------- :)
+(: PREPARSE I: give everything a name if it doesn't already have one :)
+(: -------------------------------------------------------------------------- :)
+declare function xproc:explicitnames($xproc as item(), $unique_id){
 
-    if(empty($pipelinename))then
-        util:pipeline-step-sort($explicitnames,())
-    else
-    (: if dealing with p:pipeline  ------------------------------------------------------------- :)
-        <p:pipeline xmlns:xproc="http://xproc.net/xproc" name="{if ($pipelinename eq '') then $unique_id else $pipelinename}" xproc:defaultname="{$unique_id}">
-            { util:pipeline-step-sort($explicitnames,())}
-        </p:pipeline>
+let $pipelinename := $xproc/@name
+
+let $explicitnames := 
+
+    for $step at $count in $xproc/*
+
+        let $stepname := name($step)
+
+        (: generate unique default name :)
+        let $unique_before := concat($unique_id,'.',$count - 1)
+        let $unique_current := concat($unique_id,'.',$count)
+        let $unique_after := concat($unique_id,'.',$count + 1)
+
+        (: look up defined step in library :)
+        let $is_step := xproc:get-step($stepname)
+        let $is_component := xproc:get-comp($stepname)
+
+        return
+
+            (: handle step element ------------------------------------------------------------ :)
+            if($is_step) then
+                xproc:generate-step($step,$stepname,$is_step,$unique_current)
+            else if ($is_component) then
+                xproc:generate-component($is_component,$step,$unique_current)
+            else if ($xproc/p:declare-step[@type=$stepname]) then
+                xproc:generate-declare-step($xproc,$is_component,$step,$stepname,$unique_current)
+            else
+                (: TODO: throws error on unknown element in pipeline namespace :)
+                util:staticError('err:XS0044', concat("Parser explicit naming pass:  ",$stepname,":",$step/@name,util:serialize($step,<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>)))
+
+            return
+
+                    (: return topologically sorted pipeline  --------------------------------------------------- :)
+                    if(empty($pipelinename))then
+                        util:pipeline-step-sort($explicitnames,())
+                    else
+                    (: if dealing with p:pipeline  ------------------------------------------------------------- :)
+                        <p:declare-step xmlns:xproc="http://xproc.net/xproc" name="{if ($pipelinename eq '') then $unique_id else $pipelinename}" xproc:defaultname="{$unique_id}">
+                            { util:pipeline-step-sort($explicitnames,())}
+                        </p:declare-step>
 
 };
 
