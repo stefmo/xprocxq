@@ -8,6 +8,7 @@
 <p:declare-step name="test1" type="mine:identity">
     <p:input port="source" primary="true"/>
     <p:output port="result" primary="true"/>
+    <p:input port="extra" primary="false"/>
 
     <p:identity/>
     

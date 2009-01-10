@@ -8,7 +8,7 @@
 
     <xproc:element type="p:library"/>
     
-    <xproc:element type="p:declare-step" xproc:step="true">
+    <xproc:element type="p:declare-step" xproc:step="true" xproc:input="true" xproc:output="true">
       <p:input port="source"/>
       <p:output port="result"/>
     </xproc:element>
