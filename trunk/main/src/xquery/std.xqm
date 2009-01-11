@@ -1,9 +1,6 @@
 xquery version "1.0" encoding "UTF-8";
-
-
 module namespace std = "http://xproc.net/xproc/std";
-declare copy-namespaces preserve,inherit;
-
+(: -------------------------------------------------------------------------- :)
 
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";

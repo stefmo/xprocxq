@@ -4,19 +4,19 @@
                     name="xprocxq-extension-library">
 
     <p:declare-step type="ext:test">
-        <p:input port="source" primary="true"/>
-        <p:output port="result" primary="true"/>
+        <p:input port="source" primary="true" select="/"/>
+        <p:output port="result" primary="true" select="/"/>
     </p:declare-step>                        
                         
 <!-- top level inputs //-->
     <p:declare-step type="ext:pre" xproc:input="true" xproc:output="true">
-        <p:input port="source" primary="true"/>
-        <p:output port="result" primary="true"/>
+        <p:input port="source" primary="true" select="/"/>
+        <p:output port="result" primary="true" select="/"/>
     </p:declare-step>
 
     <p:declare-step type="ext:post">
-        <p:input port="source" primary="true"/>
-        <p:output port="stdout" primary="true"/>
+        <p:input port="source" primary="true" select="/"/>
+        <p:output port="stdout" primary="true" select="/"/>
     </p:declare-step>
     
     <p:declare-step type="ext:step">
