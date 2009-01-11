@@ -7,19 +7,17 @@
 
     <p:input port="extra" primary="false"/>
 
-<p:declare-step name="test1" type="mine:identity">
-    <p:input port="source" primary="true"/>
-    <p:output port="result" primary="true"/>
-    <p:input port="extra" primary="false"/>
+    <p:declare-step name="test1" type="mine:identity">
+        <p:input port="source" primary="true"/>
+        <p:output port="result" primary="true"/>
+        <p:input port="extra" primary="false"/>
+        <p:identity>
+            <p:input port="source">
+                <p:inline><test/></p:inline>
+            </p:input>
+        </p:identity>
+    </p:declare-step>
 
-    <p:identity>
-        <p:input port="source">
-            <p:inline><test/></p:inline>
-        </p:input>
-    </p:identity>
-    
-</p:declare-step>
-
-<mine:identity/>
+<mine:identity1/>
     
 </p:declare-step>

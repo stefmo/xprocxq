@@ -4,28 +4,19 @@
     <p:input port="source" primary="true"/>
     <p:output port="result" primary="true"/>
 
+
     <p:identity name="step2">
-       <p:input port="step2-input">
-              <p:pipe step="step1" port="step1-output"/>
+       <p:input port="source">
+              <p:pipe step="step1" port="result"/>
        </p:input>
-       <p:output port="step2-output"/>
     </p:identity>
 
-    <p:wrap name="step3">
-        <p:input port="source" primary="true">
-               <p:pipe step="step1" port="step2-output"/>
-       </p:input>
-        <p:with-option name="wrapper" select="aaaaaaaaaaaaa"/>   
-        <p:with-option name="match" select="/"/> 
-        <p:output port="result" primary="true"/>
-    </p:wrap>
-
     <p:count name="step1">
-        <p:input port="step1-input">
-              <p:pipe step="pipeline" port="std-input"/>
+        <p:input port="source">
+              <p:pipe step="pipeline" port="source"/>
         </p:input>
-        <p:output port="step1-output"/>
     </p:count>
+
 
 
  </p:declare-step>
