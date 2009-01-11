@@ -204,9 +204,9 @@
         
         See: Syntax Summaries
     </description></error><error><code>err:XS0044</code><description>
-        
-        It is a static error if any element in the XProc namespace or any step has element children other than those specified for it by this specification.
-        
+
+        It is a static error if any element in the XProc namespace or any step has element children other than those specified for it by this specification. In particular, the presence of atomic steps for which there is no visible declaration may raise this error.
+
         See: Syntax Summaries
     </description></error><error><code>err:XS0045</code><description>
         

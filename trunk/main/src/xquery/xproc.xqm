@@ -2,6 +2,7 @@ xquery version "1.0" encoding "UTF-8";
 module namespace xproc = "http://xproc.net/xproc";
 (: -------------------------------------------------------------------------- :)
 
+
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
@@ -37,8 +38,6 @@ declare function xproc:comp-available($compname as xs:string) as xs:boolean {
 declare function xproc:get-comp($compname as xs:string) {
     $comp:components/xproc:element[@type=$compname]
 };
-
-
 
 
 (: -------------------------------------------------------------------------- :)
@@ -79,8 +78,14 @@ declare function xproc:type($stepname as xs:string,$is_declare-step) as xs:strin
         else if($is_declare-step) then
           string(substring-before($is_declare-step/@type,':'))
         else
-            'unknown'
+          util:staticError('err:XS0044', concat($stepname,":",$stepname,' has no visible declaration'))
 };
+
+
+
+(: -------------------------------------------------------------------------- :)
+(: PREPARSE I: give everything a name if it doesn't already have one :)
+(: -------------------------------------------------------------------------- :)
 
 
 declare function xproc:options($allstep,$step,$stepname){
@@ -101,7 +106,6 @@ declare function xproc:options($allstep,$step,$stepname){
                 else
                     (: TODO: need to possibly throw err:XS0010 error on unrecognized options :)
                     util:trace($option,"option conforms to step signature")
-
 };
 
 
@@ -121,14 +125,10 @@ declare function xproc:bindings($allstep,$step){
                   $currentport/@select
                else
                   attribute select{$binding/@select},
-
-               $currentport/*
+                   $currentport/*
                }
 };
 
-(: -------------------------------------------------------------------------- :)
-(: PREPARSE I: give everything a name if it doesn't already have one :)
-(: -------------------------------------------------------------------------- :)
 
 declare function xproc:generate-step($step,$stepname,$allstep,$unique_current,$is_declare-step){
 
@@ -668,7 +668,7 @@ declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options){
 
     let $end-time := util:timing()
 
-    let $internaldbg :=0
+    let $internaldbg :=2
 
     return
     if ($internaldbg eq 1) then
