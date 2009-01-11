@@ -7,12 +7,11 @@
     <xproc:element type="p:pipeline" xproc:step="true"/>
 
     <xproc:element type="p:library"/>
-    
+
     <xproc:element type="p:declare-step" xproc:step="true" xproc:input="true" xproc:output="true">
       <p:input port="source"/>
       <p:output port="result"/>
     </xproc:element>
-
 
     <xproc:element type="p:import"/>
     <xproc:element type="p:import-schema"/>

@@ -1,7 +1,6 @@
 xquery version "1.0" encoding "UTF-8";
-
 module namespace util = "http://xproc.net/xproc/util";
-declare copy-namespaces preserve,inherit;
+(: -------------------------------------------------------------------------- :)
 
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
@@ -19,6 +18,9 @@ declare namespace system="java:java.lang.System";
 declare namespace math="http://exslt.org/math";
 declare namespace comp = "http://xproc.net/xproc/comp";
 declare namespace xproc = "http://xproc.net/xproc";
+declare namespace std = "http://xproc.net/xproc/std";
+declare namespace opt = "http://xproc.net/xproc/opt";
+declare namespace ext = "http://xproc.net/xproc/ext";
 
 (: Module Imports :)
 import module namespace const = "http://xproc.net/xproc/const"
@@ -192,7 +194,7 @@ declare function util:treewalker ($html) {
       else
         for $c in $children
             return
-                ( element {name($c)}{
+                ( element {node-name($c)}{
                     $c/@*,
                     $c/text(),
                     util:treewalker($c)
@@ -255,6 +257,22 @@ declare function util:add-attributes
  } ;
 
 (: -------------------------------------------------------------------------- :)
+declare function util:treewalker ($tree,$attrFunc,$elemFunc) {
+
+  let $children := $tree/*
+  return
+      if(empty($children)) then ()
+      else
+        for $c in $children
+            return
+                ( element {node-name($c)}{
+                            saxon:call($attrFunc,$c/@*),
+                            saxon:call($elemFunc,$c/*),
+                        util:treewalker($tree,$attrFunc,$elemFunc)
+                })
+};
+
+(: -------------------------------------------------------------------------- :)
 declare function util:treewalker ($tree,$attrFunc,$textFunc,$attName,$attValue) {
 
   let $children := $tree/*
@@ -263,7 +281,7 @@ declare function util:treewalker ($tree,$attrFunc,$textFunc,$attName,$attValue) 
       else
         for $c in $children
             return
-                ( element {name($c)}{
+                ( element {node-name($c)}{
                             saxon:call($attrFunc,$c/@*,$attName,$attValue),
                             saxon:call($textFunc,$c/text()),
                         util:treewalker($c,$attrFunc,$textFunc,$attName,$attValue)
