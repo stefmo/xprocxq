@@ -5,42 +5,26 @@
             xmlns:mine="http://www.example.org/mine">
 
 <p:input port="source" primary="true" select="/"/>
+
 <p:input port="input-port" primary="false" select="/t:test/t:input/*">
     <p:pipe step="pipeline" port="stdin"/>
 </p:input>
-<p:input port="output-port" primary="false" select="/t:test/t:output/*">
+<p:input port="output-port" primary="false" select="t:test/t:output/*">
     <p:pipe step="pipeline" port="stdin"/>
 </p:input>
-<p:input port="pipeline-port" primary="false" select="/t:test/t:pipeline/*">
+<p:input port="pipeline-port" primary="false" select="t:test/t:pipeline/*">
     <p:pipe step="pipeline" port="stdin"/>
 </p:input>
 
 <p:output port="result" primary="true"/>
 
-<p:declare-step type="mine:test" name="unittest">
-    <p:input port="source" primary="true"/>
-    <p:input port="pipeline" primary="false"/>
-    <p:input port="output" primary="false"/>
-    <p:output port="result" primary="true"/>
-    
-   <p:compare name="step1">
-        <p:input port="alternate">
-              <p:pipe port="output" step="unittest"/>
-        </p:input>
-   </p:compare>
-    
-</p:declare-step>
-
-<mine:test>
-    <p:input port="source">
-        <p:pipe port="input-source" step="pipeline"/>
-    </p:input>
-    <p:input port="output">
-        <p:pipe port="output-source" step="pipeline"/>
-    </p:input>
-    <p:pipeline port="pipeline">
-        <p:pipe port="pipeline-port" step="pipeline"/>
-    </p:pipeline>
-</mine:test>
+<p:compare>
+    <input port="source" primary="true">
+        <p:pipe port="input-port" step="pipeline"/>
+    </input>
+    <input port="alternate">
+        <p:pipe port="output-port" step="pipeline"/>
+    </input>
+</p:compare>
 
 </p:declare-step>

@@ -310,7 +310,7 @@ declare function util:xquery($exp as xs:string){
 
 
 (: -------------------------------------------------------------------------- :)
-declare function util:xslt($xslt,$xml) as item()*{
+declare function util:xslt($xslt,$xml){
 let $compiled_xslt := saxon:compile-stylesheet(document{$xslt})
     return saxon:transform($compiled_xslt, document{$xml})
 };

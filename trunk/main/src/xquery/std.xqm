@@ -375,10 +375,10 @@ let $match := util:get-option($options/p:with-option[@name='match']/@select,$v)
 declare function std:xslt($primary,$secondary,$options){
 
     util:assert(exists($secondary/p:input[@port='stylesheet']/*),'stylesheet is required'),
-    let $v :=document{$primary}
     let $stylesheet := $secondary/p:input[@port='stylesheet']/*
+    let $v := document {$primary}
     return
-        (util:xslt($stylesheet,$v))
+        util:xslt($stylesheet,$v)
 };
 
 

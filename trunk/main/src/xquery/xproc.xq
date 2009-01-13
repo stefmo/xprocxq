@@ -31,6 +31,7 @@ declare variable $xproc as item() external;
 declare variable $stdin as item() external;
 
 declare variable $bindings as xs:string external;
+declare variable $_bindings := if ($bindings) then $bindings else ();
 
 declare variable $options as xs:string external;
 
@@ -48,6 +49,6 @@ declare variable $stdin2 := document{.};
 (: -------------------------------------------------------------------------- :)
 (: XProc Processing :)
 
-    xproc:run($xproc,$stdin,$dflag,$tflag,tokenize($bindings,','),tokenize($options,','))
+    xproc:run($xproc,$stdin,$dflag,$tflag,tokenize($_bindings,','),tokenize($options,','))
 
 (: -------------------------------------------------------------------------- :)
