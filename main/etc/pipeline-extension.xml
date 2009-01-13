@@ -9,7 +9,7 @@
     </p:declare-step>                        
                         
 <!-- top level inputs //-->
-    <p:declare-step type="ext:pre" xproc:input="true" xproc:output="true">
+    <p:declare-step type="ext:pre" xproc:bindings="all">
         <p:input port="source" primary="true" select="/"/>
         <p:output port="result" primary="true" select="/"/>
     </p:declare-step>

@@ -18,6 +18,7 @@ ISSUES
 * ordering/stepordering1.xml is broken due to p:pipe missing on preparse II routines
 * declare-steps and components now need sorting out
 
+* problem with test-runner.xml default input on first step (source port on p:compare)
 
 GOALS
 * once we get unit test step running we should be pretty stable

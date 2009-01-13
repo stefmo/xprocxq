@@ -15,7 +15,7 @@ cat << EOF
 
 COMMANDLINE USAGE:
 
-xprocxq [switches] [--import library|pipeline] SOURCE PIPELINE bindings="port=file," options="name=value,"
+xprocxq [switches] [--import library|pipeline] SOURCE PIPELINE port=file,port=file options="name=value,"
 
 
 SWITCHES:
@@ -31,7 +31,7 @@ BINDINGS:
 
     supply port bindings by associating port with a file e.g. bindings="port=file, port=file"
 
-    ex. bindings="myportname=test/data/test.xml, otherport=test/data/test2.xml"
+    ex. myportname=test/data/test.xml, otherport=test/data/test2.xml
 
 OPTIONS
 
@@ -90,4 +90,4 @@ then
 fi
 
 
-java net.sf.saxon.Query $valval $xiflag -sa -s:$cdir/$1 -tree:linked -l -update:on -ext:on -q:$XPROCXQ_HOME/src/xquery/xproc.xq +xproc="$cdir/$2" +stdin="$cdir/$1" dflag="$dflag" tflag="$tflag" ival="$ival" oval="$oval" $3 $4
+java net.sf.saxon.Query $valval $xiflag -sa -s:$cdir/$1 -tree:linked -l -update:on -ext:on -q:$XPROCXQ_HOME/src/xquery/xproc.xq +xproc="$cdir/$2" +stdin="$cdir/$1" dflag="$dflag" tflag="$tflag" ival="$ival" oval="$oval" bindings="$3"
