@@ -6,6 +6,7 @@ module namespace util = "http://xproc.net/xproc/util";
 declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
+declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
 
 (:todo - needed to resolve @select on p:input related to compile- to investigate why I need to add this xmlns:)
 declare namespace t="http://xproc.org/ns/testsuite";
@@ -361,19 +362,18 @@ declare function util:printstep ($step,$meta,$value) {
 };
 
 
-(: -------------------------------------------------------------------------- :)
-(: topological sorting of pipeline steps, based on inputs :)
-declare function util:pipeline-step-sort($unsorted, $sorted )   {
-    if (empty($unsorted))      
-       then $sorted 
+declare function util:pipeline-step-sort($unsorted, $sorted, $pipelinename )  {
+    if (empty($unsorted)) then
+        $sorted
     else
-       let $allnodes := $unsorted [ every $step in p:*/p:input/p:pipe/@step 
-                                                    satisfies $step = $sorted/@name]
-       return 
-           util:pipeline-step-sort( $unsorted except $allnodes, 
-                                            ($sorted, $allnodes) )
+        let $allnodes := $unsorted [ every $id in p:input[@primary="true"]/p:pipe/@step
+                                            satisfies ($id = $sorted/@name or $id=$pipelinename)]
+    return
+        if ($allnodes) then
+            util:pipeline-step-sort( $unsorted except $allnodes, ($sorted, $allnodes ),$pipelinename)
+        else
+            ()
 };
-
 
 
 declare function util:strip-namespace($e as element()) as element() {
@@ -424,4 +424,4 @@ declare function util:step-fold( $pipeline,
         
 };
 
-(: -------------------------------------------------------------------------- :)
+

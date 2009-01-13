@@ -15,9 +15,10 @@ ISSUES
 * ensure sequences are working properly
 * p:choose
 * p:try in evalstep ?
-* ordering/stepordering1.xml is not broken
+* ordering/stepordering1.xml is broken due to p:pipe missing on preparse II routines
+* declare-steps and components now need sorting out
 
 
 GOALS
 * once we get unit test step running we should be pretty stable
-* update/retire xquery unit tests
+
