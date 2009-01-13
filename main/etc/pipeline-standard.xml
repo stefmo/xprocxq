@@ -196,9 +196,9 @@
    <p:declare-step type="p:wrap" xml:id="wrap">
       <p:input port="source" primary="true" select="/"/>
       <p:output port="result" primary="true" select="/"/>
-      <p:option name="wrapper" required="true"/>
-      <p:option name="match" required="true"/>
-      <p:option name="group-adjacent"/>
+      <p:option name="wrapper" required="true" default="/"/>
+      <p:option name="match" required="true" default="/"/>
+      <p:option name="group-adjacent" default="/"/>
    </p:declare-step>
    <p:declare-step type="p:wrap-sequence" xml:id="wrap-sequence">
       <p:input port="source" sequence="true" primary="true" select="/"/>

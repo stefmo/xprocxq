@@ -4,7 +4,7 @@
 <!-- should throw an error, no binding to result, as p:compare result output is non-primary //-->
 
    <p:compare name="step1">
-        <p:input port="alternate">
+        <p:input port="alternate" primary="true">
               <p:document href="file:test/data/test.xml"/>
         </p:input>
       <p:with-option name="fail-if-not-equal" select="'false'"/>

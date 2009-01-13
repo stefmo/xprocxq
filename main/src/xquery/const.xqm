@@ -4,11 +4,16 @@ module namespace const = "http://xproc.net/xproc/const";
 
 
 declare namespace xproc = "http://xproc.net/xproc";
+declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
 
 (: XProc Namespaces :)
 declare variable $const:NS_XPROC := "http://www.w3.org/ns/xproc";
 declare variable $const:NS_XPROC_STEP := "http://www.w3.org/ns/xproc-step";
 declare variable $const:NS_XPROC_ERR := "http://www.w3.org/ns/xproc-error";
+
+(: -------------------------------------------------------------------------- :)
+
+declare variable $const:TRACE_SERIALIZE :=<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>;
 
 (: -------------------------------------------------------------------------- :)
 
