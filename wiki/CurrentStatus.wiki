@@ -1,4 +1,4 @@
-31/12/2008 refactored all of the port bindings ... which has had an impact everywhere ... tracking and fixing
+16/02/2009 planned first official release will be at XML Prague in March!
 
 == Changelog ==
 
