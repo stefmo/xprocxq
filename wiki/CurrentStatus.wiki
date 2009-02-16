@@ -1,4 +1,4 @@
-16/02/2009 planned first official release will be at XML Prague in March!
+16/02/2009 first official release will be at XML Prague March 21
 
 == Changelog ==
 
