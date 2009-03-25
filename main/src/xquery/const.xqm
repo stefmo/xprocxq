@@ -30,10 +30,8 @@ declare variable  $const:evalstep := saxon:function("xproc:evalstep", 5);
 
 (: -------------------------------------------------------------------------- :)
 (: error dictionaries :)
-declare variable  $const:error-static := doc("/Users/jimfuller/Source/Webcomposite/xprocxq/main/etc/error-static.xml");
-declare variable  $const:error-dynamic := doc("/Users/jimfuller/Source/Webcomposite/xprocxq/main/etc/error-dynamic.xml");
-declare variable  $const:error-step := doc("/Users/jimfuller/Source/Webcomposite/xprocxq/main/etc/error-step.xml");
-declare variable  $const:error-xproc := doc("/Users/jimfuller/Source/Webcomposite/xprocxq/main/etc/error-xproc.xml");
+declare variable  $const:error := doc("/Users/jimfuller/Source/Webcomposite/xprocxq/main/etc/error-list.xml");
+declare variable  $const:error-xprocxq := doc("/Users/jimfuller/Source/Webcomposite/xprocxq/main/etc/error-xprocxq.xml");
 
 (: -------------------------------------------------------------------------- :)
 

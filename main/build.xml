@@ -689,6 +689,16 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
 
 
     <!-- ===================================================== -->
+    <!-- get error-list.xml from W3C site                      -->
+    <!-- ===================================================== -->
+    <target name="get-w3c-artifacts" description="download .xml files from W3C XProc">
+        <get src="http://www.w3.org/XML/XProc/docs/pipeline-library.xml" dest="etc/pipeline-library.xml"/>
+        <get src="http://www.w3.org/XML/XProc/docs/typed-pipeline-library.xml" dest="etc/typed-pipeline-library.xml"/>
+        <get src="http://www.w3.org/XML/XProc/docs/error-list.xml" dest="etc/error-list.xml"/>
+    </target>
+
+
+    <!-- ===================================================== -->
     <!-- generate test suite for W3C                           -->
     <!-- ===================================================== -->
     <target name="generate.test-suite" description="generates test suite submission">
