@@ -12,6 +12,8 @@ They have no effect if the step appears in a subpipeline; only the serialization
 the “top level” step or pipeline are used because that is the only step which the processor
 is required to serialize.
 
+* create namespace module to import all the different namespaces
+
 
 ISSUES
 * inputs in nested p:declare-steps need fixing due to $allcomp in xproc:explicitnames
