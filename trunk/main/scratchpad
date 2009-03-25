@@ -1,7 +1,11 @@
 SPEC REMINDERS
+
 * empty stdin defaults to defined p:pipe,p:inline,p:document,p:data
-* p:declare-step requires input/output port definition which needs binding from the outside
+
+* p:declare-step requires input/output port definition which in turn needs binding from the outside
+
 * p:pipeline defines default input/output ports with sequence="false"
+
 * If p:log or p:serialization elements appear in the declaration of an atomic step, they
 will only be used if the atomic step is directly evaluated by the processor.
 They have no effect if the step appears in a subpipeline; only the serialization options of

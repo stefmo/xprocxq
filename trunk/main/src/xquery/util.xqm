@@ -100,21 +100,21 @@ return
 (: TODO: consider combining error throwing functions :)
 (: consider adding saxon:line-number()  :)
 declare function util:dynamicError($error,$string) {
-let $info := $const:error-dynamic//error[code=$error]
-return
-    error(QName('http://www.w3.org/ns/xproc-error',$error),concat("XProc Dynamic Error: ",$string," ",$info/description/text()))
+    let $info := $const:error//error[@code=substring-after($error,':')]
+    return
+        error(QName('http://www.w3.org/ns/xproc-error',$error),concat("XProc Dynamic Error: ",$string," ",$info/text()))
 };
 
 declare function util:staticError($error,$string) {
-let $info := $const:error-static//error[code=$error]
-return
-    error(QName('http://www.w3.org/ns/xproc-error',$error),concat("XProc Static Error: ",$string," ",$info/description/text()))
+    let $info := $const:error//error[@code=substring-after($error,':')]
+    return
+        error(QName('http://www.w3.org/ns/xproc-error',$error),concat("XProc Static Error: ",$string," ",$info/text()))
 };
 
 declare function util:stepError($error,$string) {
-let $info := $const:error-step//error[code=$error]
-return
-    error(QName('http://www.w3.org/ns/xproc-error',$error),concat("XProc Step Error: ",$string," ",$info/description/text()))
+    let $info := $const:error//error[@code=substring-after($error,':')]
+    return
+        error(QName('http://www.w3.org/ns/xproc-error',$error),concat("XProc Step Error: ",$string," ",$info/text()))
 };
 
 
