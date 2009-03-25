@@ -1,4 +1,4 @@
-16/02/2009 first official release will be at XML Prague March 21
+25/03/2009 first official release will be at April 1st
 
 == Changelog ==
 
