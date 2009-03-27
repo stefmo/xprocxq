@@ -697,6 +697,15 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
         <get src="http://www.w3.org/XML/XProc/docs/error-list.xml" dest="etc/error-list.xml"/>
     </target>
 
+    <!-- ===================================================== -->
+    <!-- generate LOC                                          -->
+    <!-- ===================================================== -->
+    <target name="generate.loc" description="generates XQuery LOC">
+        <delete file="LOC"/>
+        <exec executable="/usr/bin/wc" input="src/xquery/*.*" output="LOC">
+            <arg line="-l"/>
+        </exec>
+    </target>
 
     <!-- ===================================================== -->
     <!-- generate test suite for W3C                           -->
