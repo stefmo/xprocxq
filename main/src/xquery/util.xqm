@@ -186,6 +186,18 @@ declare function util:get-option($option,$v){
         string(util:evalXPATH(string($option),$v))
 };
 
+
+
+declare function util:add-ns-node(
+    $elem   as element(),
+    $prefix as xs:string,
+    $ns-uri as xs:string
+  ) as element()
+{
+  element { QName($ns-uri, concat($prefix, ":x")) }{ $elem }/*
+};
+
+
 (: -------------------------------------------------------------------------- :)
 declare function util:treewalker ($html) {
 

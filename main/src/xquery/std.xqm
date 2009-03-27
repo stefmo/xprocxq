@@ -13,7 +13,6 @@ declare namespace xproc = "http://xproc.net/xproc";
 import module namespace util = "http://xproc.net/xproc/util"
                         at "util.xqm";
 
-
 (: Module Vars :)
 declare variable $std:steps := doc("../../etc/pipeline-standard.xml")/p:library;
 declare variable $std:add-attribute :=saxon:function("std:add-attribute", 3);
@@ -105,6 +104,23 @@ else
 
 
 (: -------------------------------------------------------------------------- :)
+declare function std:compare($primary,$secondary,$options) {
+
+let $alternate := $secondary/xproc:input[@port='alternate']/*
+let $result := deep-equal($primary/*[1],$alternate)
+let $fail-if-not-equal := util:boolean($options/p:with-option[@name='fail-if-not-equal']/@select)
+    return
+       if($fail-if-not-equal eq true()) then
+            if ( $result eq true())then
+                (util:outputResultElement($result))
+            else
+                util:stepError('err:XC0019','p:compare fail-if-not-equal option is enabled and documents were not equal')
+        else
+            (util:outputResultElement($result))
+};
+
+
+(: -------------------------------------------------------------------------- :)
 (: TODO this is wrong, its counting the elements needs to count the sequence :)
 declare function std:count($primary,$secondary,$options){
 
@@ -125,22 +141,6 @@ return
         util:stepError('err:XC0016','')
 };
 
-
-(: -------------------------------------------------------------------------- :)
-declare function std:compare($primary,$secondary,$options) {
-
-let $alternate := $secondary/p:input[@port='alternate']/*
-let $result := deep-equal($primary[1]/*,$alternate/*)
-let $fail-if-not-equal := util:boolean($options/p:with-option[@name='fail-if-not-equal']/@select)
-    return
-        if($fail-if-not-equal eq true()) then
-            if ( $result eq true())then
-                (util:outputResultElement($result))
-            else
-                util:stepError('err:XC0019','p:compare fail-if-not-equal option is enabled and documents were not equal')
-        else
-            (util:outputResultElement($result))
-};
 
 
 (: -------------------------------------------------------------------------- :)
@@ -374,8 +374,8 @@ let $match := util:get-option($options/p:with-option[@name='match']/@select,$v)
 (: -------------------------------------------------------------------------- :)
 declare function std:xslt($primary,$secondary,$options){
 
-    util:assert(exists($secondary/p:input[@port='stylesheet']/*),'stylesheet is required'),
-    let $stylesheet := $secondary/p:input[@port='stylesheet']/*
+    util:assert(exists($secondary/xproc:input[@port='stylesheet']/*),'stylesheet is required'),
+    let $stylesheet := $secondary/xproc:input[@port='stylesheet']/*
     let $v := document {$primary}
     return
         util:xslt($stylesheet,$v)

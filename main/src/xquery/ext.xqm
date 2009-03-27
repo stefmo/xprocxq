@@ -6,6 +6,7 @@ module namespace ext = "http://xproc.net/xproc/ext";
 declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
+declare namespace xproc = "http://xproc.net/xproc";
 
 (: Module Imports :)
 import module namespace util = "http://xproc.net/xproc/util"
@@ -41,7 +42,7 @@ declare function ext:test($primary,$secondary,$options){
 declare function ext:xproc($primary,$secondary,$options) as item()* {
 
 let $v :=document{$primary}
-let $xproc := $secondary/p:input[@port='xproc']/*
+let $xproc := $secondary/xproc:input[@port='xproc']/*
 return
     <fix-me-circular-references-with-module-imports/>
 };

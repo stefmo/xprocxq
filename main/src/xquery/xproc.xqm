@@ -408,11 +408,13 @@ let $explicitbindings := document {
 
 declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentstep){
 
-
 (: empty step:)            if(name($child)='p:empty') then
                                 (<!-- TODO: replace this !!!! returned empty //-->)
 
 (: inline :)               else if(name($child)='p:inline') then
+                                 $child/*
+
+(: inline :)               else if(name($child)='xproc:output') then
                                  $child/*
 
 (: document :)             else if(name($child)='p:document') then
@@ -434,10 +436,12 @@ declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentste
 
 (: prmy top level input :)  else if ($child/@primary eq 'true' and $child/@step eq $pipeline/@name) then
 (: TODO - fix :)
-                                  $result/xproc:output[@port='result'][@step=concat('!',$pipeline/@name)]/*
+
+                                $result/xproc:output[@port='result'][@step=concat('!',$pipeline/@name)]/*
 
 (: top level input :)       else if ($child/@step eq $pipeline/@name) then
 (: TODO - fix :)
+
                                   $result/xproc:output[@port=$child/@port][@step=concat('!',$pipeline/@name)]/*
 
 (: pipe :)                  else if ($child/@port) then
@@ -446,9 +450,11 @@ declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentste
                                        $result/xproc:output[@port=$child/@port][@step=$child/@step]/*
                                   else
                                        util:dynamicError('err:XD0001',concat(" cannot bind to port: ",$child/@port," step: ",$child/@step,' ',util:serialize($currentstep,$const:TRACE_SERIALIZE)))
+
                             else
 (: TODO - fix :)
-                              $result/xproc:output[@port='stdin'][@step=$currentstep/@name]/*
+                                $result/xproc:output[@port='stdin'][@step=$currentstep/@name]/*
+
 };
 
 
@@ -460,7 +466,7 @@ let $primaryresult := document{
     if($currentstep/p:input/*) then
         for $child in $currentstep/p:input/*
             return
-                xproc:resolve-port-binding($child,$result,$pipeline,$currentstep)
+            xproc:resolve-port-binding($child,$result,$pipeline,$currentstep)
     else
         $primaryinput/*
     }
@@ -481,6 +487,7 @@ let $primaryresult := document{
                 util:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
             else
                 $selectval
+
 };
 
 
@@ -488,7 +495,7 @@ declare function xproc:eval-secondary($pipeline,$step,$currentstep,$primaryinput
     <xproc:inputs>{
         for $input in $currentstep/p:input[@primary='false']
             return
-            <p:input port="{$input/@port}" select="{$input/@select}">
+            <xproc:input port="{$input/@port}" select="{$input/@select}">
     {
         let $primaryresult := document{
             for $child in $input/*
@@ -510,7 +517,7 @@ declare function xproc:eval-secondary($pipeline,$step,$currentstep,$primaryinput
                 else
                     $selectval
     }
-            </p:input>
+            </xproc:input>
 
     }</xproc:inputs>
 };
@@ -567,7 +574,7 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
                                    select="{$currentstep/p:input[@primary='true']/@select}"
                                    port="{$currentstep/p:input[@primary='true']/@port}"
                                    func="{$stepfuncname}">{
-                                    $primaryinput[1]
+                                         $primaryinput/*
                                   }
                      </xproc:output>,
                      <xproc:output step="{$step}"
@@ -698,6 +705,8 @@ declare function xproc:parse_and_eval($xproc as item(),$stdin as item(),$binding
                                 primary="false"
                                 func="{$pipeline/@type}">{$stdin}</xproc:output>))                        )
 };
+
+
 
 declare function xproc:resolve-external-bindings($bindings,$pipelinename){
 
