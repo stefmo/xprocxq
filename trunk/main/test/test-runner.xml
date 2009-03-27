@@ -6,10 +6,10 @@
 
 <p:input port="source" primary="true" select="/"/>
 
-<p:input port="input-port" primary="false" select="/t:test/t:input/*">
+<p:input port="input-port" primary="false" select="/t:test/t:input/*[1]">
     <p:pipe step="pipeline" port="stdin"/>
 </p:input>
-<p:input port="output-port" primary="false" select="t:test/t:output/*">
+<p:input port="output-port" primary="false" select="t:test/t:output/*[1]">
     <p:pipe step="pipeline" port="stdin"/>
 </p:input>
 <p:input port="pipeline-port" primary="false" select="t:test/t:pipeline/*">
@@ -18,8 +18,16 @@
 
 <p:output port="result" primary="true"/>
 
+<!--
+<p:identity>
+    <p:input port="source">
+        <p:pipe step="pipeline" port="pipeline-port"/>
+    </p:input>
+</p:identity>
+//-->
+
 <p:compare>
-    <input port="source" primary="true">
+    <input port="source">
         <p:pipe port="input-port" step="pipeline"/>
     </input>
     <input port="alternate">

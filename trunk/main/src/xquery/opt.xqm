@@ -8,6 +8,7 @@ declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace runtime="java:net.xproc.opt.runtimeExec";
 declare namespace comp="http://xproc.net/xproc/comp";
+declare namespace xproc = "http://xproc.net/xproc";
 
 (: Module Imports :)
 import module namespace util = "http://xproc.net/xproc/util"
@@ -30,10 +31,10 @@ declare variable $opt:xsl-formatter :=saxon:function("opt:xsl-formatter", 3);
 (: -------------------------------------------------------------------------- :)
 declare function opt:xquery($primary,$secondary,$options) {
 
-util:assert(exists($secondary/p:input[@port='query']/c:query),'p:input query is required'),
+util:assert(exists($secondary/xproc:input[@port='query']/c:query),'p:input query is required'),
 
 (:TODO: need to sort out multiple c:query elements :)
-    let $xquery := $secondary/p:input[@port='query']/c:query/text()
+    let $xquery := $secondary/xproc:input[@port='query']/c:query/text()
     let $result := data(util:xquery($xquery))
         return
             (util:outputResultElement($result))
