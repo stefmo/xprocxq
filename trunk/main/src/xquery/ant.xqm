@@ -14,7 +14,7 @@ declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace target="java:net.xproc.ant.Embedded";
 
 (: Module Vars :)
-declare variable  $ant:steps := doc("../../etc/pipeline-ant.xml")/p:library;
+declare variable  $ant:steps := doc("etc/pipeline-ant.xml")/p:library;
 
 (: -------------------------------------------------------------------------- :)
 

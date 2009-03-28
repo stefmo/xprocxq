@@ -15,7 +15,7 @@ import module namespace util = "http://xproc.net/xproc/util"
                         at "util.xqm";
 
 (: Module Vars :)
-declare variable $opt:steps := doc("../../etc/pipeline-optional.xml")/p:library;
+declare variable $opt:steps := doc("etc/pipeline-optional.xml")/p:library;
 declare variable $opt:exec :=saxon:function("opt:exec", 3);
 declare variable $opt:hash :=saxon:function("opt:hash", 3);
 declare variable $opt:uuid :=saxon:function("opt:uuid", 3);

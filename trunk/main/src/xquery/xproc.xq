@@ -1,7 +1,7 @@
 xquery version "1.0" encoding "UTF-8";
 
-declare default element namespace "";
-declare copy-namespaces no-preserve, no-inherit;
+
+declare copy-namespaces preserve, inherit;
 
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
@@ -9,23 +9,26 @@ declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace fn ="http://www.w3.org/TR/xpath-functions/";
 
+declare base-uri "file:///Users/jimfuller/Source/Webcomposite/xprocxq/main/";
+
 (: Module Imports :)
 import module namespace const = "http://xproc.net/xproc/const"
-                        at "const.xqm";
+                        at "src/xquery/const.xqm";
 import module namespace util = "http://xproc.net/xproc/util"
-                        at "util.xqm";
+                        at "src/xquery/util.xqm";
 import module namespace xproc = "http://xproc.net/xproc"
-                        at "xproc.xqm";
+                        at "src/xquery/xproc.xqm";
 import module namespace std = "http://xproc.net/xproc/std"
-                        at "std.xqm";
+                        at "src/xquery/std.xqm";
 import module namespace opt = "http://xproc.net/xproc/opt"
-                        at "opt.xqm";
+                        at "src/xquery/opt.xqm";
 import module namespace ext = "http://xproc.net/xproc/ext"
-                        at "ext.xqm";
+                        at "src/xquery/ext.xqm";
 import module namespace comp = "http://xproc.net/xproc/comp"
-                        at "comp.xqm";
+                        at "src/xquery/comp.xqm";
 
 (: Module Vars :)
+
 
 declare variable $flag external;
 
@@ -55,3 +58,5 @@ declare variable $stdin2 := document{.};
     xproc:run($xproc,$stdin,$dflag,$tflag,tokenize($_bindings,','),tokenize($options,','))
 
 (: -------------------------------------------------------------------------- :)
+
+
