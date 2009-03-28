@@ -2,7 +2,6 @@ xquery version "1.0" encoding "UTF-8";
 module namespace xproc = "http://xproc.net/xproc";
 (: -------------------------------------------------------------------------- :)
 
-
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
@@ -414,9 +413,6 @@ declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentste
 (: inline :)               else if(name($child)='p:inline') then
                                  $child/*
 
-(: inline :)               else if(name($child)='xproc:output') then
-                                 $child/*
-
 (: document :)             else if(name($child)='p:document') then
                                  if (doc-available($child/@href)) then
                                        doc($child/@href)
@@ -436,14 +432,11 @@ declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentste
 
 (: prmy top level input :)  else if ($child/@primary eq 'true' and $child/@step eq $pipeline/@name) then
 (: TODO - fix :)
-
                                 $result/xproc:output[@port='result'][@step=concat('!',$pipeline/@name)]/*
 
 (: top level input :)       else if ($child/@step eq $pipeline/@name) then
-(: TODO - fix :)
 
                                   $result/xproc:output[@port=$child/@port][@step=concat('!',$pipeline/@name)]/*
-
 (: pipe :)                  else if ($child/@port) then
 
                                   if ($result/xproc:output[@port=$child/@port][@step=$child/@step]) then
@@ -541,7 +534,7 @@ declare function xproc:eval-outputs($pipeline,$step){
 (: runtime evaluation of xproc steps; throwing dynamic errors and writing output along the way :)
 declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
 
-    let $currentstep := $pipeline//*[@name=$step]
+    let $currentstep := $pipeline//*[@name=$step][1]
     let $stepfuncname := $currentstep/@xproc:step
     let $stepfunc := concat($const:default-imports,$stepfuncname)    
     let $outputs := document{$outputs}
@@ -557,7 +550,7 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
             ()
         else
             (
-            for $child in $secondary/p:input
+            for $child in $secondary/xproc:input
                 return
                      <xproc:output step="{$step}"
                                   port-type="input"
@@ -577,15 +570,27 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
                                          $primaryinput/*
                                   }
                      </xproc:output>,
-                     <xproc:output step="{$step}"
-                                  port-type="output"
-                                  primary="true" 
-                                  select="{$currentstep/p:output[@primary='true']/@select}"
-                                  port="{$currentstep/p:output[@primary='true']/@port}"
-                                  func="{$stepfuncname}">{
-                                    util:call(util:xquery($stepfunc),$primary,$secondary,$options)
-                                  }
-                     </xproc:output>
+
+                    if($currentstep/p:output[@primary='true']) then
+                         <xproc:output step="{$step}"
+                                      port-type="output"
+                                      primary="true"
+                                      select="{$currentstep/p:output[@primary='true']/@select}"
+                                      port="{$currentstep/p:output[@primary='true']/@port}"
+                                      func="{$stepfuncname}">{
+                                        util:call(util:xquery($stepfunc),$primary,$secondary,$options)
+                                      }
+                         </xproc:output>
+                     else
+                         <xproc:output step="{$step}"
+                                      port-type="output"
+                                      primary="false"
+                                      select="{$currentstep/p:output[@primary='false']/@select}"
+                                      port="{$currentstep/p:output[@primary='false']/@port}"
+                                      func="{$stepfuncname}">{
+                                        util:call(util:xquery($stepfunc),$primary,$secondary,$options)
+                                      }
+                         </xproc:output>
             )
 };
 
@@ -625,7 +630,7 @@ let $steps := <p:declare-step>
                     }
                     </p:input>,
 
-            <p:output port="result" select="{$pipeline/p:output[@port='result']/@select}"/>,
+            <p:output port="result" primary="true" select="{if ($pipeline/p:output[@port='result']/@select) then $pipeline/p:output[@port='result']/@select else '/' }"/>,
 
             $pipeline/p:input[@primary='false'],
 
@@ -747,6 +752,29 @@ let $output := subsequence($result,2)
                         (: --------------------------------------------------------------------------- :)
                                                                                       (: MAIN  ROUTINES:)
                         (: --------------------------------------------------------------------------- :)
+
+declare function xproc:run-step($primary,$secondary,$options) {
+
+let $stdin :=document{$primary/*[1]}
+let $pipeline := $secondary/xproc:input[@port='pipeline']
+let $bindings :=()
+let $options :=()
+let $dflag :="0"
+let $tflag :="0"
+
+    (: STEP I: generate parse tree :)
+    let $preparse := xproc:preparse($pipeline,$stdin)
+
+    (: STEP II: parse and eval tree :)
+    let $eval_result := xproc:parse_and_eval($preparse,$stdin,$bindings)
+
+    (: STEP III: serialize and return results :)
+    let $serialized_result := xproc:output($eval_result,$dflag)
+
+return
+    $serialized_result
+
+};
 
 
 (: -------------------------------------------------------------------------- :)

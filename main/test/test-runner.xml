@@ -2,37 +2,39 @@
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:t="http://xproc.org/ns/testsuite"
             xmlns:c="http://www.w3.org/ns/xproc-step"
+            xmlns:ext="http://xproc.net/xproc/ext" 
             xmlns:mine="http://www.example.org/mine">
 
-<p:input port="source" primary="true" select="/"/>
+<p:input port="source" primary="true"/>
 
-<p:input port="input-port" primary="false" select="/t:test/t:input/*[1]">
+<p:input port="input-port" primary="false" select="/t:test/t:input[@port='source']/*">
     <p:pipe step="pipeline" port="stdin"/>
 </p:input>
-<p:input port="output-port" primary="false" select="t:test/t:output/*[1]">
+<p:input port="output-port" primary="false" select="/t:test/t:output[@port='result']/*">
     <p:pipe step="pipeline" port="stdin"/>
 </p:input>
-<p:input port="pipeline-port" primary="false" select="t:test/t:pipeline/*">
+<p:input port="pipeline-port" primary="false" select="/t:test/t:pipeline/*">
     <p:pipe step="pipeline" port="stdin"/>
 </p:input>
 
 <p:output port="result" primary="true"/>
 
-<!--
-<p:identity>
-    <p:input port="source">
+<ext:xproc name="test1">
+    <p:input port="source" select="/">
+        <p:pipe step="pipeline" port="input-port"/>
+    </p:input>
+    <p:input port="pipeline" select="/">
         <p:pipe step="pipeline" port="pipeline-port"/>
     </p:input>
-</p:identity>
-//-->
+</ext:xproc>
 
 <p:compare>
-    <input port="source">
-        <p:pipe port="input-port" step="pipeline"/>
-    </input>
-    <input port="alternate">
+    <p:input port="source">
+        <p:pipe port="result" step="test1"/>
+    </p:input>
+    <p:input port="alternate">
         <p:pipe port="output-port" step="pipeline"/>
-    </input>
+    </p:input>
 </p:compare>
 
 </p:declare-step>

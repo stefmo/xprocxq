@@ -2,6 +2,7 @@ xquery version "1.0" encoding "UTF-8";
 module namespace std = "http://xproc.net/xproc/std";
 (: -------------------------------------------------------------------------- :)
 
+
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
@@ -14,7 +15,7 @@ import module namespace util = "http://xproc.net/xproc/util"
                         at "util.xqm";
 
 (: Module Vars :)
-declare variable $std:steps := doc("../../etc/pipeline-standard.xml")/p:library;
+declare variable $std:steps := doc("etc/pipeline-standard.xml")/p:library;
 declare variable $std:add-attribute :=saxon:function("std:add-attribute", 3);
 declare variable $std:add-xml-base :=saxon:function("std:add-xml-base", 3);
 declare variable $std:count :=saxon:function("std:count", 3);
@@ -222,7 +223,7 @@ declare function std:http-request($primary,$secondary,$options) {
 
 (: -------------------------------------------------------------------------- :)
 declare function std:identity($primary,$secondary,$options) {
-   $primary
+    $primary/*
 };
 
 

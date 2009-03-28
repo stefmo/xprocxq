@@ -11,22 +11,21 @@ declare namespace xproc = "http://xproc.net/xproc";
 (: Module Imports :)
 import module namespace util = "http://xproc.net/xproc/util"
                         at "util.xqm";
- 
-(: Module Vars :)
-declare variable  $ext:steps := doc("../../etc/pipeline-extension.xml")/p:library;
-
 
 (: -------------------------------------------------------------------------- :)
+
+(: Module Vars :)
+declare variable $ext:steps := doc("etc/pipeline-extension.xml")/p:library;
 
 declare variable $ext:pre :=saxon:function("ext:pre", 3);
 declare variable $ext:post :=saxon:function("ext:post", 3);
 declare variable $ext:test :=saxon:function("ext:test", 3);
 declare variable $ext:step :=saxon:function("ext:step", 3);
-declare variable $ext:xproc :=saxon:function("ext:xproc", 3);
+declare variable $ext:xproc :=saxon:function("xproc:run-step", 3);
 
 (: -------------------------------------------------------------------------- :)
 declare function ext:pre($primary,$secondary,$options){
-   $primary
+   $primary/*[1]
 };
 declare function ext:step($primary,$secondary,$options){
     $primary
@@ -39,13 +38,6 @@ declare function ext:test($primary,$secondary,$options){
 };
 (: -------------------------------------------------------------------------- :)
 
-declare function ext:xproc($primary,$secondary,$options) as item()* {
-
-let $v :=document{$primary}
-let $xproc := $secondary/xproc:input[@port='xproc']/*
-return
-    <fix-me-circular-references-with-module-imports/>
-};
 
 
 (: -------------------------------------------------------------------------- :)
