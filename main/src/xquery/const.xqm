@@ -2,6 +2,7 @@ xquery version "1.0" encoding "UTF-8";
 module namespace const = "http://xproc.net/xproc/const";
 (: -------------------------------------------------------------------------- :)
 
+declare copy-namespaces no-preserve, no-inherit;
 
 declare namespace xproc = "http://xproc.net/xproc";
 declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
@@ -30,8 +31,8 @@ declare variable  $const:evalstep := saxon:function("xproc:evalstep", 5);
 
 (: -------------------------------------------------------------------------- :)
 (: error dictionaries :)
-declare variable  $const:error := doc("/Users/jimfuller/Source/Webcomposite/xprocxq/main/etc/error-list.xml");
-declare variable  $const:error-xprocxq := doc("/Users/jimfuller/Source/Webcomposite/xprocxq/main/etc/error-xprocxq.xml");
+declare variable  $const:error := doc("etc/error-list.xml");
+declare variable  $const:error-xprocxq := doc("etc/error-xprocxq.xml");
 
 (: -------------------------------------------------------------------------- :)
 
@@ -62,6 +63,9 @@ declare variable $const:init_unique_id :="!1";
 (: -------------------------------------------------------------------------- :)
 (: define default imported modules :)
 declare variable $const:default-imports :='
+
+    declare copy-namespaces no-preserve, no-inherit;
+
     import module namespace xproc = "http://xproc.net/xproc"
                             at "src/xquery/xproc.xqm";
     import module namespace util = "http://xproc.net/xproc/util"

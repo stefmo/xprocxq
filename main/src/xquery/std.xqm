@@ -2,6 +2,7 @@ xquery version "1.0" encoding "UTF-8";
 module namespace std = "http://xproc.net/xproc/std";
 (: -------------------------------------------------------------------------- :)
 
+declare copy-namespaces no-preserve, no-inherit;
 
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
@@ -55,18 +56,11 @@ declare function std:add-attribute($primary,$secondary,$options) {
 (: TODO: need to implement match attribute :)
 
 let $match := util:get-option($options/p:with-option[@name='match']/@select,$primary)
-let $attrNames := util:get-option($options/p:with-option[@name='attribute-name']/@select,$primary)
-let $attrValues := util:get-option($options/p:with-option[@name='attribute-value']/@select,$primary)
+let $attrName := util:get-option($options/p:with-option[@name='attribute-name']/@select,$primary)
+let $attrValue := util:get-option($options/p:with-option[@name='attribute-value']/@select,$primary)
 return
-   for $element in $primary[1]
-   return element { node-name($element)}
-                  { for $attrName at $seq in $attrNames
-                    return if ($element/@*[node-name(.) = $attrName])
-                           then ()
-                           else attribute {$attrName}
-                                          {$attrValues[$seq]},
-                    $element/@*,
-                    $element/node() }
+    util:treewalker-add-attribute($primary,$match,$attrName,$attrValue)
+
 };
 
 
