@@ -3,14 +3,15 @@
             xmlns:mine="http://www.example.org/test/mine121212">
 
     <p:input port="source" primary="true"/>
-    <p:output port="result" primary="true"/>
+    <p:output port="result" primary="true">
+        <p:pipe step="test" port="result"/>
+    </p:output>
 
     <p:input port="extra" primary="false"/>
 
     <p:declare-step name="test1" type="mine:identity">
-        <p:input port="source" primary="true"/>
-        <p:output port="result" primary="true"/>
-        <p:input port="extra" primary="false"/>
+        <p:input port="source"/>
+        <p:output port="result"/>
         <p:identity>
             <p:input port="source">
                 <p:inline><test/></p:inline>
@@ -18,6 +19,10 @@
         </p:identity>
     </p:declare-step>
 
-<mine:identity1/>
+<mine:identity name="test">
+<p:input port="source">
+    <p:pipe port="source" step="pipeline"/>
+</p:input>
+</mine:identity>
     
 </p:declare-step>

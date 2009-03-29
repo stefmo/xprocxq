@@ -1,7 +1,6 @@
 xquery version "1.0" encoding "UTF-8";
 
-
-declare copy-namespaces preserve, inherit;
+declare copy-namespaces no-preserve, no-inherit;
 
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";

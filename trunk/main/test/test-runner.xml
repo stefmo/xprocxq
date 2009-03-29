@@ -2,8 +2,7 @@
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:t="http://xproc.org/ns/testsuite"
             xmlns:c="http://www.w3.org/ns/xproc-step"
-            xmlns:ext="http://xproc.net/xproc/ext" 
-            xmlns:mine="http://www.example.org/mine">
+            xmlns:ext="http://xproc.net/xproc/ext">
 
 <p:input port="source" primary="true"/>
 
@@ -19,7 +18,7 @@
 
 <p:output port="result" primary="true"/>
 
-<ext:xproc name="test1">
+<ext:xproc name="test-pipeline">
     <p:input port="source" select="/">
         <p:pipe step="pipeline" port="input-port"/>
     </p:input>
@@ -30,9 +29,9 @@
 
 <p:compare>
     <p:input port="source">
-        <p:pipe port="result" step="test1"/>
+        <p:pipe port="result" step="test-pipeline"/>
     </p:input>
-    <p:input port="alternate">
+    <p:input port="alternate" select="/">
         <p:pipe port="output-port" step="pipeline"/>
     </p:input>
 </p:compare>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:declare-step xmlns:xproc="http://xproc.net/xproc" xmlns:p="http://www.w3.org/ns/xproc"
+                xproc:defaultname="!1"
+                name="pipeline">
+   <ext:pre xmlns:ext="http://xproc.net/xproc/ext" name="!pipeline" xproc:defaultname="!1.1"
+            xproc:type="ext"
+            xproc:step="$ext:pre">
+      <p:input primary="true" kind="document" sequence="" port="source" select="">
+         <p:pipe step="pipeline" port="stdin"/>
+      </p:input>
+      <p:output primary="true" port="result" select="/"/>
+   </ext:pre>
+   <p:count name="step1" xproc:defaultname="!1.2" xproc:type="std" xproc:step="$std:count">
+      <p:input port="source" primary="true" sequence="true" select="/"/>
+      <p:output port="result" primary="true" select="/"/>
+      <p:with-option name="limit" select="0"/>
+   </p:count>
+   <ext:post xmlns:ext="http://xproc.net/xproc/ext" name="pipeline!" xproc:defaultname="!1.3"
+             xproc:type="ext"
+             xproc:step="$ext:post">
+      <p:input port="source" primary="true" select="/"/>
+      <p:output port="stdout" primary="true" select="/"/>
+   </ext:post>
+</p:declare-step>

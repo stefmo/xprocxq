@@ -2,6 +2,8 @@ xquery version "1.0" encoding "UTF-8";
 module namespace util = "http://xproc.net/xproc/util";
 (: -------------------------------------------------------------------------- :)
 
+declare copy-namespaces no-preserve, no-inherit;
+
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
@@ -199,6 +201,24 @@ declare function util:add-ns-node(
 
 
 (: -------------------------------------------------------------------------- :)
+
+declare function util:treewalker-add-attribute($primary,$match,$attrName,$attrValue){
+  let $children := $primary/*
+  return
+      if(empty($children)) then ()
+      else
+        for $c in $children
+            return
+                element {node-name($c)}{
+                    $c/@*,
+                    if(name($c) = string($match)) then attribute {$attrName}{$attrValue} else (),
+                    $c/text(),
+                    util:treewalker-add-attribute($c,$match,$attrName,$attrValue)
+                }
+};
+
+
+(: -------------------------------------------------------------------------- :)
 declare function util:treewalker ($html) {
 
   let $children := $html/*
@@ -253,21 +273,7 @@ declare function util:substring-after-if-contains
    else $arg
  } ;
 
-declare function util:add-attributes
-  ( $elements as element()* ,
-    $attrNames as xs:QName* ,
-    $attrValues as xs:anyAtomicType* )  as element()? {
 
-   for $element in $elements
-   return element { node-name($element)}
-                  { for $attrName at $seq in $attrNames
-                    return if ($element/@*[node-name(.) = $attrName])
-                           then ()
-                           else attribute {$attrName}
-                                          {$attrValues[$seq]},
-                    $element/@*,
-                    $element/node() }
- } ;
 
 (: -------------------------------------------------------------------------- :)
 declare function util:treewalker ($tree,$attrFunc,$elemFunc) {

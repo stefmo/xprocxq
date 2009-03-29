@@ -1,6 +1,8 @@
 xquery version "1.0" encoding "UTF-8";
 module namespace comp = "http://xproc.net/xproc/comp";
 
+declare copy-namespaces no-preserve, no-inherit;
+
 (: -------------------------------------------------------------------------- :)
 
 declare namespace xproc = "http://xproc.net/xproc";
@@ -12,13 +14,14 @@ import module namespace util = "http://xproc.net/xproc/util"
 
 (: -------------------------------------------------------------------------- :)
 
-declare variable $comp:components := doc("../../etc/xproc-component.xml")/xproc:components;
+declare variable $comp:components := doc("etc/xproc-component.xml")/xproc:components;
 
 declare variable $comp:declare-step :=saxon:function("comp:declare-step", 3);
 declare variable $comp:choose :=saxon:function("comp:choose", 3);
 declare variable $comp:when :=saxon:function("comp:when", 3);
 declare variable $comp:otherwise :=saxon:function("comp:otherwise", 3);
 declare variable $comp:for-each :=saxon:function("comp:for-each", 3);
+
 
 (: -------------------------------------------------------------------------- :)
 declare function comp:choose($primary,$secondary,$options) {
