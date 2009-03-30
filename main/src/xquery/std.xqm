@@ -16,7 +16,6 @@ import module namespace util = "http://xproc.net/xproc/util"
                         at "util.xqm";
 
 (: Module Vars :)
-declare variable $std:steps := doc("etc/pipeline-standard.xml")/p:library;
 declare variable $std:add-attribute :=saxon:function("std:add-attribute", 3);
 declare variable $std:add-xml-base :=saxon:function("std:add-xml-base", 3);
 declare variable $std:count :=saxon:function("std:count", 3);
