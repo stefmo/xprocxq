@@ -63,7 +63,7 @@ declare variable $const:init_unique_id :="!1";
 (: -------------------------------------------------------------------------- :)
 (: define default imported modules :)
 declare variable $const:default-imports :='
-declare copy-namespaces no-preserve, no-inherit;
+declare copy-namespaces preserve, inherit;
 declare boundary-space strip;
 
     import module namespace xproc = "http://xproc.net/xproc"
