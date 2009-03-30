@@ -28,9 +28,9 @@
     </p:declare-step>
 
     <p:declare-step type="ext:xproc">
-        <p:input port="source" primary="true"/>
-        <p:input port="pipeline" primary="false"/>
-        <p:output port="result" primary="true" select="/"/>
+        <p:input port="source" primary="true" select="/"/>
+        <p:input port="pipeline" primary="false" select="/"/>
+        <p:output port="result" primary="true"/>
         <p:option name="dflag" select="'0'"/>
         <p:option name="tflag" select="'0'"/>
     </p:declare-step>
