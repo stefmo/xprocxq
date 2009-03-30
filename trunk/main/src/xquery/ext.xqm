@@ -17,8 +17,6 @@ import module namespace util = "http://xproc.net/xproc/util"
 (: -------------------------------------------------------------------------- :)
 
 (: Module Vars :)
-declare variable $ext:steps := doc("etc/pipeline-extension.xml")/p:library;
-
 declare variable $ext:pre :=saxon:function("ext:pre", 3);
 declare variable $ext:post :=saxon:function("ext:post", 3);
 declare variable $ext:test :=saxon:function("ext:test", 3);

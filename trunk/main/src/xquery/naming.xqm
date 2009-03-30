@@ -66,7 +66,7 @@ declare function naming:type($stepname as xs:string,$is_declare-step) as xs:stri
     let $stdstep := $const:std-steps/p:declare-step[@type=$stepname]
     let $optstep := $const:opt-steps/p:declare-step[@type=$stepname]
     let $extstep := $const:ext-steps/p:declare-step[@type=$stepname]
-    let $component :=$comp:components//xproc:element[@type=$stepname]
+    let $component :=$const:comp-components//xproc:element[@type=$stepname]
 
     let $stdstepexists := exists($stdstep)
     let $optstepexists := exists($optstep)
