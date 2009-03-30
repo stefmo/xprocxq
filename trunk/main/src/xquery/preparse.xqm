@@ -172,7 +172,6 @@ else
                $binding/@primary,
                $binding/@kind,
                $binding/@sequence,
-attribute test{$step/@xproc:bindings},
                if($currentport/@select='') then
                   attribute select{$binding/@select}
                else if($currentport/@select) then

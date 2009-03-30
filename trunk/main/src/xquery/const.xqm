@@ -63,8 +63,8 @@ declare variable $const:init_unique_id :="!1";
 (: -------------------------------------------------------------------------- :)
 (: define default imported modules :)
 declare variable $const:default-imports :='
-
-    declare copy-namespaces no-preserve, no-inherit;
+declare copy-namespaces no-preserve, no-inherit;
+declare boundary-space strip;
 
     import module namespace xproc = "http://xproc.net/xproc"
                             at "src/xquery/xproc.xqm";
@@ -77,8 +77,7 @@ declare variable $const:default-imports :='
     import module namespace opt = "http://xproc.net/xproc/opt"
                             at "src/xquery/opt.xqm";
     import module namespace comp = "http://xproc.net/xproc/comp"
-                            at "src/xquery/comp.xqm";
-';
+                            at "src/xquery/comp.xqm";';
 
 (: -------------------------------------------------------------------------- :)
 
