@@ -25,6 +25,7 @@ declare namespace std = "http://xproc.net/xproc/std";
 declare namespace opt = "http://xproc.net/xproc/opt";
 declare namespace ext = "http://xproc.net/xproc/ext";
 
+
 (: Module Imports :)
 import module namespace const = "http://xproc.net/xproc/const"
                         at "const.xqm";
@@ -38,8 +39,8 @@ declare function util:help() as xs:string {
 };
 
 (: -------------------------------------------------------------------------- :)
-declare function util:timing() as xs:integer  {
-    xs:integer(system:currentTimeMillis())
+declare function util:timing() as xs:float  {
+    xs:float(system:currentTimeMillis())
 };
 
 (: -------------------------------------------------------------------------- :)
@@ -398,7 +399,9 @@ declare function util:strip-namespace($e as element()) as element() {
   }
 };
 
-
+declare function util:uniqueid($unique_id,$count){
+    concat($unique_id,'.',$count)
+};
 (: -------------------------------------------------------------------------- :)
 declare function util:final-result($pipeline,$resulttree){
     ($pipeline,$resulttree)

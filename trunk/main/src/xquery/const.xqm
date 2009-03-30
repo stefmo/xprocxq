@@ -4,6 +4,9 @@ module namespace const = "http://xproc.net/xproc/const";
 
 declare copy-namespaces no-preserve, no-inherit;
 
+declare namespace p="http://www.w3.org/ns/xproc";
+declare namespace c="http://www.w3.org/ns/xproc-step";
+declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace xproc = "http://xproc.net/xproc";
 declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
 
@@ -36,6 +39,13 @@ declare variable  $const:error-xprocxq := doc("etc/error-xprocxq.xml");
 
 (: -------------------------------------------------------------------------- :)
 
+declare variable $const:ext-steps := doc("etc/pipeline-extension.xml")/p:library;
+declare variable $const:std-steps := doc("etc/pipeline-standard.xml")/p:library;
+declare variable $const:opt-steps := doc("etc/pipeline-optional.xml")/p:library;
+declare variable $const:comp-components := doc("etc/xproc-component.xml")/xproc:components;
+
+(: -------------------------------------------------------------------------- :)
+
 (: Version :)
 declare variable $const:version :="0.5";
 
@@ -63,8 +73,8 @@ declare variable $const:init_unique_id :="!1";
 (: -------------------------------------------------------------------------- :)
 (: define default imported modules :)
 declare variable $const:default-imports :='
-declare copy-namespaces preserve, inherit;
-declare boundary-space strip;
+
+    declare copy-namespaces no-preserve, no-inherit;
 
     import module namespace xproc = "http://xproc.net/xproc"
                             at "src/xquery/xproc.xqm";

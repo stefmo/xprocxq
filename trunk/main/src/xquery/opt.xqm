@@ -4,12 +4,10 @@ module namespace opt = "http://xproc.net/xproc/opt";
 
 declare copy-namespaces no-preserve, no-inherit;
 
-
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
-declare namespace runtime="java:net.xproc.opt.runtimeExec";
 declare namespace comp="http://xproc.net/xproc/comp";
 declare namespace xproc = "http://xproc.net/xproc";
 
@@ -45,14 +43,7 @@ util:assert(exists($secondary/xproc:input[@port='query']/c:query),'p:input query
 
 (: -------------------------------------------------------------------------- :)
 declare function opt:exec($primary,$secondary,$options) {
-    util:outputResultElement(
-
-(:        runtime:main(string($options/p:with-option[@name='command']/@select))
-
-:)
-runtime:main("/bin/ls")
-
-    )
+    util:outputResultElement(<test/>)
 };
 
 (: -------------------------------------------------------------------------- :)

@@ -2,8 +2,7 @@
             xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:my="http://www.example.org/test/mine">
 
-
-<p:declare-step>
+<p:declare-step type="my:test">
     <p:input port="source"/>
     <p:output port="result"/>
 
@@ -17,5 +16,6 @@
 
 </p:declare-step>
 
+<my:test/>
 
 </p:pipeline>
