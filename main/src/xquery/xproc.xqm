@@ -1,7 +1,6 @@
 xquery version "1.0" encoding "UTF-8"; 
 module namespace xproc = "http://xproc.net/xproc";
 (: -------------------------------------------------------------------------- :)
-
 declare copy-namespaces no-preserve, no-inherit;
 
 (: XProc Namespace Declaration :)
@@ -523,7 +522,7 @@ let $output := subsequence($result,2)
 
 declare function xproc:run-step($primary,$secondary,$options) {
 
-let $stdin :=document{$primary/*[1]}
+let $stdin :=$primary/*[1]
 let $pipeline := $secondary/xproc:input[@port='pipeline']
 let $bindings :=()
 let $options :=()

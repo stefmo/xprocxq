@@ -55,12 +55,12 @@ declare function std:add-attribute($primary,$secondary,$options) {
 
 (: TODO: need to implement match attribute :)
 
-let $match := util:get-option($options/p:with-option[@name='match']/@select,$primary)
-let $attrName := util:get-option($options/p:with-option[@name='attribute-name']/@select,$primary)
-let $attrValue := util:get-option($options/p:with-option[@name='attribute-value']/@select,$primary)
+let $v := $primary/*[1]
+let $match := util:get-option($options/p:with-option[@name='match']/@select,$primary/*)
+let $attrName := util:get-option($options/p:with-option[@name='attribute-name']/@select,$primary/*)
+let $attrValue := util:get-option($options/p:with-option[@name='attribute-value']/@select,$primary/*)
 return
-    util:treewalker-add-attribute($primary,$match,$attrName,$attrValue)
-
+    util:treewalker-add-attribute($v,$match,$attrName,$attrValue)
 };
 
 
@@ -100,18 +100,18 @@ else
 
 (: -------------------------------------------------------------------------- :)
 declare function std:compare($primary,$secondary,$options) {
-
+let $v := $primary/*[1]
 let $alternate := $secondary/xproc:input[@port='alternate']/*
-let $result := deep-equal($primary/*[1],$alternate)
+let $result := deep-equal($primary/*[1],$secondary/xproc:input[@port='alternate']/*)
 let $fail-if-not-equal := util:boolean($options/p:with-option[@name='fail-if-not-equal']/@select)
     return
        if($fail-if-not-equal eq true()) then
             if ( $result eq true())then
-                (util:outputResultElement($result))
+                util:outputResultElement($result)
             else
                 util:stepError('err:XC0019','p:compare fail-if-not-equal option is enabled and documents were not equal')
         else
-            (util:outputResultElement($result))
+            util:outputResultElement($result)
 };
 
 

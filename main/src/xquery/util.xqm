@@ -201,38 +201,29 @@ declare function util:add-ns-node(
 
 
 (: -------------------------------------------------------------------------- :)
-
-declare function util:treewalker-add-attribute($primary,$match,$attrName,$attrValue){
-  let $children := $primary/*
-  return
-      if(empty($children)) then ()
-      else
-        for $c in $children
-            return
-                element {node-name($c)}{
-                    $c/@*,
-                    if(name($c) = string($match)) then attribute {$attrName}{$attrValue} else (),
-                    $c/text(),
-                    util:treewalker-add-attribute($c,$match,$attrName,$attrValue)
-                }
+declare function util:treewalker($element as element()) as element() {
+   element {node-name($element)}
+      {$element/@*,
+          for $child in $element/node()
+              return
+               if ($child instance of element())
+                 then util:treewalker($child)
+                 else $child
+      }
 };
 
 
-(: -------------------------------------------------------------------------- :)
-declare function util:treewalker ($html) {
-
-  let $children := $html/*
-  return
-      if(empty($children)) then ()
-      else
-        for $c in $children
-            return
-                ( element {node-name($c)}{
-                    $c/@*,
-                    $c/text(),
-                    util:treewalker($c)
-                })
- };
+declare function util:treewalker-add-attribute($element as element(),$match,$attrName,$attrValue) as element() {
+   element {node-name($element)}
+      {$element/@*,
+       if(name($element) = string($match)) then attribute {$attrName}{$attrValue} else (),
+          for $child in $element/node()
+              return
+               if ($child instance of element())
+                 then util:treewalker-add-attribute($child,$match,$attrName,$attrValue)
+                 else $child
+      }
+};
 
 
 (: -------------------------------------------------------------------------- :)
