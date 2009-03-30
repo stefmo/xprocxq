@@ -150,7 +150,7 @@ declare function std:delete($primary,$secondary,$options){
 
 let $match := util:get-option($options/p:with-option[@name='match']/@select,$primary)
 return
-    util:remove-elements($primary[1],$match)
+    util:remove-elements($primary/*[1],$match)
 };
 
 
@@ -185,7 +185,7 @@ declare function std:error($primary,$secondary,$options) {
 <c:error href="" column="" offset=""
          name="step-name" type="p:error"
          code="{$options/p:with-option[@name='code']/@value}">
-    <message>{$primary}</message>
+    <message>{$primary/*[1]}</message>
 </c:error>
 </c:errors>
 
@@ -198,7 +198,7 @@ declare function std:filter($primary,$secondary,$options) {
 
 util:assert(exists($options/p:with-option[@name='select']/@select),'p:with-option match is required'),
 
-let $v :=document{$primary}
+let $v :=document{$primary/*[1]}
 let $xpath := util:get-option($options/p:with-option[@name='select']/@select,$v)
 let $result := util:evalXPATH(string($xpath),$v)
     return
@@ -330,7 +330,7 @@ declare function std:wrap($primary,$secondary,$options) {
 util:assert(exists($options/p:with-option[@name='match']/@select),'p:with-option match is required'),
 util:assert(exists($options/p:with-option[@name='wrapper']/@select),'p:with-option wrapper is required'),
 
-    let $v :=document{$primary}
+    let $v :=document{$primary/*[1]}
     let $wrapper := util:get-option($options/p:with-option[@name='wrapper']/@select,$v)
     let $match := util:get-option($options/p:with-option[@name='match']/@select,$v)
     let $replace := util:evalXPATH($match,$v)
@@ -359,7 +359,7 @@ util:assert(exists($options/p:with-option[@name='match']/@select),'p:with-option
 
 (: TODO - The value of the match option must be an XSLTMatchPattern. It is a dynamic error (err:XC0023)
 if that pattern matches anything other than element nodes. :)
-let $v :=document{$primary}
+let $v :=document{$primary/*[1]}
 let $match := util:get-option($options/p:with-option[@name='match']/@select,$v)
     return
          util:evalXPATH($match,$v)
@@ -371,7 +371,7 @@ declare function std:xslt($primary,$secondary,$options){
 
     util:assert(exists($secondary/xproc:input[@port='stylesheet']/*),'stylesheet is required'),
     let $stylesheet := $secondary/xproc:input[@port='stylesheet']/*
-    let $v := document {$primary}
+    let $v := document {$primary/*[1]}
     return
         util:xslt($stylesheet,$v)
 };

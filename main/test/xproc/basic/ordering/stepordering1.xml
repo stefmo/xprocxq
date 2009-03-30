@@ -4,6 +4,7 @@
     <p:input port="source" primary="true"/>
     <p:output port="result" primary="true"/>
 
+    <p:identity name="step3"/>
 
     <p:identity name="step2">
        <p:input port="source">
@@ -11,12 +12,12 @@
        </p:input>
     </p:identity>
 
-    <p:count name="step1">
-        <p:input port="source">
-              <p:pipe step="pipeline" port="source"/>
-        </p:input>
-    </p:count>
-
-
+    
+    <p:identity name="step1">
+       <p:input port="source">
+              <p:pipe step="step3" port="result"/>
+       </p:input>    
+    </p:identity>
+        
 
  </p:declare-step>

@@ -14,16 +14,19 @@ is required to serialize.
 
 
 
-ISSUES
+ISSUE
+* step ordering  (ordering/stepordering1.xml is broken due to p:pipe missing on preparse II routines)
+* declare-step needs refactoring
+* components/multi-container steps needs refactoring (p:group,p:choose,p:for-each)
+
+* p:xquery uses c:result
+* p:compare result port is primary
 * declare base-uri affects module imports
 * inputs in nested p:declare-steps need fixing due to $allcomp in xproc:explicitnames
 * namespace fixups
-* ensure sequences are working properly
+* p:add-attribute--002.xml needs namespace handling
+* sequences need rationalisation and sanitisation
 * p:try in evalstep ?
-* p:choose
-
-* ordering/stepordering1.xml is broken due to p:pipe missing on preparse II routines
-* declare-steps and components now need sorting out
 
 
 TASKS
@@ -32,6 +35,3 @@ TASKS
 GOALS
 * once we get unit test step running we should be pretty stable
 * target main eXist scenarios
-
-
-

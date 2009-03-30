@@ -1,7 +1,7 @@
 xquery version "1.0" encoding "UTF-8"; 
 module namespace xproc = "http://xproc.net/xproc";
 (: -------------------------------------------------------------------------- :)
-declare copy-namespaces preserve, inherit;
+declare copy-namespaces no-preserve, no-inherit;
 
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
@@ -14,22 +14,24 @@ import module namespace const = "http://xproc.net/xproc/const"
                         at "const.xqm";
 import module namespace util = "http://xproc.net/xproc/util"
                         at "util.xqm";
-import module namespace std = "http://xproc.net/xproc/std"
-                        at "std.xqm";
 import module namespace opt = "http://xproc.net/xproc/opt"
                         at "opt.xqm";
+import module namespace std = "http://xproc.net/xproc/std"
+                        at "std.xqm";
 import module namespace ext = "http://xproc.net/xproc/ext"
                         at "ext.xqm";
 import module namespace comp = "http://xproc.net/xproc/comp"
                         at "comp.xqm";
-import module namespace preparse = "http://xproc.net/xproc/preparse"
-                        at "preparse.xqm";
+import module namespace naming = "http://xproc.net/xproc/naming"
+                        at "naming.xqm";
+import module namespace binding = "http://xproc.net/xproc/binding"
+                        at "binding.xqm";
 
 
-                        (: --------------------------------------------------------------------------- :)
-                                                                                    (: XPROC UTILITIES :)
-                        (: --------------------------------------------------------------------------- :)
 
+               (: --------------------------------------------------------------------------- :)
+                                                                            (: XPROC UTILITIES :)
+                (: --------------------------------------------------------------------------- :)
 
 
 declare function xproc:uniqueid($unique_id,$count){
@@ -48,7 +50,7 @@ declare function xproc:comp-available($compname as xs:string) as xs:boolean {
 (: returns comp from comp definitions :)
 (: -------------------------------------------------------------------------- :)
 declare function xproc:get-comp($compname as xs:string) {
-    $comp:components/xproc:element[@type=$compname]
+    $const:comp-components/xproc:element[@type=$compname]
 };
 
 
@@ -56,9 +58,9 @@ declare function xproc:get-comp($compname as xs:string) {
 (: returns step from std, opt and ext step definitions :)
 (: -------------------------------------------------------------------------- :)
 declare function xproc:get-step($stepname as xs:string,$declarestep) {
-    $std:steps/p:declare-step[@type=$stepname],
-    $opt:steps/p:declare-step[@type=$stepname],
-    $ext:steps/p:declare-step[@type=$stepname],
+    $const:std-steps/p:declare-step[@type=$stepname],
+    $const:opt-steps/p:declare-step[@type=$stepname],
+    $const:ext-steps/p:declare-step[@type=$stepname],
     $declarestep/@type
 };
 
@@ -68,16 +70,16 @@ declare function xproc:get-step($stepname as xs:string,$declarestep) {
 (: -------------------------------------------------------------------------- :)
 declare function xproc:type($stepname as xs:string,$is_declare-step) as xs:string {
 
-    let $stdstep := $std:steps/p:declare-step[@type=$stepname]
-    let $optstep := $opt:steps/p:declare-step[@type=$stepname]
-    let $extstep := $ext:steps/p:declare-step[@type=$stepname]
+    let $stdstep := $const:std-steps/p:declare-step[@type=$stepname]
+    let $optstep := $const:opt-steps/p:declare-step[@type=$stepname]
+    let $extstep := $const:ext-steps/p:declare-step[@type=$stepname]
     let $component :=$comp:components//xproc:element[@type=$stepname]
 
-    let $stdstepexists := exists($stdstep)        
+    let $stdstepexists := exists($stdstep)
     let $optstepexists := exists($optstep)
     let $extstepexists := exists($extstep)
     let $compexists := exists($component)
-    return    
+    return
         if ($optstepexists) then
             'opt'
         else if($extstepexists) then
@@ -92,10 +94,9 @@ declare function xproc:type($stepname as xs:string,$is_declare-step) as xs:strin
           util:staticError('err:XS0044', concat($stepname,":",$stepname,' has no visible declaration'))
 };
 
-
-                        (: --------------------------------------------------------------------------- :)
-                                                                                (: PREPARSE II ROUTINES:)
-                        (: --------------------------------------------------------------------------- :)
+                (: --------------------------------------------------------------------------- :)
+                                                                        (: PREPARSE II ROUTINES:)
+                (: --------------------------------------------------------------------------- :)
 
 
 declare function xproc:generate-explicit-input($step,$count,$xproc,$unique_before){
@@ -115,7 +116,7 @@ for $input in $step/p:input
                 else
                     if(name($step)="ext:pre" or name($step)="ext:post" ) then
                         $input/*
-                    else 
+                    else
                          <p:pipe step="{if ($xproc/*[$count - 1]/@name eq '') then $unique_before else $xproc/*[$count - 1]/@name}"
                                  port="{$xproc/*[$count - 1]/p:output[@primary='true']/@port}"/>
             }
@@ -143,7 +144,7 @@ declare function xproc:generate-step-binding($step,$xproc,$count,$stepname,$is_d
                  attribute xproc:defaultname{$unique_id},
                  attribute xproc:type{xproc:type($stepname,$is_declare-step)},
                  attribute xproc:step{concat('$',xproc:type($stepname,$is_declare-step),':',local-name($step))},
-                 
+
                  xproc:generate-explicit-input($step,$count,$xproc,$unique_before),
                  xproc:generate-explicit-output($step),
                  xproc:generate-explicit-options($step)
@@ -185,26 +186,24 @@ let $explicitbindings := document {
         let $unique_current := xproc:uniqueid($unique_id,$count)
         let $unique_after := xproc:uniqueid($unique_id,$count + 1)
 
-        let $is_step := xproc:get-step($stepname,$xproc//p:declare-step[@type=$stepname])
+        let $is_declare-step := $xproc/p:declare-step[@type=$stepname]
+        let $is_step := xproc:get-step($stepname,$is_declare-step)
         let $is_component := xproc:get-comp($stepname)
-        let $is_declare-step := $xproc//p:declare-step[@type=$stepname]
 
           return
 
-            if($is_step) then
+            if ($is_declare-step) then
+                    <test type="declare-step" name="{$stepname}"/>
+(:              xproc:generate-declare-step-binding($step,$is_declare-step)
+:)
+            else if($is_step) then
                 xproc:generate-step-binding($step,$xproc,$count,$stepname,$is_declare-step,$unique_current,$unique_before)
-    
+
              else if ($is_component) then
                 xproc:generate-component-binding($step,$stepname,$is_declare-step,$unique_current)
-(:
-            else if ($is_declare-step) then
-                xproc:generate-declare-step-binding($step,$is_declare-step)
-    :)
+
             else
-                ()
-    (:
-                util:staticError('err:XS0044', concat("parssing explicit binding pass:",$stepname,$step/@name))
-    :)
+                util:staticError('err:XS0044', concat("static error during explicit binding pass:",$stepname,$step/@name))
     }
 
     return
@@ -216,21 +215,13 @@ let $explicitbindings := document {
             <p:declare-step xmlns:xproc="http://xproc.net/xproc"
                             name="{$pipelinename}"
                             xproc:defaultname="{$unique_id}">
-                {util:pipeline-step-sort($explicitbindings,(),$pipelinename)}
+                {$explicitbindings}
             </p:declare-step>
-
 };
 
-
-
-
-
-
-
-
-                        (: -------------------------------------------------------------------------- :)
-                                                                                      (: EVAL ROUTINES:)
-                        (:----------------------------------------------------------------------------:)
+                (: -------------------------------------------------------------------------- :)
+                                                                              (: EVAL ROUTINES:)
+                (:----------------------------------------------------------------------------:)
 
 declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentstep){
 
@@ -421,31 +412,9 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
             )
 };
 
-
-
-
-
-
-
-
-                        (: --------------------------------------------------------------------------- :)
-                                                                                    (: CONTROL ROUTINES:)
-                        (: --------------------------------------------------------------------------- :)
-
-
-
-(: -------------------------------------------------------------------------- :)
-(: Preparse pipeline XML, sorting steps by input, throwing some static errors :)
-(: apply explicitnames then explicitbindings :)
-(: -------------------------------------------------------------------------- :)
-declare function xproc:preparse($pipeline as item(),$stdin){
-    xproc:explicitbindings(
-          preparse:explicitnames(
-                preparse:fixup($pipeline,$stdin)
-          )
-    ,$const:init_unique_id
-    )
-};
+                (: --------------------------------------------------------------------------- :)
+                                                                            (: CONTROL ROUTINES:)
+                (: --------------------------------------------------------------------------- :)
 
 
 (: -------------------------------------------------------------------------- :)
@@ -467,7 +436,7 @@ declare function xproc:parse_and_eval($xproc,$stdin as item(),$bindings) {
     let $steps := xproc:genstepnames($pipeline)
     return
 
-        util:step-fold($pipeline,
+        (util:step-fold($pipeline,
                        $steps,
                        saxon:function("xproc:evalstep", 4),
                        $stdin,
@@ -477,7 +446,9 @@ declare function xproc:parse_and_eval($xproc,$stdin as item(),$bindings) {
                                 port="stdin"
                                 port-type="external"
                                 primary="false"
-                                func="{$pipeline/@type}">{$stdin}</xproc:output>))                        )
+                                func="{$pipeline/@type}">{$stdin}</xproc:output>))                        
+                        )
+        )
 
 };
 
@@ -514,11 +485,9 @@ let $output := subsequence($result,2)
            ($output/.)[last()]/node()
 };
 
-
-
-                        (: --------------------------------------------------------------------------- :)
-                                                                                      (: MAIN  ROUTINES:)
-                        (: --------------------------------------------------------------------------- :)
+                (: --------------------------------------------------------------------------- :)
+                                                                              (: ENTRY POINT   :)
+                (: --------------------------------------------------------------------------- :)
 
 declare function xproc:run-step($primary,$secondary,$options) {
 
@@ -528,18 +497,8 @@ let $bindings :=()
 let $options :=()
 let $dflag :="0"
 let $tflag :="0"
-
-    (: STEP I: generate parse tree :)
-    let $preparse := xproc:preparse($pipeline,$stdin)
-
-    (: STEP II: parse and eval tree :)
-    let $eval_result := xproc:parse_and_eval($preparse,$stdin,$bindings)
-
-    (: STEP III: serialize and return results :)
-    let $serialized_result := xproc:output($eval_result,$dflag)
-
 return
-    $serialized_result
+    xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options)
 
 };
 
@@ -550,37 +509,33 @@ declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options){
     let $start-time := util:timing()
 
     (: STEP I: generate parse tree :)
-    let $preparse := xproc:preparse($pipeline,$stdin)
+    let $preparse-naming := naming:explicitnames(naming:fixup($pipeline,$stdin))
+    let $preparse-binding := xproc:explicitbindings($preparse-naming,$const:init_unique_id)
 
     (: STEP II: parse and eval tree :)
-    let $eval_result := xproc:parse_and_eval($preparse,$stdin,$bindings)
+    let $eval_result := xproc:parse_and_eval($preparse-binding,$stdin,$bindings)
 
     (: STEP III: serialize and return results :)
     let $serialized_result := xproc:output($eval_result,$dflag)
 
     let $end-time := util:timing()
 
-    let $internaldbg :=0
+    let $internaldbg := 0
 
     return
         if ($internaldbg eq 1) then
                     xproc:explicitbindings(
-                      preparse:explicitnames(
-                            preparse:fixup($pipeline,$stdin)
+                      naming:explicitnames(
+                            naming:fixup($pipeline,$stdin)
                       )
                     ,$const:init_unique_id
                     )
-
         else if ($internaldbg eq 2) then
-
-                      preparse:explicitnames(
-                            preparse:fixup($pipeline,$stdin)
+                      naming:explicitnames(
+                            naming:fixup($pipeline,$stdin)
                       )
-
         else if ($internaldbg eq 3) then
-
                     $eval_result
-
         else
         (
          if ($tflag="1") then
@@ -598,5 +553,4 @@ declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options){
                     $serialized_result
                     }
         )
-
 };
