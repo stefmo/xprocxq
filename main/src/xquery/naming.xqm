@@ -294,13 +294,10 @@ let $steps := <p:declare-step>
             {$pipeline/*[not(name(.)="p:input")][not(name(.)="p:output")]}
 
 </p:declare-step>
-let $result := util:pipeline-step-sort($steps/*,(),$pipeline/@name)
 return
-
     <p:declare-step name="{$pipeline/@name}">
-        {$result}
+        {$steps/*}
     </p:declare-step>
-
 };
 
 

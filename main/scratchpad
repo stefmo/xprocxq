@@ -1,3 +1,25 @@
+* p:declare-step or multi container steps ?
+* work on the p:count problem
+ISSUE
+* step ordering  (ordering/stepordering1.xml is broken due to p:pipe missing on preparse II routines)
+* declare-step needs refactoring
+* components/multi-container steps needs refactoring (p:group,p:choose,p:for-each)
+* p:xquery currently uses c:result
+* p:compare currently has a primary result port
+* declare base-uri affects module imports in saxon (need to investigate in eXist)
+* inputs in nested p:declare-steps need fixing due to $allcomp in xproc:explicitnames
+* namespace fixups
+* p:add-attribute--002.xml needs namespace handling
+* sequences need rationalisation and sanitisation
+* p:try in evalstep ?
+* create namespace module to import all the different namespaces
+* target main eXist scenarios
+    - xquery->p:choose->xquery
+    - xslt -> xslfo -> pdf
+* represent sequences as t:document in count-001.xml in testing suite ?
+* statically calculate all system-property (will it always be invariant during processing)
+* enumerate step level in scope namespaces
+
 SPEC REMINDERS
 
 * empty stdin defaults to defined p:pipe,p:inline,p:document,p:data
@@ -13,25 +35,3 @@ the “top level” step or pipeline are used because that is the only step which th
 is required to serialize.
 
 
-
-ISSUE
-* step ordering  (ordering/stepordering1.xml is broken due to p:pipe missing on preparse II routines)
-* declare-step needs refactoring
-* components/multi-container steps needs refactoring (p:group,p:choose,p:for-each)
-
-* p:xquery uses c:result
-* p:compare result port is primary
-* declare base-uri affects module imports
-* inputs in nested p:declare-steps need fixing due to $allcomp in xproc:explicitnames
-* namespace fixups
-* p:add-attribute--002.xml needs namespace handling
-* sequences need rationalisation and sanitisation
-* p:try in evalstep ?
-
-
-TASKS
-* create namespace module to import all the different namespaces
-
-GOALS
-* once we get unit test step running we should be pretty stable
-* target main eXist scenarios
