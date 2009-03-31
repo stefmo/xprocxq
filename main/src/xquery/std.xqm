@@ -115,7 +115,6 @@ let $fail-if-not-equal := util:boolean($options/p:with-option[@name='fail-if-not
 
 
 (: -------------------------------------------------------------------------- :)
-(: TODO this is wrong, its counting the elements needs to count the sequence :)
 declare function std:count($primary,$secondary,$options){
 
 let $v := document{$primary}
@@ -130,8 +129,11 @@ return
        util:outputResultElement(
        $count
        )
+    else if ($count = $limit) then
+       util:outputResultElement(
+       $count
+       )
     else
-    (: TODO: not the right error, but will do for now:)
         util:stepError('err:XC0016','')
 };
 
