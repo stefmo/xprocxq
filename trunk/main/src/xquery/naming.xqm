@@ -26,7 +26,9 @@ import module namespace comp = "http://xproc.net/xproc/comp"
                         at "comp.xqm";
 
 
-
+(: -------------------------------------------------------------------------- :)
+(: generate unique id :)
+(: -------------------------------------------------------------------------- :)
 declare function naming:uniqueid($unique_id,$count){
     concat($unique_id,'.',$count)
 };

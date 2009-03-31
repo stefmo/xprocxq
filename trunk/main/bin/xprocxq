@@ -85,9 +85,14 @@ shift $(($OPTIND - 1))
 
 if [[ -z $1 ]] || [[ -z $2 ]]
 then
-     usage
+java net.sf.saxon.Query $valval $xiflag -sa -s:$cdir/$1 -tree:linked -l -update:on -ext:on -q:$XPROCXQ_HOME/src/xquery/xproc.xq +xproc="$cdir/$1" +stdin="$cdir/$1" dflag="$dflag" tflag="$tflag" ival="$ival" oval="$oval" bindings="$2"
      exit 1
 fi
 
+if [[ -z $1 ]]
+then
+     usage
+     exit 1
+fi
 
 java net.sf.saxon.Query $valval $xiflag -sa -s:$cdir/$1 -tree:linked -l -update:on -ext:on -q:$XPROCXQ_HOME/src/xquery/xproc.xq +xproc="$cdir/$2" +stdin="$cdir/$1" dflag="$dflag" tflag="$tflag" ival="$ival" oval="$oval" bindings="$3"
