@@ -2,8 +2,6 @@ xquery version "1.0" encoding "UTF-8";
 module namespace const = "http://xproc.net/xproc/const";
 (: -------------------------------------------------------------------------- :)
 
-declare copy-namespaces no-preserve, no-inherit;
-
 declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
@@ -42,7 +40,7 @@ declare variable  $const:error-xprocxq := doc("etc/error-xprocxq.xml");
 declare variable $const:ext-steps := doc("etc/pipeline-extension.xml")/p:library;
 declare variable $const:std-steps := doc("etc/pipeline-standard.xml")/p:library;
 declare variable $const:opt-steps := doc("etc/pipeline-optional.xml")/p:library;
-declare variable $const:comp-components := doc("etc/xproc-component.xml")/xproc:components;
+declare variable $const:comp-steps := doc("etc/xproc-component.xml")/xproc:components;
 
 (: -------------------------------------------------------------------------- :)
 

@@ -1,37 +1,26 @@
-* p:declare-step or multi container steps ?
-* work on the p:count problem
+p:choose
+
+* each subpipeline must have the same output signature
+
 ISSUE
-* step ordering  (ordering/stepordering1.xml is broken due to p:pipe missing on preparse II routines)
 * declare-step needs refactoring
 * components/multi-container steps needs refactoring (p:group,p:choose,p:for-each)
-* p:xquery currently uses c:result
-* p:compare currently has a primary result port
-* declare base-uri affects module imports in saxon (need to investigate in eXist)
 * inputs in nested p:declare-steps need fixing due to $allcomp in xproc:explicitnames
-* namespace fixups
-* p:add-attribute--002.xml needs namespace handling
+* namespace fixups: enumerate step level in scope namespaces
 * sequences need rationalisation and sanitisation
 * p:try in evalstep ?
-* create namespace module to import all the different namespaces
 * target main eXist scenarios
     - xquery->p:choose->xquery
     - xslt -> xslfo -> pdf
-* represent sequences as t:document in count-001.xml in testing suite ?
+* create namespace module to import all the different namespaces
 * statically calculate all system-property (will it always be invariant during processing)
-* enumerate step level in scope namespaces
 
-SPEC REMINDERS
 
-* empty stdin defaults to defined p:pipe,p:inline,p:document,p:data
-
-* p:declare-step requires input/output port definition which in turn needs binding from the outside
-
-* p:pipeline defines default input/output ports with sequence="false"
-
-* If p:log or p:serialization elements appear in the declaration of an atomic step, they
-will only be used if the atomic step is directly evaluated by the processor.
-They have no effect if the step appears in a subpipeline; only the serialization options of
-the “top level” step or pipeline are used because that is the only step which the processor
-is required to serialize.
+Limitations/Differences
+* p:xquery currently outputs a c:result element
+* p:compare currently has a primary result port
+* declare base-uri affects module imports in saxon (need to investigate in eXist)
+* passing required/add-attribute--002.xml test will require namespace handling
+* represent sequences as t:document in count-001.xml in testing suite ?
 
 
