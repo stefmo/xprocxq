@@ -43,7 +43,7 @@ declare function binding:comp-available($compname as xs:string) as xs:boolean {
 (: returns comp from comp definitions :)
 (: -------------------------------------------------------------------------- :)
 declare function binding:get-comp($compname as xs:string) {
-    $const:comp-components/xproc:element[@type=$compname]
+    $const:comp-steps/xproc:element[@type=$compname]
 };
 
 
@@ -53,7 +53,8 @@ declare function binding:get-comp($compname as xs:string) {
 declare function binding:get-step($stepname as xs:string,$declarestep) {
     ($const:opt-steps/p:declare-step[@type=$stepname],
     $const:std-steps/p:declare-step[@type=$stepname],
-    $const:ext-steps//p:declare-step[@type=$stepname],
+    $const:ext-steps/p:declare-step[@type=$stepname],
+    $const:comp-steps/p:declare-step[@type=$stepname],
     $declarestep/@type)
 };
 
@@ -66,7 +67,7 @@ declare function binding:type($stepname as xs:string,$is_declare-step) as xs:str
     let $stdstep := $const:std-steps/p:declare-step[@type=$stepname]
     let $optstep := $const:opt-steps/p:declare-step[@type=$stepname]
     let $extstep := $const:ext-steps/p:declare-step[@type=$stepname]
-    let $component :=$const:comp-components//xproc:element[@type=$stepname]
+    let $component :=$const:comp-steps/xproc:element[@type=$stepname]
 
     let $stdstepexists := exists($stdstep)
     let $optstepexists := exists($optstep)

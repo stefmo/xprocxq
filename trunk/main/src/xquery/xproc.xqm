@@ -24,8 +24,7 @@ import module namespace comp = "http://xproc.net/xproc/comp"
                         at "comp.xqm";
 import module namespace naming = "http://xproc.net/xproc/naming"
                         at "naming.xqm";
-import module namespace binding = "http://xproc.net/xproc/binding"
-                        at "binding.xqm";
+
 
 
 
@@ -50,7 +49,7 @@ declare function xproc:comp-available($compname as xs:string) as xs:boolean {
 (: returns comp from comp definitions :)
 (: -------------------------------------------------------------------------- :)
 declare function xproc:get-comp($compname as xs:string) {
-    $const:comp-components/xproc:element[@type=$compname]
+    $const:comp-steps//xproc:element[@type=$compname]
 };
 
 
@@ -61,6 +60,7 @@ declare function xproc:get-step($stepname as xs:string,$declarestep) {
     $const:std-steps/p:declare-step[@type=$stepname],
     $const:opt-steps/p:declare-step[@type=$stepname],
     $const:ext-steps/p:declare-step[@type=$stepname],
+(:    $const:comp-steps//xproc:element[@type=$stepname], :)
     $declarestep/@type
 };
 
@@ -73,7 +73,7 @@ declare function xproc:type($stepname as xs:string,$is_declare-step) as xs:strin
     let $stdstep := $const:std-steps/p:declare-step[@type=$stepname]
     let $optstep := $const:opt-steps/p:declare-step[@type=$stepname]
     let $extstep := $const:ext-steps/p:declare-step[@type=$stepname]
-    let $component :=$const:comp-components//xproc:element[@type=$stepname]
+    let $component :=$const:comp-steps//xproc:element[@type=$stepname]
 
     let $stdstepexists := exists($stdstep)
     let $optstepexists := exists($optstep)
@@ -160,7 +160,8 @@ declare function xproc:generate-component-binding($step,$stepname,$is_declare-st
                 if ($step/@exclude-inline-prefixes) then attribute exclude-inline-prefixes{$step/@exclude-inline-prefixes} else (),
 
                 attribute name{$step/@name},
-                attribute xproc:defaultname{$step/@xproc:defaultname},
+                $step/@test,
+                if ($const:comp-steps/xproc:element[@type=$stepname]/@xproc:step) then attribute xproc:defaultname{$unique_id} else (),
                 attribute xproc:type{xproc:type($stepname,$is_declare-step)},
                  attribute xproc:step{concat('$',xproc:type($stepname,$is_declare-step),':',local-name($step))},
                    xproc:explicitbindings(document{$step/*},$unique_id)
@@ -396,7 +397,10 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
                                       select="{$currentstep/p:output[@primary='true']/@select}"
                                       port="{$currentstep/p:output[@primary='true']/@port}"
                                       func="{$stepfuncname}">{
-                                        util:call(util:xquery($stepfunc),$primary,$secondary,$options)
+                                          if(contains($stepfuncname,'comp:')) then
+                                                util:call(util:xquery($stepfunc),$primary,$secondary,$options,$currentstep)
+                                            else
+                                                util:call(util:xquery($stepfunc),$primary,$secondary,$options)
                                       }
                          </xproc:output>
                      else
@@ -405,8 +409,12 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
                                       primary="false"
                                       select="{$currentstep/p:output[@primary='false']/@select}"
                                       port="{$currentstep/p:output[@primary='false']/@port}"
-                                      func="{$stepfuncname}">{
-                                        util:call(util:xquery($stepfunc),$primary,$secondary,$options)
+                                      func="{$stepfuncname}">
+                                      {
+                                          if(contains($stepfuncname,'comp:')) then
+                                                util:call(util:xquery($stepfunc),$primary,$secondary,$options,$currentstep)
+                                            else
+                                                util:call(util:xquery($stepfunc),$primary,$secondary,$options)
                                       }
                          </xproc:output>
             )

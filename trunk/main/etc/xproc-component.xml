@@ -17,7 +17,10 @@
         <p:output port="result" primary="true" select="/"/>
     </xproc:element>
     
-        <xproc:element type="p:when"/>            
+        <xproc:element type="p:when">
+            <xproc:attribute name="test"/>
+        </xproc:element>
+
         <xproc:element type="p:otherwise"/>     
 
     <xproc:element type="p:for-each" xproc:step="true"/>

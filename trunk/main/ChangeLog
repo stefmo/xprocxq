@@ -1,3 +1,208 @@
+2009-03-29 18:57  James.Fuller.2007
+
+	* etc/xproc-component.xml, preparse1.xml, preparse2.xml,
+	  src/xquery/ant.xqm, src/xquery/comp.xqm, src/xquery/const.xqm,
+	  src/xquery/ext.xqm, src/xquery/opt.xqm, src/xquery/preparse.xqm,
+	  src/xquery/std.xqm, src/xquery/util.xqm, src/xquery/xproc.xq,
+	  src/xquery/xproc.xqm, test/test-runner.xml,
+	  test/xproc/basic/add-attribute/add-attribute1.xml,
+	  test/xproc/basic/add-attribute/add-attribute1_2.xml,
+	  test/xproc/basic/declare-step/declare-step1.xml,
+	  test/xproc/basic/declare-step/declare-step1_9.xml,
+	  test/xproc/basic/error/error1.xml,
+	  test/xproc/basic/group/group1.xml:
+
+2009-03-28 18:54  james.fuller.2007
+
+	* etc/pipeline-extension.xml, scratchpad, src/xquery/ant.xqm,
+	  src/xquery/ext.xqm, src/xquery/opt.xqm, src/xquery/std.xqm,
+	  src/xquery/xproc.xq, src/xquery/xproc.xqm, test/test-runner.xml,
+	  test/xproc/basic/declare-step/declare-step1_8_1.xml: migrate
+	  stuff from git back to subversion, added ext:xproc to run
+	  testsuite
+
+2009-03-27 23:18  james.fuller.2007
+
+	* LOC, build.xml: migrate stuff from git back to subversion, added
+	  LOC target
+
+2009-03-27 23:11  james.fuller.2007
+
+	* LOC: migrate stuff from git back to subversion, fixed p:compare
+	  in the process
+
+2009-03-27 23:07  james.fuller.2007
+
+	* src/xquery/ext.xqm, src/xquery/opt.xqm, src/xquery/std.xqm,
+	  src/xquery/util.xqm, src/xquery/xproc.xq, src/xquery/xproc.xqm,
+	  test-xprocxq, test/test-runner.xml,
+	  test/xproc/basic/compare/compare1.xml,
+	  test/xproc/basic/compare/compare2.xml,
+	  test/xproc/basic/identity/identity2_1.xml: migrate stuff from git
+	  back to subversion, fixed p:compare in the process
+
+2009-03-25 22:46  james.fuller.2007
+
+	* scratchpad: starting to migrate stuff from git back to
+	  subversion, this is going to be an interesting process
+
+2009-03-25 20:01  james.fuller.2007
+
+	* build.xml, etc/error-dynamic.xml, etc/error-list.xml,
+	  etc/error-static.xml, etc/error-step.xml, etc/error-xproc.xml,
+	  etc/error-xprocxq.xml, etc/pipeline-library.xml,
+	  etc/typed-pipeline-library.xml, scratchpad, src/xquery/const.xqm,
+	  src/xquery/util.xqm: starting to migrate stuff from git back to
+	  subversion, this is going to be an interesting process
+
+2009-01-13 22:11  james.fuller.2007
+
+	* bin/xprocxq, etc/pipeline-extension.xml, etc/xproc-component.xml,
+	  scratchpad, src/xquery/std.xqm, src/xquery/util.xqm,
+	  src/xquery/xproc.xq, src/xquery/xproc.xqm, test/test-runner.xml,
+	  test/xproc/basic/identity/identity4_3.xml: initial cut at
+	  commandline parsing of external bindings plus ongoing chaos from
+	  refactoring preparse routines
+
+2009-01-13 00:13  james.fuller.2007
+
+	* etc/pipeline-standard.xml, scratchpad, src/xquery/const.xqm,
+	  src/xquery/util.xqm, src/xquery/xproc.xqm,
+	  test/xproc/basic/compare/compare1.xml,
+	  test/xproc/basic/ordering/stepordering2.xml: refactoring static
+	  parse I and parse II, steps should be fine now migrating changes
+	  to component and declare-step handling
+
+2009-01-11 23:25  james.fuller.2007
+
+	* etc/error-static.xml, scratchpad, src/xquery/xproc.xqm,
+	  test/xproc/basic/declare-step/declare-step1.xml,
+	  test/xproc/basic/ordering/stepordering1.xml,
+	  test/xproc/basic/ordering/stepordering2.xml,
+	  test/xproc/basic/ordering/stepordering3.xml: refactoring static
+	  parse
+
+2009-01-11 21:31  james.fuller.2007
+
+	* etc/pipeline-extension.xml, etc/pipeline-optional.xml,
+	  etc/pipeline-standard.xml, etc/xproc-component.xml,
+	  src/xquery/ant.xqm, src/xquery/comp.xqm, src/xquery/const.xqm,
+	  src/xquery/ext.xqm, src/xquery/opt.xqm, src/xquery/std.xqm,
+	  src/xquery/util.xqm, src/xquery/xproc.xq, src/xquery/xproc.xqm,
+	  test/xproc/basic/declare-step/declare-step1.xml: refactoring
+	  static parse
+
+2009-01-10 21:47  james.fuller.2007
+
+	* etc/xproc-component.xml, scratchpad, src/xquery/xproc.xqm,
+	  test/xproc/basic/declare-step/declare-step1.xml: refactoring
+	  static parse I
+
+2009-01-10 20:32  james.fuller.2007
+
+	* src/xquery/xproc.xqm: refactoring static parse I
+
+2009-01-09 00:34  james.fuller.2007
+
+	* src/xquery/xproc.xqm: implementing unit test xproc step
+
+2009-01-09 00:33  james.fuller.2007
+
+	* scratchpad, src/xquery/xproc.xqm,
+	  test/xproc/basic/declare-step/declare-step1.xml: implementing
+	  unit test xproc step
+
+2009-01-08 23:52  james.fuller.2007
+
+	* src/xquery/xproc.xqm, test/test-runner.xml,
+	  test/xproc/basic/declare-step/declare-step1.xml,
+	  test/xproc/basic/identity/identity1_3.xml: implementing unit test
+	  xproc step
+
+2009-01-08 23:22  james.fuller.2007
+
+	* scratchpad, src/xquery/xproc.xqm, test/data/empty.xml,
+	  test/test-runner.xml, test/xproc/basic/identity/identity1_3.xml:
+	  fixed stupid xquery gotcha on xproc:secondary ... arggg
+
+2009-01-08 21:17  james.fuller.2007
+
+	* scratchpad, src/xquery/xproc.xq, src/xquery/xproc.xqm,
+	  test/test-runner.xml: further stepfunc refactoring goodness
+
+2009-01-08 20:53  james.fuller.2007
+
+	* src/xquery/util.xqm, src/xquery/xproc.xq, src/xquery/xproc.xqm:
+	  refactored out stupid sequence containing function names
+
+2009-01-08 20:34  james.fuller.2007
+
+	* bin/xprocxq, scratchpad, src/xquery/xproc.xq,
+	  src/xquery/xproc.xqm, test-xprocxq, test/test-runner.xml:
+	  established method for defining external bindings and options
+
+2009-01-07 06:39  james.fuller.2007
+
+	* src/xquery/ext.xqm, src/xquery/util.xqm, src/xquery/xproc.xqm,
+	  test/xproc/basic/identity/identity1_1.xml: rationalized
+	  xproc:output audit trace to include all step bindings
+
+2009-01-02 21:54  james.fuller.2007
+
+	* src/xquery/util.xqm, src/xquery/xproc.xqm: sync secondary input
+	  with all the options developed for primary inputs
+
+2009-01-02 16:46  james.fuller.2007
+
+	* src/xquery/const.xqm, src/xquery/util.xqm, src/xquery/xproc.xqm,
+	  test/xproc/basic/identity/identity1_1.xml,
+	  test/xproc/basic/identity/identity1_1_1.xml: replaced 2 stage
+	  fixup into one
+
+2008-12-30 18:06  james.fuller.2007
+
+	* src/xquery/xproc.xqm, test/test-runner.xml: refactoring preparse
+
+2008-12-29 22:20  james.fuller.2007
+
+	* src/xquery/xproc.xqm, test/test-runner.xml: handled stdin port on
+	  top level input
+
+2008-12-29 20:48  james.fuller.2007
+
+	* bin/xprocxq1, etc/pipeline-extension.xml, result.xml, scratchpad,
+	  src/xquery/ext.xqm, src/xquery/std.xqm, src/xquery/util.xqm,
+	  src/xquery/xproc.xqm, test/test-runner.xml: serious refactoring,
+	  bindings are once again a mess
+
+2008-12-27 22:55  james.fuller.2007
+
+	* ChangeLog, README, TODO, src/xquery/util.xqm,
+	  src/xquery/xproc.xqm, test/scratch.xml, test/test-runner.xml:
+	  fixed trace option and fixed issue with p:pipe
+
+2008-12-27 20:45  james.fuller.2007
+
+	* etc/pipeline-extension.xml, etc/pipeline-optional.xml,
+	  etc/pipeline-standard.xml, src/xquery/util.xqm,
+	  src/xquery/xproc.xqm, test/test-runner.xml,
+	  test/xproc/basic/xslt/xslt2.xml: fixed trace option and fixed
+	  issue with p:pipe
+
+2008-12-27 19:08  james.fuller.2007
+
+	* etc/pipeline-standard.xml, src/xquery/util.xqm: fixed nagging
+	  issue with @primary attributes on top level inputs/outputs
+
+2008-12-27 18:45  james.fuller.2007
+
+	* src/xquery/xproc.xqm, test/test-runner.xml: fixed compile of
+	  saxon extension
+
+2008-12-27 16:26  James.Fuller.2007
+
+	* test/test-runner.xml, test/xproc/basic/inputs/inputs_1_1.xml:
+
 2008-12-27 16:21  James.Fuller.2007
 
 	* generated.test-suite.xml, nbproject/project.xml,

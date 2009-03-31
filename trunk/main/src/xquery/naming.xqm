@@ -45,7 +45,7 @@ declare function naming:comp-available($compname as xs:string) as xs:boolean {
 (: returns comp from comp definitions :)
 (: -------------------------------------------------------------------------- :)
 declare function naming:get-comp($compname as xs:string) {
-    $const:comp-components/xproc:element[@type=$compname]
+    $const:comp-steps/xproc:element[@type=$compname]
 };
 
 
@@ -68,7 +68,7 @@ declare function naming:type($stepname as xs:string,$is_declare-step) as xs:stri
     let $stdstep := $const:std-steps/p:declare-step[@type=$stepname]
     let $optstep := $const:opt-steps/p:declare-step[@type=$stepname]
     let $extstep := $const:ext-steps/p:declare-step[@type=$stepname]
-    let $component :=$const:comp-components//xproc:element[@type=$stepname]
+    let $component :=$const:comp-steps//xproc:element[@type=$stepname]
 
     let $stdstepexists := exists($stdstep)
     let $optstepexists := exists($optstep)
@@ -196,7 +196,7 @@ declare function naming:generate-component($xproc,$allcomp,$step,$stepname){
             if ($step/@exclude-inline-prefixes) then attribute exclude-inline-prefixes{$step/@exclude-inline-prefixes} else (),
 
             if ($allcomp/@xproc:step = "true") then attribute name{$step/@name} else (),
-
+            $step/@test,
             if ($step/@port) then attribute port{$step/@port} else (),
             if ($step/@select) then attribute port{$step/@select} else (),
             if ($step/@sequence) then attribute port{$step/@sequence} else (),
