@@ -52,7 +52,7 @@ declare variable $std:xslt :=saxon:function("std:xslt", 3);
 (: -------------------------------------------------------------------------- :)
 declare function std:add-attribute($primary,$secondary,$options) {
 
-(: TODO: need to implement match attribute :)
+(: TODO: need to refactor match attribute :)
 
 let $v := $primary/*[1]
 let $match := util:get-option($options/p:with-option[@name='match']/@select,$primary/*)
