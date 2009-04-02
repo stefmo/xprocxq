@@ -2,7 +2,7 @@
                        version="1.0">
     <xsl:template match="/">
         <success vendor="{system-property('xsl:vendor')}" version="{system-property('xsl:product-version')}">
-            <xsl:copy-of select="."/>            
+            <xsl:value-of select="."/>            
         </success>
     </xsl:template>
   </xsl:stylesheet>

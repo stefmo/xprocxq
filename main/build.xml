@@ -719,6 +719,19 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
 
 
     <!-- ===================================================== -->
+    <!-- create jar for eXist                                  -->
+    <!-- ===================================================== -->
+    <target name="exist-jar">
+      <delete dir="dist/xprocxq.jar"/>
+      <zip destfile="dist/xprocxq.jar">
+        <zipfileset dir="src/xquery" includes="**/**/**.*" prefix="net/xproc/xprocxq/src/xquery"/>
+        <zipfileset dir="etc" includes="**/**/*.*" prefix="net/xproc/xqprocxq/etc"/>
+        <zipfileset dir="lib/net/xproc/saxon" includes="*.class" prefix="net/xproc/saxon"/>
+      </zip>
+    </target>
+
+
+    <!-- ===================================================== -->
     <!-- MACRODEFS                                             -->
     <!-- ===================================================== -->
 
