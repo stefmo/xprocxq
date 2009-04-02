@@ -2,11 +2,30 @@
             xmlns:p="http://www.w3.org/ns/xproc">
 
 <p:identity/>
+<p:identity step="mystep">
+<p:input port="source">
+    <p:inline>
+        <tests/>
+    </p:inline>
+    <p:inline>
+        <tests/>
+    </p:inline>
+    <p:inline>
+        <tests/>
+    </p:inline>
+    <p:inline>
+        <tests/>
+    </p:inline>
+</p:input>
+<p:output port="result"/>
+</p:identity>
 
-<p:xslt>
-     <p:input port="stylesheet">
-              <p:document href="file:test/data/stylesheet.xml"/>         
-     </p:input>
-</p:xslt>
+
+ 
+<p:count>
+    <p:input port="source">
+        <p:pipe port="result" step="mystep"/>
+    </p:input>
+</p:count>
 
 </p:pipeline>
