@@ -16,7 +16,7 @@
             <td>expected</td>
          </tr>
          <tr>
-            <td><b>run xproc util:help</b></td>
+            <td><b>run xproc u:help</b></td>
             <td>
                <div class="good">passed </div>
             </td>
@@ -24,7 +24,7 @@
             <td><textarea name="content" rows="6" cols="60">help util executed</textarea></td>
          </tr>
          <tr>
-            <td><b>run xproc util:eval which evals to true</b></td>
+            <td><b>run xproc u:eval which evals to true</b></td>
             <td>
                <div class="good">passed </div>
             </td>
@@ -32,7 +32,7 @@
             <td><textarea name="content" rows="6" cols="60">true</textarea></td>
          </tr>
          <tr>
-            <td><b>run xproc util:eval which evals to false</b></td>
+            <td><b>run xproc u:eval which evals to false</b></td>
             <td>
                <div class="good">passed </div>
             </td>
@@ -48,7 +48,7 @@
             <td><textarea name="content" rows="6" cols="60">true</textarea></td>
          </tr>
          <tr>
-            <td><b>run util:evalXPATH which evals to true</b></td>
+            <td><b>run u:evalXPATH which evals to true</b></td>
             <td>
                <div class="good">passed </div>
             </td>
@@ -56,7 +56,7 @@
             <td><textarea name="content" rows="6" cols="60">true</textarea></td>
          </tr>
          <tr>
-            <td><b>testing util:call</b></td>
+            <td><b>testing u:call</b></td>
             <td>
                <div class="good">passed </div>
             </td>
@@ -125,10 +125,10 @@
             <c:result xmlns:c="http://www.w3.org/ns/xproc-step">1</c:result>
          </xproc:output>
       </textarea></td>
-            <td><textarea name="content" rows="6" cols="60">import module namespace xproc = "http://xproc.net/xproc" at "src/xquery/xproc.xqm"; import module namespace comp = "http://xproc.net/xproc/comp" at "src/xquery/comp.xqm"; import module namespace util = "http://xproc.net/xproc/util" at "src/xquery/util.xqm"; import module namespace std = "http://xproc.net/xproc/std" at "src/xquery/std.xqm"; import module namespace ext = "http://xproc.net/xproc/ext" at "src/xquery/ext.xqm"; let $O0 := <test></test> let $steps := ("pre step",$ext:pre, "step1", $std:count, "step2", $std:identity, "step3", $std:count, "post-step",$ext:post) return util:step-fold($steps, saxon:function("xproc:evalstep", 3),($O0,""))</textarea></td>
+            <td><textarea name="content" rows="6" cols="60">import module namespace xproc = "http://xproc.net/xproc" at "src/xquery/xproc.xqm"; import module namespace comp = "http://xproc.net/xproc/comp" at "src/xquery/comp.xqm"; import module namespace util = "http://xproc.net/xproc/util" at "src/xquery/util.xqm"; import module namespace std = "http://xproc.net/xproc/std" at "src/xquery/std.xqm"; import module namespace ext = "http://xproc.net/xproc/ext" at "src/xquery/ext.xqm"; let $O0 := <test></test> let $steps := ("pre step",$ext:pre, "step1", $std:count, "step2", $std:identity, "step3", $std:count, "post-step",$ext:post) return u:step-fold($steps, saxon:function("xproc:evalstep", 3),($O0,""))</textarea></td>
          </tr>
          <tr>
-            <td><b>simple util:xquery test</b></td>
+            <td><b>simple u:xquery test</b></td>
             <td>
                <div class="good">passed </div>
             </td>
@@ -136,7 +136,7 @@
             <td><textarea name="content" rows="6" cols="60">1</textarea></td>
          </tr>
          <tr>
-            <td><b>simple util:xslt test</b></td>
+            <td><b>simple u:xslt test</b></td>
             <td>
                <div class="bad">failed </div>
             </td>
@@ -152,7 +152,7 @@
             <td><textarea name="content" rows="6" cols="60"></textarea></td>
          </tr>
          <tr>
-            <td><b>testing util:timing</b></td>
+            <td><b>testing u:timing</b></td>
             <td>
                <div class="good">passed </div>
             </td>
@@ -168,7 +168,7 @@
             <td><textarea name="content" rows="6" cols="60">false</textarea></td>
          </tr>
          <tr>
-            <td><b>testing util:try</b></td>
+            <td><b>testing u:try</b></td>
             <td>
                <div class="good">passed </div>
             </td>

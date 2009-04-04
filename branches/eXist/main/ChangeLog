@@ -513,7 +513,7 @@
 	  test/xproc/basic/wrap/wrap2_1.xml,
 	  test/xproc/basic/wrap/wrap3.xml,
 	  test/xproc/basic/wrap/wrap3_1.xml, test/xproc/result, wrap.sh:
-	  created util:get-option to facilitate extraction of options
+	  created u:get-option to facilitate extraction of options
 
 2008-10-19 13:23  James.Fuller.2007
 
@@ -1521,7 +1521,7 @@
 
 	* src/xquery/util.xqm, src/xquery/xproc.xqm,
 	  test/xproc/basic/ordering/inputordering1.xml,
-	  test/xquery/core.xq: refactoring util:step-fold
+	  test/xquery/core.xq: refactoring u:step-fold
 
 2007-12-08 17:05  James.Fuller.2007@gmail.com
 
@@ -1570,7 +1570,7 @@
 
 	* reports/README, src/xquery/util.xqm, src/xquery/xproc.xqm,
 	  test/xquery/core.xq: adding metadata for new input, output, and
-	  options handling in util:step-fold()
+	  options handling in u:step-fold()
 
 2007-12-06 14:32  James.Fuller.2007@gmail.com
 

@@ -11,42 +11,45 @@ declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
 declare namespace xproc = "http://xproc.net/xproc";
 
+
+declare namespace saxon = "http://dummy.org";
+
 (: Module Imports :)
 import module namespace u = "http://xproc.net/xproc/util";
 
 
 (: Module Vars :)
-declare variable $std:add-attribute :=util:function("std:add-attribute", 3);
-declare variable $std:add-xml-base :=util:function("std:add-xml-base", 3);
-declare variable $std:count :=util:function("std:count", 3);
-declare variable $std:compare :=util:function("std:compare",3);
-declare variable $std:delete :=util:function("std:delete",3);
-declare variable $std:declare-step :=util:function("std:declare-step",3);
-declare variable $std:error :=util:function("std:error",3);
-declare variable $std:filter :=util:function("std:filter",3);
-declare variable $std:directory-list :=util:function("std:directory-list", 3);
-declare variable $std:escape-markup :=util:function("std:escape-markup", 3);
-declare variable $std:http-request :=util:function("std:http-request", 3);
-declare variable $std:identity :=util:function("std:identity", 3);
-declare variable $std:label-elements :=util:function("std:label-elements", 3);
-declare variable $std:load :=util:function("std:load", 3);
-declare variable $std:make-absolute-uris :=util:function("std:make-absolute-uris", 3);
-declare variable $std:namespace-rename :=util:function("std:namespace-rename", 3);
-declare variable $std:pack :=util:function("std:pack", 3);
-declare variable $std:parameters :=util:function("std:parameters", 3);
-declare variable $std:rename :=util:function("std:rename", 3);
-declare variable $std:replace :=util:function("std:replace", 3);
-declare variable $std:set-attributes :=util:function("std:set-attributes", 3);
-declare variable $std:sink :=util:function("std:sink", 3);
-declare variable $std:split-sequence :=util:function("std:split-sequence", 3);
-declare variable $std:store :=util:function("std:store", 3);
-declare variable $std:string-replace :=util:function("std:string-replace", 3);
-declare variable $std:unescape-markup :=util:function("std:unescape-markup", 3);
-declare variable $std:xinclude :=util:function("std:xinclude", 3);
-declare variable $std:wrap :=util:function("std:wrap", 3);
-declare variable $std:wrap-sequence :=util:function("std:wrap-sequence", 3);
-declare variable $std:unwrap :=util:function("std:unwrap", 3);
-declare variable $std:xslt :=util:function("std:xslt", 3);
+declare variable $std:add-attribute :=util:function(xs:QName("std:add-attribute"), 3);
+declare variable $std:add-xml-base :=util:function(xs:QName("std:add-xml-base"), 3);
+declare variable $std:count :=util:function(xs:QName("std:count"), 3);
+declare variable $std:compare :=util:function(xs:QName("std:compare"),3);
+declare variable $std:delete :=util:function(xs:QName("std:delete"),3);
+declare variable $std:declare-step :=util:function(xs:QName("std:declare-step"), 3);
+declare variable $std:error :=util:function(xs:QName("std:error"), 3);
+declare variable $std:filter :=util:function(xs:QName("std:filter"), 3);
+declare variable $std:directory-list :=util:function(xs:QName("std:directory-list"), 3);
+declare variable $std:escape-markup :=util:function(xs:QName("std:escape-markup"), 3);
+declare variable $std:http-request :=util:function(xs:QName("std:http-request"), 3);
+declare variable $std:identity :=util:function(xs:QName("std:identity"), 3);
+declare variable $std:label-elements :=util:function(xs:QName("std:label-elements"), 3);
+declare variable $std:load :=util:function(xs:QName("std:load"), 3);
+declare variable $std:make-absolute-uris :=util:function(xs:QName("std:make-absolute-uris"), 3);
+declare variable $std:namespace-rename :=util:function(xs:QName("std:namespace-rename"), 3);
+declare variable $std:pack :=util:function(xs:QName("std:pack"), 3);
+declare variable $std:parameters :=util:function(xs:QName("std:parameters"), 3);
+declare variable $std:rename :=util:function(xs:QName("std:rename"), 3);
+declare variable $std:replace :=util:function(xs:QName("std:replace"), 3);
+declare variable $std:set-attributes :=util:function(xs:QName("std:set-attributes"), 3);
+declare variable $std:sink :=util:function(xs:QName("std:sink"), 3);
+declare variable $std:split-sequence :=util:function(xs:QName("std:split-sequence"), 3);
+declare variable $std:store :=util:function(xs:QName("std:store"), 3);
+declare variable $std:string-replace :=util:function(xs:QName("std:string-replace"), 3);
+declare variable $std:unescape-markup :=util:function(xs:QName("std:unescape-markup"), 3);
+declare variable $std:xinclude :=util:function(xs:QName("std:xinclude"), 3);
+declare variable $std:wrap :=util:function(xs:QName("std:wrap"), 3);
+declare variable $std:wrap-sequence :=util:function(xs:QName("std:wrap-sequence"), 3);
+declare variable $std:unwrap :=util:function(xs:QName("std:unwrap"), 3);
+declare variable $std:xslt :=util:function(xs:QName("std:xslt"), 3);
 
 
 (: -------------------------------------------------------------------------- :)
@@ -151,7 +154,10 @@ declare function std:delete($primary,$secondary,$options){
 
 let $match := u:get-option($options/p:with-option[@name='match']/@select,$primary)
 return
+	<test/>
+	(:
     u:remove-elements($primary/*[1],$match)
+:)
 };
 
 
@@ -171,7 +177,7 @@ declare function std:escape-markup($primary,$secondary,$options) {
     u:serialize($primary,<xsl:output method="xml"
                                  omit-xml-declaration="yes"
                                  indent="yes"
-                                 saxon:indent-spaces="1"/>)
+                                 />)
 };
 
 
@@ -312,9 +318,9 @@ declare function std:unescape-markup($primary,$secondary,$options){
 let $parsed := document{u:serialize($primary,<xsl:output method="xml"
                                  omit-xml-declaration="yes"
                                  indent="yes"
-                                 saxon:indent-spaces="1"/>)}
+                                 />)}
 return
-    saxon:parse($parsed)
+    util:parse($parsed)
 };
 
 

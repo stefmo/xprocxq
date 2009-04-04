@@ -15,8 +15,8 @@ declare variable $const:NS_XPROC_ERR := "http://www.w3.org/ns/xproc-error";
 
 (: -------------------------------------------------------------------------- :)
 
-declare variable $const:TRACE_SERIALIZE :=<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>;
-declare variable $const:TEXT_SERIALIZE :=<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>;
+declare variable $const:TRACE_SERIALIZE :=<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" />;
+declare variable $const:TEXT_SERIALIZE :=<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" />;
 
 (: -------------------------------------------------------------------------- :)
 
@@ -29,19 +29,21 @@ declare variable $const:NS_XPROC_ERR_EXT := "http://xproc.net/ns/errors";
 (: Module Vars :)
 (: doesnt work as intended
 declare variable  $const:evalstep := util:function("xproc:evalstep", 5);
-:)
 
+
+declare variable $const:run-step :=util:function(xs:QName("xproc:run-step"), 3);
+:)
 (: -------------------------------------------------------------------------- :)
 (: error dictionaries :)
-declare variable  $const:error := doc("etc/error-list.xml");
-declare variable  $const:error-xprocxq := doc("etc/error-xprocxq.xml");
+declare variable  $const:error := doc("resource:net/xproc/xqprocxq/etc/error-list.xml");
+declare variable  $const:error-xprocxq := doc("resource:net/xproc/xqprocxq/etc/error-xprocxq.xml");
 
 (: -------------------------------------------------------------------------- :)
 
-declare variable $const:ext-steps := doc("etc/pipeline-extension.xml")/p:library;
-declare variable $const:std-steps := doc("etc/pipeline-standard.xml")/p:library;
-declare variable $const:opt-steps := doc("etc/pipeline-optional.xml")/p:library;
-declare variable $const:comp-steps := doc("etc/xproc-component.xml")/xproc:components;
+declare variable $const:ext-steps := doc("resource:net/xproc/xqprocxq/etc/pipeline-extension.xml")/p:library;
+declare variable $const:std-steps := doc("resource:net/xproc/xqprocxq/etc/pipeline-standard.xml")/p:library;
+declare variable $const:opt-steps := doc("resource:net/xproc/xqprocxq/etc/pipeline-optional.xml")/p:library;
+declare variable $const:comp-steps := doc("resource:net/xproc/xqprocxq/etc/xproc-component.xml")/xproc:components;
 
 (: -------------------------------------------------------------------------- :)
 
@@ -80,20 +82,17 @@ declare variable $const:default-imports :='
 
     declare copy-namespaces no-preserve, no-inherit;
 
-    import module namespace const = "http://xproc.net/xproc/const"
-                            at "src/xquery/const.xqm";
-    import module namespace xproc = "http://xproc.net/xproc"
-                            at "src/xquery/xproc.xqm";
-    import module namespace u: "http://xproc.net/xproc/util"
-                            at "src/xquery/util.xqm";
-    import module namespace std = "http://xproc.net/xproc/std"
-                            at "src/xquery/std.xqm";
-    import module namespace ext = "http://xproc.net/xproc/ext"
-                            at "src/xquery/ext.xqm";
-    import module namespace opt = "http://xproc.net/xproc/opt"
-                            at "src/xquery/opt.xqm";
-    import module namespace comp = "http://xproc.net/xproc/comp"
-                            at "src/xquery/comp.xqm";';
+    import module namespace const = "http://xproc.net/xproc/const";
+    import module namespace xproc = "http://xproc.net/xproc";
+    import module namespace u = "http://xproc.net/xproc/util";
+    import module namespace std = "http://xproc.net/xproc/std";
+    import module namespace ext = "http://xproc.net/xproc/ext";
+    import module namespace opt = "http://xproc.net/xproc/opt";
+    import module namespace comp = "http://xproc.net/xproc/comp";
+';
+
+
+declare variable $const:alt-imports :=' declare copy-namespaces no-preserve, no-inherit; import module namespace p = "http://xproc.net/xproc/functions";';
 
 (: -------------------------------------------------------------------------- :)
 

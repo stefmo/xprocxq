@@ -13,7 +13,7 @@ import module namespace xproc = "http://xproc.net/xproc"
                         at "../../src/xquery/xproc.xqm";
 import module namespace comp = "http://xproc.net/xproc/comp"
                         at "../../src/xquery/comp.xqm";
-import module namespace util = "http://xproc.net/xproc/util"
+import module namespace u: "http://xproc.net/xproc/util"
                         at "../../src/xquery/util.xqm";
 import module namespace std = "http://xproc.net/xproc/std"
                         at "../../src/xquery/std.xqm";

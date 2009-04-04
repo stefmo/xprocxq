@@ -13,15 +13,13 @@ declare namespace xproc = "http://xproc.net/xproc";
 (: Module Imports :)
 import module namespace u = "http://xproc.net/xproc/util";
 
-
 (: -------------------------------------------------------------------------- :)
 
 (: Module Vars :)
-declare variable $ext:pre :=util:function("ext:pre", 3);
-declare variable $ext:post :=util:function("ext:post", 3);
-declare variable $ext:test :=util:function("ext:test", 3);
-declare variable $ext:step :=util:function("ext:step", 3);
-declare variable $ext:xproc :=util:function("xproc:run-step", 3);
+declare variable $ext:pre :=util:function(xs:QName("ext:pre"), 3);
+declare variable $ext:post :=util:function(xs:QName("ext:post"), 3);
+declare variable $ext:test :=util:function(xs:QName("ext:test"), 3);
+declare variable $ext:step :=util:function(xs:QName("ext:step"), 3);
 
 (: -------------------------------------------------------------------------- :)
 declare function ext:pre($primary,$secondary,$options){

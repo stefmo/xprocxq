@@ -13,6 +13,7 @@ declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
 (:todo - needed to resolve @select on p:input related to compile- to investigate why I need to add this xmlns:)
 declare namespace t="http://xproc.org/ns/testsuite";
 
+
 (: Other Namespace Declaration :)
 declare namespace saxon = "http://saxon.sf.net/";
 declare namespace jt = "http://net.sf.saxon/java-type";
@@ -75,8 +76,7 @@ else
 (: -------------------------------------------------------------------------- :)
 declare function u:unparsed-data($uri as xs:string, $mediatype as xs:string)  {
 
-let $xslt := saxon:compile-stylesheet(
-document {
+let $xslt := document {
   <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                   xmlns:c="http://www.w3.org/ns/xproc-step"
                   version="2.0">
@@ -87,12 +87,12 @@ document {
     </xsl:template>
   </xsl:stylesheet>
 }
-)
+
 let $source :=
   document { <empty/>}
 
 return
-     saxon:transform($xslt, $source)
+     transform:transform($source, $xslt, ())
 
 };
 
@@ -125,42 +125,42 @@ declare function u:outputResultElement($exp){
 
 (: -------------------------------------------------------------------------- :)
 declare function u:random() as  xs:double  {
-   math:random()
+   util:random()
 };
 
 (: -------------------------------------------------------------------------- :)
 declare function u:eval($exp as xs:string) as item()*{
-    saxon:eval(saxon:expression($exp))
+    util:eval($exp)
 };
 
 (: -------------------------------------------------------------------------- :)
 (: TODO: refactor the following into a single function :)
 declare function u:call($func,$a) as item()*{
-    saxon:call($func,$a)
+    util:call($func,$a)
 };
 
 
 declare function u:call($func,$a,$b) as item()*{
-    saxon:call($func,$a,$b)
+    util:call($func,$a,$b)
 };
 
 
 declare function u:call($func,$a,$b,$c) as item()*{
-    saxon:call($func,$a,$b,$c)
+    util:call($func,$a,$b,$c)
 };
 
 
 declare function u:call($func,$a,$b,$c,$d) as item()*{
-    saxon:call($func,$a,$b,$c,$d)
+    util:call($func,$a,$b,$c,$d)
 };
 
 
 declare function u:call($func,$a,$b,$c,$d,$e) as item()*{
-    saxon:call($func,$a,$b,$c,$d,$e)
+    util:call($func,$a,$b,$c,$d,$e)
 };
 
 declare function u:call($func,$a,$b,$c,$d,$e,$f) as item()*{
-    saxon:call($func,$a,$b,$c,$d,$e,$f)
+    util:call($func,$a,$b,$c,$d,$e,$f)
 };
 
 (: -------------------------------------------------------------------------- :)
@@ -173,7 +173,7 @@ declare function u:function($func,$arity){
 (: -------------------------------------------------------------------------- :)
 declare function u:evalXPATH($xpathstring, $xml as item()*) as item()*{
     let $test:= document{$xml}
-    return $test/saxon:evaluate($xpathstring)
+    return $test/util:eval($xpathstring)
 };
 
 (: -------------------------------------------------------------------------- :)
@@ -187,7 +187,7 @@ declare function u:get-option($option,$v){
 };
 
 
-
+(: -------------------------------------------------------------------------- :)
 declare function u:add-ns-node(
     $elem   as element(),
     $prefix as xs:string,
@@ -225,42 +225,9 @@ declare function u:treewalker-add-attribute($element as element(),$match,$attrNa
 
 
 (: -------------------------------------------------------------------------- :)
-declare function u:remove-elements
-  ( $elements ,
-    $names as xs:string* )  as element()* {
-
-   for $element in $elements
-   return element
-     {node-name($element)}
-     {$element/@*,
-      $element/node()[not(u:name-test(name(),$names))] }
- } ;
-
-declare function u:name-test
-  ( $testname as xs:string? ,
-    $names as xs:string* )  as xs:boolean {
-
-$testname = $names
-or
-$names = '*'
-or
-u:substring-after-if-contains($testname,':') =
-   (for $name in $names
-   return substring-after($name,'*:'))
-or
-substring-before($testname,':') =
-   (for $name in $names[contains(.,':*')]
-   return substring-before($name,':*'))
- } ;
-
-declare function u:substring-after-if-contains 
-  ( $arg as xs:string? ,
-    $delim as xs:string )  as xs:string? {
-
-   if (contains($arg,$delim))
-   then substring-after($arg,$delim)
-   else $arg
- } ;
+declare function u:remove-elements(){
+	<test/>
+};
 
 
 
@@ -274,13 +241,12 @@ declare function u:treewalker ($tree,$attrFunc,$elemFunc) {
         for $c in $children
             return
                 ( element {node-name($c)}{
-                            saxon:call($attrFunc,$c/@*),
-                            saxon:call($elemFunc,$c/*),
+                            util:call($attrFunc,$c/@*),
+                            util:call($elemFunc,$c/*),
                         u:treewalker($tree,$attrFunc,$elemFunc)
                 })
 };
 
-(: -------------------------------------------------------------------------- :)
 declare function u:treewalker ($tree,$attrFunc,$textFunc,$attName,$attValue) {
 
   let $children := $tree/*
@@ -290,8 +256,8 @@ declare function u:treewalker ($tree,$attrFunc,$textFunc,$attName,$attValue) {
         for $c in $children
             return
                 ( element {node-name($c)}{
-                            saxon:call($attrFunc,$c/@*,$attName,$attValue),
-                            saxon:call($textFunc,$c/text()),
+                            util:call($attrFunc,$c/@*,$attName,$attValue),
+                            util:call($textFunc,$c/text()),
                         u:treewalker($c,$attrFunc,$textFunc,$attName,$attValue)
                 })
 };
@@ -307,10 +273,8 @@ declare function u:textHandler ($text) {
 
 
 (: -------------------------------------------------------------------------- :)
-(: TODO - uses SAXON extension function, need to abstract this out :)
 declare function u:xquery($exp as xs:string){
-    let $a := func:compileQuery($exp)
-    let $result := func:query($a)
+    let $result := util:eval($exp)
     return
         $result
 };
@@ -318,9 +282,9 @@ declare function u:xquery($exp as xs:string){
 
 (: -------------------------------------------------------------------------- :)
 declare function u:xslt($xslt,$xml){
-let $compiled_xslt := saxon:compile-stylesheet(document{$xslt})
-    return saxon:transform($compiled_xslt, document{$xml})
+	transform:transform(document{$xml},$xslt, ())
 };
+
 
 (: -------------------------------------------------------------------------- :)
 declare function u:validate($exp) as xs:string {
@@ -330,14 +294,16 @@ $exp
 :)
 };
 
+
 (: -------------------------------------------------------------------------- :)
 declare function u:serialize($xml,$output){
-     saxon:serialize($xml,$output)
+	$output
 };
+
 
 (: -------------------------------------------------------------------------- :)
 declare function u:parse-string($string){
-    saxon:parse($string)
+    util:parse($string)
 };
 
 (: -------------------------------------------------------------------------- :)
@@ -369,6 +335,8 @@ declare function u:printstep ($step,$meta,$value) {
 };
 
 
+(: -------------------------------------------------------------------------- :)
+
 declare function u:pipeline-step-sort($unsorted, $sorted, $pipelinename )  {
     if (empty($unsorted)) then
         $sorted
@@ -382,6 +350,7 @@ declare function u:pipeline-step-sort($unsorted, $sorted, $pipelinename )  {
             ()
 };
 
+(: -------------------------------------------------------------------------- :)
 
 declare function u:strip-namespace($e as element()) as element() {
   
@@ -396,9 +365,12 @@ declare function u:strip-namespace($e as element()) as element() {
   }
 };
 
+(: -------------------------------------------------------------------------- :)
+
 declare function u:uniqueid($unique_id,$count){
     concat($unique_id,'.',$count)
 };
+
 (: -------------------------------------------------------------------------- :)
 declare function u:final-result($pipeline,$resulttree){
     ($pipeline,$resulttree)

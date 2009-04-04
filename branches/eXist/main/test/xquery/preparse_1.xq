@@ -13,7 +13,7 @@ import module namespace xproc = "http://xproc.net/xproc"
                         at "../../src/xquery/xproc.xqm";
 import module namespace comp = "http://xproc.net/xproc/comp"
                         at "../../src/xquery/comp.xqm";
-import module namespace util = "http://xproc.net/xproc/util"
+import module namespace u: "http://xproc.net/xproc/util"
                         at "../../src/xquery/util.xqm";
 import module namespace std = "http://xproc.net/xproc/std"
                         at "../../src/xquery/std.xqm";
@@ -262,7 +262,7 @@ let $pipeline :=
 
 
 <test>
-    <name>util:pipeline-step-sort 1</name>
+    <name>u:pipeline-step-sort 1</name>
     <result>
 {
 
@@ -295,7 +295,7 @@ let $pipeline :=
 
 
  </p:pipeline>
-let $sortsteps := <p:pipeline>{util:pipeline-step-sort($pipeline/node(),())}</p:pipeline>
+let $sortsteps := <p:pipeline>{u:pipeline-step-sort($pipeline/node(),())}</p:pipeline>
 return $sortsteps
 
 }
@@ -326,7 +326,7 @@ return $sortsteps
 
 
 <test>
-    <name>util:pipeline-step-sort 2</name>
+    <name>u:pipeline-step-sort 2</name>
     <result>
 {
 
@@ -352,7 +352,7 @@ let $pipeline :=
     </p:count>
 
  </p:pipeline>
-let $sortsteps := <p:pipeline>{util:pipeline-step-sort($pipeline/node(),())}</p:pipeline>
+let $sortsteps := <p:pipeline>{u:pipeline-step-sort($pipeline/node(),())}</p:pipeline>
 return $sortsteps
 
 }

@@ -17,17 +17,20 @@ import module namespace const = "http://xproc.net/xproc/const";
 
 (: -------------------------------------------------------------------------- :)
 
-declare variable $comp:declare-step :=util:function("comp:declare-step", 3);
-declare variable $comp:choose :=util:function("comp:choose", 4);
-declare variable $comp:when :=util:function("comp:when", 3);
-declare variable $comp:otherwise :=util:function("comp:otherwise", 3);
-declare variable $comp:for-each :=util:function("comp:for-each", 3);
-declare variable $comp:parse_eval :=util:function("xproc:parse_and_eval", 3);
+declare variable $comp:declare-step :=util:function(xs:QName("comp:declare-step"), 3);
+declare variable $comp:choose :=util:function(xs:QName("comp:choose"), 4);
+declare variable $comp:when :=util:function(xs:QName("comp:when"), 3);
+declare variable $comp:otherwise :=util:function(xs:QName("comp:otherwise"), 3);
+declare variable $comp:for-each :=util:function(xs:QName("comp:for-each"), 3);
+
+(:
+declare variable $comp:parse_eval :=util:function(xs:QName("xproc:parse_and_eval"), 3);
+:)
 
 (: -------------------------------------------------------------------------- :)
 declare function comp:choose($primary,$secondary,$options,$step) {
     let $v := document{$primary/*[1]}
-    let $stepfunc :=concat($const:default-imports,$comp:parse_eval)
+    let $stepfunc :=concat($const:default-imports,())
     let $when := $step/p:when
     let $otherwise := $step/p:otherwise
     let $when_eval :=u:evalXPATH(string($when/@test),$v)

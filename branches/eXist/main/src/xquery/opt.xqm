@@ -17,24 +17,18 @@ import module namespace const = "http://xproc.net/xproc/const";
 
 
 (: Module Vars :)
-declare variable $opt:exec :=util:function("opt:exec", 3);
-declare variable $opt:hash :=util:function("opt:hash", 3);
-declare variable $opt:uuid :=util:function("opt:uuid", 3);
-declare variable $opt:www-form-urldecode :=util:function("opt:www-form-urldecode", 3);
-declare variable $opt:www-form-urlencode :=util:function("opt:www-form-urlencode", 3);
-declare variable $opt:validate-with-xml-schema :=util:function("opt:validate-with-xml-schema", 3);
-declare variable $opt:validate-with-schematron :=util:function("opt:validate-with-schematron", 3);
-declare variable $opt:validate-with-relax-ng :=util:function("opt:validate-with-relax-ng", 3);
-declare variable $opt:xquery :=util:function("opt:xquery", 3);
-declare variable $opt:xsl-formatter :=util:function("opt:xsl-formatter", 3);
+declare variable $opt:exec := util:function(xs:QName("opt:exec"), 3);
+declare variable $opt:hash := util:function(xs:QName("opt:hash"), 3);
+declare variable $opt:uuid := util:function(xs:QName("opt:uuid"), 3);
+declare variable $opt:www-form-urldecode := util:function(xs:QName("opt:www-form-urldecode"), 3);
+declare variable $opt:www-form-urlencode := util:function(xs:QName("opt:www-form-urlencode"), 3);
+declare variable $opt:validate-with-xml-schema := util:function(xs:QName("opt:validate-with-xml-schema"), 3);
+declare variable $opt:validate-with-schematron := util:function(xs:QName("opt:validate-with-schematron"), 3);
+declare variable $opt:validate-with-relax-ng := util:function(xs:QName("opt:validate-with-relax-ng"), 3);
+declare variable $opt:xquery := util:function(xs:QName("opt:xquery"), 3);
+declare variable $opt:xsl-formatter :=util:function(xs:QName("opt:xsl-formatter"), 3);
 
-declare variable $opt:default-imports :='
 
-    declare copy-namespaces no-preserve, no-inherit;
-
-    import module namespace p = "http://xproc.net/xproc/functions"
-                            at "src/xquery/functions.xqm";
-';
 
 
 (: -------------------------------------------------------------------------- :)
@@ -44,7 +38,7 @@ u:assert(exists($secondary/xproc:input[@port='query']/c:query),'p:input query is
 (:TODO: need to sort out multiple c:query elements :)
 
     let $xquery := $secondary/xproc:input[@port='query']/c:query/.
-    let $xqueryfunc := concat($opt:default-imports,$xquery)
+    let $xqueryfunc := concat($const:alt-imports,$xquery)
     let $result := data(u:xquery($xqueryfunc))
         return
             u:outputResultElement($result)

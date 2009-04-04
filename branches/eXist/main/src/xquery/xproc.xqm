@@ -438,7 +438,7 @@ declare function xproc:parse_and_eval($xproc,$stdin as item(),$bindings) {
 
         (u:step-fold($pipeline,
                        $steps,
-                       util:function("xproc:evalstep", 4),
+                       util:function(xs:QName("xproc:evalstep"), 4),
                        $stdin,
                        (xproc:resolve-external-bindings($bindings,$pipeline/@name),
                        (<xproc:output

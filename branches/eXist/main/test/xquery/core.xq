@@ -12,7 +12,7 @@ import module namespace xproc = "http://xproc.net/xproc"
                         at "../../src/xquery/xproc.xqm";
 import module namespace comp = "http://xproc.net/xproc/comp"
                         at "../../src/xquery/comp.xqm";
-import module namespace util = "http://xproc.net/xproc/util"
+import module namespace u: "http://xproc.net/xproc/util"
                         at "../../src/xquery/util.xqm";
 import module namespace std = "http://xproc.net/xproc/std"
                         at "../../src/xquery/std.xqm";
@@ -30,27 +30,27 @@ declare variable $source := document{*};
 
 
 <test>
-    <name>run xproc util:help</name>
+    <name>run xproc u:help</name>
     <result>
-    {util:help()}
+    {u:help()}
     </result>
     <expected>help util executed</expected>
 </test>
 
 
 <test>
-    <name>run xproc util:eval which evals to true</name>
+    <name>run xproc u:eval which evals to true</name>
     <result>
-    {util:eval('boolean(1)')}
+    {u:eval('boolean(1)')}
     </result>
     <expected>true</expected>
 </test>
 
 
 <test>
-    <name>run xproc util:eval which evals to false</name>
+    <name>run xproc u:eval which evals to false</name>
     <result>
-    {util:eval('boolean(0)')}
+    {u:eval('boolean(0)')}
     </result>
     <expected>false</expected>
 </test>
@@ -69,11 +69,11 @@ declare variable $source := document{*};
 
 
 <test>
-    <name>run util:evalXPATH which evals to true</name>
+    <name>run u:evalXPATH which evals to true</name>
     <result>
     {
         let $v :=document{<test><c>true</c></test>}
-        return util:evalXPATH("//c/text()",$v)
+        return u:evalXPATH("//c/text()",$v)
     }
     </result>
     <expected>true</expected>
@@ -81,10 +81,10 @@ declare variable $source := document{*};
 
 
 <test>
-    <name>testing util:call</name>
+    <name>testing u:call</name>
     <result>
     {
-        util:call(saxon:function('std:count', 3),<test/>,(),())
+        u:call(saxon:function('std:count', 3),<test/>,(),())
     }
     </result>
     <expected>1</expected>
@@ -107,12 +107,12 @@ declare variable $source := document{*};
     <result>
     {xproc:parse( xproc:preparse(<p:pipeline name="helloworld"
             xmlns:p="http://www.w3.org/ns/xproc"
-            xmlns:util = "http://xproc.net/xproc/util">
+            xmlns:u: "http://xproc.net/xproc/util">
 
-<util:step name="helloworld">
+<u:step name="helloworld">
   <p:input port="std-input"/>
   <p:output port="std-output"/>
-</util:step>
+</u:step>
 
     <p:identity name="step2">
        <p:input port="step2-input">
@@ -138,23 +138,23 @@ declare variable $source := document{*};
  </p:pipeline>
  ),<test/>)}
     </result>
-    <expected>import module namespace xproc = "http://xproc.net/xproc" at "src/xquery/xproc.xqm"; import module namespace comp = "http://xproc.net/xproc/comp" at "src/xquery/comp.xqm"; import module namespace util = "http://xproc.net/xproc/util" at "src/xquery/util.xqm"; import module namespace std = "http://xproc.net/xproc/std" at "src/xquery/std.xqm"; import module namespace ext = "http://xproc.net/xproc/ext" at "src/xquery/ext.xqm"; let $O0 := <test/> let $steps := ("pre step",$ext:pre, "step1", $std:count, "step2", $std:identity, "step3", $std:count, "post-step",$ext:post) return util:step-fold($steps, saxon:function("xproc:evalstep", 3),($O0,""))</expected>
+    <expected>import module namespace xproc = "http://xproc.net/xproc" at "src/xquery/xproc.xqm"; import module namespace comp = "http://xproc.net/xproc/comp" at "src/xquery/comp.xqm"; import module namespace u: "http://xproc.net/xproc/util" at "src/xquery/util.xqm"; import module namespace std = "http://xproc.net/xproc/std" at "src/xquery/std.xqm"; import module namespace ext = "http://xproc.net/xproc/ext" at "src/xquery/ext.xqm"; let $O0 := <test/> let $steps := ("pre step",$ext:pre, "step1", $std:count, "step2", $std:identity, "step3", $std:count, "post-step",$ext:post) return u:step-fold($steps, saxon:function("xproc:evalstep", 3),($O0,""))</expected>
 </test>
 
 
 <test>
-    <name>simple util:xquery test</name>
+    <name>simple u:xquery test</name>
     <result>
-    {util:xquery('let $a := 1 return $a')}
+    {u:xquery('let $a := 1 return $a')}
     </result>
     <expected>1</expected>
 </test>
 
 
 <test>
-    <name>simple util:xslt test</name>
+    <name>simple u:xslt test</name>
     <result>
-    {util:xslt(<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    {u:xslt(<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                        version="2.0">
     <xsl:template match="customer">
         <xsl:value-of select="."/>
@@ -180,9 +180,9 @@ declare variable $source := document{*};
 </test>
 
 <test>
-    <name>testing util:timing</name>
+    <name>testing u:timing</name>
     <result>
-    {test:assertIsInteger(util:timing())} 
+    {test:assertIsInteger(u:timing())} 
     </result>
     <expected>true</expected>
 </test>
@@ -195,7 +195,7 @@ declare variable $source := document{*};
 
 
 <test>
-    <name>testing util:try</name>
+    <name>testing u:try</name>
     <result>false</result>
     <expected>false</expected>
 </test>

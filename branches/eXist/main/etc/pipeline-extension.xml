@@ -23,7 +23,7 @@
         <p:input port="input" primary="true"/>
     </p:declare-step>
 
-    <p:declare-step type="util:test-step">
+    <p:declare-step type="u:test-step">
         <p:input port="input" primary="true"/>
     </p:declare-step>
 
