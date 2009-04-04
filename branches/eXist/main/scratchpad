@@ -1,0 +1,35 @@
+p:choose
+
+* each subpipeline must have the same output signature
+
+ISSUE
+* declare-step needs refactoring
+* components/multi-container steps needs refactoring (p:group,p:choose,p:for-each)
+* inputs in nested p:declare-steps need fixing due to $allcomp in xproc:explicitnames
+* namespace fixups: enumerate step level in scope namespaces
+* sequences need rationalisation and sanitisation
+* p:try in evalstep ?
+* target main eXist scenarios
+    - xquery->p:choose->xquery
+    - xslt -> xslfo -> pdf
+* create namespace module to import all the different namespaces
+* represent sequences as t:document in count-001.xml in testing suite ?
+
+
+Limitations/Differences
+* p:xquery currently uses a c:result element to output
+* p:xquery can't work with xml currently
+* p:compare currently has a primary result port
+* extension functions do not work in select statements (just xquery)
+* declare base-uri affects module imports in saxon (need to investigate in eXist)
+* cant pass required/add-attribute--002.xml test depends on namespace handling module to be finished
+
+--------------------------------------------------------------------------------------
+
+* 75%/25% offer
+* barristors opinion
+* cost in addition
+* withdraw insurance - full disclosure
+* premium would be large
+* care costs is largest liability
+* would there have been a point in the future to provide care
