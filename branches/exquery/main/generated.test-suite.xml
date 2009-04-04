@@ -1,0 +1,2406 @@
+warning: failed to load external entity "result/identity1.xml"
+test-suite.xml:22: element include: XInclude error : could not load result/identity1.xml, and no fallback was found
+warning: failed to load external entity "result/identity1_1.xml"
+test-suite.xml:36: element include: XInclude error : could not load result/identity1_1.xml, and no fallback was found
+warning: failed to load external entity "result/identity1_2.xml"
+test-suite.xml:50: element include: XInclude error : could not load result/identity1_2.xml, and no fallback was found
+warning: failed to load external entity "result/identity1_3.xml"
+test-suite.xml:64: element include: XInclude error : could not load result/identity1_3.xml, and no fallback was found
+warning: failed to load external entity "result/identity2.xml"
+test-suite.xml:78: element include: XInclude error : could not load result/identity2.xml, and no fallback was found
+warning: failed to load external entity "result/count1.xml"
+test-suite.xml:94: element include: XInclude error : could not load result/count1.xml, and no fallback was found
+warning: failed to load external entity "result/count1_1.xml"
+test-suite.xml:109: element include: XInclude error : could not load result/count1_1.xml, and no fallback was found
+warning: failed to load external entity "result/count1_2.xml"
+test-suite.xml:125: element include: XInclude error : could not load result/count1_2.xml, and no fallback was found
+warning: failed to load external entity "result/count1_3.xml"
+test-suite.xml:141: element include: XInclude error : could not load result/count1_3.xml, and no fallback was found
+warning: failed to load external entity "result/count1_3_1.xml"
+test-suite.xml:157: element include: XInclude error : could not load result/count1_3_1.xml, and no fallback was found
+warning: failed to load external entity "result/count1_4.xml"
+test-suite.xml:172: element include: XInclude error : could not load result/count1_4.xml, and no fallback was found
+warning: failed to load external entity "result/count2.xml"
+test-suite.xml:188: element include: XInclude error : could not load result/count2.xml, and no fallback was found
+warning: failed to load external entity "result/count3.xml"
+test-suite.xml:204: element include: XInclude error : could not load result/count3.xml, and no fallback was found
+warning: failed to load external entity "result/count3_1.xml"
+test-suite.xml:220: element include: XInclude error : could not load result/count3_1.xml, and no fallback was found
+warning: failed to load external entity "result/compare1.xml"
+test-suite.xml:238: element include: XInclude error : could not load result/compare1.xml, and no fallback was found
+warning: failed to load external entity "result/compare1_1.xml"
+test-suite.xml:253: element include: XInclude error : could not load result/compare1_1.xml, and no fallback was found
+warning: failed to load external entity "result/compare1_2.xml"
+test-suite.xml:268: element include: XInclude error : could not load result/compare1_2.xml, and no fallback was found
+warning: failed to load external entity "result/compare2.xml"
+test-suite.xml:283: element include: XInclude error : could not load result/compare2.xml, and no fallback was found
+warning: failed to load external entity "result/compare2_1.xml"
+test-suite.xml:298: element include: XInclude error : could not load result/compare2_1.xml, and no fallback was found
+warning: failed to load external entity "result/compare3.xml"
+test-suite.xml:314: element include: XInclude error : could not load result/compare3.xml, and no fallback was found
+warning: failed to load external entity "result/compare3_1.xml"
+test-suite.xml:329: element include: XInclude error : could not load result/compare3_1.xml, and no fallback was found
+warning: failed to load external entity "result/compare3_1_1.xml"
+test-suite.xml:345: element include: XInclude error : could not load result/compare3_1_1.xml, and no fallback was found
+warning: failed to load external entity "result/compare4.xml"
+test-suite.xml:360: element include: XInclude error : could not load result/compare4.xml, and no fallback was found
+warning: failed to load external entity "result/compare4_1.xml"
+test-suite.xml:375: element include: XInclude error : could not load result/compare4_1.xml, and no fallback was found
+warning: failed to load external entity "result/compare4_1_1.xml"
+test-suite.xml:390: element include: XInclude error : could not load result/compare4_1_1.xml, and no fallback was found
+result/declare-step1_1.xml:1: parser error : Document is empty
+
+^
+result/declare-step1_1.xml:1: parser error : Start tag expected, '<' not found
+
+^
+test-suite.xml:419: element include: XInclude error : could not load result/declare-step1_1.xml, and no fallback was found
+result/declare-step1_2.xml:1: parser error : Start tag expected, '<' not found
+Error  : Pipeline failed: com.xmlcalabash.core.XProcException: Additional steps 
+^
+test-suite.xml:433: element include: XInclude error : could not load result/declare-step1_2.xml, and no fallback was found
+result/declare-step1_7.xml:1: parser error : Document is empty
+
+^
+result/declare-step1_7.xml:1: parser error : Start tag expected, '<' not found
+
+^
+test-suite.xml:490: element include: XInclude error : could not load result/declare-step1_7.xml, and no fallback was found
+warning: failed to load external entity "result/documentation1.xml"
+test-suite.xml:536: element include: XInclude error : could not load result/documentation1.xml, and no fallback was found
+warning: failed to load external entity "result/documentation1_1.xml"
+test-suite.xml:551: element include: XInclude error : could not load result/documentation1_1.xml, and no fallback was found
+warning: failed to load external entity "result/documentation1_2.xml"
+test-suite.xml:566: element include: XInclude error : could not load result/documentation1_2.xml, and no fallback was found
+warning: failed to load external entity "result/filter1.xml"
+test-suite.xml:583: element include: XInclude error : could not load result/filter1.xml, and no fallback was found
+warning: failed to load external entity "result/filter1_1.xml"
+test-suite.xml:598: element include: XInclude error : could not load result/filter1_1.xml, and no fallback was found
+warning: failed to load external entity "result/filter2.xml"
+test-suite.xml:613: element include: XInclude error : could not load result/filter2.xml, and no fallback was found
+warning: failed to load external entity "result/filter3.xml"
+test-suite.xml:628: element include: XInclude error : could not load result/filter3.xml, and no fallback was found
+warning: failed to load external entity "result/xquery1.xml"
+test-suite.xml:645: element include: XInclude error : could not load result/xquery1.xml, and no fallback was found
+warning: failed to load external entity "result/xquery2.xml"
+test-suite.xml:660: element include: XInclude error : could not load result/xquery2.xml, and no fallback was found
+warning: failed to load external entity "result/xquery3.xml"
+test-suite.xml:675: element include: XInclude error : could not load result/xquery3.xml, and no fallback was found
+warning: failed to load external entity "result/xslt1.xml"
+test-suite.xml:692: element include: XInclude error : could not load result/xslt1.xml, and no fallback was found
+warning: failed to load external entity "result/xslt1_1.xml"
+test-suite.xml:707: element include: XInclude error : could not load result/xslt1_1.xml, and no fallback was found
+warning: failed to load external entity "result/xslt2.xml"
+test-suite.xml:722: element include: XInclude error : could not load result/xslt2.xml, and no fallback was found
+warning: failed to load external entity "result/wrap1.xml"
+test-suite.xml:739: element include: XInclude error : could not load result/wrap1.xml, and no fallback was found
+warning: failed to load external entity "result/wrap1_1.xml"
+test-suite.xml:754: element include: XInclude error : could not load result/wrap1_1.xml, and no fallback was found
+warning: failed to load external entity "result/wrap1_2.xml"
+test-suite.xml:769: element include: XInclude error : could not load result/wrap1_2.xml, and no fallback was found
+warning: failed to load external entity "result/wrap1_3.xml"
+test-suite.xml:784: element include: XInclude error : could not load result/wrap1_3.xml, and no fallback was found
+warning: failed to load external entity "result/wrap1_4.xml"
+test-suite.xml:799: element include: XInclude error : could not load result/wrap1_4.xml, and no fallback was found
+warning: failed to load external entity "result/wrap2.xml"
+test-suite.xml:814: element include: XInclude error : could not load result/wrap2.xml, and no fallback was found
+warning: failed to load external entity "result/wrap2_1.xml"
+test-suite.xml:829: element include: XInclude error : could not load result/wrap2_1.xml, and no fallback was found
+warning: failed to load external entity "result/wrap3.xml"
+test-suite.xml:844: element include: XInclude error : could not load result/wrap3.xml, and no fallback was found
+warning: failed to load external entity "result/wrap3_1.xml"
+test-suite.xml:859: element include: XInclude error : could not load result/wrap3_1.xml, and no fallback was found
+warning: failed to load external entity "result/unwrap1.xml"
+test-suite.xml:876: element include: XInclude error : could not load result/unwrap1.xml, and no fallback was found
+warning: failed to load external entity "result/unwrap1_1.xml"
+test-suite.xml:891: element include: XInclude error : could not load result/unwrap1_1.xml, and no fallback was found
+warning: failed to load external entity "result/xs0010a.xml"
+test-suite.xml:914: element include: XInclude error : could not load result/xs0010a.xml, and no fallback was found
+warning: failed to load external entity "result/xs0010b.xml"
+test-suite.xml:929: element include: XInclude error : could not load result/xs0010b.xml, and no fallback was found
+warning: failed to load external entity "result/xs0018.xml"
+test-suite.xml:944: element include: XInclude error : could not load result/xs0018.xml, and no fallback was found
+warning: failed to load external entity "result/xs0027.xml"
+test-suite.xml:960: element include: XInclude error : could not load result/xs0027.xml, and no fallback was found
+warning: failed to load external entity "result/xs0044.xml"
+test-suite.xml:976: element include: XInclude error : could not load result/xs0044.xml, and no fallback was found
+result/declare-step1_2.xml:1: parser error : Start tag expected, '<' not found
+Error  : Pipeline failed: com.xmlcalabash.core.XProcException: Additional steps 
+^
+test-suite.xml:993: element include: XInclude error : could not load result/declare-step1_2.xml, and no fallback was found
+warning: failed to load external entity "result/xd0002a.xml"
+test-suite.xml:1010: element include: XInclude error : could not load result/xd0002a.xml, and no fallback was found
+warning: failed to load external entity "result/xd0002b.xml"
+test-suite.xml:1026: element include: XInclude error : could not load result/xd0002b.xml, and no fallback was found
+<?xml version="1.0"?>
+<t:test-suite xmlns:t="http://xproc.org/ns/testsuite" xmlns:p="http://www.w3.org/ns/xproc" xmlns:c="http://www.w3.org/ns/xproc-step" xmlns:err="http://www.w3.org/ns/xproc-error" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xproc="http://xproc.net/xproc">
+
+<t:title>All Basic tests</t:title>
+
+<!-- #################################################################### p:identity  //-->
+
+<t:test xml:id="identity1">
+<t:title>p:identity1</t:title>
+<t:description>Simple identity test within p:pipeline</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="identity/identity1.xml">
+  
+  <p:identity name="test"/>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/identity1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="identity1_1">
+<t:title>p:identity1_1</t:title>
+<t:description>Simple identity test within p:declare-step</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" xml:base="identity/identity1_1.xml">
+
+  <p:input port="source" primary="true"/>
+  <p:output port="result">
+    <p:pipe step="step1" port="result"/>
+  </p:output>
+   
+   <p:identity/>
+
+   <p:filter name="step1" select="/test/a"/>
+   
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/identity1_1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="identity1_2">
+<t:title>p:identity1_2</t:title>
+<t:description>2 identity steps within p:pipeline</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="identity/identity1_2.xml">
+
+
+   <p:identity name="test1"/>
+
+   <p:identity/>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/identity1_2.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="identity1_3">
+<t:title>p:identity1_3</t:title>
+<t:description>single identity step using a p:input with select attribute within p:declare-step</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="identity/identity1_3.xml">
+
+   <p:identity name="test1">
+       <p:input port="source" select="/test/a"/>
+   </p:identity>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/identity1_3.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="identity2">
+<t:title>p:identity2</t:title>
+<t:description>single identity step defining source p:input inline and with external documents within p:declare-step</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="identity/identity2.xml">
+
+   <p:identity name="step1">
+        <p:input port="source">
+              <p:document href="file:test/data/test2.xml"/>
+              <p:document href="file:test/data/test2.xml"/>
+              <p:document href="file:test/data/test.xml"/>
+              <p:document href="file:test/data/test2.xml"/>
+              <p:inline>
+                  <inlinetestelement/>
+              </p:inline>
+        </p:input>
+   </p:identity>
+
+
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/identity2.xml"/>
+    </t:output>
+</t:test>
+
+<!-- #################################################################### p:count  //-->
+
+<t:test xml:id="count1">
+<t:title>p:count1</t:title>
+<t:description>simple count, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="count/count1.xml">
+
+    <p:count name="step1"/>
+    
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/count1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="count1_1">
+<t:title>p:count1_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple declare-step with use of p:inline document, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="count/count1_1.xml">
+
+<p:input port="source">
+  <p:inline>
+    <test1/>
+  </p:inline>
+  <p:inline>
+    <test2/>
+  </p:inline>
+</p:input>
+
+<p:output port="result2"/>
+
+    <p:count name="step1"/>
+    
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/count1_1.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="count1_2">
+<t:title>p:count1_2</t:title>
+<xproc:status xprocxq="no" calabash="no" comments="this is an incorrectly defined xproc, needs input binding definition"/>
+<t:description>simple declare-step using limit attribute, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="count/count1_2.xml">
+
+
+    <p:count name="step1" limit="4"/>
+    
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/count1_2.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="count1_3">
+<t:title>p:count1_3</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple declare-step using limit attribute, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="count/count1_3.xml">
+
+
+    <p:count name="step1" limit="5">
+    <p:input port="source">
+        <p:inline><test1/></p:inline>
+        <p:inline><test2/></p:inline>
+        <p:inline><test3/></p:inline>
+        <p:inline><test4/></p:inline>
+    </p:input>
+    </p:count>
+    
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/count1_3.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="count1_3_1">
+<t:title>p:count1_3_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple declare-step using limit attribute, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="count/count1_3_1.xml">
+
+
+    <p:count name="step1" limit="2">
+    <p:input port="source">
+        <p:inline><test1/></p:inline>
+        <p:inline><test2/></p:inline>
+        <p:inline><test3/></p:inline>
+        <p:inline><test4/></p:inline>
+        </p:input>
+    </p:count>
+    
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/count1_3_1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="count1_4">
+<t:title>p:count1_4</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple declare-step using limit attribute, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="count/count1_4.xml">
+
+
+    <p:identity name="step1">
+    <p:input port="source">
+        <p:inline><test1/></p:inline>
+        <p:inline><test2/></p:inline>
+        <p:inline><test3/></p:inline>
+        <p:inline><test4/></p:inline>
+        </p:input>
+    </p:identity>
+
+    <p:count/>
+    
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/count1_4.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="count2">
+<t:title>p:count2</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple declare-step using limit attribute, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="count/count2.xml">
+
+
+    <p:input port="source">
+        <p:document href="file:test/data/test1.xml"/>
+        <p:document href="file:test/data/test.xml"/>
+    </p:input>  
+    <p:output port="result"/>
+
+    <p:count name="step1"/>
+    
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/count2.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="count3">
+<t:title>p:count3</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple declare-step using limit attribute, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="count/count3.xml">
+
+
+    <p:input port="source" primary="true">
+        <p:document href="file:test/data/test.xml"/>
+    </p:input>
+  
+    <p:output port="result"/>
+    
+    <p:count name="step1"/>
+    
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/count3.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="count3_1">
+<t:title>p:count3_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple declare-step using limit attribute, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="count/count3_1.xml">
+
+    <p:input port="source" primary="true">
+        <p:document href="file:test/data/test.xml"/>
+            <p:inline><test/></p:inline>
+            <p:inline><test/></p:inline>    
+    </p:input>
+  
+    <p:count name="step1"/>
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/count3_1.xml"/>
+    </t:output>
+</t:test>
+
+
+<!-- #################################################################### p:compare  //-->
+
+<t:test xml:id="compare1">
+<t:title>p:compare1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple comparison using primary input, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="compare/compare1.xml">
+
+<!-- should throw an error, no binding to result, as p:compare result output is non-primary //-->
+
+   <p:compare name="step1">
+        <p:input port="alternate">
+              <p:document href="file:test/data/test.xml"/>
+        </p:input>
+      <p:with-option name="fail-if-not-equal" select="'false'"/>
+   </p:compare>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/compare1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="compare1_1">
+<t:title>p:compare1_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple comparison using primary input, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="compare/compare1_1.xml">
+                
+<!-- should throw an error //-->
+   <p:compare name="step1"/>
+
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/compare1_1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="compare1_2">
+<t:title>p:compare1_2</t:title>
+<xproc:status xprocxq="no" calabash="no" comments="wondering if calabash supports file: prefix"/>
+<t:description>simple comparison using primary input, should fail</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="compare/compare1_2.xml">
+                
+   <p:compare name="step1">
+        <p:input port="alternate">
+              <p:document href="file:test/data/test2.xml"/>
+        </p:input>
+        <p:with-option name="fail-if-not-equal" select="'false'"/> 
+   </p:compare>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/compare1_2.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="compare2">
+<t:title>p:compare2</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple comparison defining attribute on step element, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="compare/compare2.xml">
+
+<!-- throws an error in calabash //-->
+
+   <p:compare name="step1" fail-if-not-equal="true">
+        <p:input port="alternate">
+              <p:document href="file:test/data/test.xml"/>
+        </p:input>
+   </p:compare>
+
+   <p:identity>
+       <p:input port="source">
+           <p:pipe step="step1" port="result"/>
+       </p:input>
+   </p:identity>
+   
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/compare2.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="compare2_1">
+<t:title>p:compare2_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple comparison defining attribute on step element, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="compare/compare2_1.xml">
+
+   <p:compare name="step1">
+        <p:input port="alternate">
+              <p:document href="file:test/data/test2.xml"/>
+        </p:input>
+        <p:with-option name="fail-if-not-equal" select="'true'"/> 
+   </p:compare>
+
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/compare2_1.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="compare3">
+<t:title>p:compare3</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple comparison defining attribute on step element, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="compare/compare3.xml">
+
+   <p:compare name="step1">
+        <p:input port="alternate">
+              <p:inline><test/></p:inline>
+        </p:input>
+        <p:with-option name="fail-if-not-equal" select="'false'"/> 
+   </p:compare>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/compare3.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="compare3_1">
+<t:title>p:compare3_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple comparison defining attribute on step element, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="compare/compare3_1.xml">
+
+   <p:compare name="step1">
+        <p:input port="alternate">
+              <p:inline><test/></p:inline>
+        </p:input>
+        <p:with-option name="fail-if-not-equal" select="'true'"/>
+   </p:compare>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/compare3_1.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="compare3_1_1">
+<t:title>p:compare3_1_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple comparison defining attribute on step element, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="compare/compare3_1_1.xml">
+
+   <p:compare name="step1">
+        <p:input port="alternate">
+              <p:inline>
+                  <test>
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+              </p:inline>
+        </p:input>
+        <p:with-option name="fail-if-not-equal" select="'true'"/>
+   </p:compare>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/compare3_1_1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="compare4">
+<t:title>p:compare4</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple comparison defining attribute on step element, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="compare/compare4.xml">
+
+   <p:compare name="step1">
+       <p:input port="source">
+              <p:inline>
+                  <test1/>
+              </p:inline>
+              <p:inline>
+                  <test2/>
+              </p:inline>
+              <p:inline>
+                  <test3/>
+              </p:inline>           
+       </p:input>
+        <p:input port="alternate">
+              <p:inline>
+                  <test1/>
+              </p:inline>
+              <p:inline>
+                  <test2/>
+              </p:inline>
+              <p:inline>
+                  <test3/>
+              </p:inline>
+        </p:input>
+        <p:with-option name="fail-if-not-equal" select="'false'"/> 
+   </p:compare>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/compare4.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="compare4_1">
+<t:title>p:compare4_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple comparison defining attribute on step element, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="compare/compare4_1.xml">
+
+   <p:compare name="step1">
+       <p:input port="source">
+              <p:inline>
+                  <a:test1 xmlns:a="http://www.example.org/a"/>
+              </p:inline>
+       </p:input>
+        <p:input port="alternate">
+              <p:inline>
+                  <a:test1 xmlns:a="http://www.example.org/a"/>
+              </p:inline>
+        </p:input>
+        <p:with-option name="fail-if-not-equal" select="'false'"/> 
+   </p:compare>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/compare4_1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="compare4_1_1">
+<t:title>p:compare4_1_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple comparison defining attribute on step element, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="compare/compare4_1_1.xml">
+
+   <p:compare name="step1">
+       <p:input port="source">
+              <p:inline>
+                  <a:test1 xmlns:a="http://www.example.org/a"/>
+              </p:inline>
+       </p:input>
+        <p:input port="alternate">
+              <p:inline>
+                  <test1/>
+              </p:inline>
+        </p:input>
+        <p:with-option name="fail-if-not-equal" select="'false'"/> 
+   </p:compare>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/compare4_1_1.xml"/>
+    </t:output>
+</t:test>
+<!-- #################################################################### p:declare-step  //-->
+
+<t:test xml:id="declare-step1">
+<t:title>p:declare-step1</t:title>
+<t:description>defines a new step, mine:identity1, and invokes it</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" xmlns:mine="http://www.example.org/test/mine" name="pipeline" xml:base="declare-step/declare-step1.xml">
+    
+<p:declare-step name="test1" type="mine:identity">
+    <p:input port="source"/>
+    <p:output port="result"/>
+
+    <p:identity>
+        <p:input port="source">
+            <p:inline>
+                <inline_identity_test/>
+            </p:inline>
+        </p:input>
+    </p:identity>
+    
+</p:declare-step>
+
+<mine:identity/>
+    
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <inline_identity_test xmlns:mine="http://www.example.org/test/mine" xml:base="result/declare-step1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="declare-step1_1">
+<t:title>p:declare-step1_1</t:title>
+<t:description>declares a new step with no type or name and does not invoke it</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" xmlns:my="http://www.example.org/test/mine" name="pipeline" xml:base="declare-step/declare-step1_1.xml">
+
+
+<p:declare-step>
+    <p:input port="source"/>
+    <p:output port="result"/>
+
+    <p:identity>
+        <p:input port="source">
+            <p:inline>
+                <test/>
+            </p:inline>
+        </p:input>
+    </p:identity>
+
+</p:declare-step>
+
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/declare-step1_1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="declare-step1_2">
+<t:title>p:declare-step1_2</t:title>
+<t:description>tries to redeclare p:identity, should throw a static error XS0036</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" xmlns:mine="http://www.example.org/test/mine" name="pipeline" xml:base="declare-step/declare-step1_2.xml">
+    
+<!-- should not evaluate this declare-step //-->
+<p:declare-step name="test1" type="p:identity">
+    <p:input port="source" sequence="true"/>
+    <p:output port="result" sequence="true"/>
+    <p:count/>    
+</p:declare-step>
+
+<p:identity/>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/declare-step1_2.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="declare-step1_3">
+<t:title>p:declare-step1_3</t:title>
+<t:description>declares a mine:count step, invokation overrides input port with 2 inline elements</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" xmlns:mine="http://www.example.org/test/mine" name="pipeline" xml:base="declare-step/declare-step1_3.xml">
+    
+<p:declare-step name="test1" type="mine:count">
+    <p:input port="source" sequence="true"/>
+    <p:output port="result" sequence="true"/>
+    <p:count>
+        <p:input port="source">
+            <p:pipe step="test1" port="source"/>
+        </p:input>
+    </p:count>
+        
+</p:declare-step>
+
+<mine:count>
+    <p:input port="source">
+        <p:inline>
+            <root1/>
+        </p:inline>
+        <p:inline>
+            <root2/>
+        </p:inline>
+    </p:input>
+</mine:count>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <c:result xmlns:c="http://www.w3.org/ns/xproc-step" xml:base="result/declare-step1_3.xml">2</c:result>
+    </t:output>
+</t:test>
+
+<t:test xml:id="declare-step1_4">
+<t:title>p:declare-step1_4</t:title>
+<t:description>declares a mine:identity step, invokation binds input with pipeline source input</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" xmlns:mine="http://www.example.org/test/mine" name="pipeline" xml:base="declare-step/declare-step1_4.xml">
+
+<p:input port="source">
+    <p:inline>
+        <inline_top_level_source/>
+    </p:inline>
+</p:input>
+
+<p:output port="result"/>
+
+<p:declare-step type="mine:identity">
+    <p:input port="source"/>
+    <p:output port="result"/>
+    <p:identity>
+        <p:input port="source">
+            <p:inline>
+                <inline_nested_level_source/>
+            </p:inline>
+        </p:input>
+    </p:identity>
+        
+</p:declare-step>
+
+<mine:identity>
+    <p:input port="source">
+        <p:pipe step="pipeline" port="source"/>
+    </p:input>
+</mine:identity>
+    
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <inline_nested_level_source xmlns:mine="http://www.example.org/test/mine" xml:base="result/declare-step1_4.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="declare-step1_6">
+<t:title>p:declaret-step1</t:title>
+<t:description>simple usage of p:declare-step as pipeline</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" xmlns:mine="http://www.example.org/test/mine" name="pipeline" xml:base="declare-step/declare-step1_6.xml">
+    
+<p:declare-step type="mine:identity1">
+    <p:input port="source"/>
+    <p:output port="result"/>
+
+    <p:identity>
+        <p:input port="source">
+            <p:inline>
+                <inline_identity_test/>
+            </p:inline>
+        </p:input>
+    </p:identity>
+    
+</p:declare-step>
+
+<mine:identity1/>
+    
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <inline_identity_test xmlns:mine="http://www.example.org/test/mine" xml:base="result/declare-step1.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="declare-step1_7">
+<t:title>p:declaret-step1_7</t:title>
+<t:description>declaration of p:declare-step as pipeline, should have empty output</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" xmlns:mine="http://www.example.org/test/mine" name="pipeline" xml:base="declare-step/declare-step1_7.xml">
+    
+<p:declare-step>
+    <p:input port="source"/>
+    <p:output port="result"/>
+    <p:identity>
+        <p:input port="source">
+            <p:inline>
+                <inline_identity_test/>
+            </p:inline>
+        </p:input>
+    </p:identity>
+</p:declare-step>
+    
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/declare-step1_7.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="declare-step1_8">
+<t:title>p:declaret-step1_8</t:title>
+<t:description>declaration of p:declare-step with an option,as pipeline</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" xml:base="declare-step/declare-step1_8.xml">
+    <p:input port="source"/>
+    <p:output port="result"/>
+    <p:option name="test-option" select="'some string value'"/>
+    <p:identity>
+        <p:input port="source">
+            <p:inline>
+                <inline_identity_test/>
+            </p:inline>
+        </p:input>
+    </p:identity>
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <inline_identity_test xml:base="result/declare-step1_8.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="declare-step3">
+<t:title>p:declaret-step3</t:title>
+<t:description>import a pipeline declaration and invoke</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" xmlns:mine="http://www.example.org/test/mine" name="pipeline" xml:base="declare-step/declare-step3.xml">
+
+    <p:import href="file:test/xproc/basic/declare-step/declare-step1_5.xml"/>
+
+    <mine:identity/>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <inline_identity_test xmlns:mine="http://www.example.org/test/mine" xml:base="result/declare-step3.xml"/>
+    </t:output>
+</t:test>
+
+
+<!-- #################################################################### p:documentation  //-->
+
+<t:test xml:id="documentation1">
+<t:title>p:documentation1</t:title>
+<t:description>simple usage of p:documentation, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="documentation/documentation1.xml">
+
+<p:documentation>Talking about the beginning of the pipeline</p:documentation>
+
+    <p:count name="step1"/>
+
+<p:documentation>Talking about the end of the pipeline</p:documentation>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/documentation1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="documentation1_1">
+<t:title>p:documentation1_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>embeding xhtml namespaced elements inside of p:documentation, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="documentation/documentation1_1.xml">
+
+<p:input port="source" primary="true"/>
+<p:output port="result" primary="true"/>
+
+<p:documentation xmlns:xhtml="test"><xhtml:b>Talking</xhtml:b> about the beginning of the pipeline</p:documentation>
+
+    <p:identity name="step2">
+       <p:input port="step2-input">
+              <p:pipe step="step1" port="step1-output"/>
+       </p:input>
+       <p:output port="step2-output"/>
+    </p:identity>
+
+    <p:count name="step3">
+        <p:input port="step3-input">
+              <p:pipe step="step2" port="step2-output"/>
+       </p:input>
+    </p:count>
+
+    <p:count name="step1">
+        <p:input port="step1-input">
+              <p:pipe step="pipeline" port="std-input"/>
+        </p:input>
+        <p:output port="step1-output"/>
+    </p:count>
+
+<p:documentation>Talking about the end of the pipeline</p:documentation>
+
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/documentation1_1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="documentation1_2">
+<t:title>p:documentation1_2</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>simple usage of p:documentation, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="documentation/documentation1_2.xml">
+
+    <p:input port="source" primary="true"/>
+    <p:output port="result" primary="true"/>
+
+<p:documentation>Talking about the beginning of the pipeline</p:documentation>
+
+    <p:identity name="step2">
+       <p:input port="step2-input">
+              <p:pipe step="step1" port="step1-output"/>
+       </p:input>
+    </p:identity>
+
+    <p:count name="step3">
+        <p:input port="step3-input">
+              <p:pipe step="step2" port="step2-output"/>
+       </p:input>
+    </p:count>
+
+    <p:count name="step1">
+        <p:input port="step1-input">
+              <p:pipe step="pipeline" port="source"/>
+        </p:input>
+    </p:count>
+
+<p:documentation>Talking about the end of the pipeline</p:documentation>
+
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/documentation1_2.xml"/>
+    </t:output>
+</t:test>
+
+<!-- #################################################################### p:filter  //-->
+
+<t:test xml:id="filter1">
+<t:title>p:filter1</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>simple usage of p:filter, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="filter/filter1.xml">
+
+   <p:filter name="step1" select="/test/a"/>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/filter1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="filter1_1">
+<t:title>p:filter1_1</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>simple usage of p:filter, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="filter/filter1_1.xml">
+
+<!-- FIXME: setup ports //-->
+
+<p:input/>
+<p:output/>
+
+   <p:filter name="step1" select="/test/a"/>
+
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/filter1_1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="filter2">
+<t:title>p:filter2</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>simple usage of p:filter with dynamic xpath as step attribute, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="filter/filter2.xml">
+
+   <p:filter>
+        <p:with-option name="select" select="concat('//','a')"/> 
+   </p:filter>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/filter2.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="filter3">
+<t:title>p:filter3</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>simple usage of p:filter with dynamic xpath as p:with-option, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="filter/filter3.xml">
+
+   <p:filter>
+        <p:input port="source">
+              <p:document href="file:test/data/filter.xml"/>
+        </p:input>  
+        <p:with-option name="select" select="concat('//',//a)"/> 
+   </p:filter>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/filter3.xml"/>
+    </t:output>
+</t:test>
+
+<!-- #################################################################### p:xquery  //-->
+
+<t:test xml:id="xquery1">
+<t:title>p:xquery1</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments="p:document in file: prefix"/>
+<t:description>simple usage of p:xquery, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="xquery/xquery1.xml">
+
+<p:xquery>
+     <p:input port="query">
+              <p:document href="file:test/data/xquery.xml"/>         
+     </p:input>
+</p:xquery>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/xquery1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="xquery2">
+<t:title>p:xquery2</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>simple usage of p:xquery and p:inline, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="xquery/xquery2.xml">
+
+<p:xquery>
+     <p:input port="query">
+         <p:inline>
+             <c:query xmlns:c="http://www.w3.org/ns/xproc-step">let $a := 2 return ($a,<test/>)</c:query>
+         </p:inline>
+     </p:input>
+</p:xquery>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/xquery2.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="xquery3">
+<t:title>p:xquery3</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple usage of p:xquery and p:declare-step, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="xquery/xquery3.xml">
+
+<p:xquery>
+     <p:input port="source">
+         <p:inline>
+             <test/>
+         </p:inline>
+     </p:input>
+
+<!-- TODO: piping of non primary ports //-->
+     <p:input port="query">
+         <p:inline>
+             <c:query xmlns:c="http://www.w3.org/ns/xproc-step">let $a := 4 return $a</c:query>
+         </p:inline>
+    </p:input>
+
+</p:xquery>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/xquery3.xml"/>
+    </t:output>
+</t:test>
+
+<!-- #################################################################### p:xslt  //-->
+
+<t:test xml:id="xslt1">
+<t:title>p:xslt1</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments="p:document uses file: prefix"/>
+<t:description>simple usage of p:xslt, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="xslt/xslt1.xml">
+
+<p:identity/>
+
+<p:xslt>
+     <p:input port="stylesheet">
+              <p:document href="file:test/data/stylesheet.xml"/>         
+     </p:input>
+</p:xslt>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/xslt1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="xslt1_1">
+<t:title>p:xslt1_1</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments="p:document uses file: prefix"/>
+<t:description>simple usage of p:xslt, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="xslt/xslt1_1.xml">
+
+<p:xslt>
+     <p:input port="stylesheet">
+              <p:document href="file:test/data/stylesheet.xml"/>         
+     </p:input>  
+      <p:with-option name="version" select="'1.0'"/>
+</p:xslt>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/xslt1_1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="xslt2">
+<t:title>p:xslt2</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments="p:inline with declare-step"/>
+<t:description>simple usage of p:xslt, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="xslt/xslt2.xml">
+
+<p:xslt>
+     <p:input port="stylesheet">
+              <p:inline>
+                  <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+    <xsl:template match="/">
+        <inlinesuccess>
+            <xsl:copy-of select="."/>            
+        </inlinesuccess>
+    </xsl:template>
+  </xsl:stylesheet>
+              </p:inline>    
+     </p:input>
+</p:xslt>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/xslt2.xml"/>
+    </t:output>
+</t:test>
+
+<!-- #################################################################### p:wrap  //-->
+
+<t:test xml:id="wrap1">
+<t:title>p:wrap1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple usage of p:wrap, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="wrap/wrap1.xml">
+
+    <p:wrap>
+        <p:with-option name="wrapper" select="'aaaaaaaaaaaaa'"/>   
+        <p:with-option name="match" select="'//c'"/> 
+    </p:wrap>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/wrap1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="wrap1_1">
+<t:title>p:wrap1_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple usage of p:wrap, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="wrap/wrap1_1.xml">
+
+        <p:input port="source" primary="true">
+            <p:document href="file:test/data/test2.xml"/>
+        </p:input>           
+        <p:output port="result" primary="true"/>
+
+    <p:wrap name="step1">
+        <p:with-option name="wrapper" select="'aaaaaaaaaaaaa'"/>
+        <p:with-option name="match" select="'/test/a'"/> 
+    </p:wrap>
+
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/wrap1_1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="wrap1_2">
+<t:title>p:wrap1_@</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple usage of p:wrap, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="wrap/wrap1_2.xml">
+
+    <p:wrap name="step1">
+        <p:with-option name="wrapper" select="'bbbb'"/>
+        <p:with-option name="match" select="'/test/a'"/> 
+    </p:wrap>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/wrap1_2.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="wrap1_3">
+<t:title>p:wrap1_3</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple usage of p:wrap, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="wrap/wrap1_3.xml">
+
+        <p:input port="source" primary="true"/>
+        <p:output port="result" primary="true"/>
+
+    <p:wrap name="step1">
+        <p:with-option name="wrapper" select="'c'"/>
+        <p:with-option name="match" select="'//a'"/> 
+    </p:wrap>
+
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/wrap1_3.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="wrap1_4">
+<t:title>p:wrap1_$</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple usage of p:wrap, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="wrap/wrap1_4.xml">
+
+        <p:input port="source" primary="true">
+            <p:document href="file:test/data/test2.xml"/>
+            <p:document href="file:test/data/test.xml"/>
+        </p:input>           
+        <p:output port="result" primary="true"/>
+
+    <p:wrap name="step1">
+        <p:with-option name="wrapper" select="'aaaaaaaaaaaaa'"/>
+        <p:with-option name="match" select="'/'"/>
+    </p:wrap>
+
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/wrap1_4.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="wrap2">
+<t:title>p:wrap2</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple usage of p:wrap, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="wrap/wrap2.xml">
+
+        <p:input port="source" primary="true"/>
+        <p:output port="result" primary="true"/>
+
+    <p:wrap name="step1">
+        <p:with-option name="wrapper" select="'aaaaaaaaaaaaa'">
+                <p:namespaces xmlns="http://www.w3.org/1999/xhtml"/>
+        </p:with-option>
+        <p:with-option name="match" select="'/test/node()'"/>
+    </p:wrap>
+
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/wrap2.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="wrap2_1">
+<t:title>p:wrap2_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple usage of p:wrap, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="wrap/wrap2_1.xml">
+
+        <p:input port="source" primary="true"/>
+        <p:output port="result" primary="true"/>
+
+    <p:wrap name="step1">
+        <p:with-option xmlns="http://www.w3.org/1999/xhtml" name="wrapper" select="'aaaaaaaaaaaaa'"/>   
+        <p:with-option name="match" select="'/test/node()'"/> 
+    </p:wrap>
+
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/wrap2_1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="wrap3">
+<t:title>p:wrap3</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple usage of p:wrap, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="wrap/wrap3.xml">
+
+        <p:input port="source" primary="true"/>
+        <p:output port="result" primary="true"/>
+
+    <p:wrap name="step1">
+        <p:with-option name="wrapper" select="'aaaa'">
+                <p:namespaces xmlns="http://www.w3.org/1999/xhtml"/>
+        </p:with-option>
+        <p:with-option name="match" select="'/test/c'"/>
+    </p:wrap>
+
+    <p:wrap name="step2">
+        <p:with-option name="wrapper" select="'bbbb'"/>
+        <p:with-option name="match" select="'/'"/>
+    </p:wrap>
+    
+    
+    <p:wrap name="step3">
+        <p:with-option name="wrapper" select="'ccc'"/>
+        <p:with-option name="match" select="'/'"/>
+    </p:wrap>
+    
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/wrap3.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="wrap3_1">
+<t:title>p:wrap3_1</t:title>
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>simple usage of p:wrap, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="wrap/wrap3_1.xml">
+
+    <p:wrap name="step3">
+        <p:input port="source" primary="true">
+            <p:pipe step="step2" port="result"/>
+        </p:input>
+        <p:with-option name="wrapper" select="'cccccccc'"/>
+        <p:with-option name="match" select="'/'"/>
+    </p:wrap>
+
+
+    <p:wrap name="step1">
+        <p:with-option name="wrapper" select="'aaaaaaaaaaaaaaaaaaaa'">
+                <p:namespaces xmlns="http://www.w3.org/1999/xhtml"/>
+        </p:with-option>
+        <p:with-option name="match" select="'/'"/>
+    </p:wrap>
+
+    
+    <p:wrap name="step2">
+        <p:input port="source" primary="true">
+            <p:pipe step="step1" port="result"/>
+        </p:input>
+        <p:with-option name="wrapper" select="'bbbbbbbbbbbbb'"/>
+        <p:with-option name="match" select="'/'"/>
+    </p:wrap>
+    
+</p:declare-step>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/wrap3_1.xml"/>
+    </t:output>
+</t:test>
+
+<!-- #################################################################### p:unwrap  //-->
+
+<t:test xml:id="unwrap1">
+<t:title>p:unwrap1</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments="xprocxq needs better error handling"/>
+<t:description>simple usage of p:unwrap, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="unwrap/unwrap1.xml">
+
+    <p:unwrap name="step1">
+        <p:with-option name="match" select="'/test/a'"/> 
+    </p:unwrap>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/unwrap1.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="unwrap1_1">
+<t:title>p:unwrap1_1</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments="xprocxq needs better error handling"/>
+<t:description>simple usage of p:unwrap, slight variation on xpath, should succeed</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="unwrap/unwrap1_1.xml">
+
+    <p:unwrap name="step1">
+        <p:with-option name="match" select="'/test/a'"/> 
+    </p:unwrap>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/unwrap1_1.xml"/>
+    </t:output>
+</t:test>
+
+<!-- #################################################################### p:escape-markup  //-->
+
+
+<!-- #################################################################### p:unescape-markup  //-->
+
+
+<!-- #################################################################### step error-codes  //-->
+
+<t:test xml:id="xs0010a">
+<t:title>xs0010a</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>throw err:xs0010a</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="error-codes/xs0010a.xml">
+
+<!-- TODO: throwing err:xs0010 not enabled yet //-->
+
+    <p:count name="step1" p:mynonexistentoption="test"/>
+    
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/xs0010a.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="xs0010b">
+<t:title>xs0010b</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>throw err:xs0010b</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="error-codes/xs0010b.xml">
+
+<!-- TODO: throwing err:xs0010 not enabled yet //-->
+
+    <p:count name="step1">
+        <p:with-option name="somenonexistantoption" select="'1'"/>
+    </p:count>
+    
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/xs0010b.xml"/>
+    </t:output>
+</t:test>
+
+<t:test xml:id="xs0018">
+<t:title>xs0018</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>throw err:xs0018</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="error-codes/xs0018.xml">
+
+<!-- reqiures match option to work //-->
+
+   <p:delete name="step1"/>
+
+    
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/xs0018.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="xs0027">
+<t:title>xs0027</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>throw err:xs0027</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="error-codes/xs0027.xml">
+
+    <p:count name="step1" limit="5">
+        <p:with-option name="limit" select="'5'"/>
+    </p:count>
+    
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/xs0027.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="xs0044">
+<t:title>xs0044</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>throw err:xs0044</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="error-codes/xs0044.xml">
+
+    <p:count name="step1"/>
+
+    <p:somebadelement/>
+    
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/xs0044.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="xs0036">
+<t:title>XS0036</t:title>
+<!-- will define a new error for this //-->
+<xproc:status xprocxq="no" calabash="no" comments=""/>
+<t:description>throw err:xs0036</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" xmlns:mine="http://www.example.org/test/mine" name="pipeline" xml:base="declare-step/declare-step1_2.xml">
+    
+<!-- should not evaluate this declare-step //-->
+<p:declare-step name="test1" type="p:identity">
+    <p:input port="source" sequence="true"/>
+    <p:output port="result" sequence="true"/>
+    <p:count/>    
+</p:declare-step>
+
+<p:identity/>
+
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/declare-step1_2.xml"/>
+    </t:output>
+</t:test>
+
+<!-- #################################################################### dynamic error-codes  //-->
+
+<t:test xml:id="xd0002a">
+<t:title>xd0002a</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>throw err:xd0002a</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="error-codes/xd0002a.xml">
+
+<!-- TODO: throwing err:xs0010 not enabled yet //-->
+
+    <p:count name="step1" mynonexistentoption="test"/>
+    
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/xd0002a.xml"/>
+    </t:output>
+</t:test>
+
+
+<t:test xml:id="xd0002b">
+<t:title>xd0002b</t:title>
+<xproc:status xprocxq="yes" calabash="no" comments=""/>
+<t:description>throw err:xd0002b</t:description>
+    <t:input port="source">
+        <test xml:base="data/test.xml">
+    <a>test1</a>
+    <b/>
+    <c>
+        I wish I was a fish
+          <d/>
+    </c>
+</test>
+    </t:input>
+    <t:pipeline>
+          <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline" xml:base="error-codes/xd0002b.xml">
+
+<!-- TODO: throwing err:xs0010 not enabled yet //-->
+
+    <p:count name="step1" mynonexistentoption="test"/>
+    
+</p:pipeline>
+    </t:pipeline>
+    <t:output port="result">
+         <xi:include href="result/xd0002b.xml"/>
+    </t:output>
+</t:test>
+
+
+</t:test-suite>
