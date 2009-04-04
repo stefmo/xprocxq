@@ -5,7 +5,7 @@ module namespace util = "http://xproc.net/xproc/util";
 declare copy-namespaces no-preserve, no-inherit;
 
 (: XProc Namespace Declaration :)
-declare namespace p="http://www.w3.org/ns/xproc";
+declare namespace p1="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
@@ -29,6 +29,9 @@ declare namespace ext = "http://xproc.net/xproc/ext";
 (: Module Imports :)
 import module namespace const = "http://xproc.net/xproc/const"
                         at "const.xqm";
+
+import module namespace p = "http://xproc.net/xproc/functions"
+                        at "functions.xqm";
 
 (: set to 1 to enable debugging :)
 declare variable $util:NDEBUG :=1;

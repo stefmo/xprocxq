@@ -16,6 +16,7 @@ declare variable $const:NS_XPROC_ERR := "http://www.w3.org/ns/xproc-error";
 (: -------------------------------------------------------------------------- :)
 
 declare variable $const:TRACE_SERIALIZE :=<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>;
+declare variable $const:TEXT_SERIALIZE :=<xsl:output method="xml" omit-xml-declaration="yes" indent="yes" saxon:indent-spaces="1"/>;
 
 (: -------------------------------------------------------------------------- :)
 
@@ -65,6 +66,11 @@ declare variable $const:vendor-uri :="http://www.xproc.net/xproc.xq";
 (: XPATH Version :)
 declare variable $const:xpath-version :="2.0";
 
+(: PSVI supported :)
+declare variable $const:psvi-supported :="false";
+
+(: -------------------------------------------------------------------------- :)
+
 (: Step naming convention init :)
 declare variable $const:init_unique_id :="!1";
 
@@ -74,6 +80,8 @@ declare variable $const:default-imports :='
 
     declare copy-namespaces no-preserve, no-inherit;
 
+    import module namespace const = "http://xproc.net/xproc/const"
+                            at "src/xquery/const.xqm";
     import module namespace xproc = "http://xproc.net/xproc"
                             at "src/xquery/xproc.xqm";
     import module namespace util = "http://xproc.net/xproc/util"
@@ -115,4 +123,12 @@ declare function const:version() as xs:string {
 
 declare function const:xpath-version() as xs:string {
     $const:xpath-version
+};
+
+declare function const:language() as xs:string {
+    $const:language
+};
+
+declare function const:psvi-supported() as xs:string {
+    $const:psvi-supported
 };

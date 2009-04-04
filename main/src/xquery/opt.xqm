@@ -14,6 +14,8 @@ declare namespace xproc = "http://xproc.net/xproc";
 (: Module Imports :)
 import module namespace util = "http://xproc.net/xproc/util"
                         at "util.xqm";
+import module namespace const = "http://xproc.net/xproc/const"
+                        at "const.xqm";
 
 (: Module Vars :)
 declare variable $opt:exec :=saxon:function("opt:exec", 3);
@@ -27,17 +29,26 @@ declare variable $opt:validate-with-relax-ng :=saxon:function("opt:validate-with
 declare variable $opt:xquery :=saxon:function("opt:xquery", 3);
 declare variable $opt:xsl-formatter :=saxon:function("opt:xsl-formatter", 3);
 
+declare variable $opt:default-imports :='
+
+    declare copy-namespaces no-preserve, no-inherit;
+
+    import module namespace p = "http://xproc.net/xproc/functions"
+                            at "src/xquery/functions.xqm";
+';
+
 
 (: -------------------------------------------------------------------------- :)
 declare function opt:xquery($primary,$secondary,$options) {
 
 util:assert(exists($secondary/xproc:input[@port='query']/c:query),'p:input query is required'),
-
 (:TODO: need to sort out multiple c:query elements :)
-    let $xquery := $secondary/xproc:input[@port='query']/c:query/text()
-    let $result := data(util:xquery($xquery))
+
+    let $xquery := $secondary/xproc:input[@port='query']/c:query/.
+    let $xqueryfunc := concat($opt:default-imports,$xquery)
+    let $result := data(util:xquery($xqueryfunc))
         return
-            (util:outputResultElement($result))
+            util:outputResultElement($result)
 };
 
 (: -------------------------------------------------------------------------- :)

@@ -1,12 +1,17 @@
 <p:pipeline name="pipeline"
-            xmlns:p="http://www.w3.org/ns/xproc">
+            xmlns:p="http://www.w3.org/ns/xproc"
+            >
 
 <p:xquery>
-     <p:input port="query">
+     <p:input port="query" >
          <p:inline>
              <c:query xmlns:c="http://www.w3.org/ns/xproc-step">
-                 declare variable $s:='test'
-return //c
+                 
+                 let $s:='test'
+                 let $property :=  p:system-property('p:psvi-supported')
+                    return
+                        $property
+                        
              </c:query>
          </p:inline>
      </p:input>

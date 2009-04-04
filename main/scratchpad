@@ -13,14 +13,23 @@ ISSUE
     - xquery->p:choose->xquery
     - xslt -> xslfo -> pdf
 * create namespace module to import all the different namespaces
-* statically calculate all system-property (will it always be invariant during processing)
-
-
-Limitations/Differences
-* p:xquery currently outputs a c:result element
-* p:compare currently has a primary result port
-* declare base-uri affects module imports in saxon (need to investigate in eXist)
-* passing required/add-attribute--002.xml test will require namespace handling
 * represent sequences as t:document in count-001.xml in testing suite ?
 
 
+Limitations/Differences
+* p:xquery currently uses a c:result element to output
+* p:xquery can't work with xml currently
+* p:compare currently has a primary result port
+* extension functions do not work in select statements (just xquery)
+* declare base-uri affects module imports in saxon (need to investigate in eXist)
+* cant pass required/add-attribute--002.xml test depends on namespace handling module to be finished
+
+--------------------------------------------------------------------------------------
+
+* 75%/25% offer
+* barristors opinion
+* cost in addition
+* withdraw insurance - full disclosure
+* premium would be large
+* care costs is largest liability
+* would there have been a point in the future to provide care
