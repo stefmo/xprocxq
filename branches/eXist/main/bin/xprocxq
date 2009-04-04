@@ -1,7 +1,7 @@
 #!/bin/bash
 
-XPROCXQ_HOME=/Users/jimfuller/Source/Webcomposite/xprocxq/main
-CLASSPATH=/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib/net:/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib/saxon9sa/saxon9sa.jar:/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib/saxon9sa:/Users/jimfuller/Source/Webcomposite/xprocxq/main/lib
+XPROCXQ_HOME=/Users/jimfuller/Source/Webcomposite/xprocxq-exist/main
+CLASSPATH=/Users/jimfuller/Source/Webcomposite/xprocxq-exist/main/lib/net:/Users/jimfuller/Source/Webcomposite/xprocxq-exist/main/lib/saxon9sa/saxon9sa.jar:/Users/jimfuller/Source/Webcomposite/xprocxq-exist/main/lib/saxon9sa:/Users/jimfuller/Source/Webcomposite/xprocxq-exist/main/lib
 export CLASSPATH XPROCXQ_HOME
 
 cdir=$PWD
