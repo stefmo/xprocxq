@@ -10,25 +10,17 @@ declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
 
 (: Module Imports :)
-import module namespace const = "http://xproc.net/xproc/const"
-                        at "const.xqm";
-import module namespace util = "http://xproc.net/xproc/util"
-                        at "util.xqm";
-import module namespace opt = "http://xproc.net/xproc/opt"
-                        at "opt.xqm";
-import module namespace std = "http://xproc.net/xproc/std"
-                        at "std.xqm";
-import module namespace ext = "http://xproc.net/xproc/ext"
-                        at "ext.xqm";
-import module namespace comp = "http://xproc.net/xproc/comp"
-                        at "comp.xqm";
-import module namespace naming = "http://xproc.net/xproc/naming"
-                        at "naming.xqm";
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace u = "http://xproc.net/xproc/util";
+import module namespace opt = "http://xproc.net/xproc/opt";
+import module namespace std = "http://xproc.net/xproc/std";
+import module namespace ext = "http://xproc.net/xproc/ext";
+import module namespace comp = "http://xproc.net/xproc/comp";
+import module namespace naming = "http://xproc.net/xproc/naming";
 
 
 
-
-               (: --------------------------------------------------------------------------- :)
+                (: --------------------------------------------------------------------------- :)
                                                                             (: XPROC UTILITIES :)
                 (: --------------------------------------------------------------------------- :)
 
@@ -91,7 +83,7 @@ declare function xproc:type($stepname as xs:string,$is_declare-step) as xs:strin
         else if($is_declare-step) then
           string(substring-before($is_declare-step/@type,':'))
         else
-          util:staticError('err:XS0044', concat($stepname,":",$stepname,' has no visible declaration'))
+          u:staticError('err:XS0044', concat($stepname,":",$stepname,' has no visible declaration'))
 };
 
                 (: --------------------------------------------------------------------------- :)
@@ -204,7 +196,7 @@ let $explicitbindings := document {
                 xproc:generate-component-binding($step,$stepname,$is_declare-step,$unique_current)
 
             else
-                util:staticError('err:XS0044', concat("static error during explicit binding pass:",$stepname,$step/@name))
+                u:staticError('err:XS0044', concat("static error during explicit binding pass:",$stepname,$step/@name))
     }
 
     return
@@ -236,13 +228,13 @@ declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentste
                                  if (doc-available($child/@href)) then
                                        doc($child/@href)
                                  else
-                                       util:dynamicError('err:XD0002',concat(" p:document cannot access document ",$child/@href))
+                                       u:dynamicError('err:XD0002',concat(" p:document cannot access document ",$child/@href))
 
 (: data :)                 else if(name($child)='p:data') then
                                  if ($child/@href) then
-                                         util:unparsed-data($child/@href,'text/plain')
+                                         u:unparsed-data($child/@href,'text/plain')
                                  else
-                                       util:dynamicError('err:XD0002',concat(" p:data cannot access document ",$child/@href))
+                                       u:dynamicError('err:XD0002',concat(" p:data cannot access document ",$child/@href))
 
 
 (: stdin :)                else if ($child/@port eq 'stdin' and $child/@step eq $pipeline/@name) then
@@ -261,7 +253,7 @@ declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentste
                                   if ($result/xproc:output[@port=$child/@port][@step=$child/@step]) then
                                        $result/xproc:output[@port=$child/@port][@step=$child/@step]/*
                                   else
-                                       util:dynamicError('err:XD0001',concat(" cannot bind to port: ",$child/@port," step: ",$child/@step,' ',util:serialize($currentstep,$const:TRACE_SERIALIZE)))
+                                       u:dynamicError('err:XD0001',concat(" cannot bind to port: ",$child/@port," step: ",$child/@step,' ',u:serialize($currentstep,$const:TRACE_SERIALIZE)))
 
                             else
 (: TODO - fix :)
@@ -293,10 +285,10 @@ let $primaryresult := document{
                        '/'
                     )
 
-    let $selectval :=util:evalXPATH(string($select),$primaryresult)
+    let $selectval :=u:evalXPATH(string($select),$primaryresult)
        return
             if (empty($selectval)) then
-                util:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
+                u:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
             else
                 $selectval
 
@@ -322,10 +314,10 @@ declare function xproc:eval-secondary($pipeline,$step,$currentstep,$primaryinput
                         string($input/@select)
                     )
 
-        let $selectval :=util:evalXPATH(string($select),$primaryresult)
+        let $selectval :=u:evalXPATH(string($select),$primaryresult)
            return
                 if (empty($selectval)) then
-                    util:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
+                    u:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
                 else
                     $selectval
     }
@@ -398,9 +390,9 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
                                       port="{$currentstep/p:output[@primary='true']/@port}"
                                       func="{$stepfuncname}">{
                                           if(contains($stepfuncname,'comp:')) then
-                                                util:call(util:xquery($stepfunc),$primary,$secondary,$options,$currentstep)
+                                                u:call(u:xquery($stepfunc),$primary,$secondary,$options,$currentstep)
                                             else
-                                                util:call(util:xquery($stepfunc),$primary,$secondary,$options)
+                                                u:call(u:xquery($stepfunc),$primary,$secondary,$options)
                                       }
                          </xproc:output>
                      else
@@ -412,9 +404,9 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
                                       func="{$stepfuncname}">
                                       {
                                           if(contains($stepfuncname,'comp:')) then
-                                                util:call(util:xquery($stepfunc),$primary,$secondary,$options,$currentstep)
+                                                u:call(u:xquery($stepfunc),$primary,$secondary,$options,$currentstep)
                                             else
-                                                util:call(util:xquery($stepfunc),$primary,$secondary,$options)
+                                                u:call(u:xquery($stepfunc),$primary,$secondary,$options)
                                       }
                          </xproc:output>
             )
@@ -444,9 +436,9 @@ declare function xproc:parse_and_eval($xproc,$stdin as item(),$bindings) {
     let $steps := xproc:genstepnames($pipeline)
     return
 
-        (util:step-fold($pipeline,
+        (u:step-fold($pipeline,
                        $steps,
-                       saxon:function("xproc:evalstep", 4),
+                       util:function("xproc:evalstep", 4),
                        $stdin,
                        (xproc:resolve-external-bindings($bindings,$pipeline/@name),
                        (<xproc:output
@@ -514,7 +506,7 @@ return
 (: -------------------------------------------------------------------------- :)
 declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options){
 
-    let $start-time := util:timing()
+    let $start-time := u:timing()
 
     (: STEP I: generate parse tree :)
     let $preparse-naming := naming:explicitnames(naming:fixup($pipeline,$stdin))
@@ -526,7 +518,7 @@ declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options){
     (: STEP III: serialize and return results :)
     let $serialized_result := xproc:output($eval_result,$dflag)
 
-    let $end-time := util:timing()
+    let $end-time := u:timing()
 
     let $internaldbg := 0
 

@@ -12,41 +12,41 @@ declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
 declare namespace xproc = "http://xproc.net/xproc";
 
 (: Module Imports :)
-import module namespace util = "http://xproc.net/xproc/util"
-                        at "util.xqm";
+import module namespace u = "http://xproc.net/xproc/util";
+
 
 (: Module Vars :)
-declare variable $std:add-attribute :=saxon:function("std:add-attribute", 3);
-declare variable $std:add-xml-base :=saxon:function("std:add-xml-base", 3);
-declare variable $std:count :=saxon:function("std:count", 3);
-declare variable $std:compare :=saxon:function("std:compare",3);
-declare variable $std:delete :=saxon:function("std:delete",3);
-declare variable $std:declare-step :=saxon:function("std:declare-step",3);
-declare variable $std:error :=saxon:function("std:error",3);
-declare variable $std:filter :=saxon:function("std:filter",3);
-declare variable $std:directory-list :=saxon:function("std:directory-list", 3);
-declare variable $std:escape-markup :=saxon:function("std:escape-markup", 3);
-declare variable $std:http-request :=saxon:function("std:http-request", 3);
-declare variable $std:identity :=saxon:function("std:identity", 3);
-declare variable $std:label-elements :=saxon:function("std:label-elements", 3);
-declare variable $std:load :=saxon:function("std:load", 3);
-declare variable $std:make-absolute-uris :=saxon:function("std:make-absolute-uris", 3);
-declare variable $std:namespace-rename :=saxon:function("std:namespace-rename", 3);
-declare variable $std:pack :=saxon:function("std:pack", 3);
-declare variable $std:parameters :=saxon:function("std:parameters", 3);
-declare variable $std:rename :=saxon:function("std:rename", 3);
-declare variable $std:replace :=saxon:function("std:replace", 3);
-declare variable $std:set-attributes :=saxon:function("std:set-attributes", 3);
-declare variable $std:sink :=saxon:function("std:sink", 3);
-declare variable $std:split-sequence :=saxon:function("std:split-sequence", 3);
-declare variable $std:store :=saxon:function("std:store", 3);
-declare variable $std:string-replace :=saxon:function("std:string-replace", 3);
-declare variable $std:unescape-markup :=saxon:function("std:unescape-markup", 3);
-declare variable $std:xinclude :=saxon:function("std:xinclude", 3);
-declare variable $std:wrap :=saxon:function("std:wrap", 3);
-declare variable $std:wrap-sequence :=saxon:function("std:wrap-sequence", 3);
-declare variable $std:unwrap :=saxon:function("std:unwrap", 3);
-declare variable $std:xslt :=saxon:function("std:xslt", 3);
+declare variable $std:add-attribute :=util:function("std:add-attribute", 3);
+declare variable $std:add-xml-base :=util:function("std:add-xml-base", 3);
+declare variable $std:count :=util:function("std:count", 3);
+declare variable $std:compare :=util:function("std:compare",3);
+declare variable $std:delete :=util:function("std:delete",3);
+declare variable $std:declare-step :=util:function("std:declare-step",3);
+declare variable $std:error :=util:function("std:error",3);
+declare variable $std:filter :=util:function("std:filter",3);
+declare variable $std:directory-list :=util:function("std:directory-list", 3);
+declare variable $std:escape-markup :=util:function("std:escape-markup", 3);
+declare variable $std:http-request :=util:function("std:http-request", 3);
+declare variable $std:identity :=util:function("std:identity", 3);
+declare variable $std:label-elements :=util:function("std:label-elements", 3);
+declare variable $std:load :=util:function("std:load", 3);
+declare variable $std:make-absolute-uris :=util:function("std:make-absolute-uris", 3);
+declare variable $std:namespace-rename :=util:function("std:namespace-rename", 3);
+declare variable $std:pack :=util:function("std:pack", 3);
+declare variable $std:parameters :=util:function("std:parameters", 3);
+declare variable $std:rename :=util:function("std:rename", 3);
+declare variable $std:replace :=util:function("std:replace", 3);
+declare variable $std:set-attributes :=util:function("std:set-attributes", 3);
+declare variable $std:sink :=util:function("std:sink", 3);
+declare variable $std:split-sequence :=util:function("std:split-sequence", 3);
+declare variable $std:store :=util:function("std:store", 3);
+declare variable $std:string-replace :=util:function("std:string-replace", 3);
+declare variable $std:unescape-markup :=util:function("std:unescape-markup", 3);
+declare variable $std:xinclude :=util:function("std:xinclude", 3);
+declare variable $std:wrap :=util:function("std:wrap", 3);
+declare variable $std:wrap-sequence :=util:function("std:wrap-sequence", 3);
+declare variable $std:unwrap :=util:function("std:unwrap", 3);
+declare variable $std:xslt :=util:function("std:xslt", 3);
 
 
 (: -------------------------------------------------------------------------- :)
@@ -55,11 +55,11 @@ declare function std:add-attribute($primary,$secondary,$options) {
 (: TODO: need to refactor match attribute :)
 
 let $v := $primary/*[1]
-let $match := util:get-option($options/p:with-option[@name='match']/@select,$primary/*)
-let $attrName := util:get-option($options/p:with-option[@name='attribute-name']/@select,$primary/*)
-let $attrValue := util:get-option($options/p:with-option[@name='attribute-value']/@select,$primary/*)
+let $match := u:get-option($options/p:with-option[@name='match']/@select,$primary/*)
+let $attrName := u:get-option($options/p:with-option[@name='attribute-name']/@select,$primary/*)
+let $attrValue := u:get-option($options/p:with-option[@name='attribute-value']/@select,$primary/*)
 return
-    util:treewalker-add-attribute($v,$match,$attrName,$attrValue)
+    u:treewalker-add-attribute($v,$match,$attrName,$attrValue)
 };
 
 
@@ -68,8 +68,8 @@ declare function std:add-xml-base($primary,$secondary,$options) {
 
 (: TODO: need to refactor to pass in pipeline uri and any external input uri :)
 
-let $all := xs:boolean(util:get-option($options/p:with-option[@name='all']/@select,$primary))
-let $relative := xs:boolean(util:get-option($options/p:with-option[@name='relative']/@select,$primary))
+let $all := xs:boolean(u:get-option($options/p:with-option[@name='all']/@select,$primary))
+let $relative := xs:boolean(u:get-option($options/p:with-option[@name='relative']/@select,$primary))
 let $attrNames := xs:QName('xml:base')
 let $attrValues := base-uri($primary[1]) 
 
@@ -102,15 +102,15 @@ declare function std:compare($primary,$secondary,$options) {
 let $v := $primary/*[1]
 let $alternate := $secondary/xproc:input[@port='alternate']/*
 let $result := deep-equal($primary/*[1],$secondary/xproc:input[@port='alternate']/*)
-let $fail-if-not-equal := util:boolean($options/p:with-option[@name='fail-if-not-equal']/@select)
+let $fail-if-not-equal := u:boolean($options/p:with-option[@name='fail-if-not-equal']/@select)
     return
        if($fail-if-not-equal eq true()) then
             if ( $result eq true())then
-                util:outputResultElement($result)
+                u:outputResultElement($result)
             else
-                util:stepError('err:XC0019','p:compare fail-if-not-equal option is enabled and documents were not equal')
+                u:stepError('err:XC0019','p:compare fail-if-not-equal option is enabled and documents were not equal')
         else
-            util:outputResultElement($result)
+            u:outputResultElement($result)
 };
 
 
@@ -118,23 +118,23 @@ let $fail-if-not-equal := util:boolean($options/p:with-option[@name='fail-if-not
 declare function std:count($primary,$secondary,$options){
 
 let $v := document{$primary}
-let $limit := xs:integer(util:get-option($options/p:with-option[@name='limit']/@select,$v))
+let $limit := xs:integer(u:get-option($options/p:with-option[@name='limit']/@select,$v))
 let $count := count($v/*)
 return
     if (empty($limit) or $limit=0) then
-       util:outputResultElement(
+       u:outputResultElement(
         $count
        )
     else if ($count < $limit) then
-       util:outputResultElement(
+       u:outputResultElement(
        $count
        )
     else if ($count = $limit) then
-       util:outputResultElement(
+       u:outputResultElement(
        $count
        )
     else
-        util:stepError('err:XC0016','')
+        u:stepError('err:XC0016','')
 };
 
 
@@ -149,9 +149,9 @@ declare function std:declare-step($primary,$secondary,$options) {
 (: -------------------------------------------------------------------------- :)
 declare function std:delete($primary,$secondary,$options){
 
-let $match := util:get-option($options/p:with-option[@name='match']/@select,$primary)
+let $match := u:get-option($options/p:with-option[@name='match']/@select,$primary)
 return
-    util:remove-elements($primary/*[1],$match)
+    u:remove-elements($primary/*[1],$match)
 };
 
 
@@ -159,16 +159,16 @@ return
 declare function std:directory-list($primary,$secondary,$options) {
  
 (: this should be caught as a static error someday ... will do it in refactoring  :)
-util:assert(exists($options/p:with-option[@name='path']),'p:directory-list path option does not exist'),
+u:assert(exists($options/p:with-option[@name='path']),'p:directory-list path option does not exist'),
 
-    (util:outputResultElement(collection('file:/')))
+    (u:outputResultElement(collection('file:/')))
 
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:escape-markup($primary,$secondary,$options) {
-    util:serialize($primary,<xsl:output method="xml"
+    u:serialize($primary,<xsl:output method="xml"
                                  omit-xml-declaration="yes"
                                  indent="yes"
                                  saxon:indent-spaces="1"/>)
@@ -197,11 +197,11 @@ declare function std:error($primary,$secondary,$options) {
 declare function std:filter($primary,$secondary,$options) {
 (: TODO: is it an error for a empty match ? :)
 
-util:assert(exists($options/p:with-option[@name='select']/@select),'p:with-option match is required'),
+u:assert(exists($options/p:with-option[@name='select']/@select),'p:with-option match is required'),
 
 let $v :=document{$primary/*[1]}
-let $xpath := util:get-option($options/p:with-option[@name='select']/@select,$v)
-let $result := util:evalXPATH(string($xpath),$v)
+let $xpath := u:get-option($options/p:with-option[@name='select']/@select,$v)
+let $result := u:evalXPATH(string($xpath),$v)
     return
         if(exists($result)) then
             $result
@@ -309,7 +309,7 @@ declare function std:string-replace($primary,$secondary,$options) {
 (: -------------------------------------------------------------------------- :)
 declare function std:unescape-markup($primary,$secondary,$options){
 (: TODO: doesnt work with nested xml elements :)
-let $parsed := document{util:serialize($primary,<xsl:output method="xml"
+let $parsed := document{u:serialize($primary,<xsl:output method="xml"
                                  omit-xml-declaration="yes"
                                  indent="yes"
                                  saxon:indent-spaces="1"/>)}
@@ -328,19 +328,19 @@ declare function std:xinclude($primary,$secondary,$options){
 declare function std:wrap($primary,$secondary,$options) {
 (: TODO - The match option must only match element, text, processing instruction, and comment nodes. It is a dynamic error (err:XC0041) if the match pattern matches any other kind of node. :)
 
-util:assert(exists($options/p:with-option[@name='match']/@select),'p:with-option match is required'),
-util:assert(exists($options/p:with-option[@name='wrapper']/@select),'p:with-option wrapper is required'),
+u:assert(exists($options/p:with-option[@name='match']/@select),'p:with-option match is required'),
+u:assert(exists($options/p:with-option[@name='wrapper']/@select),'p:with-option wrapper is required'),
 
     let $v :=document{$primary/*[1]}
-    let $wrapper := util:get-option($options/p:with-option[@name='wrapper']/@select,$v)
-    let $match := util:get-option($options/p:with-option[@name='match']/@select,$v)
-    let $replace := util:evalXPATH($match,$v)
+    let $wrapper := u:get-option($options/p:with-option[@name='wrapper']/@select,$v)
+    let $match := u:get-option($options/p:with-option[@name='match']/@select,$v)
+    let $replace := u:evalXPATH($match,$v)
 
     return
        document 
        {
         element {string($wrapper)} {
-            util:evalXPATH($match,$v)
+            u:evalXPATH($match,$v)
         }
        } 
 };
@@ -356,25 +356,25 @@ declare function std:wrap-sequence($primary,$secondary,$options){
 declare function std:unwrap($primary,$secondary,$options) {
 
 (: this should be caught as a static error someday ... will do it in refactoring :)
-util:assert(exists($options/p:with-option[@name='match']/@select),'p:with-option match is required'),
+u:assert(exists($options/p:with-option[@name='match']/@select),'p:with-option match is required'),
 
 (: TODO - The value of the match option must be an XSLTMatchPattern. It is a dynamic error (err:XC0023)
 if that pattern matches anything other than element nodes. :)
 let $v :=document{$primary/*[1]}
-let $match := util:get-option($options/p:with-option[@name='match']/@select,$v)
+let $match := u:get-option($options/p:with-option[@name='match']/@select,$v)
     return
-         util:evalXPATH($match,$v)
+         u:evalXPATH($match,$v)
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:xslt($primary,$secondary,$options){
 
-    util:assert(exists($secondary/xproc:input[@port='stylesheet']/*),'stylesheet is required'),
+    u:assert(exists($secondary/xproc:input[@port='stylesheet']/*),'stylesheet is required'),
     let $stylesheet := $secondary/xproc:input[@port='stylesheet']/*
     let $v := document {$primary/*[1]}
     return
-        util:xslt($stylesheet,$v)
+        u:xslt($stylesheet,$v)
 };
 
 

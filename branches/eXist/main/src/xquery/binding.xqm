@@ -11,19 +11,14 @@ declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
 declare namespace xproc = "http://xproc.net/xproc";
 
+
 (: Module Imports :)
-import module namespace const = "http://xproc.net/xproc/const"
-                        at "const.xqm";
-import module namespace util = "http://xproc.net/xproc/util"
-                        at "util.xqm";
-import module namespace std = "http://xproc.net/xproc/std"
-                        at "std.xqm";
-import module namespace opt = "http://xproc.net/xproc/opt"
-                        at "opt.xqm";
-import module namespace ext = "http://xproc.net/xproc/ext"
-                        at "ext.xqm";
-import module namespace comp = "http://xproc.net/xproc/comp"
-                        at "comp.xqm";
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace u = "http://xproc.net/xproc/util";
+import module namespace std = "http://xproc.net/xproc/std";
+import module namespace opt = "http://xproc.net/xproc/opt";
+import module namespace ext = "http://xproc.net/xproc/ext";
+import module namespace comp = "http://xproc.net/xproc/comp";
 
 
 
@@ -85,7 +80,7 @@ declare function binding:type($stepname as xs:string,$is_declare-step) as xs:str
         else if($is_declare-step) then
           string(substring-before($is_declare-step/@type,':'))
         else
-          util:staticError('err:XS0044', concat($stepname,":",$stepname,' has no visible declaration'))
+          u:staticError('err:XS0044', concat($stepname,":",$stepname,' has no visible declaration'))
 };
 
 
@@ -198,7 +193,7 @@ let $explicitbindings := document {
                 binding:generate-component-binding($step,$stepname,$is_declare-step,$unique_current)
 
             else
-                util:staticError('err:XS0044', concat("static error during explicit binding pass:",$stepname,$step/@name))
+                u:staticError('err:XS0044', concat("static error during explicit binding pass:",$stepname,$step/@name))
     }
 
     return

@@ -12,18 +12,12 @@ declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
 declare namespace xproc = "http://xproc.net/xproc";
 
 (: Module Imports :)
-import module namespace const = "http://xproc.net/xproc/const"
-                        at "const.xqm";
-import module namespace util = "http://xproc.net/xproc/util"
-                        at "util.xqm";
-import module namespace std = "http://xproc.net/xproc/std"
-                        at "std.xqm";
-import module namespace opt = "http://xproc.net/xproc/opt"
-                        at "opt.xqm";
-import module namespace ext = "http://xproc.net/xproc/ext"
-                        at "ext.xqm";
-import module namespace comp = "http://xproc.net/xproc/comp"
-                        at "comp.xqm";
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace u = "http://xproc.net/xproc/util";
+import module namespace std = "http://xproc.net/xproc/std";
+import module namespace opt = "http://xproc.net/xproc/opt";
+import module namespace ext = "http://xproc.net/xproc/ext";
+import module namespace comp = "http://xproc.net/xproc/comp";
 
 
 (: -------------------------------------------------------------------------- :)
@@ -86,7 +80,7 @@ declare function naming:type($stepname as xs:string,$is_declare-step) as xs:stri
         else if($is_declare-step) then
           string(substring-before($is_declare-step/@type,':'))
         else
-          util:staticError('err:XS0044', concat($stepname,":",$stepname,' has no visible declaration'))
+          u:staticError('err:XS0044', concat($stepname,":",$stepname,' has no visible declaration'))
 };
 
 
@@ -101,11 +95,11 @@ declare function naming:preparse-options($allstep,$step,$stepname){
 
             if ($step/p:with-option[@name=$option/@name] and $step/@*[name(.)=$option/@name]) then
 
-               util:staticError('err:XS0027', concat($stepname,":",$step/@name,' option:',$option/@name,' duplicate options'))
+               u:staticError('err:XS0027', concat($stepname,":",$step/@name,' option:',$option/@name,' duplicate options'))
 
             else if ($option/@required eq 'true' and $option/@select) then
 
-               util:staticError('err:XS0017', concat($stepname,":",$step/@name,' option:',$option/@name,' duplicate options'))
+               u:staticError('err:XS0017', concat($stepname,":",$step/@name,' option:',$option/@name,' duplicate options'))
 
             else if ($step/p:with-option[@name=$option/@name]) then
 
@@ -121,7 +115,7 @@ declare function naming:preparse-options($allstep,$step,$stepname){
 
             else if(not($step/p:with-option[@name=$option/@name] and $step/@*[name(.)=$option/@name]) and $option/@required eq 'true') then
 
-                util:staticError('err:XS0018', concat($stepname,":",$step/@name,' option:',$option/@name,' is required and seems to be missing or incorrect'))
+                u:staticError('err:XS0018', concat($stepname,":",$step/@name,' option:',$option/@name,' is required and seems to be missing or incorrect'))
 
             else
                 (: TODO: may have to throw additional errors before this :)
@@ -234,14 +228,14 @@ else
                     naming:generate-component($xproc,$is_component,$step,$stepname)
                else
                     (: throws error on unknown element in pipeline namespace :)
-                    util:staticError('err:XS0044', concat("static error during explicit naming pass:  ",$stepname,":",$step/@name,util:serialize($step,$const:TRACE_SERIALIZE)))
+                    u:staticError('err:XS0044', concat("static error during explicit naming pass:  ",$stepname,":",$step/@name,u:serialize($step,$const:TRACE_SERIALIZE)))
     return
         if(empty($pipelinename))then
-            util:pipeline-step-sort($explicitnames,(),$pipelinename)
+            u:pipeline-step-sort($explicitnames,(),$pipelinename)
         else
             <p:declare-step name="{$pipelinename}">
                 {
-                    util:pipeline-step-sort($explicitnames,(),$pipelinename)
+                    u:pipeline-step-sort($explicitnames,(),$pipelinename)
                 }
                 <ext:post name="{$pipelinename}!">
                     <p:input port="source" primary="true"/>
@@ -290,7 +284,7 @@ let $steps := <p:declare-step>
                     if (doc-available($import/@href)) then
                           doc($import/@href)
                     else
-                          util:dynamicError('XD0002',"cannot import pipeline document ")
+                          u:dynamicError('XD0002',"cannot import pipeline document ")
             }
 
             {$pipeline/*[not(name(.)="p:input")][not(name(.)="p:output")]}

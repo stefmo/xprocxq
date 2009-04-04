@@ -11,17 +11,17 @@ declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace xproc = "http://xproc.net/xproc";
 
 (: Module Imports :)
-import module namespace util = "http://xproc.net/xproc/util"
-                        at "util.xqm";
+import module namespace u = "http://xproc.net/xproc/util";
+
 
 (: -------------------------------------------------------------------------- :)
 
 (: Module Vars :)
-declare variable $ext:pre :=saxon:function("ext:pre", 3);
-declare variable $ext:post :=saxon:function("ext:post", 3);
-declare variable $ext:test :=saxon:function("ext:test", 3);
-declare variable $ext:step :=saxon:function("ext:step", 3);
-declare variable $ext:xproc :=saxon:function("xproc:run-step", 3);
+declare variable $ext:pre :=util:function("ext:pre", 3);
+declare variable $ext:post :=util:function("ext:post", 3);
+declare variable $ext:test :=util:function("ext:test", 3);
+declare variable $ext:step :=util:function("ext:step", 3);
+declare variable $ext:xproc :=util:function("xproc:run-step", 3);
 
 (: -------------------------------------------------------------------------- :)
 declare function ext:pre($primary,$secondary,$options){

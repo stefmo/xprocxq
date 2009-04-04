@@ -11,18 +11,18 @@ declare namespace xproc = "http://xproc.net/xproc";
 
 (: Module Imports :)
 
-import module namespace util = "http://xproc.net/xproc/util"
-                        at "util.xqm";
-import module namespace const = "http://xproc.net/xproc/const"
-                        at "const.xqm";
+import module namespace u = "http://xproc.net/xproc/util";
+import module namespace const = "http://xproc.net/xproc/const";
+
+
 (: -------------------------------------------------------------------------- :)
 
-declare variable $comp:declare-step :=saxon:function("comp:declare-step", 3);
-declare variable $comp:choose :=saxon:function("comp:choose", 4);
-declare variable $comp:when :=saxon:function("comp:when", 3);
-declare variable $comp:otherwise :=saxon:function("comp:otherwise", 3);
-declare variable $comp:for-each :=saxon:function("comp:for-each", 3);
-declare variable $comp:parse_eval :=saxon:function("xproc:parse_and_eval", 3);
+declare variable $comp:declare-step :=util:function("comp:declare-step", 3);
+declare variable $comp:choose :=util:function("comp:choose", 4);
+declare variable $comp:when :=util:function("comp:when", 3);
+declare variable $comp:otherwise :=util:function("comp:otherwise", 3);
+declare variable $comp:for-each :=util:function("comp:for-each", 3);
+declare variable $comp:parse_eval :=util:function("xproc:parse_and_eval", 3);
 
 (: -------------------------------------------------------------------------- :)
 declare function comp:choose($primary,$secondary,$options,$step) {
@@ -30,12 +30,12 @@ declare function comp:choose($primary,$secondary,$options,$step) {
     let $stepfunc :=concat($const:default-imports,$comp:parse_eval)
     let $when := $step/p:when
     let $otherwise := $step/p:otherwise
-    let $when_eval :=util:evalXPATH(string($when/@test),$v)
+    let $when_eval :=u:evalXPATH(string($when/@test),$v)
     return
         if($when_eval) then
             <test1/>
         else
-            util:call(util:xquery($stepfunc),<p:declare-step><p:input port="source" primary="true"/>{$otherwise/*}</p:declare-step>,$v,<test/>)
+            u:call(u:xquery($stepfunc),<p:declare-step><p:input port="source" primary="true"/>{$otherwise/*}</p:declare-step>,$v,<test/>)
 };
 
 
