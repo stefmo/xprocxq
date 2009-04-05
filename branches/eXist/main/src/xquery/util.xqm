@@ -173,7 +173,12 @@ declare function u:function($func,$arity){
 (: -------------------------------------------------------------------------- :)
 declare function u:evalXPATH($xpathstring, $xml as item()*) as item()*{
     let $test:= document{$xml}
-    return $test/util:eval($xpathstring)
+    return
+		$test
+		
+		(:
+		/util:eval($xpathstring)
+		:)
 };
 
 (: -------------------------------------------------------------------------- :)

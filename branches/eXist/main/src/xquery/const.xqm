@@ -26,13 +26,6 @@ declare variable $const:NS_XPROC_ERR_EXT := "http://xproc.net/ns/errors";
 
 (: -------------------------------------------------------------------------- :)
 
-(: Module Vars :)
-(: doesnt work as intended
-declare variable  $const:evalstep := util:function("xproc:evalstep", 5);
-
-
-declare variable $const:run-step :=util:function(xs:QName("xproc:run-step"), 3);
-:)
 (: -------------------------------------------------------------------------- :)
 (: error dictionaries :)
 declare variable  $const:error := doc("resource:net/xproc/xqprocxq/etc/error-list.xml");

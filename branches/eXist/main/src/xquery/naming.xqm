@@ -262,7 +262,7 @@ let $steps := <p:declare-step>
                     <p:input port="source"
                              kind="document"
                              primary="true"
-                             select="{$pipeline/p:input[@port='source']/@select}"
+                             select="{if(empty($pipeline/p:input[@port='source']/@select)) then '/' else $pipeline/p:input[@port='source']/@select}"
                              sequence="{$pipeline/p:input[@port='source']/@sequence}">
                     {if($stdin) then
                         <p:pipe step="{$pipeline/@name}" port="stdin"/>
