@@ -1,6 +1,12 @@
 xquery version "1.0" encoding "UTF-8"; 
 module namespace binding = "http://xproc.net/xproc/binding";
-(: -------------------------------------------------------------------------- :)
+(: ------------------------------------------------------------------------------------- 
+
+	binding.xqm - manages the second pass parsing of xproc pipeline, providing the default
+	name for each step as well as explicitly binding each steps inputs with a previous or
+	defined steps output.
+	
+---------------------------------------------------------------------------------------- :)
 
 declare copy-namespaces no-preserve, no-inherit;
 
@@ -11,8 +17,8 @@ declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
 declare namespace xproc = "http://xproc.net/xproc";
 
-
 (: Module Imports :)
+import module namespace util = "http://xproc.net/xproc/util";
 import module namespace const = "http://xproc.net/xproc/const";
 import module namespace u = "http://xproc.net/xproc/util";
 import module namespace std = "http://xproc.net/xproc/std";
@@ -21,6 +27,7 @@ import module namespace ext = "http://xproc.net/xproc/ext";
 import module namespace comp = "http://xproc.net/xproc/comp";
 
 
+(: -------------------------------------------------------------------------- :)
 
 declare function binding:uniqueid($unique_id,$count){
     concat($unique_id,'.',$count)
@@ -98,8 +105,8 @@ for $input in $step/p:input
         else
             element {node-name($input)}{
                 attribute port{$input/@port},
-                attribute primary{if ($input/@primary eq '') then 'true' else $input/@primary},
-                attribute select{if($input/@select eq '') then string('/') else $input/@select},
+                attribute primary{if (empty($input/@primary)) then 'true' else $input/@primary},
+                attribute select{if(empty($input/@select)) then string('/') else $input/@select},
 
                 if ($input/p:document or $input/p:inline or $input/p:empty or $input/p:data) then
                     $input/*
@@ -107,7 +114,7 @@ for $input in $step/p:input
                     if(name($step)="ext:pre" or name($step)="ext:post" ) then
                         $input/*
                     else
-                         <p:pipe step="{if ($xproc/*[$count - 1]/@name eq '') then $unique_before else $xproc/*[$count - 1]/@name}"
+                         <p:pipe step="{if (empty($xproc/*[$count - 1]/@name)) then $unique_before else $xproc/*[$count - 1]/@name}"
                                  port="{$xproc/*[$count - 1]/p:output[@primary='true']/@port}"/>
             }
 };
@@ -130,7 +137,7 @@ declare function binding:generate-explicit-options($step){
 declare function binding:generate-step-binding($step,$xproc,$count,$stepname,$is_declare-step,$unique_id,$unique_before){
 
             element {node-name($step)} {
-                 attribute name{if($step/@name eq '') then $unique_id else $step/@name},
+                 attribute name{if(empty($step/@name)) then $unique_id else $step/@name},
                  attribute xproc:defaultname{$unique_id},
                  attribute xproc:type{binding:type($stepname,$is_declare-step)},
                  attribute xproc:step{concat('$',binding:type($stepname,$is_declare-step),':',local-name($step))},

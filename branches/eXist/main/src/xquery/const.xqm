@@ -1,14 +1,21 @@
 xquery version "1.0" encoding "UTF-8";
 module namespace const = "http://xproc.net/xproc/const";
-(: -------------------------------------------------------------------------- :)
+(: ------------------------------------------------------------------------------------- 
+ 
+	const.xqm - contains all constants used by xprocxq.
+	
+---------------------------------------------------------------------------------------- :)
 
+(: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace xproc = "http://xproc.net/xproc";
 declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
 
-(: XProc Namespaces :)
+
+(: -------------------------------------------------------------------------- :)
+(: XProc Namespace Constants :)
 declare variable $const:NS_XPROC := "http://www.w3.org/ns/xproc";
 declare variable $const:NS_XPROC_STEP := "http://www.w3.org/ns/xproc-step";
 declare variable $const:NS_XPROC_ERR := "http://www.w3.org/ns/xproc-error";
@@ -64,6 +71,9 @@ declare variable $const:xpath-version :="2.0";
 (: PSVI supported :)
 declare variable $const:psvi-supported :="false";
 
+(: Episode :)
+declare variable $const:episode :="somerandomnumber";
+
 (: -------------------------------------------------------------------------- :)
 
 (: Step naming convention init :)
@@ -89,38 +99,3 @@ declare variable $const:alt-imports :=' declare copy-namespaces no-preserve, no-
 
 (: -------------------------------------------------------------------------- :)
 
-declare function const:episode() as xs:string {
-   string('some random string')
-};
-
-declare function const:product-name() as xs:string {
-    $const:product-name
-};
-
-declare function const:product-version() as xs:string {
-    $const:product-version
-};
-
-declare function const:vendor() as xs:string {
-    $const:vendor
-};
-
-declare function const:vendor-uri() as xs:string {
-    $const:vendor-uri
-};
-
-declare function const:version() as xs:string {
-    $const:version
-};
-
-declare function const:xpath-version() as xs:string {
-    $const:xpath-version
-};
-
-declare function const:language() as xs:string {
-    $const:language
-};
-
-declare function const:psvi-supported() as xs:string {
-    $const:psvi-supported
-};

@@ -1,19 +1,22 @@
 xquery version "1.0" encoding "UTF-8";
 module namespace comp = "http://xproc.net/xproc/comp";
-(: -------------------------------------------------------------------------- :)
+(: ------------------------------------------------------------------------------------- 
+
+	comp.xqm - implements all xproc multi container steps.
+	
+---------------------------------------------------------------------------------------- :)
 
 declare copy-namespaces no-preserve, no-inherit;
 
+(: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace xproc = "http://xproc.net/xproc";
 
 (: Module Imports :)
-
 import module namespace u = "http://xproc.net/xproc/util";
 import module namespace const = "http://xproc.net/xproc/const";
-
 
 (: -------------------------------------------------------------------------- :)
 

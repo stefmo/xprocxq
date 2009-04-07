@@ -1,26 +1,23 @@
 xquery version "1.0" encoding "UTF-8";
 module namespace u = "http://xproc.net/xproc/util";
-(: -------------------------------------------------------------------------- :)
+(: ------------------------------------------------------------------------------------- 
+ 
+	util.xqm - contains most of the XQuery processor specific functions, including all
+	helper functions.
+	
+---------------------------------------------------------------------------------------- :)
+
 
 declare copy-namespaces no-preserve, no-inherit;
+
+(:todo - needed to resolve @select on p:input related to compile- to investigate why I need to add this xmlns:)
+declare namespace t="http://xproc.org/ns/testsuite";
 
 (: XProc Namespace Declaration :)
 declare namespace p1="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
-
-(:todo - needed to resolve @select on p:input related to compile- to investigate why I need to add this xmlns:)
-declare namespace t="http://xproc.org/ns/testsuite";
-
-
-(: Other Namespace Declaration :)
-declare namespace saxon = "http://saxon.sf.net/";
-declare namespace jt = "http://net.sf.saxon/java-type";
-declare namespace func = "java:net.xproc.saxon.evalXQuery";
-declare namespace java = "java:java.lang.System";
-declare namespace math="http://exslt.org/math";
-
 declare namespace comp = "http://xproc.net/xproc/comp";
 declare namespace xproc = "http://xproc.net/xproc";
 declare namespace std = "http://xproc.net/xproc/std";
@@ -34,12 +31,99 @@ import module namespace p = "http://xproc.net/xproc/functions";
 
 
 (: set to 1 to enable debugging :)
-declare variable $u:NDEBUG :=1;
+declare variable $u:NDEBUG :=0;
 
 (: -------------------------------------------------------------------------- :)
-declare function u:timing() as xs:float  {
-    xs:float(java:currentTimeMillis())
+
+
+
+(: -------------------------------------------------------------------------- :)
+(: generate unique id														  :)
+(: -------------------------------------------------------------------------- :)
+
+declare function u:uniqueid($unique_id,$count) as xs:string{
+    concat($unique_id,'.',$count)
 };
+
+(: -------------------------------------------------------------------------- :)
+(: returns comp from comp definitions :)
+(: -------------------------------------------------------------------------- :)
+declare function u:get-comp($compname as xs:string) {
+    $const:comp-steps//xproc:element[@type=$compname]
+};
+
+(: -------------------------------------------------------------------------- :)
+(: checks to see if this component exists :)
+(: -------------------------------------------------------------------------- :)
+declare function u:comp-available($compname as xs:string) as xs:boolean {
+        exists(u:get-comp($compname))
+};
+
+(: -------------------------------------------------------------------------- :)
+(: returns step from std, opt and ext step definitions :)
+(: -------------------------------------------------------------------------- :)
+declare function u:get-step($stepname as xs:string,$declarestep) {
+    $const:std-steps/p:declare-step[@type=$stepname],
+    $const:opt-steps/p:declare-step[@type=$stepname],
+    $const:ext-steps/p:declare-step[@type=$stepname],
+    $const:comp-steps//xproc:element[@type=$stepname], 
+    $declarestep/@type
+};
+
+
+(: -------------------------------------------------------------------------- :)
+(: returns step type :)
+(: -------------------------------------------------------------------------- :)
+declare function u:type($stepname as xs:string,$is_declare-step) as xs:string {
+
+    let $stdstep := $const:std-steps/p:declare-step[@type=$stepname]
+    let $optstep := $const:opt-steps/p:declare-step[@type=$stepname]
+    let $extstep := $const:ext-steps/p:declare-step[@type=$stepname]
+    let $component :=$const:comp-steps//xproc:element[@type=$stepname]
+
+    let $stdstepexists := exists($stdstep)
+    let $optstepexists := exists($optstep)
+    let $extstepexists := exists($extstep)
+    let $compexists := exists($component)
+    return
+        if ($optstepexists) then
+            'opt'
+        else if($extstepexists) then
+            'ext'
+        else if($stdstepexists) then
+            'std'
+        else if($compexists) then
+            'comp'
+        else if($is_declare-step) then
+          string(substring-before($is_declare-step/@type,':'))
+        else
+          u:staticError('err:XS0044', concat($stepname,":",$stepname,' has no visible declaration'))
+};
+
+
+
+
+
+
+
+
+
+
+(: -------------------------------------------------------------------------- :)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 (: -------------------------------------------------------------------------- :)
 declare function u:assert($booleanexp as item(), $why as xs:string)  {
@@ -135,30 +219,22 @@ declare function u:eval($exp as xs:string) as item()*{
 
 (: -------------------------------------------------------------------------- :)
 (: TODO: refactor the following into a single function :)
+
 declare function u:call($func,$a) as item()*{
     util:call($func,$a)
 };
-
-
 declare function u:call($func,$a,$b) as item()*{
     util:call($func,$a,$b)
 };
-
-
 declare function u:call($func,$a,$b,$c) as item()*{
     util:call($func,$a,$b,$c)
 };
-
-
 declare function u:call($func,$a,$b,$c,$d) as item()*{
     util:call($func,$a,$b,$c,$d)
 };
-
-
 declare function u:call($func,$a,$b,$c,$d,$e) as item()*{
     util:call($func,$a,$b,$c,$d,$e)
 };
-
 declare function u:call($func,$a,$b,$c,$d,$e,$f) as item()*{
     util:call($func,$a,$b,$c,$d,$e,$f)
 };
@@ -171,14 +247,19 @@ declare function u:function($func,$arity){
 :)
 
 (: -------------------------------------------------------------------------- :)
-declare function u:evalXPATH($xpathstring, $xml as item()*) as item()*{
-    let $test:= document{$xml}
+(: TODO - need to refactor for eXist :)
+declare function u:evalXPATH($xpathstring as xs:string, $xml){
+
+if(empty($xpathstring) or $xpathstring eq '/') then
+	$xml
+else
+	let $string := concat('$xml',$xpathstring)
+	let $result := util:eval($string)
     return
-		$test
-		
-		(:
-		/util:eval($xpathstring)
-		:)
+		if ( $result instance of element() or $result instance of document-node()) then 
+			$result
+		else 
+			u:dynamicError('err:XD0016','')
 };
 
 (: -------------------------------------------------------------------------- :)
@@ -246,8 +327,8 @@ declare function u:treewalker ($tree,$attrFunc,$elemFunc) {
         for $c in $children
             return
                 ( element {node-name($c)}{
-                            util:call($attrFunc,$c/@*),
-                            util:call($elemFunc,$c/*),
+                            u:call($attrFunc,$c/@*),
+                            u:call($elemFunc,$c/*),
                         u:treewalker($tree,$attrFunc,$elemFunc)
                 })
 };
@@ -261,8 +342,8 @@ declare function u:treewalker ($tree,$attrFunc,$textFunc,$attName,$attValue) {
         for $c in $children
             return
                 ( element {node-name($c)}{
-                            util:call($attrFunc,$c/@*,$attName,$attValue),
-                            util:call($textFunc,$c/text()),
+                            u:call($attrFunc,$c/@*,$attName,$attValue),
+                            u:call($textFunc,$c/text()),
                         u:treewalker($c,$attrFunc,$textFunc,$attName,$attValue)
                 })
 };

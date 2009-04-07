@@ -1,6 +1,11 @@
 xquery version "1.0" encoding "UTF-8";
 module namespace ext = "http://xproc.net/xproc/ext";
-(: -------------------------------------------------------------------------- :)
+(: ------------------------------------------------------------------------------------- 
+
+	ext.xqm - implements all xprocxq specific extension steps.
+	
+---------------------------------------------------------------------------------------- :)
+
 
 declare copy-namespaces no-preserve, no-inherit;
 

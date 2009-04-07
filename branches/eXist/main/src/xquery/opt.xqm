@@ -1,6 +1,11 @@
 xquery version "1.0" encoding "UTF-8";
 module namespace opt = "http://xproc.net/xproc/opt";
-(: -------------------------------------------------------------------------- :)
+(: ------------------------------------------------------------------------------------- 
+
+	opt.xqm - Implements all xproc optional steps.
+	
+---------------------------------------------------------------------------------------- :)
+
 
 declare copy-namespaces no-preserve, no-inherit;
 
@@ -15,6 +20,7 @@ declare namespace xproc = "http://xproc.net/xproc";
 import module namespace u = "http://xproc.net/xproc/util";
 import module namespace const = "http://xproc.net/xproc/const";
 
+(: -------------------------------------------------------------------------- :)
 
 (: Module Vars :)
 declare variable $opt:exec := util:function(xs:QName("opt:exec"), 3);

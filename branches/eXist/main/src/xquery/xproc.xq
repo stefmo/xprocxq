@@ -1,14 +1,18 @@
 xquery version "1.0" encoding "UTF-8";
+(: ------------------------------------------------------------------------------------- 
+
+	xproc.xq - entry point for command-line invocation.
+
+---------------------------------------------------------------------------------------- :)
 
 declare copy-namespaces no-preserve, no-inherit;
+declare base-uri "file:///Users/jimfuller/Source/Webcomposite/xprocxq/main/";
 
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace fn ="http://www.w3.org/TR/xpath-functions/";
-
-declare base-uri "file:///Users/jimfuller/Source/Webcomposite/xprocxq/main/";
 
 (: Module Imports :)
 import module namespace const = "http://xproc.net/xproc/const";
@@ -19,29 +23,23 @@ import module namespace opt = "http://xproc.net/xproc/opt";
 import module namespace ext = "http://xproc.net/xproc/ext";
 import module namespace comp = "http://xproc.net/xproc/comp";
 
+(: -------------------------------------------------------------------------- :)
+
 (: Module Vars :)
-
-
 declare variable $flag external;
-
 declare variable $xproc as item() external;
-
 declare variable $stdin as item() external;
-
 declare variable $bindings as xs:string external;
 declare variable $_bindings := if ($bindings) then $bindings else ();
-
 declare variable $options as xs:string external;
-
 declare variable $dflag as item() external;
-
 declare variable $tflag as item() external;
-
 declare variable $oval as item() external;
-
 declare variable $ival as item() external;
 
-(: will have to refactor stdin versus stdin2 at some point :)
+(: -------------------------------------------------------------------------- :)
+
+(: TODO:  will have to refactor stdin versus stdin2 at some point :)
 declare variable $stdin2 := document{.};
 
 (: -------------------------------------------------------------------------- :)

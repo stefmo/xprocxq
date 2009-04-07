@@ -1,6 +1,12 @@
 xquery version "1.0" encoding "UTF-8"; 
 module namespace xproc = "http://xproc.net/xproc";
-(: -------------------------------------------------------------------------- :)
+(: ------------------------------------------------------------------------------------- 
+ 
+	xproc.xqm - core xqm containing entry points, primary eval-step function and
+	control functions.
+	
+---------------------------------------------------------------------------------------- :)
+
 declare copy-namespaces no-preserve, no-inherit;
 
 (: XProc Namespace Declaration :)
@@ -17,32 +23,6 @@ import module namespace std = "http://xproc.net/xproc/std";
 import module namespace ext = "http://xproc.net/xproc/ext";
 import module namespace comp = "http://xproc.net/xproc/comp";
 import module namespace naming = "http://xproc.net/xproc/naming";
-
-
-
-                (: --------------------------------------------------------------------------- :)
-                                                                            (: XPROC UTILITIES :)
-                (: --------------------------------------------------------------------------- :)
-
-
-declare function xproc:uniqueid($unique_id,$count){
-    concat($unique_id,'.',$count)
-};
-
-(: -------------------------------------------------------------------------- :)
-(: checks to see if this component exists :)
-(: -------------------------------------------------------------------------- :)
-declare function xproc:comp-available($compname as xs:string) as xs:boolean {
-        exists(xproc:get-comp($compname))
-};
-
-
-(: -------------------------------------------------------------------------- :)
-(: returns comp from comp definitions :)
-(: -------------------------------------------------------------------------- :)
-declare function xproc:get-comp($compname as xs:string) {
-    $const:comp-steps//xproc:element[@type=$compname]
-};
 
 
 (: -------------------------------------------------------------------------- :)
@@ -86,10 +66,13 @@ declare function xproc:type($stepname as xs:string,$is_declare-step) as xs:strin
           u:staticError('err:XS0044', concat($stepname,":",$stepname,' has no visible declaration'))
 };
 
+
+
                 (: --------------------------------------------------------------------------- :)
                                                                         (: PREPARSE II ROUTINES:)
                 (: --------------------------------------------------------------------------- :)
 
+(: TODO - this section will be refactored into binding.xqm:)
 
 declare function xproc:generate-explicit-input($step,$count,$xproc,$unique_before){
 
@@ -101,23 +84,24 @@ for $input in $step/p:input
             element {node-name($input)}{
 
                 attribute port{$input/@port},
-                attribute primary{if ($input/@primary eq '') then 'true' else $input/@primary},
-                attribute select{if($input/@select eq '') then string('/') else $input/@select},
+                attribute primary{if (empty($input/@primary)) then 'true' else $input/@primary},
+                attribute select{if(empty($input/@select)) then string('/') else $input/@select},
                 if ($input/p:document or $input/p:inline or $input/p:empty or $input/p:data) then
                     $input/*
+				else if($input/@primary eq 'false') then
+					$input/*
                 else
-
                     if(name($step)="ext:pre" or name($step)="ext:post" ) then
                         $input/*
                     else
 					let $l_count := $count - 1
 					return
                          <p:pipe step="{
-										if (empty($xproc/*[$l_count]/@name)) then
+										if ($xproc/*[$l_count]/@name eq '') then
 											$unique_before
 										else
 											$xproc/*[$l_count]/@name}"
-								 port="{$xproc/*[$l_count]/p:output[@primary='true'][1]/@port}"/>
+								 port="{$xproc/*[$l_count]/p:output[@primary='true']/@port}"/>
            		}
 };
 
@@ -139,7 +123,7 @@ declare function xproc:generate-explicit-options($step){
 declare function xproc:generate-step-binding($step,$xproc,$count,$stepname,$is_declare-step,$unique_id,$unique_before){
 
             element {node-name($step)} {
-                attribute name{if($step/@name eq '') then $unique_id else $step/@name},
+                attribute name{ if($step/@name eq '') then $unique_id else $step/@name},
                 attribute xproc:defaultname{$unique_id},
                 attribute xproc:type{xproc:type($stepname,$is_declare-step)},
                 attribute 
@@ -183,28 +167,26 @@ let $explicitbindings := document {
 
         let $stepname := name($step)
 
-        let $unique_before := xproc:uniqueid($unique_id,$count - 1)
-        let $unique_current := xproc:uniqueid($unique_id,$count)
-        let $unique_after := xproc:uniqueid($unique_id,$count + 1)
+        let $unique_before := u:uniqueid($unique_id,$count - 1)
+        let $unique_current := u:uniqueid($unique_id,$count)
+        let $unique_after := u:uniqueid($unique_id,$count + 1)
 
-        let $is_declare-step := $xproc/p:declare-step[@type=$stepname]
+        let $is_declare-step := $xproc//p:declare-step[@type=$stepname]
         let $is_step := xproc:get-step($stepname,$is_declare-step)
-        let $is_component := xproc:get-comp($stepname)
+        let $is_component := u:get-comp($stepname)
 
           return
 
             if ($is_declare-step) then
-                    <test type="declare-step" name="{$stepname}"/>
-(:              xproc:generate-declare-step-binding($step,$is_declare-step)
-:)
-            else if($is_step) then
+				xproc:generate-declare-step-binding($step,$is_declare-step)
 
+            else if($is_step) then
 xproc:generate-step-binding($step,$xproc,$count,$stepname,$is_declare-step,$unique_current,$unique_before)
 
              else if ($is_component) then
                 xproc:generate-component-binding($step,$stepname,$is_declare-step,$unique_current)
             else
-                u:staticError('err:XS0044', concat("static error during explicit binding pass:",$stepname,$step/@name))
+                u:staticError('err:XS0044', concat("static error during explicit binding pass:",$stepname,$step/@name,$is_declare-step,$is_step,$is_component))
     }
 
     return
@@ -219,6 +201,13 @@ xproc:generate-step-binding($step,$xproc,$count,$stepname,$is_declare-step,$uniq
                 {$explicitbindings}
             </p:declare-step>
 };
+
+
+
+
+
+
+
 
                 (: -------------------------------------------------------------------------- :)
                                                                               (: EVAL ROUTINES:)
@@ -490,6 +479,7 @@ let $output := subsequence($result,2)
            ($output/.)[last()]/node()
 };
 
+
                 (: --------------------------------------------------------------------------- :)
                                                                               (: ENTRY POINT   :)
                 (: --------------------------------------------------------------------------- :)
@@ -511,7 +501,6 @@ return
 (: -------------------------------------------------------------------------- :)
 declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options){
 
-    let $start-time := u:timing()
 
     (: STEP I: generate parse tree :)
     let $preparse-naming := naming:explicitnames(naming:fixup($pipeline,$stdin))
@@ -522,8 +511,6 @@ declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options){
 
     (: STEP III: serialize and return results :)
     let $serialized_result := xproc:output($eval_result,$dflag)
-
-    let $end-time := u:timing()
 
     let $internaldbg := 0
 
@@ -546,7 +533,7 @@ declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options){
          if ($tflag="1") then
                 document
                    {
-                    <xproc:result xproc:timing="{$end-time - $start-time}ms" xproc:ts="{current-dateTime()}">
+                    <xproc:result xproc:timing="disabled" xproc:ts="{current-dateTime()}">
                         {
                          $serialized_result
                         }

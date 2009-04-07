@@ -1,6 +1,11 @@
 xquery version "1.0" encoding "UTF-8"; 
 module namespace naming = "http://xproc.net/xproc/naming";
-(: -------------------------------------------------------------------------- :)
+(: ------------------------------------------------------------------------------------ 
+ 
+	naming.xqm - manages the first pass parsing of xproc pipeline, providing the output 
+	in topological order and cross referencing step with defined functional signatures.
+
+---------------------------------------------------------------------------------------- :)
 
 declare copy-namespaces no-preserve, no-inherit;
 
@@ -18,29 +23,6 @@ import module namespace std = "http://xproc.net/xproc/std";
 import module namespace opt = "http://xproc.net/xproc/opt";
 import module namespace ext = "http://xproc.net/xproc/ext";
 import module namespace comp = "http://xproc.net/xproc/comp";
-
-
-(: -------------------------------------------------------------------------- :)
-(: generate unique id :)
-(: -------------------------------------------------------------------------- :)
-declare function naming:uniqueid($unique_id,$count){
-    concat($unique_id,'.',$count)
-};
-
-(: -------------------------------------------------------------------------- :)
-(: checks to see if this component exists :)
-(: -------------------------------------------------------------------------- :)
-declare function naming:comp-available($compname as xs:string) as xs:boolean {
-        exists(naming:get-comp($compname))
-};
-
-
-(: -------------------------------------------------------------------------- :)
-(: returns comp from comp definitions :)
-(: -------------------------------------------------------------------------- :)
-declare function naming:get-comp($compname as xs:string) {
-    $const:comp-steps/xproc:element[@type=$compname]
-};
 
 
 (: -------------------------------------------------------------------------- :)
@@ -215,7 +197,7 @@ else
 
             let $is_declare-step := $xproc/p:declare-step[@type=$stepname]
             let $is_step := naming:get-step($stepname,$is_declare-step)
-            let $is_component := naming:get-comp($stepname)
+            let $is_component := u:get-comp($stepname)
 
             return
                if ($is_declare-step) then

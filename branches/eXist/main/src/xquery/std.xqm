@@ -1,6 +1,10 @@
 xquery version "1.0" encoding "UTF-8";
 module namespace std = "http://xproc.net/xproc/std";
-(: -------------------------------------------------------------------------- :)
+(: ------------------------------------------------------------------------------------- 
+
+	std.xqm - Implements all standard xproc steps.
+	
+---------------------------------------------------------------------------------------- :)
 
 declare copy-namespaces no-preserve, no-inherit;
 
@@ -17,6 +21,8 @@ declare namespace saxon = "http://dummy.org";
 (: Module Imports :)
 import module namespace u = "http://xproc.net/xproc/util";
 
+
+(: -------------------------------------------------------------------------- :)
 
 (: Module Vars :)
 declare variable $std:add-attribute :=util:function(xs:QName("std:add-attribute"), 3);
