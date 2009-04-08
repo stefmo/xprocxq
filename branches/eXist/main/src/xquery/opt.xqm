@@ -37,18 +37,7 @@ declare variable $opt:xsl-formatter :=util:function(xs:QName("opt:xsl-formatter"
 
 
 
-(: -------------------------------------------------------------------------- :)
-declare function opt:xquery($primary,$secondary,$options) {
 
-u:assert(exists($secondary/xproc:input[@port='query']/c:query),'p:input query is required'),
-(:TODO: need to sort out multiple c:query elements :)
-
-    let $xquery := $secondary/xproc:input[@port='query']/c:query/.
-    let $xqueryfunc := concat($const:alt-imports,$xquery)
-    let $result := data(u:xquery($xqueryfunc))
-        return
-            u:outputResultElement($result)
-};
 
 (: -------------------------------------------------------------------------- :)
 declare function opt:exec($primary,$secondary,$options) {
@@ -93,6 +82,19 @@ declare function opt:validate-with-relax-ng($primary,$secondary,$options) {
 (: -------------------------------------------------------------------------- :)
 declare function opt:xsl-formatter($primary,$secondary,$options) {
  $primary
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function opt:xquery($primary,$secondary,$options) {
+
+u:assert(exists($secondary/xproc:input[@port='query']/c:query),'p:input query is required'),
+(:TODO: need to sort out multiple c:query elements :)
+
+    let $xquery := $secondary/xproc:input[@port='query']/c:query/.
+    let $xqueryfunc := concat($const:alt-imports,$xquery)
+    let $result := u:xquery($xqueryfunc)
+        return
+            u:outputResultElement($result)
 };
 
 (: -------------------------------------------------------------------------- :)

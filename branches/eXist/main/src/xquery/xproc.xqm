@@ -24,6 +24,7 @@ import module namespace ext = "http://xproc.net/xproc/ext";
 import module namespace comp = "http://xproc.net/xproc/comp";
 import module namespace naming = "http://xproc.net/xproc/naming";
 
+declare variable $xproc:run-step := util:function(xs:QName("xproc:run-step"), 3);
 
 (: -------------------------------------------------------------------------- :)
 (: returns step from std, opt and ext step definitions :)
@@ -120,9 +121,9 @@ declare function xproc:generate-explicit-options($step){
 };
 
 
-declare function xproc:generate-step-binding($step,$xproc,$count,$stepname,$is_declare-step,$unique_id,$unique_before){
+declare function xproc:generate-step-binding($step,$xproc,$count,$stepname,$is_declare-step,$unique_id,$unique_before,$allstep){
 
-            element {node-name($step)} {
+            element {if (empty($allstep/@xproc:use-function)) then node-name($step) else $allstep/@xproc:use-function} {
                 attribute name{ if($step/@name eq '') then $unique_id else $step/@name},
                 attribute xproc:defaultname{$unique_id},
                 attribute xproc:type{xproc:type($stepname,$is_declare-step)},
@@ -181,7 +182,7 @@ let $explicitbindings := document {
 				xproc:generate-declare-step-binding($step,$is_declare-step)
 
             else if($is_step) then
-xproc:generate-step-binding($step,$xproc,$count,$stepname,$is_declare-step,$unique_current,$unique_before)
+xproc:generate-step-binding($step,$xproc,$count,$stepname,$is_declare-step,$unique_current,$unique_before,$is_step)
 
              else if ($is_component) then
                 xproc:generate-component-binding($step,$stepname,$is_declare-step,$unique_current)

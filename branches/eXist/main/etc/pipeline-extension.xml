@@ -27,7 +27,7 @@
         <p:input port="input" primary="true"/>
     </p:declare-step>
 
-    <p:declare-step type="ext:xproc">
+    <p:declare-step type="ext:xproc" xproc:use-function="xproc:run-step">
         <p:input port="source" primary="true" select="/"/>
         <p:input port="pipeline" primary="false" select="/"/>
         <p:output port="result" primary="true"/>

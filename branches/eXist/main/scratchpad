@@ -1,43 +1,4 @@
 ----------------------------------------
-exist migration
-----------------------------------------
-
-* statically load modules to conf.xml
-<module src="resource:net/xproc/xprocxq/src/xquery/xproc.xqm"                                             
-     uri="http://xproc.net/xproc"/>                                                                                                                                                                                 
-<module src="resource:net/xproc/xprocxq/src/xquery/util.xqm"                                                  uri="http://xproc.net/xproc/util"/>                                                                                                                                                                            
-<module src="resource:net/xproc/xprocxq/src/xquery/const.xqm"                                            
-     uri="http://xproc.net/xproc/const"/>                                                                                                                                                                           
-<module src="resource:net/xproc/xprocxq/src/xquery/functions.xqm"                                         
-     uri="http://xproc.net/xproc/functions"/>                                                                                                                                                                       
-<module src="resource:net/xproc/xprocxq/src/xquery/functions.xqm"                                         
-     uri="http://xproc.net/xproc/functions"/>                                                                                                                                                                      
-<module src="resource:net/xproc/xprocxq/src/xquery/std.xqm"                                               
-     uri="http://xproc.net/xproc/std"/>                                                                                                                                                                             
-<module src="resource:net/xproc/xprocxq/src/xquery/ext.xqm"                                               
-     uri="http://xproc.net/xproc/ext"/>                                                                                                                                                                             
-<module src="resource:net/xproc/xprocxq/src/xquery/opt.xqm"                                               
-     uri="http://xproc.net/xproc/opt"/>                                                                                                                                                                             
-<module src="resource:net/xproc/xprocxq/src/xquery/comp.xqm"                                              
-     uri="http://xproc.net/xproc/comp"/>
-
-* replace saxon:function with util:function
-* replace saxon:call with util:call
-
-* u:random
-* u:xquery
-* u:parse-string
-* u:eval
-* u:xslt
-* u:serialize
-* u:unparsed-data
-
-* $const:default-imports
-* $opt:default-imports
-
-* check that util:function 1st arg is a qname ala xs:QName("string value")
-
-----------------------------------------
 general
 ----------------------------------------
 p:choose
@@ -75,3 +36,42 @@ Limitations/Differences
 * premium would be large
 * care costs is largest liability
 * would there have been a point in the future to provide care
+
+----------------------------------------
+exist migration
+----------------------------------------
+
+* statically load modules to conf.xml
+<module src="resource:net/xproc/xprocxq/src/xquery/xproc.xqm"                                             
+     uri="http://xproc.net/xproc"/>                                                                                                                                                                                 
+<module src="resource:net/xproc/xprocxq/src/xquery/util.xqm"                                                  uri="http://xproc.net/xproc/util"/>                                                                                                                                                                            
+<module src="resource:net/xproc/xprocxq/src/xquery/const.xqm"                                            
+     uri="http://xproc.net/xproc/const"/>                                                                                                                                                                           
+<module src="resource:net/xproc/xprocxq/src/xquery/functions.xqm"                                         
+     uri="http://xproc.net/xproc/functions"/>                                                                                                                                                                       
+<module src="resource:net/xproc/xprocxq/src/xquery/functions.xqm"                                         
+     uri="http://xproc.net/xproc/functions"/>                                                                                                                                                                      
+<module src="resource:net/xproc/xprocxq/src/xquery/std.xqm"                                               
+     uri="http://xproc.net/xproc/std"/>                                                                                                                                                                             
+<module src="resource:net/xproc/xprocxq/src/xquery/ext.xqm"                                               
+     uri="http://xproc.net/xproc/ext"/>                                                                                                                                                                             
+<module src="resource:net/xproc/xprocxq/src/xquery/opt.xqm"                                               
+     uri="http://xproc.net/xproc/opt"/>                                                                                                                                                                             
+<module src="resource:net/xproc/xprocxq/src/xquery/comp.xqm"                                              
+     uri="http://xproc.net/xproc/comp"/>
+
+* replace saxon:function with util:function
+* replace saxon:call with util:call
+
+* u:random
+* u:xquery
+* u:parse-string
+* u:eval
+* u:xslt
+* u:serialize
+* u:unparsed-data
+
+* $const:default-imports
+* $opt:default-imports
+
+* check that util:function 1st arg is a qname ala xs:QName("string value")

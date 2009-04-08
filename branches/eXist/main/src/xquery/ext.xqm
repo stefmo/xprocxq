@@ -21,10 +21,12 @@ import module namespace u = "http://xproc.net/xproc/util";
 (: -------------------------------------------------------------------------- :)
 
 (: Module Vars :)
-declare variable $ext:pre :=util:function(xs:QName("ext:pre"), 3);
-declare variable $ext:post :=util:function(xs:QName("ext:post"), 3);
-declare variable $ext:test :=util:function(xs:QName("ext:test"), 3);
-declare variable $ext:step :=util:function(xs:QName("ext:step"), 3);
+declare variable $ext:pre := util:function(xs:QName("ext:pre"), 3);
+declare variable $ext:post := util:function(xs:QName("ext:post"), 3);
+declare variable $ext:test := util:function(xs:QName("ext:test"), 3);
+declare variable $ext:step := util:function(xs:QName("ext:step"), 3);
+declare variable $ext:xproc := util:function(xs:QName("ext:xproc"), 3);
+
 
 (: -------------------------------------------------------------------------- :)
 declare function ext:pre($primary,$secondary,$options){
@@ -37,6 +39,9 @@ declare function ext:post($primary,$secondary,$options){
     $primary
 };
 declare function ext:test($primary,$secondary,$options){
+    $primary
+};
+declare function ext:xproc($primary,$secondary,$options){
     $primary
 };
 (: -------------------------------------------------------------------------- :)
