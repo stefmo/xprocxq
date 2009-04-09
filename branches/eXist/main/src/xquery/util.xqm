@@ -313,10 +313,14 @@ declare function u:treewalker-add-attribute($element as element(),$match,$attrNa
       }
 };
 
-
-(: -------------------------------------------------------------------------- :)
-declare function u:remove-elements(){
-	<test/>
+declare function u:copy-filter-elements($element as element(), $element-name as xs:string*) as element() {
+   element {node-name($element) }
+             { $element/@*,
+               for $child in $element/node()[not(name(.)=$element-name)]
+                  return if ($child instance of element())
+                    then u:copy-filter-elements($child,$element-name)
+                    else $child
+           }
 };
 
 

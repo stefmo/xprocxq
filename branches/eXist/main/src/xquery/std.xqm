@@ -111,9 +111,9 @@ declare function std:compare($primary,$secondary,$options) {
 let $v := $primary/*[1]
 let $alternate := $secondary/xproc:input[@port='alternate']/*
 let $result := deep-equal($primary/*[1],$secondary/xproc:input[@port='alternate']/*)
-let $fail-if-not-equal := u:boolean(u:get-option('fail-if-not-equal',$options,$v))
+let $fail-if-not-equal := u:get-option('fail-if-not-equal',$options,$v)
     return
-       if($fail-if-not-equal eq true()) then
+       if($fail-if-not-equal eq 'true') then
             if ( $result eq true())then
                 u:outputResultElement($result)
             else
@@ -148,13 +148,9 @@ declare function std:declare-step($primary,$secondary,$options) {
 
 (: -------------------------------------------------------------------------- :)
 declare function std:delete($primary,$secondary,$options){
-
 let $match := u:get-option('match',$options,$primary)
 return
-	<test/>
-	(:
-    u:remove-elements($primary/*[1],$match)
-:)
+	u:copy-filter-elements($primary/*, $match)
 };
 
 
