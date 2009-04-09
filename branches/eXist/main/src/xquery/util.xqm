@@ -266,11 +266,11 @@ else
 (: -------------------------------------------------------------------------- :)
 declare function u:get-option($option-name as xs:string,$options,$v){
 
-let $option := $options/p:with-option[@name=$option-name]/@select
+let $option := xs:string($options//*[@name='limit']/@select)
 return
     if (empty($option)) then
         ()
-    else if(matches($option,"^'") and matches($option,"$'")) then
+    else if(contains($option,"'")) then
         string(replace($option,"'",""))
     else
         string(u:evalXPATH(string($option),$v))

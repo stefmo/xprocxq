@@ -131,21 +131,10 @@ let $limit := xs:integer(u:get-option('limit',$options,$v))
 let $count := count($v/*)
 return
 
-    if (empty($limit) or $limit=0) then
-       u:outputResultElement(
-        $count
-       )
-    else if ($count < $limit) then
-       u:outputResultElement(
-       $count
-       )
-    else if ($count = $limit) then
-       u:outputResultElement(
-       $count
-       )
+    if (empty($limit) or $limit eq 0 or $count lt $limit ) then
+		u:outputResultElement($count)
     else
-        u:stepError('err:XC0016','')
-
+   		u:outputResultElement($limit)
 };
 
 
