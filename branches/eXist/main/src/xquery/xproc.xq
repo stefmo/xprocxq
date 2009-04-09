@@ -37,6 +37,7 @@ declare variable $tflag as item() external;
 declare variable $oval as item() external;
 declare variable $ival as item() external;
 
+
 (: -------------------------------------------------------------------------- :)
 
 (: TODO:  will have to refactor stdin versus stdin2 at some point :)

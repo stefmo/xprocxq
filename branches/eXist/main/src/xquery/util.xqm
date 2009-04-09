@@ -423,21 +423,6 @@ declare function u:printstep ($step,$meta,$value) {
 
 (: -------------------------------------------------------------------------- :)
 
-declare function u:pipeline-step-sort($unsorted, $sorted, $pipelinename )  {
-    if (empty($unsorted)) then
-        $sorted
-    else
-        let $allnodes := $unsorted [ every $id in p:input[@primary="true"]/p:pipe/@step
-                                            satisfies ($id = $sorted/@name or $id=$pipelinename)]
-    return
-        if ($allnodes) then
-            u:pipeline-step-sort( $unsorted except $allnodes, ($sorted, $allnodes ),$pipelinename)
-        else
-            ()
-};
-
-(: -------------------------------------------------------------------------- :)
-
 declare function u:strip-namespace($e as element()) as element() {
   
    element {QName((),local-name($e))} {

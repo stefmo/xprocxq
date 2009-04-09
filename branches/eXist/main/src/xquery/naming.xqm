@@ -184,6 +184,20 @@ declare function naming:generate-component($xproc,$allcomp,$step,$stepname){
 };
 
 
+declare function naming:pipeline-step-sort($unsorted, $sorted, $pipelinename )  {
+    if (empty($unsorted)) then
+        $sorted
+    else
+        let $allnodes := $unsorted [ every $id in p:input[@primary eq 'true']/p:pipe/@step
+                                            satisfies ($id = $sorted/@name or $id=$pipelinename)]
+    return
+        if ($allnodes) then
+            naming:pipeline-step-sort( $unsorted except $allnodes, ($sorted, $allnodes ),$pipelinename)
+        else
+            ()
+};
+
+
 declare function naming:explicitnames($xproc as item()){
 
 if(empty($xproc/*)) then
@@ -213,11 +227,11 @@ else
                     u:staticError('err:XS0044', concat("static error during explicit naming pass:  ",$stepname,":",$step/@name,u:serialize($step,$const:TRACE_SERIALIZE)))
     return
         if(empty($pipelinename))then
-            u:pipeline-step-sort($explicitnames,(),$pipelinename)
+            naming:pipeline-step-sort($explicitnames,(),$pipelinename)
         else
             <p:declare-step name="{$pipelinename}">
                 {
-                    u:pipeline-step-sort($explicitnames,(),$pipelinename)
+                    naming:pipeline-step-sort($explicitnames,(),$pipelinename)
                 }
                 <ext:post name="{$pipelinename}!">
                     <p:input port="source" primary="true"/>
@@ -225,7 +239,7 @@ else
                 </ext:post>
             </p:declare-step>
 };
-
+Å
 
 
 
