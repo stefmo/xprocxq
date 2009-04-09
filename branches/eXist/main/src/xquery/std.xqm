@@ -111,15 +111,16 @@ declare function std:compare($primary,$secondary,$options) {
 let $v := $primary/*[1]
 let $alternate := $secondary/xproc:input[@port='alternate']/*
 let $result := deep-equal($primary/*[1],$secondary/xproc:input[@port='alternate']/*)
-let $fail-if-not-equal := u:get-option('fail-if-not-equal',$options,$v)
+let $fail-if-not-equal := xs:boolean(u:get-option('fail-if-not-equal',$options,$v))
     return
-       if($fail-if-not-equal eq 'true') then
-            if ( $result eq true())then
-                u:outputResultElement($result)
+
+       if($fail-if-not-equal) then
+            if ($result) then          
+      			u:outputResultElement('true')
             else
                 u:stepError('err:XC0019','p:compare fail-if-not-equal option is enabled and documents were not equal')
         else
-            u:outputResultElement($result)
+            u:outputResultElement('false')
 };
 
 

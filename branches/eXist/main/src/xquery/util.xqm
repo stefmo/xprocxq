@@ -186,19 +186,19 @@ return
 declare function u:dynamicError($error,$string) {
     let $info := $const:error//error[@code=substring-after($error,':')]
     return
-        error(QName('http://www.w3.org/ns/xproc-error',$error),concat("XProc Dynamic Error: ",$string," ",$info/text()))
+        error(QName('http://www.w3.org/ns/xproc-error',$error),concat($error,": XProc Dynamic Error - ",$string," ",$info/text()))
 };
 
 declare function u:staticError($error,$string) {
     let $info := $const:error//error[@code=substring-after($error,':')]
     return
-        error(QName('http://www.w3.org/ns/xproc-error',$error),concat("XProc Static Error: ",$string," ",$info/text()))
+        error(QName('http://www.w3.org/ns/xproc-error',$error),concat($error,": XProc Static Error - ",$string," ",$info/text()))
 };
 
 declare function u:stepError($error,$string) {
     let $info := $const:error//error[@code=substring-after($error,':')]
     return
-        error(QName('http://www.w3.org/ns/xproc-error',$error),concat("XProc Step Error: ",$string," ",$info/text()))
+        error(QName('http://www.w3.org/ns/xproc-error',$error),concat($error,": XProc Step Error - ",$string," ",$info/text()))
 };
 
 
@@ -266,7 +266,7 @@ else
 (: -------------------------------------------------------------------------- :)
 declare function u:get-option($option-name as xs:string,$options,$v){
 
-let $option := xs:string($options//*[@name='limit']/@select)
+let $option := xs:string($options//*[@name=$option-name]/@select)
 return
     if (empty($option)) then
         ()
