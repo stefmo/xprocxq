@@ -5,7 +5,6 @@ p:choose
 
 * each subpipeline must have the same output signature
 
-
 ISSUE
 * declare-steps needs refactoring in parsing and execution
 * components/multi-container steps needs implementation (p:group,p:choose,p:for-each)
@@ -17,7 +16,8 @@ ISSUE
     - xquery->p:choose->xquery
     - xslt -> xslfo -> pdf
 * create namespace module to manage namespace fixups 
-* represent sequences as t:document in count-001.xml in testing suite ?
+* testsuite represents sequences as t:document in count-001.xml in testing suite ?
+
 
 Limitations/Differences
 * p:xquery currently uses a c:result element to output
@@ -27,6 +27,8 @@ Limitations/Differences
 * cant pass required/add-attribute--002.xml test depends on namespace handling module to be finished
 
 --------------------------------------------------------------------------------------
+
+
 
 
 ----------------------------------------

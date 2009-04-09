@@ -48,7 +48,7 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
     <!-- ===================================================== -->
     <target name="generate.loc" description="generates XQuery LOC">
         <delete file="LOC"/>
-        <exec executable="/usr/bin/wc" input="src/xquery/*.*" output="LOC">
+        <exec executable="/usr/bin/wc" input="src/xquery/*" output="LOC">
             <arg line="-l"/>
         </exec>
     </target>
