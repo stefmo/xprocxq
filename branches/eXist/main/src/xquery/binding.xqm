@@ -24,7 +24,6 @@ import module namespace u = "http://xproc.net/xproc/util";
 import module namespace std = "http://xproc.net/xproc/std";
 import module namespace opt = "http://xproc.net/xproc/opt";
 import module namespace ext = "http://xproc.net/xproc/ext";
-import module namespace comp = "http://xproc.net/xproc/comp";
 
 
 (: -------------------------------------------------------------------------- :)
