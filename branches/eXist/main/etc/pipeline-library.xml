@@ -22,7 +22,7 @@
    <p:declare-step type="p:count" xml:id="count">
       <p:input port="source" sequence="true"/>
       <p:output port="result"/>
-      <p:option name="limit" select="0"/>
+      <p:option name="limit" select="'0'"/>
    </p:declare-step>
    <p:declare-step type="p:delete" xml:id="delete">
       <p:input port="source"/>

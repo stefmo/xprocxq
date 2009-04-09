@@ -248,7 +248,7 @@ declare function u:function($func,$arity){
 
 (: -------------------------------------------------------------------------- :)
 (: TODO - need to refactor for eXist :)
-declare function u:evalXPATH($xpathstring as xs:string, $xml){
+declare function u:evalXPATH($xpathstring, $xml){
 
 if(empty($xpathstring) or $xpathstring eq '/') then
 	$xml
@@ -262,8 +262,12 @@ else
 			u:dynamicError('err:XD0016','')
 };
 
+
 (: -------------------------------------------------------------------------- :)
-declare function u:get-option($option,$v){
+declare function u:get-option($option-name as xs:string,$options,$v){
+
+let $option := $options/p:with-option[@name=$option-name]/@select
+return
     if (empty($option)) then
         ()
     else if(matches($option,"^'") and matches($option,"$'")) then

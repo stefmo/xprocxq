@@ -64,9 +64,9 @@ declare function std:add-attribute($primary,$secondary,$options) {
 (: TODO: need to refactor match attribute :)
 
 let $v := $primary/*[1]
-let $match := u:get-option($options/p:with-option[@name='match']/@select,$primary/*)
-let $attrName := u:get-option($options/p:with-option[@name='attribute-name']/@select,$primary/*)
-let $attrValue := u:get-option($options/p:with-option[@name='attribute-value']/@select,$primary/*)
+let $match := u:get-option('match',$options,$primary/*)
+let $attrName := u:get-option('attribute-name',$options,$primary/*)
+let $attrValue := u:get-option('attribute-value',$options,$primary/*)
 return
     u:treewalker-add-attribute($v,$match,$attrName,$attrValue)
 };
@@ -77,8 +77,8 @@ declare function std:add-xml-base($primary,$secondary,$options) {
 
 (: TODO: need to refactor to pass in pipeline uri and any external input uri :)
 
-let $all := xs:boolean(u:get-option($options/p:with-option[@name='all']/@select,$primary))
-let $relative := xs:boolean(u:get-option($options/p:with-option[@name='relative']/@select,$primary))
+let $all := xs:boolean(u:get-option('all',$options,$primary))
+let $relative := xs:boolean(u:get-option('relative',$options,$primary))
 let $attrNames := xs:QName('xml:base')
 let $attrValues := base-uri($primary[1]) 
 
@@ -111,7 +111,7 @@ declare function std:compare($primary,$secondary,$options) {
 let $v := $primary/*[1]
 let $alternate := $secondary/xproc:input[@port='alternate']/*
 let $result := deep-equal($primary/*[1],$secondary/xproc:input[@port='alternate']/*)
-let $fail-if-not-equal := u:boolean($options/p:with-option[@name='fail-if-not-equal']/@select)
+let $fail-if-not-equal := u:boolean(u:get-option('fail-if-not-equal',$options,$v))
     return
        if($fail-if-not-equal eq true()) then
             if ( $result eq true())then
@@ -127,9 +127,10 @@ let $fail-if-not-equal := u:boolean($options/p:with-option[@name='fail-if-not-eq
 declare function std:count($primary,$secondary,$options){
 
 let $v := document{$primary}
-let $limit := xs:integer(u:get-option($options/p:with-option[@name='limit']/@select,$v))
+let $limit := xs:integer(u:get-option('limit',$options,$v))
 let $count := count($v/*)
 return
+
     if (empty($limit) or $limit=0) then
        u:outputResultElement(
         $count
@@ -144,6 +145,7 @@ return
        )
     else
         u:stepError('err:XC0016','')
+
 };
 
 
@@ -158,7 +160,7 @@ declare function std:declare-step($primary,$secondary,$options) {
 (: -------------------------------------------------------------------------- :)
 declare function std:delete($primary,$secondary,$options){
 
-let $match := u:get-option($options/p:with-option[@name='match']/@select,$primary)
+let $match := u:get-option('match',$options,$primary)
 return
 	<test/>
 	(:
@@ -212,7 +214,7 @@ declare function std:filter($primary,$secondary,$options) {
 u:assert(exists($options/p:with-option[@name='select']/@select),'p:with-option match is required'),
 
 let $v :=document{$primary/*[1]}
-let $xpath := u:get-option($options/p:with-option[@name='select']/@select,$v)
+let $xpath := u:get-option('select',$options,$v)
 let $result := u:evalXPATH(string($xpath),$v)
     return
         if(exists($result)) then
@@ -344,8 +346,8 @@ u:assert(exists($options/p:with-option[@name='match']/@select),'p:with-option ma
 u:assert(exists($options/p:with-option[@name='wrapper']/@select),'p:with-option wrapper is required'),
 
     let $v :=document{$primary/*[1]}
-    let $wrapper := u:get-option($options/p:with-option[@name='wrapper']/@select,$v)
-    let $match := u:get-option($options/p:with-option[@name='match']/@select,$v)
+    let $wrapper := u:get-option('wrapper',$options,$v)
+    let $match := u:get-option('match',$options,$v)
     let $replace := u:evalXPATH($match,$v)
 
     return
@@ -373,7 +375,7 @@ u:assert(exists($options/p:with-option[@name='match']/@select),'p:with-option ma
 (: TODO - The value of the match option must be an XSLTMatchPattern. It is a dynamic error (err:XC0023)
 if that pattern matches anything other than element nodes. :)
 let $v :=document{$primary/*[1]}
-let $match := u:get-option($options/p:with-option[@name='match']/@select,$v)
+let $match := u:get-option('match',$options,$v)
     return
          u:evalXPATH($match,$v)
 };

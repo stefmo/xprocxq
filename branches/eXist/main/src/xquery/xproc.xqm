@@ -261,6 +261,7 @@ declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentste
 
 
 (:---------------------------------------------------------------------------:)
+
 declare function xproc:eval-primary($pipeline,$step,$currentstep,$primaryinput,$result){
 
 let $primaryresult := document{
@@ -274,10 +275,10 @@ let $primaryresult := document{
 
     let $select := string(
 
-                    if (empty($currentstep/p:input[@primary='true'][@select]/@select)) then
+                    if (empty($currentstep/p:input[@primary='true']/@select)) then
                         '/'
-                    else if($currentstep/p:input[@primary='true'][@select]/@select) then
-                        string($currentstep/p:input[@primary='true'][@select]/@select)
+                    else if($currentstep/p:input[@primary='true']/@select) then
+                        string($currentstep/p:input[@primary='true']/@select)
                     else
                        '/'
                     )
@@ -302,7 +303,7 @@ declare function xproc:eval-secondary($pipeline,$step,$currentstep,$primaryinput
             for $child in $input/*
             return
                 xproc:resolve-port-binding($child,$result,$pipeline,$currentstep)
-        }
+        		}
 
         let $select := string(
                    if (empty($input/@select)) then
