@@ -30,7 +30,6 @@ declare variable $std:add-xml-base :=util:function(xs:QName("std:add-xml-base"),
 declare variable $std:count :=util:function(xs:QName("std:count"), 3);
 declare variable $std:compare :=util:function(xs:QName("std:compare"),3);
 declare variable $std:delete :=util:function(xs:QName("std:delete"),3);
-declare variable $std:declare-step :=util:function(xs:QName("std:declare-step"), 3);
 declare variable $std:error :=util:function(xs:QName("std:error"), 3);
 declare variable $std:filter :=util:function(xs:QName("std:filter"), 3);
 declare variable $std:directory-list :=util:function(xs:QName("std:directory-list"), 3);
@@ -94,7 +93,7 @@ return
                         $element/@*,
                         $element/node() }
 else
-    for $element in $primary[1]/.
+    for $element in $primary[1]/*
        return element { node-name($element)}
                       { for $attrName at $seq in $attrNames
                         return if ($element/@*[node-name(.) = $attrName])
@@ -110,7 +109,7 @@ else
 declare function std:compare($primary,$secondary,$options) {
 let $v := $primary/*[1]
 let $alternate := $secondary/xproc:input[@port='alternate']/*
-let $result := deep-equal($primary/*[1],$secondary/xproc:input[@port='alternate']/*)
+let $result := deep-equal($v,$secondary/xproc:input[@port='alternate']/*)
 let $fail-if-not-equal := xs:boolean(u:get-option('fail-if-not-equal',$options,$v))
     return
 
@@ -120,7 +119,7 @@ let $fail-if-not-equal := xs:boolean(u:get-option('fail-if-not-equal',$options,$
             else
                 u:stepError('err:XC0019','p:compare fail-if-not-equal option is enabled and documents were not equal')
         else
-            u:outputResultElement('false')
+            u:outputResultElement($result)
 };
 
 
@@ -137,15 +136,6 @@ return
     else
    		u:outputResultElement($limit)
 };
-
-
-
-(: -------------------------------------------------------------------------- :)
-declare function std:declare-step($primary,$secondary,$options) {
-<declare-step-test/>
-
-};
-
 
 (: -------------------------------------------------------------------------- :)
 declare function std:delete($primary,$secondary,$options){

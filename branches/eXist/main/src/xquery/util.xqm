@@ -18,7 +18,6 @@ declare namespace p1="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
-declare namespace comp = "http://xproc.net/xproc/comp";
 declare namespace xproc = "http://xproc.net/xproc";
 declare namespace std = "http://xproc.net/xproc/std";
 declare namespace opt = "http://xproc.net/xproc/opt";
@@ -253,13 +252,27 @@ declare function u:evalXPATH($xpathstring, $xml){
 if(empty($xpathstring) or $xpathstring eq '/') then
 	$xml
 else
-	let $string := concat('$xml',$xpathstring)
-	let $result := util:eval($string)
+	let $query := concat('$xml',$xpathstring)
+	let $result := util:eval($query)
     return
 		if ( $result instance of element() or $result instance of document-node()) then 
 			$result
 		else 
-			u:dynamicError('err:XD0016','')
+			u:dynamicError('err:XD0016',$xpathstring)
+};
+
+
+(: -------------------------------------------------------------------------- :)
+(: TODO - need to refactor for eXist :)
+declare function u:boolean-evalXPATH($xpathstring, $xml){
+
+if(empty($xpathstring) or $xpathstring eq '/') then
+	false()
+else
+	let $query := concat('$xml',$xpathstring)
+	let $result := exists(util:eval-inline($xml,$xpathstring))
+    return
+		$result
 };
 
 

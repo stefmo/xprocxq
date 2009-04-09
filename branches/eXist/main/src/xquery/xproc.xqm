@@ -26,6 +26,30 @@ import module namespace naming = "http://xproc.net/xproc/naming";
 
 declare variable $xproc:run-step := util:function(xs:QName("xproc:run-step"), 3);
 
+declare variable $xproc:declare-step :=util:function(xs:QName("xproc:declare-step"), 4);
+declare variable $xproc:choose :=util:function(xs:QName("xproc:choose"), 4);
+declare variable $xproc:for-each :=util:function(xs:QName("xproc:for-each"), 4);
+
+declare function xproc:declare-step($primary,$secondary,$options,$step) {
+<test/>
+};
+declare function xproc:for-each($primary,$secondary,$options,$step) {
+<test/>
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function xproc:choose($primary,$secondary,$options,$step) {
+    let $v := document{$primary/*[1]}
+    let $when := $step/p:when
+    let $otherwise := $step/p:otherwise
+    let $when_eval := u:boolean-evalXPATH(string($when/@test),$v)
+    return
+        if($when_eval) then
+		  <return_when_true/>
+        else
+		  <return_otherwise_true/>
+};
+
 (: -------------------------------------------------------------------------- :)
 (: returns step from std, opt and ext step definitions :)
 (: -------------------------------------------------------------------------- :)
@@ -60,7 +84,7 @@ declare function xproc:type($stepname as xs:string,$is_declare-step) as xs:strin
         else if($stdstepexists) then
             'std'
         else if($compexists) then
-            'comp'
+            'xproc'
         else if($is_declare-step) then
           string(substring-before($is_declare-step/@type,':'))
         else
@@ -394,10 +418,10 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
                                       select="{$currentstep/p:output[@primary='true']/@select}"
                                       port="{$currentstep/p:output[@primary='true']/@port}"
                                       func="{$stepfuncname}">{
-                                          if(contains($stepfuncname,'comp:')) then
+                                          if(contains($stepfuncname,'xproc:')) then
                                                 u:call(u:xquery($stepfunc),$primary,$secondary,$options,$currentstep)
                                             else
-                                                u:call(u:xquery($stepfunc),$primary,$secondary,$options)
+                                                	u:call(u:xquery($stepfunc),$primary,$secondary,$options)
                                       }
                          </xproc:output>
                      else
@@ -408,7 +432,7 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
                                       port="{$currentstep/p:output[@primary='false']/@port}"
                                       func="{$stepfuncname}">
                                       {
-                                          if(contains($stepfuncname,'comp:')) then
+                                          if(contains($stepfuncname,'xproc:')) then
                                                 u:call(u:xquery($stepfunc),$primary,$secondary,$options,$currentstep)
                                             else
                                                 u:call(u:xquery($stepfunc),$primary,$secondary,$options)
