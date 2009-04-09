@@ -23,15 +23,22 @@ import module namespace std = "http://xproc.net/xproc/std";
 import module namespace ext = "http://xproc.net/xproc/ext";
 import module namespace naming = "http://xproc.net/xproc/naming";
 
+(: -------------------------------------------------------------------------- :)
+
 declare variable $xproc:run-step := util:function(xs:QName("xproc:run-step"), 3);
+declare variable $xproc:parse-and-eval := util:function(xs:QName("xproc:parse_and_eval"), 3);
 
 declare variable $xproc:declare-step :=util:function(xs:QName("xproc:declare-step"), 4);
 declare variable $xproc:choose :=util:function(xs:QName("xproc:choose"), 4);
 declare variable $xproc:for-each :=util:function(xs:QName("xproc:for-each"), 4);
 
+
+(: -------------------------------------------------------------------------- :)
+
 declare function xproc:declare-step($primary,$secondary,$options,$step) {
 <test/>
 };
+
 declare function xproc:for-each($primary,$secondary,$options,$step) {
 <test/>
 };
@@ -39,12 +46,14 @@ declare function xproc:for-each($primary,$secondary,$options,$step) {
 (: -------------------------------------------------------------------------- :)
 declare function xproc:choose($primary,$secondary,$options,$step) {
     let $v := document{$primary/*[1]}
+    let $stepfuncname := '$xproc:parse-and-eval'
+    let $stepfunc := concat($const:default-imports,$stepfuncname)    
     let $when := $step/p:when
     let $otherwise := $step/p:otherwise
     let $when_eval := u:boolean-evalXPATH(string($when/@test),$v)
     return
-        if($when_eval) then
-		  <return_when_true/>
+        if($when_eval) then  
+			u:call($xproc:parse-and-eval,<p:declare-step>{$when/*}</p:declare-step>,$v,())
         else
 		  <return_otherwise_true/>
 };
