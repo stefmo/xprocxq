@@ -75,7 +75,7 @@ declare function xproc:type($stepname as xs:string,$is_declare-step) as xs:strin
 
 (: TODO - this section will be refactored into binding.xqm:)
 
-declare function xproc:generate-explicit-input($step,$count,$xproc,$unique_before){
+declare function xproc:generate-explicit-input($step,$count,$xproc,$unique_before,$allstep){
 
 for $input in $step/p:input
     return
@@ -87,10 +87,17 @@ for $input in $step/p:input
                 attribute port{$input/@port},
                 attribute primary{if (empty($input/@primary)) then 'true' else $input/@primary},
                 attribute select{if(empty($input/@select)) then string('/') else $input/@select},
-                if ($input/p:document or $input/p:inline or $input/p:empty or $input/p:data) then
+ 
+               if ($input/p:document or $input/p:inline or $input/p:empty or $input/p:data) then
                     $input/*
 				else if($input/@primary eq 'false') then
-					$input/*
+				(: ensure required non primary inputs are bound :)
+					if($allstep/p:input[@port = $input/@port][@xproc:required eq 'true']) then
+ 						u:staticError('err:XS0032', 
+									concat("static error during explicit binding pass:",$input,$allstep))				
+					else
+						$input/*
+				
                 else
                     if(name($step)="ext:pre" or name($step)="ext:post" ) then
                         $input/*
@@ -130,7 +137,7 @@ declare function xproc:generate-step-binding($step,$xproc,$count,$stepname,$is_d
                 attribute 
 
 				xproc:step{concat('$',xproc:type($stepname,$is_declare-step),':',local-name($step))},
-                xproc:generate-explicit-input($step,$count,$xproc,$unique_before),
+                xproc:generate-explicit-input($step,$count,$xproc,$unique_before,$allstep),
                 xproc:generate-explicit-output($step),
                 xproc:generate-explicit-options($step)
             }

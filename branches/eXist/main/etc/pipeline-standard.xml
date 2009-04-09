@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<p:library xmlns:p="http://www.w3.org/ns/xproc">
+<p:library xmlns:p="http://www.w3.org/ns/xproc"
+		xmlns:xproc="http://xproc.net/xproc">
    <p:declare-step type="p:add-attribute" xml:id="add-attribute">
       <p:input port="source" primary="true" select="/"/>
       <p:output port="result" primary="true" select="/"/>
@@ -15,7 +16,7 @@
    </p:declare-step>
    <p:declare-step type="p:compare" xml:id="compare">
       <p:input port="source" primary="true" select="/"/>
-      <p:input port="alternate" primary="false" select="/"/>
+      <p:input port="alternate" primary="false" select="/" xproc:required="true"/>
       <p:output port="result" primary="false" select="/"/>
       <p:option name="fail-if-not-equal" select="'false'"/>
    </p:declare-step>
