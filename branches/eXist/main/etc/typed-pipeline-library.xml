@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: typed-pipeline-library.xml,v 1.27 2009/04/09 18:38:03 NormanWalsh Exp $ -->
 <p:library xmlns:p="http://www.w3.org/ns/xproc"
            xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax">
    <p:declare-step type="p:add-attribute" xml:id="add-attribute">
@@ -228,6 +229,7 @@
       <p:input port="source" primary="true" sequence="true"/>
       <p:output port="result" primary="true"/>
       <p:output port="errors"/>
+      <p:output port="exit-status"/>
       <p:option name="command" required="true" e:type="xsd:string"/>
       <p:option name="args" select="''" e:type="xsd:string"/>
       <p:option name="cwd" e:type="xsd:string"/>
@@ -237,6 +239,7 @@
       <p:option name="errors-is-xml" select="'false'" e:type="xsd:boolean"/>
       <p:option name="wrap-error-lines" select="'false'" e:type="xsd:boolean"/>
       <p:option name="fix-slashes" select="'false'" e:type="xsd:boolean"/>
+      <p:option name="failure-threshold" e:type="xsd:integer"/>
       <p:option name="byte-order-mark" e:type="xsd:boolean"/>
       <p:option name="cdata-section-elements" select="''" e:type="ListOfQNames"/>
       <p:option name="doctype-public" e:type="xsd:string"/>

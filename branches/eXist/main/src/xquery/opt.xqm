@@ -41,7 +41,7 @@ declare variable $opt:xsl-formatter :=util:function(xs:QName("opt:xsl-formatter"
 
 (: -------------------------------------------------------------------------- :)
 declare function opt:exec($primary,$secondary,$options) {
-    u:outputResultElement(<test/>)
+    u:outputResultElement(<test3/>)
 };
 
 (: -------------------------------------------------------------------------- :)

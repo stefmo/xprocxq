@@ -20,6 +20,7 @@ declare namespace saxon = "http://dummy.org";
 
 (: Module Imports :)
 import module namespace u = "http://xproc.net/xproc/util";
+import module namespace const = "http://xproc.net/xproc/const";
 
 
 (: -------------------------------------------------------------------------- :)
@@ -169,16 +170,20 @@ declare function std:escape-markup($primary,$secondary,$options) {
 declare function std:error($primary,$secondary,$options) {
 (: TODO: this should be generated to the error port:)
 
-<c:errors xmlns:c="http://www.w3.org/ns/xproc-step"
+let $v := $primary/*[1]
+let $code := u:get-option('code',$options,$primary/*[1])
+let $err := <c:errors xmlns:c="http://www.w3.org/ns/xproc-step"
           xmlns:p="http://www.w3.org/ns/xproc"
           xmlns:my="http://www.example.org/error">
-<!-- WARNING: this output should be generated to std error and/or error port //-->
-<c:error href="" column="" offset=""
-         name="step-name" type="p:error"
-         code="{$options/p:with-option[@name='code']/@value}">
-    <message>{$primary/*[1]}</message>
-</c:error>
+		<c:error href="" column="" offset=""
+         	name="step-name" type="p:error"
+         	code="{$code}">
+    		<message>{$v}</message>
+		</c:error>
 </c:errors>
+return
+	u:dynamicError('err:XD0030',concat(": p:error throw custom error code - ",$code," ",u:serialize($err,$const:TRACE_SERIALIZE)))
+
 
 };
 

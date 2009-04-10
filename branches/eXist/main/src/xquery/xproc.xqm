@@ -36,11 +36,11 @@ declare variable $xproc:for-each :=util:function(xs:QName("xproc:for-each"), 4);
 (: -------------------------------------------------------------------------- :)
 
 declare function xproc:declare-step($primary,$secondary,$options,$step) {
-<test/>
+<test1/>
 };
 
 declare function xproc:for-each($primary,$secondary,$options,$step) {
-<test/>
+<test2/>
 };
 
 (: -------------------------------------------------------------------------- :)

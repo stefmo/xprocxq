@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: pipeline-library.xml,v 1.62 2009/04/09 18:38:03 NormanWalsh Exp $ -->
 <p:library xmlns:p="http://www.w3.org/ns/xproc">
    <p:declare-step type="p:add-attribute" xml:id="add-attribute">
       <p:input port="source"/>
@@ -22,7 +23,7 @@
    <p:declare-step type="p:count" xml:id="count">
       <p:input port="source" sequence="true"/>
       <p:output port="result"/>
-      <p:option name="limit" select="'0'"/>
+      <p:option name="limit" select="0"/>
    </p:declare-step>
    <p:declare-step type="p:delete" xml:id="delete">
       <p:input port="source"/>
@@ -227,6 +228,7 @@
       <p:input port="source" primary="true" sequence="true"/>
       <p:output port="result" primary="true"/>
       <p:output port="errors"/>
+      <p:output port="exit-status"/>
       <p:option name="command" required="true"/>
       <p:option name="args" select="''"/>
       <p:option name="cwd"/>
@@ -236,6 +238,7 @@
       <p:option name="errors-is-xml" select="'false'"/>
       <p:option name="wrap-error-lines" select="'false'"/>
       <p:option name="fix-slashes" select="'false'"/>
+      <p:option name="failure-threshold"/>
       <p:option name="byte-order-mark"/>
       <p:option name="cdata-section-elements" select="''"/>
       <p:option name="doctype-public"/>

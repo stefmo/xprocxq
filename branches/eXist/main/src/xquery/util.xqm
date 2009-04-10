@@ -183,19 +183,19 @@ return
 (: TODO: consider combining error throwing functions :)
 (: consider adding saxon:line-number()  :)
 declare function u:dynamicError($error,$string) {
-    let $info := $const:error//error[@code=substring-after($error,':')]
+    let $info := $const:error//error[@code=$error]
     return
         error(QName('http://www.w3.org/ns/xproc-error',$error),concat($error,": XProc Dynamic Error - ",$string," ",$info/text()))
 };
 
 declare function u:staticError($error,$string) {
-    let $info := $const:error//error[@code=substring-after($error,':')]
+    let $info := $const:error//error[@code=$error]
     return
         error(QName('http://www.w3.org/ns/xproc-error',$error),concat($error,": XProc Static Error - ",$string," ",$info/text()))
 };
 
 declare function u:stepError($error,$string) {
-    let $info := $const:error//error[@code=substring-after($error,':')]
+    let $info := $const:error//error[@code=$error]
     return
         error(QName('http://www.w3.org/ns/xproc-error',$error),concat($error,": XProc Step Error - ",$string," ",$info/text()))
 };
@@ -403,8 +403,8 @@ $exp
 
 
 (: -------------------------------------------------------------------------- :)
-declare function u:serialize($xml,$output){
-	$output
+declare function u:serialize($xml,$options){
+	util:serialize($xml,$options)
 };
 
 
