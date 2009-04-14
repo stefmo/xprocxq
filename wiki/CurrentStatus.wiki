@@ -1,4 +1,4 @@
-25/03/2009 first official release will be at April 10th .... very nearly there (he keeps on saying)
+14/04/2009 xprocxq has now been ported to eXist and I have decided to release to this platform first, should be this week.
 
 == Changelog ==
 
@@ -16,13 +16,9 @@ There are many issues to list .... so I will just highlight the major ones;
 
   * sequences inconsistent
 
-  * depends on one having bought Michael Kay's [http://www.saxonica.com Saxon-SA]  XSLT/XQUERY processor ... as dependent on SA version and even then it does very little ;)
-
-  * error messages are not in sync
+  * depends on eXist XML Database server, and I have a version in trunk that works with SAXON SA (commercial version of Michael Kay's excellent XQuery & XSLT processor)
 
   * still working on subpipelines, imports and libraries and related issues such as precedence, etc
-
-  * pipeline bindings must explicitly declare @primary 
 
 This example pipeline, using p:identity step
 
@@ -58,10 +54,8 @@ _Note: Looking at the current trunk/TODO file will help you determine what I am 
 
 Looks like this for now.
 
+  * release eXist version
   * implement all standard steps
   * implement optional & extension steps
   * ensure static and dynamic error checking is working properly
   * check namespace fixup works as outlined in spec
-  * create code fork to derive eXist and Saxon impl
-
-I will need to get each of the above nearer 100% before I release.
