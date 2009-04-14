@@ -53,7 +53,9 @@ declare function xproc:choose($primary,$secondary,$options,$step) {
     let $when_eval := u:boolean-evalXPATH(string($when/@test),$v)
     return
         if($when_eval) then  
-			u:call($xproc:parse-and-eval,<p:declare-step>{$when/*}</p:declare-step>,$v,())
+		<when_test/>
+(:			u:call($xproc:parse-and-eval,<p:pipeline><p:identity/></p:pipeline>,$v,())
+:)
         else
 		  <return_otherwise_true/>
 };
@@ -184,11 +186,12 @@ declare function xproc:generate-component-binding($step,$stepname,$is_declare-st
                 if ($step/@exclude-inline-prefixes) then attribute exclude-inline-prefixes{$step/@exclude-inline-prefixes} else (),
 
                 attribute name{$step/@name},
-                $step/@test,
+
                 if ($const:comp-steps/xproc:element[@type=$stepname]/@xproc:step) then attribute xproc:defaultname{$unique_id} else (),
                 attribute xproc:type{xproc:type($stepname,$is_declare-step)},
                  attribute xproc:step{concat('$',xproc:type($stepname,$is_declare-step),':',local-name($step))},
-                   xproc:explicitbindings(document{$step/*},$unique_id)
+ 
+                  xproc:explicitbindings(document{$step/*},$unique_id)
             }
 };
 
@@ -219,7 +222,6 @@ let $explicitbindings := document {
 
             if ($is_declare-step) then
 				xproc:generate-declare-step-binding($step,$is_declare-step)
-
             else if($is_step) then
 xproc:generate-step-binding($step,$xproc,$count,$stepname,$is_declare-step,$unique_current,$unique_before,$is_step)
 

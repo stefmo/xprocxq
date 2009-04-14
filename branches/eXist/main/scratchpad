@@ -25,6 +25,7 @@ Limitations/Differences
 * extension functions do not work in select statements (just xquery)
 * declare base-uri affects module imports in saxon (need to investigate in eXist)
 * cant pass required/add-attribute--002.xml test depends on namespace handling module to be finished
+* p:error does not write to error port (also discussing need for a generic 'implementator specific error code' with XProc WG)
 
 --------------------------------------------------------------------------------------
 

@@ -191,7 +191,6 @@ return
 (: -------------------------------------------------------------------------- :)
 declare function std:filter($primary,$secondary,$options) {
 (: TODO: is it an error for a empty match ? :)
-
 u:assert(exists($options/p:with-option[@name='select']/@select),'p:with-option match is required'),
 
 let $v :=document{$primary/*[1]}

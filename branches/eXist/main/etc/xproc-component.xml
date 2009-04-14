@@ -1,5 +1,6 @@
 <xproc:components xmlns:p ="http://www.w3.org/ns/xproc"
                xmlns:xproc = "http://xproc.net/xproc"
+			   xmlns:ext ="http://xproc.net/xproc/ext"
                name="xproc-components">
 
     <xproc:root-element type="p:pipeline" xproc:step="true"/>
@@ -13,8 +14,8 @@
     <xproc:element type="p:library"/>
 
     <xproc:element type="p:choose" xproc:step="true">
-        <p:input port="source" primary="true" select="/"/>
-        <p:output port="result" primary="true" select="/"/>
+        <p:input port="xproc:source" primary="true" select="/"/>
+        <p:output port="xproc:output" primary="true" select="/"/>
     </xproc:element>
     
         <xproc:element type="p:when">

@@ -39,6 +39,7 @@
    <p:declare-step type="p:error" xml:id="error" xmlns:xproc="http://xproc.net/xproc">
       <p:input port="source" primary="true" select="/"/>
       <p:option name="code" required="true"/>
+	  <p:output port="error" primary="true" select="/"/>
    </p:declare-step>
    <p:declare-step type="p:escape-markup" xml:id="escape-markup">
       <p:input port="source" primary="true" select="/"/>
