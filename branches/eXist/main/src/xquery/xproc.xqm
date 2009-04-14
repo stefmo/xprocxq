@@ -24,15 +24,15 @@ import module namespace ext = "http://xproc.net/xproc/ext";
 import module namespace naming = "http://xproc.net/xproc/naming";
 
 (: -------------------------------------------------------------------------- :)
-
 declare variable $xproc:run-step := util:function(xs:QName("xproc:run-step"), 3);
 declare variable $xproc:parse-and-eval := util:function(xs:QName("xproc:parse_and_eval"), 3);
-
+(: -------------------------------------------------------------------------- :)
 declare variable $xproc:declare-step :=util:function(xs:QName("xproc:declare-step"), 4);
 declare variable $xproc:choose :=util:function(xs:QName("xproc:choose"), 4);
 declare variable $xproc:for-each :=util:function(xs:QName("xproc:for-each"), 4);
-
-
+declare variable $xproc:viewport :=util:function(xs:QName("xproc:viewport"), 4);
+declare variable $xproc:library :=util:function(xs:QName("xproc:library"), 4);
+declare variable $xproc:pipeline :=util:function(xs:QName("xproc:pipeline"), 4);
 (: -------------------------------------------------------------------------- :)
 
 declare function xproc:declare-step($primary,$secondary,$options,$step) {
@@ -42,6 +42,19 @@ declare function xproc:declare-step($primary,$secondary,$options,$step) {
 declare function xproc:for-each($primary,$secondary,$options,$step) {
 <test2/>
 };
+
+declare function xproc:viewport($primary,$secondary,$options,$step) {
+<test2/>
+};
+
+declare function xproc:library($primary,$secondary,$options,$step) {
+<test2/>
+};
+
+declare function xproc:pipeline($primary,$secondary,$options,$step) {
+<test2/>
+};
+
 
 (: -------------------------------------------------------------------------- :)
 declare function xproc:choose($primary,$secondary,$options,$step) {
@@ -53,12 +66,23 @@ declare function xproc:choose($primary,$secondary,$options,$step) {
     let $when_eval := u:boolean-evalXPATH(string($when/@test),$v)
     return
         if($when_eval) then  
-		<when_test/>
-(:			u:call($xproc:parse-and-eval,<p:pipeline><p:identity/></p:pipeline>,$v,())
-:)
+			u:call($xproc:parse-and-eval,<p:declare-step>{$when/*}</p:declare-step>,$v,())
         else
 		  <return_otherwise_true/>
 };
+
+
+
+
+
+
+
+
+
+
+
+
+(: -------------------------------------------------------------------------- :)
 
 (: -------------------------------------------------------------------------- :)
 (: returns step from std, opt and ext step definitions :)
@@ -250,10 +274,9 @@ xproc:generate-step-binding($step,$xproc,$count,$stepname,$is_declare-step,$uniq
 
 
 
-
-                (: -------------------------------------------------------------------------- :)
-                                                                              (: EVAL ROUTINES:)
-                (:----------------------------------------------------------------------------:)
+(: ------------------------------------------------------------------------------------------ :)
+                                                                     (: RUN TIME EVAL ROUTINES:)
+(:--------------------------------------------------------------------------------------------:)
 
 declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentstep){
 
@@ -397,6 +420,7 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
     return
 
         if(name($currentstep) = "p:declare-step") then
+			(: TODO - need to refactor p:pipeline and p:declare-step at some point :)
             ()
         else
             (
@@ -469,7 +493,7 @@ declare function xproc:genstepnames($steps) as xs:string* {
 
 (: -------------------------------------------------------------------------- :)
 (: Parse pipeline XML, generating xquery code, throwing some static errors if neccesary :)
-declare function xproc:parse_and_eval($xproc,$stdin as item(),$bindings) {
+declare function xproc:parse_and_eval($xproc,$stdin,$bindings) {
 
     let $pipeline := $xproc
     let $steps := xproc:genstepnames($pipeline)

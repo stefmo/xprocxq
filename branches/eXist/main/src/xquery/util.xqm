@@ -473,28 +473,24 @@ declare function u:final-result($pipeline,$resulttree){
 declare function u:step-fold( $pipeline,
                                  $steps,
                                  $evalstep-function,
-                                 $primaryinput,
+                                 $primary,
                                  $outputs) {
   
     if (empty($steps)) then
-
         u:final-result($pipeline,$outputs)
 
     else
-
         let $result:= u:call($evalstep-function,
                                 $steps[1],
-                                $primaryinput,
+                                $primary,
                                 $pipeline,
                                 $outputs)
     return
-
         u:step-fold($pipeline,
                        remove($steps, 1),
                        $evalstep-function,
                        $result[last()],
-                       ($outputs,$result))
-        
+                       ($outputs,$result))      
 };
 
 

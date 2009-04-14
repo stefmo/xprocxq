@@ -34,7 +34,8 @@ declare function ext:post($primary,$secondary,$options){
     $primary
 };
 declare function ext:xproc($primary,$secondary,$options){
-    $primary
+	(: This is a dummy step to xproc:run-step function in xproc.xqm :)
+    $primary/*[1]
 };
 (: -------------------------------------------------------------------------- :)
 
