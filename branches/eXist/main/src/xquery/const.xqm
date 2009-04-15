@@ -85,6 +85,7 @@ declare variable $const:init_unique_id :="!1";
 (: define default imported modules :)
 declare variable $const:default-imports :='
 
+	(: const:default-imports :)
     declare copy-namespaces no-preserve, no-inherit;
 
     import module namespace const = "http://xproc.net/xproc/const";

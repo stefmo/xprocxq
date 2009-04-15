@@ -24,7 +24,7 @@ import module namespace ext = "http://xproc.net/xproc/ext";
 import module namespace naming = "http://xproc.net/xproc/naming";
 
 (: -------------------------------------------------------------------------- :)
-declare variable $xproc:run-step := util:function(xs:QName("xproc:run-step"), 3);
+declare variable $xproc:run-step := util:function(xs:QName("xproc:run-step"), 5);
 declare variable $xproc:parse-and-eval := util:function(xs:QName("xproc:parse_and_eval"), 3);
 (: -------------------------------------------------------------------------- :)
 declare variable $xproc:declare-step :=util:function(xs:QName("xproc:declare-step"), 4);
@@ -201,7 +201,7 @@ declare function xproc:generate-step-binding($step,$xproc,$count,$stepname,$is_d
                 attribute xproc:type{xproc:type($stepname,$is_declare-step)},
                 attribute 
 
-				xproc:step{concat('$',xproc:type($stepname,$is_declare-step),':',local-name($step))},
+				xproc:step{if (empty($allstep/@xproc:use-function)) then concat('$',xproc:type($stepname,$is_declare-step),':',local-name($step)) else concat('$',$allstep/@xproc:use-function)},
                 xproc:generate-explicit-input($step,$count,$xproc,$unique_before,$allstep),
                 xproc:generate-explicit-output($step),
                 xproc:generate-explicit-options($step)
@@ -290,29 +290,29 @@ declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentste
 (: empty step:)            if(name($child)='p:empty') then
                                 (<!-- TODO: replace this !!!! returned empty //-->)
 
-(: inline :)               else if(name($child)='p:inline') then
+(: inline :)               else if(name($child) eq 'p:inline') then
                                  $child/*
 
 (: document :)             else if(name($child)='p:document') then
                                  if (doc-available($child/@href)) then
                                        doc($child/@href)
                                  else
-                                       u:dynamicError('err:XD0002',concat(" p:document cannot access document ",$child/@href))
+                                       u:dynamicError('err:XD0002',concat(" cannot access document ",$child/@href))
 
 (: data :)                 else if(name($child)='p:data') then
                                  if ($child/@href) then
                                          u:unparsed-data($child/@href,'text/plain')
                                  else
-                                       u:dynamicError('err:XD0002',concat(" p:data cannot access document ",$child/@href))
+                                       u:dynamicError('err:XD0002',concat("cannot access document:  ",$child/@href))
 
 
 (: stdin :)                else if ($child/@port eq 'stdin' and $child/@step eq $pipeline/@name) then
 
-                                 $result/xproc:output[@port='stdin'][@step=$currentstep/@name]/*
+                                 $result/xproc:output[@port eq 'stdin'][@step eq $currentstep/@name]/*
 
 (: prmy top level input :)  else if ($child/@primary eq 'true' and $child/@step eq $pipeline/@name) then
 (: TODO - fix :)
-                                $result/xproc:output[@port='result'][@step=concat('!',$pipeline/@name)]/*
+                                $result/xproc:output[@port eq 'result'][@step=concat('!',$pipeline/@name)]/*
 
 (: top level input :)       else if ($child/@step eq $pipeline/@name) then
 
@@ -325,9 +325,13 @@ declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentste
                                        u:dynamicError('err:XD0001',concat(" cannot bind to port: ",$child/@port," step: ",$child/@step,' ',u:serialize($currentstep,$const:TRACE_SERIALIZE)))
 
                             else
-(: TODO - fix :)
-                                $result/xproc:output[@port='stdin'][@step=$currentstep/@name]/*
 
+                            u:dynamicError('err:XD0001',concat(" cannot bind to port: ",$child/@port," step: ",$child/@step,' ',u:serialize($currentstep,$const:TRACE_SERIALIZE)))
+
+
+(: TODO - fix 
+                                $result/xproc:output[@port='stdin'][@step=$currentstep/@name]/*
+:)
 };
 
 
@@ -574,8 +578,8 @@ let $output := subsequence($result,2)
 (: --------------------------------------------------------------------------- :)                                                                				(: ENTRY POINT   :)
 (: --------------------------------------------------------------------------- :)
 
-declare function xproc:run-step($primary,$secondary,$options) {
-	let $stdin :=$primary/*[1]
+declare function xproc:run-step($primary,$secondary,$options,$step,$outputs) {
+	let $stdin :=$primary
 	let $pipeline := $secondary/xproc:input[@port='pipeline']
 	let $bindings :=()
 	let $options :=()
@@ -583,7 +587,6 @@ declare function xproc:run-step($primary,$secondary,$options) {
 	let $tflag :="0"
 	return
     	xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options)
-
 };
 
 
