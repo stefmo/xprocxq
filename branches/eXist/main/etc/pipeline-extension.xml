@@ -16,6 +16,7 @@
     <p:declare-step type="ext:xproc" xproc:use-function="xproc:run-step" xproc:supported="true">
         <p:input port="source" primary="true" select="/"/>
         <p:input port="pipeline" primary="false" select="/"/>
+        <p:input port="bindings" primary="false" select="/"/>
         <p:output port="result" primary="true"/>
         <p:option name="dflag" select="'0'"/>
         <p:option name="tflag" select="'0'"/>

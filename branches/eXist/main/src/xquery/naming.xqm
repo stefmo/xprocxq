@@ -185,10 +185,9 @@ declare function naming:generate-component($xproc,$allcomp,$step,$stepname){
 
 declare function naming:pipeline-step-sort($unsorted, $sorted, $pipelinename )  {
     if (empty($unsorted)) then
-        $sorted
+        ($sorted)
     else
-        let $allnodes := $unsorted [ every $id in p:input[@primary eq 'true']/p:pipe/@step
-                                            satisfies ($id = $sorted/@name or $id=$pipelinename)]
+        let $allnodes := $unsorted [ every $id in p:input[@primary eq 'true'][@port eq 'source']/p:pipe/@step satisfies ($id = $sorted/@name or $id=$pipelinename)]
     return
         if ($allnodes) then
             naming:pipeline-step-sort( $unsorted except $allnodes, ($sorted, $allnodes ),$pipelinename)
@@ -225,18 +224,21 @@ else
                     (: throws error on unknown element in pipeline namespace :)
                     u:staticError('err:XS0044', concat("static error during explicit naming pass:  ",$stepname,":",$step/@name,u:serialize($step,$const:TRACE_SERIALIZE)))
     return
-        if(empty($pipelinename))then
-            naming:pipeline-step-sort($explicitnames,(),$pipelinename)
-        else
-            <p:declare-step name="{$pipelinename}">
+
+		let $sorted := naming:pipeline-step-sort($explicitnames,(),$pipelinename)
+		return
+        	if(empty($pipelinename))then
+    			$sorted
+        	else
+            	<p:declare-step name="{$pipelinename}">
                 {
-                    naming:pipeline-step-sort($explicitnames,(),$pipelinename)
+                    $sorted
                 }
                 <ext:post name="{$pipelinename}!">
                     <p:input port="source" primary="true"/>
                     <p:output primary="true" port="stdout" select="/"/>
                 </ext:post>
-            </p:declare-step>
+            	</p:declare-step>
 };
 
 

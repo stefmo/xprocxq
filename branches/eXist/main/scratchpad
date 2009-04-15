@@ -1,3 +1,6 @@
+
+
+
 ----------------------------------------
 general
 ----------------------------------------
@@ -23,6 +26,7 @@ ISSUE
 
 
 Limitations/Differences
+* some step sorting issues (intermixing of steps using p:inline)
 * p:xquery currently uses a c:result element to output
 * p:compare currently has a primary result port
 * extension functions do not work in select statements (just xquery)

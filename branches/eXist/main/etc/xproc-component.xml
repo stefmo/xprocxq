@@ -9,7 +9,10 @@
 
     <xproc:element type="p:pipeline" xproc:step="true"/>
 
-    <xproc:element type="p:group" xproc:step="true"/>
+    <xproc:element type="p:group" xproc:step="true">
+		<p:input port="xproc:source" primary="true" select="/"/>
+        <p:output port="xproc:output" primary="true" select="/"/>
+	</xproc:element>
 
     <xproc:element type="p:library"/>
 
