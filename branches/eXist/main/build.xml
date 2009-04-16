@@ -76,6 +76,15 @@ it is mostly a unit test runner for firing off XQuery and XProc tests.</descript
       </zip>
     </target>
 
+    <!-- ===================================================== -->
+    <!-- DELETE: create jar for eXist                          -->
+    <!-- ===================================================== -->
+    <target name="expath-jar">
+      <delete dir="dist/expath.jar"/>
+      <zip destfile="dist/expath.jar">
+        <zipfileset dir="src/expath" includes="**/**/**.*" prefix="org/expath/www/mod/http-client"/>
+      </zip>
+    </target>
 
     <!-- ===================================================== -->
     <!-- clean                                                 -->

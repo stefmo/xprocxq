@@ -25,7 +25,7 @@ import module namespace naming = "http://xproc.net/xproc/naming";
 
 (: -------------------------------------------------------------------------- :)
 declare variable $xproc:run-step := util:function(xs:QName("xproc:run-step"), 5);
-declare variable $xproc:parse-and-eval := util:function(xs:QName("xproc:parse_and_eval"), 3);
+declare variable $xproc:parse-and-eval := util:function(xs:QName("xproc:parse_and_eval"), 4);
 (: -------------------------------------------------------------------------- :)
 declare variable $xproc:declare-step :=util:function(xs:QName("xproc:declare-step"), 4);
 declare variable $xproc:choose :=util:function(xs:QName("xproc:choose"), 5);
@@ -65,6 +65,8 @@ declare function xproc:group($primary,$secondary,$options,$step,$outputs) {
 
 (: -------------------------------------------------------------------------- :)
 declare function xproc:choose($primary,$secondary,$options,$currentstep,$outputs) {
+
+	let $defaultname := concat(string($currentstep/@xproc:defaultname),'.1')
     let $v := document{$primary/*[1]}
     let $stepfuncname := '$xproc:parse-and-eval'
     let $stepfunc := concat($const:default-imports,$stepfuncname)    
@@ -73,7 +75,7 @@ declare function xproc:choose($primary,$secondary,$options,$currentstep,$outputs
     let $when_eval := u:boolean-evalXPATH(string($when/@test),$v)
     return
         if($when_eval) then  
-			u:call($xproc:parse-and-eval,<p:declare-step>{$when/*}</p:declare-step>,$v,(),$outputs)
+			u:call($xproc:parse-and-eval,<p:declare-step name="{$defaultname}" xproc:defaultname="{$defaultname}" >{$when/*}</p:declare-step>,$v,(),$outputs)
         else
 		  <return_otherwise_true/>
 };
@@ -300,33 +302,26 @@ declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentste
                                  else
                                        u:dynamicError('err:XD0002',concat("cannot access document:  ",$child/@href))
 
-
 (: stdin :)                else if ($child/@port eq 'stdin' and $child/@step eq $pipeline/@name) then
-
                                  $result/xproc:output[@port eq 'stdin'][@step eq $currentstep/@name]/*
 
-(: prmy top level input :)  else if ($child/@primary eq 'true' and $child/@step eq $pipeline/@name) then
+(: prmy top level input :) else if ($child/@primary eq 'true' and $child/@step eq $pipeline/@name) then
 (: TODO - fix :)
                                 $result/xproc:output[@port eq 'result'][@step=concat('!',$pipeline/@name)]/*
 
-(: top level input :)       else if ($child/@step eq $pipeline/@name) then
+(: top level input :)       else if ($child/@step eq $pipeline/@name) then                       
+ 							$result/xproc:output[@port=$child/@port][@step=concat('!',$pipeline/@name)]/*
 
-                                  $result/xproc:output[@port=$child/@port][@step=concat('!',$pipeline/@name)]/*
 (: pipe :)                  else if ($child/@port) then
-
                                   if ($result/xproc:output[@port=$child/@port][@step=$child/@step]) then
-                                       $result/xproc:output[@port=$child/@port][@step=$child/@step]/*
-                                  else
+                                  $result/xproc:output[@port=$child/@port][@step=$child/@step]/*
+                            	  else
                                        u:dynamicError('err:XD0001',concat(" cannot bind to port: ",$child/@port," step: ",$child/@step,' ',u:serialize($currentstep,$const:TRACE_SERIALIZE)))
 
                             else
 
                             u:dynamicError('err:XD0001',concat(" cannot bind to port: ",$child/@port," step: ",$child/@step,' ',u:serialize($currentstep,$const:TRACE_SERIALIZE)))
 
-
-(: TODO - fix 
-                                $result/xproc:output[@port='stdin'][@step=$currentstep/@name]/*
-:)
 };
 
 
@@ -341,7 +336,10 @@ let $primaryresult := document{
             return
             	xproc:resolve-port-binding($child,$result,$pipeline,$currentstep)
     else
-        $primaryinput/*[1]
+		if ($primaryinput//xproc:output) then
+    		$primaryinput/*[last()]/node()
+		else
+        	$primaryinput/*[1]
     }
 
     let $select := string(
@@ -437,7 +435,7 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
                           select="{$currentstep/p:input[@primary='true']/@select}"
                           port="{$currentstep/p:input[@primary='true']/@port}"
                           func="{$stepfuncname}">{
-                                $primary
+								$primary
                          }
             </xproc:output>,
 
@@ -486,12 +484,12 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
 
 
 
-                (: --------------------------------------------------------------------------- :)
-                                                                            (: CONTROL ROUTINES:)
-                (: --------------------------------------------------------------------------- :)
+(: --------------------------------------------------------------------------- :)
+                                                            (: CONTROL ROUTINES:)
+(: --------------------------------------------------------------------------- :)
 
 
-(: -------------------------------------------------------------------------- :)
+(: --------------------------------------------------------------------------- :)
 (: Generate xquery steps sequence :)
 declare function xproc:genstepnames($steps) as xs:string* {
     for $step in $steps/*[not(name()='p:documentation')]
@@ -503,22 +501,18 @@ declare function xproc:genstepnames($steps) as xs:string* {
 (: -------------------------------------------------------------------------- :)
 (: Parse pipeline XML, generating xquery code, throwing some static errors if neccesary :)
 
-
-declare function xproc:parse_and_eval($xproc,$stdin,$bindings,$outputs) {
-    let $pipeline := $xproc
+declare function xproc:parse_and_eval($pipeline,$stdin,$bindings,$outputs) {
     let $steps := xproc:genstepnames($pipeline)
     return
         u:step-fold($pipeline,
                        $steps,
                        util:function(xs:QName("xproc:evalstep"), 4),
                        $stdin,
-                       (xproc:resolve-external-bindings($bindings,$pipeline/@name),
-                       $outputs)                                                
+                       (xproc:resolve-external-bindings($bindings,$pipeline/@name))
         				)
 };
 
-declare function xproc:parse_and_eval($xproc,$stdin,$bindings) {
-let $pipeline := $xproc
+declare function xproc:parse_and_eval($pipeline,$stdin,$bindings) {
 let $steps := xproc:genstepnames($pipeline)
 return
     u:step-fold($pipeline,
@@ -591,10 +585,10 @@ declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options){
 
     (: STEP I: generate parse tree :)
     let $preparse-naming := naming:explicitnames(naming:fixup($pipeline,$stdin))
-    let $preparse-binding := xproc:explicitbindings($preparse-naming,$const:init_unique_id)
+    let $xproc-binding := xproc:explicitbindings($preparse-naming,$const:init_unique_id)
 
     (: STEP II: parse and eval tree :)
-    let $eval_result := xproc:parse_and_eval($preparse-binding,$stdin,$bindings)
+    let $eval_result := xproc:parse_and_eval($xproc-binding,$stdin,$bindings)
 
     (: STEP III: serialize and return results :)
     let $serialized_result := xproc:output($eval_result,$dflag)
