@@ -2,7 +2,6 @@
 
 <p:choose>
   <p:when test="count(//*) mod 2 = 0">
-    <p:output port="result"/>
     <p:identity>
       <p:input port="source">
 	<p:inline><p>There are an even number of elements in the document.</p></p:inline>
@@ -10,7 +9,6 @@
     </p:identity>
   </p:when>
   <p:otherwise>
-    <p:output port="result"/>
     <p:identity>
       <p:input port="source">
 	<p:inline><p>There are an odd number of elements in the document.</p></p:inline>

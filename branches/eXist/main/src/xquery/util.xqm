@@ -178,19 +178,19 @@ return
 declare function u:dynamicError($error,$string) {
     let $info := $const:error//err:error[@code=substring-after($error,':')]
     return
-        error(QName('http://www.w3.org/ns/xproc-error',$error),concat($error,": XProc Dynamic Error - ",$string," ",$info/text()))
+        error(QName('http://www.w3.org/ns/xproc-error',$error),concat($error,": XProc Dynamic Error - ",$string," ",$info/text(),'&#10;'))
 };
 
 declare function u:staticError($error,$string) {
 let $info := $const:error//err:error[@code=substring-after($error,':')]
     return
-        error(QName('http://www.w3.org/ns/xproc-error',$error),concat($error,": XProc Static Error - ",$string," ",$info/text()))
+        error(QName('http://www.w3.org/ns/xproc-error',$error),concat($error,": XProc Static Error - ",$string," ",$info/text(),'&#10;'))
 };
 
 declare function u:stepError($error,$string) {
 let $info := $const:error//err:error[@code=substring-after($error,':')]
     return
-        error(QName('http://www.w3.org/ns/xproc-error',$error),concat($error,": XProc Step Error - ",$string," ",$info/text()))
+        error(QName('http://www.w3.org/ns/xproc-error',$error),concat($error,": XProc Step Error - ",$string," ",$info/text(),'&#10;'))
 };
 
 
@@ -257,15 +257,18 @@ else
 
 (: -------------------------------------------------------------------------- :)
 (: TODO - need to refactor for eXist :)
-declare function u:boolean-evalXPATH($xpathstring, $xml){
+declare function u:boolean-evalXPATH($xpathstring, $xml) as xs:boolean{
 
 if(empty($xpathstring) or $xpathstring eq '/') then
 	false()
 else
-	let $query := concat('$xml',$xpathstring)
-	let $result := exists(util:eval-inline($xml,$xpathstring))
+	let $query := concat('($xml/.)/',$xpathstring)
+	let $result := util:eval($query)
     return
-		$result
+		if (empty($result)) then
+			false()
+		else 
+			xs:boolean($result)
 };
 
 

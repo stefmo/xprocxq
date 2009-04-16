@@ -71,23 +71,14 @@ declare function xproc:choose($primary,$secondary,$options,$currentstep,$outputs
     let $stepfuncname := '$xproc:parse-and-eval'
     let $stepfunc := concat($const:default-imports,$stepfuncname)    
     let $when := $currentstep//p:when
-    let $otherwise := $currentstep/p:choose/p:otherwise
+    let $otherwise := $currentstep//p:otherwise
     let $when_eval := u:boolean-evalXPATH(string($when/@test),$v)
     return
-        if($when_eval) then  
+    	if($when_eval) then  
 			u:call($xproc:parse-and-eval,<p:declare-step name="{$defaultname}" xproc:defaultname="{$defaultname}" >{$when/*}</p:declare-step>,$v,(),$outputs)
         else
-		  <return_otherwise_true/>
+			u:call($xproc:parse-and-eval,<p:declare-step name="{$defaultname}" xproc:defaultname="{$defaultname}" >{$otherwise/*}</p:declare-step>,$v,(),$outputs)
 };
-
-
-
-
-
-
-
-
-
 
 
 
@@ -336,10 +327,10 @@ let $primaryresult := document{
             return
             	xproc:resolve-port-binding($child,$result,$pipeline,$currentstep)
     else
-		if ($primaryinput//xproc:output) then
-    		$primaryinput/*[last()]/node()
+		if ($primaryinput/xproc:output) then
+    		$primaryinput/*[last()]/node()		(: multi container step output:)
 		else
-        	$primaryinput/*[1]
+        	$primaryinput/*[1]					(: atomic step output:)
     }
 
     let $select := string(
@@ -435,7 +426,7 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
                           select="{$currentstep/p:input[@primary='true']/@select}"
                           port="{$currentstep/p:input[@primary='true']/@port}"
                           func="{$stepfuncname}">{
-								$primary
+								$primary/*
                          }
             </xproc:output>,
 
