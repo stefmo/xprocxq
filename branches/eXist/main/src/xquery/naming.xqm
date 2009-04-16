@@ -165,11 +165,7 @@ declare function naming:generate-step($step,$stepname,$allstep){
 declare function naming:generate-component($xproc,$allcomp,$step,$stepname){
 
         element {node-name($step)} {
-            if ($step/@type) then attribute type{$step/@type} else (),
-            if ($step/@psvi-required) then attribute psvi-required{$step/@psvi-required} else (),
-            if ($step/@xpath-version) then attribute xpath-version{$step/@xpath-version} else (),
-            if ($step/@exclude-inline-prefixes) then attribute exclude-inline-prefixes{$step/@exclude-inline-prefixes} else (),
-
+			$step/@*,
             if ($allcomp/@xproc:step = "true") then attribute name{$step/@name} else (),
             if ($step/@port) then attribute port{$step/@port} else (),
             if ($step/@select) then attribute port{$step/@select} else (),

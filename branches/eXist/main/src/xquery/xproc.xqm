@@ -64,14 +64,15 @@ declare function xproc:group($primary,$secondary,$options,$step,$outputs) {
 
 
 (: -------------------------------------------------------------------------- :)
-declare function xproc:choose($primary,$secondary,$options,$step,$outputs) {
+declare function xproc:choose($primary,$secondary,$options,$currentstep,$outputs) {
     let $v := document{$primary/*[1]}
     let $stepfuncname := '$xproc:parse-and-eval'
     let $stepfunc := concat($const:default-imports,$stepfuncname)    
-    let $when := $step/p:when
-    let $otherwise := $step/p:otherwise
+    let $when := $currentstep/p:choose/p:when
+    let $otherwise := $currentstep/p:choose/p:otherwise
     let $when_eval := u:boolean-evalXPATH(string($when/@test),$v)
     return
+
         if($when_eval) then  
 			u:call($xproc:parse-and-eval,<p:declare-step>{$when/*}</p:declare-step>,$v,(),$outputs)
         else
@@ -210,13 +211,8 @@ declare function xproc:generate-step-binding($step,$xproc,$count,$stepname,$is_d
 
 
 declare function xproc:generate-component-binding($step,$stepname,$is_declare-step,$unique_id){
-            element {node-name($step)} {
-                if ($step/@type) then attribute type{$step/@type} else (),
-                if ($step/@psvi-required) then attribute psvi-required{$step/@psvi-required} else (),
-                if ($step/@xpath-version) then attribute xpath-version{$step/@xpath-version} else (),
-                if ($step/@exclude-inline-prefixes) then attribute exclude-inline-prefixes{$step/@exclude-inline-prefixes} else (),
-
-                attribute name{$step/@name},
+            element {node-name($step)} {	
+				$step/@*,
 
                 if ($const:comp-steps/xproc:element[@type=$stepname]/@xproc:step) then attribute xproc:defaultname{$unique_id} else (),
                 attribute xproc:type{xproc:type($stepname,$is_declare-step)},
