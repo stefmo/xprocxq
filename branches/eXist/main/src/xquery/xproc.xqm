@@ -75,9 +75,10 @@ declare function xproc:choose($primary,$secondary,$options,$currentstep,$outputs
     let $when_eval := u:boolean-evalXPATH(string($when/@test),$v)
     return
     	if($when_eval) then  
-			u:call($xproc:parse-and-eval,<p:declare-step name="{$defaultname}" xproc:defaultname="{$defaultname}" >{$when/*}</p:declare-step>,$v,(),$outputs)
+		u:call($xproc:parse-and-eval,<p:declare-step name="{$defaultname}" xproc:defaultname="{$defaultname}" >{$when/*}</p:declare-step>,$v,(),$outputs)
         else
 			u:call($xproc:parse-and-eval,<p:declare-step name="{$defaultname}" xproc:defaultname="{$defaultname}" >{$otherwise/*}</p:declare-step>,$v,(),$outputs)
+
 };
 
 

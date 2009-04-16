@@ -262,13 +262,10 @@ declare function u:boolean-evalXPATH($xpathstring, $xml) as xs:boolean{
 if(empty($xpathstring) or $xpathstring eq '/') then
 	false()
 else
-	let $query := concat('($xml/.)/',$xpathstring)
+	let $query := concat('($xml)',$xpathstring)
 	let $result := util:eval($query)
     return
-		if (empty($result)) then
-			false()
-		else 
-			xs:boolean($result)
+			boolean($result)		
 };
 
 
