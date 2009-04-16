@@ -68,11 +68,10 @@ declare function xproc:choose($primary,$secondary,$options,$currentstep,$outputs
     let $v := document{$primary/*[1]}
     let $stepfuncname := '$xproc:parse-and-eval'
     let $stepfunc := concat($const:default-imports,$stepfuncname)    
-    let $when := $currentstep/p:choose/p:when
+    let $when := $currentstep//p:when
     let $otherwise := $currentstep/p:choose/p:otherwise
     let $when_eval := u:boolean-evalXPATH(string($when/@test),$v)
     return
-
         if($when_eval) then  
 			u:call($xproc:parse-and-eval,<p:declare-step>{$when/*}</p:declare-step>,$v,(),$outputs)
         else

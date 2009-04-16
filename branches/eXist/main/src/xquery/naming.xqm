@@ -167,9 +167,6 @@ declare function naming:generate-component($xproc,$allcomp,$step,$stepname){
         element {node-name($step)} {
 			$step/@*,
             if ($allcomp/@xproc:step = "true") then attribute name{$step/@name} else (),
-            if ($step/@port) then attribute port{$step/@port} else (),
-            if ($step/@select) then attribute port{$step/@select} else (),
-            if ($step/@sequence) then attribute port{$step/@sequence} else (),
 
             (: TODO: will need to fixup top level input/output ports :)
             naming:explicitnames(document{$step/*}),
