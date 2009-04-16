@@ -6,6 +6,8 @@ general
 ----------------------------------------
 p:choose
 * each subpipeline must have the same output signature
+* need to ensure source input gets bound
+* need to cater for multiple p:when statements
 
 replace calls to secondary with a u:get-binding-output() function
 fix some of the identity tests

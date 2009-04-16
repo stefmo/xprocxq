@@ -7,14 +7,11 @@
              <test/>
          </p:inline>
      </p:input>
-
-<!-- TODO: piping of non primary ports //-->
      <p:input port="query">
          <p:inline>
              <c:query xmlns:c="http://www.w3.org/ns/xproc-step">let $a := 4 return $a</c:query>
          </p:inline>
     </p:input>
-
 </p:xquery>
 
 </p:pipeline>
