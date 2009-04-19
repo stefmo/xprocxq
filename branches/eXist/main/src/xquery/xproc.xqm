@@ -58,8 +58,13 @@ declare function xproc:pipeline($primary,$secondary,$options,$step) {
 
 
 (: -------------------------------------------------------------------------- :)
-declare function xproc:group($primary,$secondary,$options,$step,$outputs) {
-	<test/>
+declare function xproc:group($primary,$secondary,$options,$currentstep,$outputs) {
+let $defaultname := concat(string($currentstep/@xproc:defaultname),'.1')
+let $v := document{$primary/*[1]}
+let $steps := $currentstep/*
+return
+	u:call($xproc:parse-and-eval,<p:declare-step name="{$defaultname}" xproc:defaultname="{$defaultname}" >{$steps}</p:declare-step>,$v,(),$outputs)
+	
 };
 
 

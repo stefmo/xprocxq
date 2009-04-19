@@ -1,18 +1,21 @@
-
-
-
 ----------------------------------------
 general
 ----------------------------------------
+
+replace calls to secondary with a u:get-binding-output() function
+
+----------------------------------------
 p:choose
+----------------------------------------
 * each subpipeline must have the same output signature
 * need to ensure source input gets bound
 * need to cater for multiple p:when statements
+* xpath-context is just a p:input used with $when_eval
 
-replace calls to secondary with a u:get-binding-output() function
-fix some of the identity tests
-
+----------------------------------------
 ISSUE
+----------------------------------------
+
 * components/multi-container steps needs implementation (p:group,p:viewport,p:choose,p:for-each, p:pipeline, p:library, p:try/catch)
 * migrate errors from string to QName
 * make error reporting look nicer
@@ -33,6 +36,7 @@ ISSUE
 
 
 Limitations/Differences
+* need to use $context in p:choose
 * some step sorting issues (intermixing of steps using p:inline)
 * p:xquery currently uses a c:result element to output
 * p:compare currently has a primary result port

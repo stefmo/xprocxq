@@ -257,17 +257,15 @@ else
 
 (: -------------------------------------------------------------------------- :)
 (: TODO - need to refactor for eXist :)
-declare function u:boolean-evalXPATH($xpathstring, $xml) as xs:boolean{
+declare function u:boolean-evalXPATH($query, $xml){
 
-if(empty($xpathstring) or $xpathstring eq '/') then
+if(empty($query)) then
 	false()
 else
-	let $query := concat('($xml)',$xpathstring)
-	let $result := util:eval($query)
+	let $result := util:eval-inline($xml,$query)
     return
-			boolean($result)		
+		$result
 };
-
 
 (: -------------------------------------------------------------------------- :)
 declare function u:get-option($option-name as xs:string,$options,$v){
