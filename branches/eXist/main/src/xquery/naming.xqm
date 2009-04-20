@@ -156,7 +156,10 @@ else
 declare function naming:generate-step($step,$stepname,$allstep){
 if($allstep/@xproc:support) then
     element {node-name($step)} {
-        attribute name{$step/@name},        naming:preparse-input-bindings($allstep/p:*[@primary='true'],$step,$allstep/@xproc:bindings),
+        attribute name{$step/@name},
+
+		(: TODO - need to fix input/output preparse bindings :)
+        naming:preparse-input-bindings($allstep/p:*[@primary='true'],$step,$allstep/@xproc:bindings),
         naming:preparse-output-bindings($allstep/p:*[@primary='false'],$step,$allstep/@xproc:bindings),
         naming:preparse-options($allstep/p:option,$step,$stepname)
    }
@@ -172,10 +175,12 @@ if($allcomp/@xproc:support) then
         element {node-name($step)} {
             if ($allcomp/@xproc:step = "true") then (attribute name{$step/@name},$step/@*[not(name(.) eq 'name')]) else  $step/@*,
 
-            (: TODO: will need to fixup top level input/output ports :)
-            naming:explicitnames(document{$step/*}),
-			naming:preparse-output-bindings($allcomp/p:*[@primary='true'],$step,())
+            (: TODO - will need to fixup top level input/output ports :)
+            <ext:pre>
+				{naming:preparse-output-bindings($allcomp/p:*[@primary='true'],$step,())}
+			</ext:pre>,
 
+            naming:explicitnames(document{$step/*})
         }
 else
 	u:xprocxqError('xxq-error:XXQ0001',concat($stepname,":",$step/@name,u:serialize($step,$const:TRACE_SERIALIZE)))
@@ -214,10 +219,9 @@ else
 
             return
                if ($is_declare-step) then
-()
-(: TODO - must re-enable generate-declare-step at some point
-                    <test type="declare-step" name="{$stepname}"/>
-:)               else if($is_step) then
+			   (: TODO - must re-enable generate-declare-step at some point :)
+					()
+               else if($is_step) then
                     naming:generate-step($step,$stepname,$is_step)
                else if ($is_component) then
                     naming:generate-component($xproc,$is_component,$step,$stepname)
