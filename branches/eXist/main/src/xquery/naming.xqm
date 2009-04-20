@@ -15,6 +15,7 @@ declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
 declare namespace xproc = "http://xproc.net/xproc";
+declare namespace xxq-error = "http://xproc.net/xproc/error";
 
 (: Module Imports :)
 import module namespace const = "http://xproc.net/xproc/const";
@@ -153,26 +154,33 @@ else
 };
 
 declare function naming:generate-step($step,$stepname,$allstep){
+if($allstep/@xproc:support) then
     element {node-name($step)} {
-        attribute name{$step/@name},
-        naming:preparse-input-bindings($allstep/p:*[@primary='true'],$step,$allstep/@xproc:bindings),
+        attribute name{$step/@name},        naming:preparse-input-bindings($allstep/p:*[@primary='true'],$step,$allstep/@xproc:bindings),
         naming:preparse-output-bindings($allstep/p:*[@primary='false'],$step,$allstep/@xproc:bindings),
         naming:preparse-options($allstep/p:option,$step,$stepname)
    }
+
+else
+	u:xprocxqError('xxq-error:XXQ0002',concat($stepname,":",$step/@name,u:serialize($step,$const:TRACE_SERIALIZE)))
+
 };
 
 
 declare function naming:generate-component($xproc,$allcomp,$step,$stepname){
-
+if($allcomp/@xproc:support) then
         element {node-name($step)} {
-			$step/@*,
-            if ($allcomp/@xproc:step = "true") then attribute name{$step/@name} else (),
+            if ($allcomp/@xproc:step = "true") then (attribute name{$step/@name},$step/@*[not(name(.) eq 'name')]) else  $step/@*,
 
             (: TODO: will need to fixup top level input/output ports :)
             naming:explicitnames(document{$step/*}),
 			naming:preparse-output-bindings($allcomp/p:*[@primary='true'],$step,())
 
         }
+else
+	u:xprocxqError('xxq-error:XXQ0001',concat($stepname,":",$step/@name,u:serialize($step,$const:TRACE_SERIALIZE)))
+
+
 };
 
 
@@ -207,7 +215,7 @@ else
             return
                if ($is_declare-step) then
 ()
-(:
+(: TODO - must re-enable generate-declare-step at some point
                     <test type="declare-step" name="{$stepname}"/>
 :)               else if($is_step) then
                     naming:generate-step($step,$stepname,$is_step)

@@ -37,8 +37,8 @@ declare variable $const:NS_XPROC_ERR_EXT := "http://xproc.net/ns/errors";
 
 (: -------------------------------------------------------------------------- :)
 (: error dictionaries :)
-declare variable  $const:error := doc("resource:net/xproc/xqprocxq/etc/error-list.xml");
-declare variable  $const:error-xprocxq := doc("resource:net/xproc/xqprocxq/etc/error-xprocxq.xml");
+declare variable $const:error := doc("resource:net/xproc/xqprocxq/etc/error-list.xml");
+declare variable  $const:xprocxq-error := doc("resource:net/xproc/xqprocxq/etc/xproc-error-list.xml");
 
 (: -------------------------------------------------------------------------- :)
 

@@ -77,7 +77,7 @@
       <p:input port="parameters" kind="parameter"/>
       <p:option name="match" required="true"/>
    </p:declare-step>
-   <p:declare-step type="p:xquery" xml:id="xquery" xmlns:xproc="http://xproc.net/xproc">
+   <p:declare-step type="p:xquery" xml:id="xquery" xmlns:xproc="http://xproc.net/xproc" xproc:support="true">
       <p:input port="source" sequence="true" primary="true" select="/"/>
       <p:input port="query"  primary="false" select="/"/>
       <p:input port="parameters" kind="parameter" select="/"/>

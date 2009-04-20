@@ -22,6 +22,7 @@ declare namespace xproc = "http://xproc.net/xproc";
 declare namespace std = "http://xproc.net/xproc/std";
 declare namespace opt = "http://xproc.net/xproc/opt";
 declare namespace ext = "http://xproc.net/xproc/ext";
+declare namespace xxq-error = "http://xproc.net/xproc/error";
 
 
 (: Module Imports :)
@@ -193,6 +194,10 @@ let $info := $const:error//err:error[@code=substring-after($error,':')]
         error(QName('http://www.w3.org/ns/xproc-error',$error),concat($error,": XProc Step Error - ",$string," ",$info/text(),'&#10;'))
 };
 
+declare function u:xprocxqError($error,$string) {
+let $info := $const:xprocxq-error//xxq-error:error[@code=substring-after($error,':')]
+    return
+        error(QName('http://xproc.net/xproc/error',$error),concat($error,": xprocxq error - ",$string," ",$info/text(),'&#10;'))};
 
 (: -------------------------------------------------------------------------- :)
 declare function u:outputResultElement($exp){
