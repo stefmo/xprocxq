@@ -24,3 +24,13 @@ revision marks)]: Peruse the W3C Working Draft with differences dated 8 May 2008
 Processing Model Requirements and Use Cases]: Read the W3C XProc requirements and use cases document dated 11 April 2006.
 
 [http://www.w3.org/Submission/xpl/ XML Pipeline Language (XPL) Version 1.0 (Draft)]: Check out this draft of the early W3C member submission of an XML pipeline language.
+
+[http://tests.xproc.org XProc W3C unit test suite]: Repository where draft unit test suite for XProc is being developed.
+
+[http://exprog.org EXProc]: Intended to be a place to discuss and define extension steps to XProc.
+
+[http://expath.org EXPath]: Community defined extensions to XPath.
+
+
+[http://exquery.org EXQuery]: Community defined extensions to XQuery.
+
