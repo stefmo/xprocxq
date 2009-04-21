@@ -3,19 +3,20 @@
     <description>This build file builds the distro for xprocxq.</description>
 
 	<property name="dist" location="dist"/>
-	<property name="release" value="v0.6"/>
+	<loadfile property="release" srcFile="VERSION"/>
 
     <!-- ===================================================== -->
     <!-- create release dist for eXist                         -->
     <!-- ===================================================== -->
     <target name="dist" depends="clean, exist-jar">
+  		<copy file="README.eXist" todir="${dist}"/>
   		<copy file="LICENSE" todir="${dist}"/>
   		<copy file="VERSION" todir="${dist}"/>
   		<copy file="Changelog" todir="${dist}"/>
-  	  	<copy todir="${dist}">
+  	  	<copy todir="${dist}/examples">
 	    	<fileset dir="test/examples"/>
 	  	</copy>
-	 	<zip destfile="xprocxq-release-${release}.zip"
+	 	<zip destfile="${release}.zip"
 	       basedir="dist"
 	  	/>
 	</target>

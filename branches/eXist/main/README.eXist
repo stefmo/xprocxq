@@ -5,6 +5,7 @@ xprocxq is an experimental bootstrap implementation of W3C XProc Specification, 
 
 My original goal was to gain a comprehensive understanding of differences between XQuery processors whilst attempting to create a usable XProc implementation.  
 
+
 Limitations
 -----------
 
@@ -100,8 +101,8 @@ DISTROS
 
 The release distribution consists zip package containing the following:
 
-	README		This document.
-    VERSION     A summary of the distribution version.
+	README		This document
+    VERSION     A summary of the distribution version
 	LICENSE		Included licenses notice
     ChangeLog   Generated svn changelog
 	xprocxq.jar xprocxq application
@@ -109,8 +110,8 @@ The release distribution consists zip package containing the following:
 
 The source distribution is available by subversion and consists of:
 
-    README      This document.
-    VERSION     A summary of the distribution version.
+    README      This document
+    VERSION     A summary of the distribution version
     RELEASE     Current release version
 	LICENSE		Included licenses notice
 	LOC			lines of code metric	
@@ -127,21 +128,16 @@ The source distribution is available by subversion and consists of:
 CHANGES
 -------
 
-Review the Changelog file which is from time to time, generated from svn history.
+Review the ChangeLog file which is generated from svn history (http://code.google.com/p/xprocxq/source/list). 
 
 
-TODO/ISSUES
------------
+TODO/ISSUES/BUGS
+----------------
 
-I maintain an internal todo list as well as list out known issues using
+Known issues are tracked using the project issue tracker
 http://code.google.com/p/xprocxq/issues/list.
 
-
-BUGS
-----
-Please report bugs to issue list
-
-http://code.google.com/p/xprocxq/issues/list.
+Please report bugs here.
 
 
 WEBSITES
@@ -162,14 +158,15 @@ http://exproc.org
 eXist XML Database
 http://exist.sourceforge.net
 
+
 EMAIL
-----------------
+-----
 
 jim.fuller@webcomposite.com
 
-A general mail list is maintained by W3C for xproc developers
-xproc-dev@w3.org where questions can be asked there about xprocxq
-and other XProc processors
+A general mailing list is maintained by W3C for xproc developers
+xproc-dev@w3.org where questions can be asked about xprocxq and 
+other XProc processors.
 
 
 COPYRIGHT
@@ -179,9 +176,9 @@ xprocxq, xproc.xq and related material is the Copyright (C) 2007,2008
 of James Fuller (jim.fuller@webcomposite.com), All rights reserved.
 
 
-NOTICE
-------
+NOTICES
+-------
 
 xproc.xq is released under MPL v1.1, where the file LICENSE contains a copy of this license as well as links to any embedded software licenses (currently of which there is none, but in the near future we will be using EXpath/EXquery).
 
-xproc.xq is ALPHA software and is not intended for production usage.
+xproc.xq is ALPHA software and is not intended for production usage with all the usual caveats applying of use this software at your own risk.
