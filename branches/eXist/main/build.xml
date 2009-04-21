@@ -5,6 +5,7 @@
 	<property name="dist" location="dist"/>
 	<loadfile property="release" srcFile="VERSION"/>
 
+
     <!-- ===================================================== -->
     <!-- create release dist for eXist                         -->
     <!-- ===================================================== -->
@@ -20,6 +21,7 @@
 	       basedir="dist"
 	  	/>
 	</target>
+
 	
     <!-- ===================================================== -->
     <!-- create jar for eXist                                  -->
@@ -32,7 +34,6 @@
         <zipfileset dir="lib/net/xproc/saxon" includes="*.class" prefix="net/xproc/saxon"/>
       </zip>
     </target>
-
 
 
     <!-- ===================================================== -->
