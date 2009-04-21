@@ -5,14 +5,14 @@
 Check out [http://xprocxq.googlecode.com/svn/trunk/main/ChangeLog Changelog] included in the source code. This file is  not always up to date in trunk but will reflect reality for tag releases.
 
 
-== Issues / TODO ==
+== Issues ==
 
-The project[http://code.google.com/p/xprocxq/issues/list issue tracker] is the best place to find this information.
+The [http://code.google.com/p/xprocxq/issues/list project issue tracker] is the best place to find and submit issues.
 
 
 == Limitations and Issues ==
 
-xprocxq, being implemented in XQuery, currently has several limitations and is no where compliant with the existing XProc draft specification.
+xprocxq, being implemented in XQuery, currently has several limitations and is no where compliant with the existing XProc draft specification. I also made the decision some time ago to use weak typing which assisted in coming up with a core processor that will be portable across XQuery processors, but I am now in the process of refactoring with explicit typing.
 
 As I originally developed using SAXON-SA, I have had to disable many of XProc steps as I port across but should have a good set of steps running somewhat soon.
 
