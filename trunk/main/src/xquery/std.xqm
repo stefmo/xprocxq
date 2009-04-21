@@ -63,7 +63,7 @@ declare function std:add-attribute($primary,$secondary,$options) {
 
 (: TODO: need to refactor match attribute :)
 
-let $v := $primary/*[1]
+let $v := u:get-primary($primary)
 let $match := u:get-option('match',$options,$primary/*)
 let $attrName := u:get-option('attribute-name',$options,$primary/*)
 let $attrValue := u:get-option('attribute-value',$options,$primary/*)
@@ -77,6 +77,7 @@ declare function std:add-xml-base($primary,$secondary,$options) {
 
 (: TODO: need to refactor to pass in pipeline uri and any external input uri :)
 
+let $v := u:get-primary($primary)
 let $all := xs:boolean(u:get-option('all',$options,$primary))
 let $relative := xs:boolean(u:get-option('relative',$options,$primary))
 let $attrNames := xs:QName('xml:base')
@@ -84,7 +85,7 @@ let $attrValues := base-uri($primary[1])
 
 return
     if ($all) then
-    for $element in $primary[1]/*
+    for $element in $v/*
        return element { node-name($element)}
                       { for $attrName at $seq in $attrNames
                         return if ($element/@*[node-name(.) = $attrName])
@@ -94,7 +95,7 @@ return
                         $element/@*,
                         $element/node() }
 else
-    for $element in $primary[1]/*
+    for $element in $v/*
        return element { node-name($element)}
                       { for $attrName at $seq in $attrNames
                         return if ($element/@*[node-name(.) = $attrName])
@@ -107,7 +108,7 @@ else
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:compare($primary,$secondary,$options) {
+declare function std:compare1($primary,$secondary,$options) {
 let $v := $primary/*[1]
 let $alternate := $secondary/xproc:input[@port='alternate']/*
 let $result := deep-equal($v,$secondary/xproc:input[@port='alternate']/*)
@@ -125,9 +126,25 @@ let $fail-if-not-equal := xs:boolean(u:get-option('fail-if-not-equal',$options,$
 
 
 (: -------------------------------------------------------------------------- :)
-declare function std:count($primary,$secondary,$options){
+declare function std:compare($primary,$secondary,$options) {
+let $v := u:get-primary($primary)
+let $result := deep-equal($v,u:get-secondary('alternate',$secondary))
+let $fail-if-not-equal := xs:boolean(u:get-option('fail-if-not-equal',$options,$v))
+    return
 
-let $v := document{$primary}
+       if($fail-if-not-equal) then
+            if ($result) then          
+      			u:outputResultElement('true')
+            else
+                u:stepError('err:XC0019','p:compare fail-if-not-equal option is enabled and documents were not equal')
+        else
+            u:outputResultElement($result)
+};
+
+
+(: -------------------------------------------------------------------------- :)
+declare function std:count($primary,$secondary,$options){
+let $v := u:get-primary($primary)
 let $limit := xs:integer(u:get-option('limit',$options,$v))
 let $count := count($v/*)
 return
@@ -140,9 +157,10 @@ return
 
 (: -------------------------------------------------------------------------- :)
 declare function std:delete($primary,$secondary,$options){
+let $v := u:get-primary($primary)
 let $match := u:get-option('match',$options,$primary)
 return
-	u:copy-filter-elements($primary/*, $match)
+	u:copy-filter-elements($v, $match)
 };
 
 
@@ -159,10 +177,9 @@ u:assert(exists($options/p:with-option[@name='path']),'p:directory-list path opt
 
 (: -------------------------------------------------------------------------- :)
 declare function std:escape-markup($primary,$secondary,$options) {
-    u:serialize($primary,<xsl:output method="xml"
-                                 omit-xml-declaration="yes"
-                                 indent="yes"
-                                 />)
+let $v := u:get-primary($primary)
+return
+    u:serialize($v,$const:TRACE_SERIALIZE)
 };
 
 
@@ -170,7 +187,7 @@ declare function std:escape-markup($primary,$secondary,$options) {
 declare function std:error($primary,$secondary,$options) {
 (: TODO: this should be generated to the error port:)
 
-let $v := $primary/*[1]
+let $v := u:get-primary($primary)
 let $code := u:get-option('code',$options,$primary/*[1])
 let $err := <c:errors xmlns:c="http://www.w3.org/ns/xproc-step"
           xmlns:p="http://www.w3.org/ns/xproc"
@@ -193,7 +210,7 @@ declare function std:filter($primary,$secondary,$options) {
 (: TODO: is it an error for a empty match ? :)
 u:assert(exists($options/p:with-option[@name='select']/@select),'p:with-option match is required'),
 
-let $v :=document{$primary/*[1]}
+let $v := u:get-primary($primary)
 let $xpath := u:get-option('select',$options,$v)
 let $result := u:evalXPATH(string($xpath),$v)
     return
@@ -206,73 +223,97 @@ let $result := u:evalXPATH(string($xpath),$v)
 
 (: -------------------------------------------------------------------------- :)
 declare function std:http-request($primary,$secondary,$options) {
-    $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:identity($primary,$secondary,$options) {
-    $primary/*
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:insert($primary,$secondary,$options) {
-    $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:label-elements($primary,$secondary,$options) {
-    $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:load($primary,$secondary,$options) {
-    $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:make-absolute-uris($primary,$secondary,$options) {
-    $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:namespace-rename($primary,$secondary,$options) {
-    $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:pack($primary,$secondary,$options) {
-    $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:parameters($primary,$secondary,$options) {
-    $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:rename($primary,$secondary,$options) {
-    $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:replace($primary,$secondary,$options) {
-    $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:set-attributes($primary,$secondary,$options) {
-    $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 
@@ -284,29 +325,33 @@ declare function std:sink($primary,$secondary,$options) {
 
 (: -------------------------------------------------------------------------- :)
 declare function std:split-sequence($primary,$secondary,$options) {
-    $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:store($primary,$secondary,$options) {
-    $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:string-replace($primary,$secondary,$options) {
-    $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:unescape-markup($primary,$secondary,$options){
 (: TODO: doesnt work with nested xml elements :)
-let $parsed := document{u:serialize($primary,<xsl:output method="xml"
-                                 omit-xml-declaration="yes"
-                                 indent="yes"
-                                 />)}
+let $v := u:get-primary($primary)
+let $parsed := document{u:serialize($v,$const:TRACE_SERIALIZE)}
 return
     util:parse($parsed)
 };
@@ -314,7 +359,9 @@ return
 
 (: -------------------------------------------------------------------------- :)
 declare function std:xinclude($primary,$secondary,$options){
-    $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 
@@ -325,7 +372,7 @@ declare function std:wrap($primary,$secondary,$options) {
 u:assert(exists($options/p:with-option[@name='match']/@select),'p:with-option match is required'),
 u:assert(exists($options/p:with-option[@name='wrapper']/@select),'p:with-option wrapper is required'),
 
-    let $v :=document{$primary/*[1]}
+	let $v := u:get-primary($primary)
     let $wrapper := u:get-option('wrapper',$options,$v)
     let $match := u:get-option('match',$options,$v)
     let $replace := u:evalXPATH($match,$v)
@@ -342,7 +389,9 @@ u:assert(exists($options/p:with-option[@name='wrapper']/@select),'p:with-option 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:wrap-sequence($primary,$secondary,$options){
-    $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 
@@ -354,7 +403,7 @@ u:assert(exists($options/p:with-option[@name='match']/@select),'p:with-option ma
 
 (: TODO - The value of the match option must be an XSLTMatchPattern. It is a dynamic error (err:XC0023)
 if that pattern matches anything other than element nodes. :)
-let $v :=document{$primary/*[1]}
+let $v := u:get-primary($primary)
 let $match := u:get-option('match',$options,$v)
     return
          u:evalXPATH($match,$v)
@@ -365,8 +414,8 @@ let $match := u:get-option('match',$options,$v)
 declare function std:xslt($primary,$secondary,$options){
 
     u:assert(exists($secondary/xproc:input[@port='stylesheet']/*),'stylesheet is required'),
-    let $stylesheet := $secondary/xproc:input[@port='stylesheet']/*
-    let $v := document {$primary/*[1]}
+	let $v := u:get-primary($primary)
+    let $stylesheet := u:get-secondary('stylesheet',$secondary)
     return
         u:xslt($stylesheet,$v)
 };

@@ -36,28 +36,37 @@ declare variable $xproc:library :=util:function(xs:QName("xproc:library"), 4);
 declare variable $xproc:pipeline :=util:function(xs:QName("xproc:pipeline"), 4);
 (: -------------------------------------------------------------------------- :)
 
+
+(: --------------------------------------------------------------------------- :)
+                                                           (: XPROC COMPONENTS :)
+(: --------------------------------------------------------------------------- :)
+
+
 declare function xproc:declare-step($primary,$secondary,$options,$step) {
 <test1/>
 };
+
 
 declare function xproc:for-each($primary,$secondary,$options,$currentstep,$outputs) {
 let $defaultname := concat(string($currentstep/@xproc:defaultname),'.1')
 let $steps := $currentstep
 return
-	
 	for $child in $primary/node()
 	return
 		u:call($xproc:parse-and-eval,<p:declare-step name="{$defaultname}" xproc:defaultname="{$defaultname}" >{$currentstep/*}</p:declare-step>,$child,(),$outputs)
 
 };
 
+
 declare function xproc:viewport($primary,$secondary,$options,$step) {
 <test3/>
 };
 
+
 declare function xproc:library($primary,$secondary,$options,$step) {
 <test4/>
 };
+
 
 declare function xproc:pipeline($primary,$secondary,$options,$step) {
 <test5/>
@@ -66,8 +75,8 @@ declare function xproc:pipeline($primary,$secondary,$options,$step) {
 
 (: -------------------------------------------------------------------------- :)
 declare function xproc:group($primary,$secondary,$options,$currentstep,$outputs) {
+	let $v := u:get-primary($primary)
 	let $defaultname := concat(string($currentstep/@xproc:defaultname),'.1')
-	let $v := document{$primary/*[1]}
 	let $steps := $currentstep
 	return
 		u:call($xproc:parse-and-eval,<p:declare-step name="{$defaultname}" xproc:defaultname="{$defaultname}" >{$currentstep/*}</p:declare-step>,$v,(),$outputs)
@@ -76,8 +85,8 @@ declare function xproc:group($primary,$secondary,$options,$currentstep,$outputs)
 
 (: -------------------------------------------------------------------------- :)
 declare function xproc:choose($primary,$secondary,$options,$currentstep,$outputs) {
+	let $v := u:get-primary($primary)
 	let $defaultname := concat(string($currentstep/@xproc:defaultname),'.1')
-    let $v := document{$primary/*[1]}
     let $stepfuncname := '$xproc:parse-and-eval'
     let $stepfunc := concat($const:default-imports,$stepfuncname)    
     let $when := $currentstep//p:when
@@ -92,7 +101,22 @@ declare function xproc:choose($primary,$secondary,$options,$currentstep,$outputs
 };
 
 
-(: -------------------------------------------------------------------------- :)
+declare function xproc:run-step($primary,$secondary,$options,$step,$outputs) {
+	let $v := u:get-primary($primary)
+	let $stdin :=$v
+	let $pipeline := u:get-secondary('pipeline',$secondary)
+	let $bindings :=()
+	let $options :=()
+	let $dflag :="0"
+	let $tflag :="0"
+	return
+    	xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options)
+};
+
+
+(: --------------------------------------------------------------------------- :)
+                                                        (: PREPARSE II UTILS   :)
+(: --------------------------------------------------------------------------- :)
 
 (: -------------------------------------------------------------------------- :)
 (: returns step from std, opt and ext step definitions :)
@@ -562,19 +586,7 @@ let $output := subsequence($result,2)
 (: --------------------------------------------------------------------------- :)                                                                				(: ENTRY POINT   :)
 (: --------------------------------------------------------------------------- :)
 
-declare function xproc:run-step($primary,$secondary,$options,$step,$outputs) {
-	let $stdin :=$primary
-	let $pipeline := $secondary/xproc:input[@port='pipeline']
-	let $bindings :=()
-	let $options :=()
-	let $dflag :="0"
-	let $tflag :="0"
-	return
-    	xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options)
-};
 
-
-(: -------------------------------------------------------------------------- :)
 declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options){
 
 
