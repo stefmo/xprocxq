@@ -4,6 +4,7 @@
 
 = Getting Release version for xquery.xq =
 
+download latest release zip [http://code.google.com/p/xprocxq/source/browse/#svn/releases xprocxq-release-v0.6.zip]
 
 = Getting source code for xquery.xq =
 
