@@ -1,3 +1,170 @@
+2009-04-21 09:34  James.Fuller.2007
+
+	* ChangeLog, LOC:
+
+2009-04-21 09:30  James.Fuller.2007
+
+	* test/xproc/README, test/xquery/README: added some deprecated
+	  notes
+
+2009-04-21 09:27  James.Fuller.2007
+
+	* VERSION, bin/README, bin/xprocxq1, build.xml,
+	  test/examples/test-runner.xml, test/examples/test.xq: more
+	  release prep
+
+2009-04-21 09:21  James.Fuller.2007
+
+	* LICENSE, README, build.xml, catalog.xml, etc/xproc-component.xml,
+	  properties.xml, scratchpad, src/xquery/ext.xqm,
+	  src/xquery/opt.xqm, src/xquery/xproc.xqm, test/examples, trash,
+	  trash/old-build.xml, trash/properties.xml: preparing for release
+
+2009-04-20 22:31  James.Fuller.2007
+
+	* etc/xproc-component.xml, src/xquery/naming.xqm,
+	  src/xquery/xproc.xqm: multicontainer step work
+
+2009-04-20 17:10  James.Fuller.2007
+
+	* etc/error-xprocxq.xml, etc/pipeline-extension.xml,
+	  etc/pipeline-optional.xml, etc/pipeline-standard.xml,
+	  etc/xproc-component.xml, etc/xproc-error-list.xml, scratchpad,
+	  src/xquery/const.xqm, src/xquery/naming.xqm, src/xquery/util.xqm,
+	  src/xquery/xproc.xqm, test/xproc/basic/choose/choose2.xml: added
+	  xprocxq own error checking (for supported steps/components),
+	  added p:group support
+
+2009-04-19 20:57  James.Fuller.2007
+
+	* etc/xproc-component.xml, scratchpad, src/xquery/util.xqm,
+	  src/xquery/xproc.xqm:
+
+2009-04-16 19:53  James.Fuller.2007
+
+	* scratchpad, test/xproc/basic/xquery/xquery3.xml:
+
+2009-04-16 19:36  James.Fuller.2007
+
+	* src/xquery/util.xqm, src/xquery/xproc.xqm: fixed boolean
+	  determination in util:boolean eval func
+
+2009-04-16 18:24  James.Fuller.2007
+
+	* src/xquery/util.xqm, src/xquery/xproc.xqm,
+	  test/xproc/basic/choose/choose1.xml: fixed basic issues with test
+	  attribute evaluation in p:when
+
+2009-04-16 16:50  James.Fuller.2007
+
+	* build.xml, etc/xproc-component.xml, src/xquery/xproc.xqm: multi
+	  container steps output to output bindings correctly now
+
+2009-04-16 08:38  James.Fuller.2007
+
+	* src/xquery/naming.xqm, src/xquery/xproc.xqm: got boolean @test
+	  working for p:choose
+
+2009-04-16 08:21  James.Fuller.2007
+
+	* src/xquery/naming.xqm, src/xquery/xproc.xqm: refactored component
+	  step parsing to include all attributes
+
+2009-04-15 22:30  James.Fuller.2007
+
+	* scratchpad, src/xquery/const.xqm, src/xquery/util.xqm,
+	  src/xquery/xproc.xqm: working on p:choose now
+
+2009-04-15 21:08  James.Fuller.2007
+
+	* etc/pipeline-extension.xml, etc/xproc-component.xml, scratchpad,
+	  src/xquery/ext.xqm, src/xquery/naming.xqm, src/xquery/xproc.xqm:
+	  fixed spelling err that was causing primary step output to be
+	  persisted incorrectly
+
+2009-04-14 21:46  James.Fuller.2007
+
+	* scratchpad, src/xquery/ext.xqm, src/xquery/util.xqm,
+	  src/xquery/xproc.xqm:
+
+2009-04-14 16:55  James.Fuller.2007
+
+	* etc/pipeline-standard.xml, etc/xproc-component.xml, scratchpad,
+	  src/xquery/binding.xqm, src/xquery/naming.xqm,
+	  src/xquery/std.xqm, src/xquery/xproc.xqm:
+
+2009-04-10 08:48  James.Fuller.2007
+
+	* etc/error-list.xml, etc/pipeline-extension.xml,
+	  etc/pipeline-library.xml, etc/pipeline-optional.xml,
+	  etc/pipeline-standard.xml, etc/typed-pipeline-library.xml,
+	  src/xquery/const.xqm, src/xquery/ext.xqm, src/xquery/opt.xqm,
+	  src/xquery/std.xqm, src/xquery/util.xqm, src/xquery/xproc.xqm:
+	  fixed p:error, though still no error port and corrected error
+	  util functions as NDW has updated error-list.xml with err
+	  namespace
+
+2009-04-09 20:06  James.Fuller.2007
+
+	* src/xquery/xproc.xqm:
+
+2009-04-09 19:48  James.Fuller.2007
+
+	* etc/pipeline-standard.xml, src/xquery/binding.xqm,
+	  src/xquery/const.xqm, src/xquery/xproc.xq, src/xquery/xproc.xqm:
+	  fixed p:count definition of 0 limit
+
+2009-04-09 19:39  James.Fuller.2007
+
+	* src/xquery/comp.xqm, src/xquery/naming.xqm, src/xquery/std.xqm,
+	  src/xquery/util.xqm, src/xquery/xproc.xqm: refactored components
+	  and placed with xproc.xqm as they will require
+	  xproc:parse_and_eval
+
+2009-04-09 17:02  James.Fuller.2007
+
+	* src/xquery/std.xqm, src/xquery/util.xqm: fixed fail-if-not-equal
+	  attribute on p:compare
+
+2009-04-09 16:21  James.Fuller.2007
+
+	* etc/pipeline-standard.xml, src/xquery/xproc.xqm: added static
+	  error XS0032 for non primary ports that are required, e.g.
+	  p:compare by adding xproc:required to library definition
+
+2009-04-09 15:22  James.Fuller.2007
+
+	* src/xquery/std.xqm, src/xquery/util.xqm: addressed p:compare
+	  usage of string 'true'
+
+2009-04-09 14:42  James.Fuller.2007
+
+	* src/xquery/std.xqm, src/xquery/util.xqm: fixed p:count and a few
+	  rubs in how p:get-option works
+
+2009-04-09 13:49  James.Fuller.2007
+
+	* LOC, build.xml, scratchpad: ran LOC, vast reduction in line count
+
+2009-04-09 13:38  James.Fuller.2007
+
+	* etc/pipeline-library.xml, src/xquery/naming.xqm,
+	  src/xquery/std.xqm, src/xquery/util.xqm, src/xquery/xproc.xqm:
+	  refactored u:get-option to be a bit friendlier
+
+2009-04-09 09:42  James.Fuller.2007
+
+	* scratchpad, src/xquery/naming.xqm, src/xquery/util.xqm,
+	  src/xquery/xproc.xq: fixed step ordering, was due to eXist bug
+	  with nested modules
+
+2009-04-08 19:52  James.Fuller.2007
+
+	* etc/pipeline-extension.xml, scratchpad, src/xquery/ext.xqm,
+	  src/xquery/opt.xqm, src/xquery/xproc.xqm: test cases work in
+	  eXist now, added xproc:use-function to map steps to an arbitrary
+	  function in step definitions
+
 2009-04-07 18:56  James.Fuller.2007
 
 	* src/xquery/ant.xqm, src/xquery/binding.xqm, src/xquery/comp.xqm,
