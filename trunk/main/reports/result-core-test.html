@@ -1,0 +1,208 @@
+<html xmlns:fn="http://www.w3.org/2003/05/xpath-functions">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>
+             .good {background-color: #3F0;}
+             .bad {background-color:#F30;}
+         </style></head>
+   <body>
+      <h1>Core XQuery Unit Tests</h1>
+      <p><b>88% Tests ran successfully</b><br>:Test the core XProc.xq XQuery functions
+      </p>
+      <table border="1">
+         <tr>
+            <td>test name</td>
+            <td>status</td>
+            <td>result</td>
+            <td>expected</td>
+         </tr>
+         <tr>
+            <td><b>run xproc u:help</b></td>
+            <td>
+               <div class="good">passed </div>
+            </td>
+            <td><textarea name="content" rows="6" cols="60">help util executed</textarea></td>
+            <td><textarea name="content" rows="6" cols="60">help util executed</textarea></td>
+         </tr>
+         <tr>
+            <td><b>run xproc u:eval which evals to true</b></td>
+            <td>
+               <div class="good">passed </div>
+            </td>
+            <td><textarea name="content" rows="6" cols="60">true</textarea></td>
+            <td><textarea name="content" rows="6" cols="60">true</textarea></td>
+         </tr>
+         <tr>
+            <td><b>run xproc u:eval which evals to false</b></td>
+            <td>
+               <div class="good">passed </div>
+            </td>
+            <td><textarea name="content" rows="6" cols="60">false</textarea></td>
+            <td><textarea name="content" rows="6" cols="60">false</textarea></td>
+         </tr>
+         <tr>
+            <td><b>run saxon:evaluate which evals to true</b></td>
+            <td>
+               <div class="good">passed </div>
+            </td>
+            <td><textarea name="content" rows="6" cols="60">true</textarea></td>
+            <td><textarea name="content" rows="6" cols="60">true</textarea></td>
+         </tr>
+         <tr>
+            <td><b>run u:evalXPATH which evals to true</b></td>
+            <td>
+               <div class="good">passed </div>
+            </td>
+            <td><textarea name="content" rows="6" cols="60">true</textarea></td>
+            <td><textarea name="content" rows="6" cols="60">true</textarea></td>
+         </tr>
+         <tr>
+            <td><b>testing u:call</b></td>
+            <td>
+               <div class="good">passed </div>
+            </td>
+            <td><textarea name="content" rows="6" cols="60">
+         <c:result xmlns:c="http://www.w3.org/ns/xproc-step">1</c:result>
+      </textarea></td>
+            <td><textarea name="content" rows="6" cols="60">1</textarea></td>
+         </tr>
+         <tr>
+            <td><b>directly testing saxon:call</b></td>
+            <td>
+               <div class="good">passed </div>
+            </td>
+            <td><textarea name="content" rows="6" cols="60">
+         <c:result xmlns:c="http://www.w3.org/ns/xproc-step">1</c:result>
+      </textarea></td>
+            <td><textarea name="content" rows="6" cols="60">1</textarea></td>
+         </tr>
+         <tr>
+            <td><b>run xproc parse function</b></td>
+            <td>
+               <div class="bad">failed </div>
+            </td>
+            <td><textarea name="content" rows="6" cols="60">
+         <p:declare-step xmlns:xproc="http://xproc.net/xproc" xmlns:p="http://www.w3.org/ns/xproc" xproc:defaultname="!1" name="helloworld">
+            <ext:pre xmlns:ext="http://xproc.net/xproc/ext" name="helloworld|" xproc:defaultname="!1.1" xproc:type="ext">
+               <p:input port="source" primary="true" select="/">
+                  <p:pipe step="helloworld|" port="stdin"></p:pipe>
+               </p:input>
+               <p:output port="result" primary="true" select=""></p:output>
+               <p:output primary="true" port="result"></p:output>
+            </ext:pre>
+            <p:identity name="step2" xproc:defaultname="!1.2" xproc:type="std">
+               <p:input port="source" primary="true" select="/"></p:input>
+               <p:output port="result" primary="true" select=""></p:output>
+            </p:identity>
+            <p:count name="step3" xproc:defaultname="!1.3" xproc:type="std">
+               <p:input port="source" primary="true" select="/"></p:input>
+               <p:output port="result" primary="true" select=""></p:output>
+            </p:count>
+            <p:count name="step1" xproc:defaultname="!1.4" xproc:type="std">
+               <p:input port="source" primary="true" select="/"></p:input>
+               <p:output port="result" primary="true" select=""></p:output>
+            </p:count>
+            <ext:post xmlns:ext="http://xproc.net/xproc/ext" name="!1.5" xproc:defaultname="!1.5" xproc:type="ext">
+               <p:input port="source" primary="true" select="/"></p:input>
+               <p:output port="stdout" primary="true" select=""></p:output>
+            </ext:post>
+         </p:declare-step>
+         <xproc:output xmlns:xproc="http://xproc.net/xproc" func="" step="helloworld|" port="stdin">
+            <test></test>
+         </xproc:output>
+         <xproc:output xmlns:xproc="http://xproc.net/xproc" func="$ext:pre" step="helloworld|" port="result">
+            <test></test>
+         </xproc:output>
+         <xproc:output xmlns:xproc="http://xproc.net/xproc" func="$std:identity" step="step2" port="result">
+            <test></test>
+         </xproc:output>
+         <xproc:output xmlns:xproc="http://xproc.net/xproc" func="$std:count" step="step3" port="result">
+            <c:result xmlns:c="http://www.w3.org/ns/xproc-step">1</c:result>
+         </xproc:output>
+         <xproc:output xmlns:xproc="http://xproc.net/xproc" func="$std:count" step="step1" port="result">
+            <c:result xmlns:c="http://www.w3.org/ns/xproc-step">1</c:result>
+         </xproc:output>
+         <xproc:output xmlns:xproc="http://xproc.net/xproc" func="$ext:post" step="!1.5" port="stdout">
+            <c:result xmlns:c="http://www.w3.org/ns/xproc-step">1</c:result>
+         </xproc:output>
+      </textarea></td>
+            <td><textarea name="content" rows="6" cols="60">import module namespace xproc = "http://xproc.net/xproc" at "src/xquery/xproc.xqm"; import module namespace comp = "http://xproc.net/xproc/comp" at "src/xquery/comp.xqm"; import module namespace util = "http://xproc.net/xproc/util" at "src/xquery/util.xqm"; import module namespace std = "http://xproc.net/xproc/std" at "src/xquery/std.xqm"; import module namespace ext = "http://xproc.net/xproc/ext" at "src/xquery/ext.xqm"; let $O0 := <test></test> let $steps := ("pre step",$ext:pre, "step1", $std:count, "step2", $std:identity, "step3", $std:count, "post-step",$ext:post) return u:step-fold($steps, saxon:function("xproc:evalstep", 3),($O0,""))</textarea></td>
+         </tr>
+         <tr>
+            <td><b>simple u:xquery test</b></td>
+            <td>
+               <div class="good">passed </div>
+            </td>
+            <td><textarea name="content" rows="6" cols="60">1</textarea></td>
+            <td><textarea name="content" rows="6" cols="60">1</textarea></td>
+         </tr>
+         <tr>
+            <td><b>simple u:xslt test</b></td>
+            <td>
+               <div class="bad">failed </div>
+            </td>
+            <td><textarea name="content" rows="6" cols="60">test</textarea></td>
+            <td><textarea name="content" rows="6" cols="60">1</textarea></td>
+         </tr>
+         <tr>
+            <td><b>testing subsequence</b></td>
+            <td>
+               <div class="good">passed </div>
+            </td>
+            <td><textarea name="content" rows="6" cols="60">saxon:function("std:identity", 3)</textarea></td>
+            <td><textarea name="content" rows="6" cols="60"></textarea></td>
+         </tr>
+         <tr>
+            <td><b>testing u:timing</b></td>
+            <td>
+               <div class="good">passed </div>
+            </td>
+            <td><textarea name="content" rows="6" cols="60">true</textarea></td>
+            <td><textarea name="content" rows="6" cols="60">true</textarea></td>
+         </tr>
+         <tr>
+            <td><b>testing trace</b></td>
+            <td>
+               <div class="good">passed </div>
+            </td>
+            <td><textarea name="content" rows="6" cols="60">false</textarea></td>
+            <td><textarea name="content" rows="6" cols="60">false</textarea></td>
+         </tr>
+         <tr>
+            <td><b>testing u:try</b></td>
+            <td>
+               <div class="good">passed </div>
+            </td>
+            <td><textarea name="content" rows="6" cols="60">false</textarea></td>
+            <td><textarea name="content" rows="6" cols="60">false</textarea></td>
+         </tr>
+         <tr>
+            <td><b>xproc:step-available function</b></td>
+            <td>
+               <div class="good">passed </div>
+            </td>
+            <td><textarea name="content" rows="6" cols="60">true</textarea></td>
+            <td><textarea name="content" rows="6" cols="60">true</textarea></td>
+         </tr>
+         <tr>
+            <td><b>xproc:step-available function</b></td>
+            <td>
+               <div class="good">passed </div>
+            </td>
+            <td><textarea name="content" rows="6" cols="60">false</textarea></td>
+            <td><textarea name="content" rows="6" cols="60">false</textarea></td>
+         </tr>
+         <tr>
+            <td><b>xproc:step-available function</b></td>
+            <td>
+               <div class="good">passed </div>
+            </td>
+            <td><textarea name="content" rows="6" cols="60">true</textarea></td>
+            <td><textarea name="content" rows="6" cols="60">true</textarea></td>
+         </tr>
+      </table>
+      
+      failed: 2 /  success: 15 / total: 17
+      <hr>
+      <p style="text-align:right"><i>2008-10-19T14:09:05.546+02:00 generated by <a href="http://code.google.com/p/xprocxq">XQuery Unit Test</a>, by jim.fuller@webcomposite.com</i></p>
+   </body>
+</html>
