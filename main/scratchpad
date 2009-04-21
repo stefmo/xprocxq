@@ -2,7 +2,8 @@
 general
 ----------------------------------------
 
-replace calls to secondary with a u:get-binding-output() function
+* add primary input to evaluation in u:xquery, instead of passing
+to each function
 
 ----------------------------------------
 p:choose

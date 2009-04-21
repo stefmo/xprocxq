@@ -64,9 +64,9 @@ declare function std:add-attribute($primary,$secondary,$options) {
 (: TODO: need to refactor match attribute :)
 
 let $v := u:get-primary($primary)
-let $match := u:get-option('match',$options,$primary/*)
-let $attrName := u:get-option('attribute-name',$options,$primary/*)
-let $attrValue := u:get-option('attribute-value',$options,$primary/*)
+let $match := u:get-option('match',$options,$v)
+let $attrName := u:get-option('attribute-name',$options,$v)
+let $attrValue := u:get-option('attribute-value',$options,$v)
 return
     u:treewalker-add-attribute($v,$match,$attrName,$attrValue)
 };
@@ -78,10 +78,10 @@ declare function std:add-xml-base($primary,$secondary,$options) {
 (: TODO: need to refactor to pass in pipeline uri and any external input uri :)
 
 let $v := u:get-primary($primary)
-let $all := xs:boolean(u:get-option('all',$options,$primary))
-let $relative := xs:boolean(u:get-option('relative',$options,$primary))
+let $all := xs:boolean(u:get-option('all',$options,$v))
+let $relative := xs:boolean(u:get-option('relative',$options,$v))
 let $attrNames := xs:QName('xml:base')
-let $attrValues := base-uri($primary[1]) 
+let $attrValues := base-uri($v) 
 
 return
     if ($all) then
@@ -104,24 +104,6 @@ else
                                               {$attrValues[$seq]},
                         $element/@*,
                         $element/node() }
-};
-
-
-(: -------------------------------------------------------------------------- :)
-declare function std:compare1($primary,$secondary,$options) {
-let $v := $primary/*[1]
-let $alternate := $secondary/xproc:input[@port='alternate']/*
-let $result := deep-equal($v,$secondary/xproc:input[@port='alternate']/*)
-let $fail-if-not-equal := xs:boolean(u:get-option('fail-if-not-equal',$options,$v))
-    return
-
-       if($fail-if-not-equal) then
-            if ($result) then          
-      			u:outputResultElement('true')
-            else
-                u:stepError('err:XC0019','p:compare fail-if-not-equal option is enabled and documents were not equal')
-        else
-            u:outputResultElement($result)
 };
 
 
@@ -158,7 +140,7 @@ return
 (: -------------------------------------------------------------------------- :)
 declare function std:delete($primary,$secondary,$options){
 let $v := u:get-primary($primary)
-let $match := u:get-option('match',$options,$primary)
+let $match := u:get-option('match',$options,$v)
 return
 	u:copy-filter-elements($v, $match)
 };
@@ -188,7 +170,7 @@ declare function std:error($primary,$secondary,$options) {
 (: TODO: this should be generated to the error port:)
 
 let $v := u:get-primary($primary)
-let $code := u:get-option('code',$options,$primary/*[1])
+let $code := u:get-option('code',$options,$v)
 let $err := <c:errors xmlns:c="http://www.w3.org/ns/xproc-step"
           xmlns:p="http://www.w3.org/ns/xproc"
           xmlns:my="http://www.example.org/error">
