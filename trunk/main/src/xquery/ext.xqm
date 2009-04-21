@@ -38,8 +38,8 @@ return
 	$v
 };
 declare function ext:xproc($primary,$secondary,$options){
-	(: This is a dummy step to xproc:run-step function in xproc.xqm :)
-<test/>
+(: NOTE - this function needs to be defined here, but use-function in xproc.xqm :)
+()
 };
 (: -------------------------------------------------------------------------- :)
 
