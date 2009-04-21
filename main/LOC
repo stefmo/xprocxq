@@ -1,0 +1,11 @@
+  16 src/xquery/ant.xqm
+ 103 src/xquery/const.xqm
+  43 src/xquery/ext.xqm
+  44 src/xquery/functions.xqm
+ 301 src/xquery/naming.xqm
+  99 src/xquery/opt.xqm
+ 374 src/xquery/std.xqm
+ 492 src/xquery/util.xqm
+  52 src/xquery/xproc.xq
+ 624 src/xquery/xproc.xqm
+2148 total

@@ -1,0 +1,1102 @@
+2009-04-21 09:34  James.Fuller.2007
+
+	* ChangeLog, LOC:
+
+2009-04-21 09:30  James.Fuller.2007
+
+	* test/xproc/README, test/xquery/README: added some deprecated
+	  notes
+
+2009-04-21 09:27  James.Fuller.2007
+
+	* VERSION, bin/README, bin/xprocxq1, build.xml,
+	  test/examples/test-runner.xml, test/examples/test.xq: more
+	  release prep
+
+2009-04-21 09:21  James.Fuller.2007
+
+	* LICENSE, README, build.xml, catalog.xml, etc/xproc-component.xml,
+	  properties.xml, scratchpad, src/xquery/ext.xqm,
+	  src/xquery/opt.xqm, src/xquery/xproc.xqm, test/examples, trash,
+	  trash/old-build.xml, trash/properties.xml: preparing for release
+
+2009-04-20 22:31  James.Fuller.2007
+
+	* etc/xproc-component.xml, src/xquery/naming.xqm,
+	  src/xquery/xproc.xqm: multicontainer step work
+
+2009-04-20 17:10  James.Fuller.2007
+
+	* etc/error-xprocxq.xml, etc/pipeline-extension.xml,
+	  etc/pipeline-optional.xml, etc/pipeline-standard.xml,
+	  etc/xproc-component.xml, etc/xproc-error-list.xml, scratchpad,
+	  src/xquery/const.xqm, src/xquery/naming.xqm, src/xquery/util.xqm,
+	  src/xquery/xproc.xqm, test/xproc/basic/choose/choose2.xml: added
+	  xprocxq own error checking (for supported steps/components),
+	  added p:group support
+
+2009-04-19 20:57  James.Fuller.2007
+
+	* etc/xproc-component.xml, scratchpad, src/xquery/util.xqm,
+	  src/xquery/xproc.xqm:
+
+2009-04-16 19:53  James.Fuller.2007
+
+	* scratchpad, test/xproc/basic/xquery/xquery3.xml:
+
+2009-04-16 19:36  James.Fuller.2007
+
+	* src/xquery/util.xqm, src/xquery/xproc.xqm: fixed boolean
+	  determination in util:boolean eval func
+
+2009-04-16 18:24  James.Fuller.2007
+
+	* src/xquery/util.xqm, src/xquery/xproc.xqm,
+	  test/xproc/basic/choose/choose1.xml: fixed basic issues with test
+	  attribute evaluation in p:when
+
+2009-04-16 16:50  James.Fuller.2007
+
+	* build.xml, etc/xproc-component.xml, src/xquery/xproc.xqm: multi
+	  container steps output to output bindings correctly now
+
+2009-04-16 08:38  James.Fuller.2007
+
+	* src/xquery/naming.xqm, src/xquery/xproc.xqm: got boolean @test
+	  working for p:choose
+
+2009-04-16 08:21  James.Fuller.2007
+
+	* src/xquery/naming.xqm, src/xquery/xproc.xqm: refactored component
+	  step parsing to include all attributes
+
+2009-04-15 22:30  James.Fuller.2007
+
+	* scratchpad, src/xquery/const.xqm, src/xquery/util.xqm,
+	  src/xquery/xproc.xqm: working on p:choose now
+
+2009-04-15 21:08  James.Fuller.2007
+
+	* etc/pipeline-extension.xml, etc/xproc-component.xml, scratchpad,
+	  src/xquery/ext.xqm, src/xquery/naming.xqm, src/xquery/xproc.xqm:
+	  fixed spelling err that was causing primary step output to be
+	  persisted incorrectly
+
+2009-04-14 21:46  James.Fuller.2007
+
+	* scratchpad, src/xquery/ext.xqm, src/xquery/util.xqm,
+	  src/xquery/xproc.xqm:
+
+2009-04-14 16:55  James.Fuller.2007
+
+	* etc/pipeline-standard.xml, etc/xproc-component.xml, scratchpad,
+	  src/xquery/binding.xqm, src/xquery/naming.xqm,
+	  src/xquery/std.xqm, src/xquery/xproc.xqm:
+
+2009-04-10 08:48  James.Fuller.2007
+
+	* etc/error-list.xml, etc/pipeline-extension.xml,
+	  etc/pipeline-library.xml, etc/pipeline-optional.xml,
+	  etc/pipeline-standard.xml, etc/typed-pipeline-library.xml,
+	  src/xquery/const.xqm, src/xquery/ext.xqm, src/xquery/opt.xqm,
+	  src/xquery/std.xqm, src/xquery/util.xqm, src/xquery/xproc.xqm:
+	  fixed p:error, though still no error port and corrected error
+	  util functions as NDW has updated error-list.xml with err
+	  namespace
+
+2009-04-09 20:06  James.Fuller.2007
+
+	* src/xquery/xproc.xqm:
+
+2009-04-09 19:48  James.Fuller.2007
+
+	* etc/pipeline-standard.xml, src/xquery/binding.xqm,
+	  src/xquery/const.xqm, src/xquery/xproc.xq, src/xquery/xproc.xqm:
+	  fixed p:count definition of 0 limit
+
+2009-04-09 19:39  James.Fuller.2007
+
+	* src/xquery/comp.xqm, src/xquery/naming.xqm, src/xquery/std.xqm,
+	  src/xquery/util.xqm, src/xquery/xproc.xqm: refactored components
+	  and placed with xproc.xqm as they will require
+	  xproc:parse_and_eval
+
+2009-04-09 17:02  James.Fuller.2007
+
+	* src/xquery/std.xqm, src/xquery/util.xqm: fixed fail-if-not-equal
+	  attribute on p:compare
+
+2009-04-09 16:21  James.Fuller.2007
+
+	* etc/pipeline-standard.xml, src/xquery/xproc.xqm: added static
+	  error XS0032 for non primary ports that are required, e.g.
+	  p:compare by adding xproc:required to library definition
+
+2009-04-09 15:22  James.Fuller.2007
+
+	* src/xquery/std.xqm, src/xquery/util.xqm: addressed p:compare
+	  usage of string 'true'
+
+2009-04-09 14:42  James.Fuller.2007
+
+	* src/xquery/std.xqm, src/xquery/util.xqm: fixed p:count and a few
+	  rubs in how p:get-option works
+
+2009-04-09 13:49  James.Fuller.2007
+
+	* LOC, build.xml, scratchpad: ran LOC, vast reduction in line count
+
+2009-04-09 13:38  James.Fuller.2007
+
+	* etc/pipeline-library.xml, src/xquery/naming.xqm,
+	  src/xquery/std.xqm, src/xquery/util.xqm, src/xquery/xproc.xqm:
+	  refactored u:get-option to be a bit friendlier
+
+2009-04-09 09:42  James.Fuller.2007
+
+	* scratchpad, src/xquery/naming.xqm, src/xquery/util.xqm,
+	  src/xquery/xproc.xq: fixed step ordering, was due to eXist bug
+	  with nested modules
+
+2009-04-08 19:52  James.Fuller.2007
+
+	* etc/pipeline-extension.xml, scratchpad, src/xquery/ext.xqm,
+	  src/xquery/opt.xqm, src/xquery/xproc.xqm: test cases work in
+	  eXist now, added xproc:use-function to map steps to an arbitrary
+	  function in step definitions
+
+2009-04-07 18:56  James.Fuller.2007
+
+	* src/xquery/ant.xqm, src/xquery/binding.xqm, src/xquery/comp.xqm,
+	  src/xquery/const.xqm, src/xquery/ext.xqm,
+	  src/xquery/functions.xqm, src/xquery/naming.xqm,
+	  src/xquery/opt.xqm, src/xquery/std.xqm, src/xquery/util.xqm,
+	  src/xquery/xproc.xq, src/xquery/xproc.xqm: fixed default naming
+	  for steps with no name
+
+2009-04-05 19:49  James.Fuller.2007
+
+	* src/xquery/const.xqm, src/xquery/naming.xqm, src/xquery/util.xqm,
+	  src/xquery/xproc.xqm: first working version on eXist
+
+2009-04-04 22:37  James.Fuller.2007
+
+	* ChangeLog, etc/pipeline-extension.xml, generated.test-suite.xml,
+	  reports/result-core-test.html, reports/result-preparse-test.html,
+	  scratchpad, src/xquery/ant.xqm, src/xquery/comp.xqm,
+	  src/xquery/const.xqm, src/xquery/ext.xqm, src/xquery/opt.xqm,
+	  src/xquery/std.xqm, src/xquery/util.xqm, src/xquery/xproc.xqm,
+	  test/xquery/core.xq, test/xquery/preparse.xq,
+	  test/xquery/preparse_1.xq: most eXist specific changes have been
+	  implemented
+
+2009-04-04 17:16  James.Fuller.2007
+
+	* src/xquery/ant.xqm, src/xquery/binding.xqm, src/xquery/comp.xqm,
+	  src/xquery/const.xqm, src/xquery/ext.xqm,
+	  src/xquery/functions.xqm, src/xquery/naming.xqm,
+	  src/xquery/opt.xqm, src/xquery/std.xqm, src/xquery/util.xqm,
+	  src/xquery/xproc.xq, src/xquery/xproc.xqm: removed all calls to
+	  saxon:function with util:function
+
+2009-04-04 16:31  James.Fuller.2007
+
+	* src/xquery/functions.xqm:
+
+2009-04-04 16:18  James.Fuller.2007
+
+	* bin/xprocxq, build.xml, nbproject, quicktest-calabash.sh,
+	  quicktest.sh, scratchpad, test-calabash, test-xprocxq: tidying up
+
+2009-04-04 12:45  James.Fuller.2007
+
+	* src/java/net, src/net:
+
+2009-04-04 12:44  James.Fuller.2007
+
+	* src/java:
+
+2009-04-04 12:27  James.Fuller.2007
+
+	* : exist branch
+
+2009-04-04 12:01  James.Fuller.2007
+
+	* : commit before branching
+
+2009-04-02 21:51  James.Fuller.2007
+
+	* :
+
+2009-03-31 21:31  james.fuller.2007
+
+	* : migrating from git, refactoring multi containers
+
+2009-03-31 17:55  james.fuller.2007
+
+	* : migrating from git, fixed non primary top level inputs and
+	  p:count
+
+2009-03-31 00:07  james.fuller.2007
+
+	* : migrating from git, pulled out naming static parser into
+	  naming.xqm
+
+2009-03-30 22:08  james.fuller.2007
+
+	* : migrating from git, pulled out naming static parser into
+	  naming.xqm
+
+2009-03-30 22:05  james.fuller.2007
+
+	* : migrating from git, migrating things to const.xqm
+
+2009-03-30 14:49  james.fuller.2007
+
+	* : migrating from git, preparing for namespace wrangling
+
+2009-03-30 14:12  james.fuller.2007
+
+	* : migrating from git, fixed add-attrib step
+
+2009-03-30 14:12  james.fuller.2007
+
+	* : migrating from git, fixed add-attrib step
+
+2009-03-29 18:57  James.Fuller.2007
+
+	* :
+
+2009-03-28 18:54  james.fuller.2007
+
+	* : migrate stuff from git back to subversion, added ext:xproc to
+	  run testsuite
+
+2009-03-27 23:18  james.fuller.2007
+
+	* : migrate stuff from git back to subversion, added LOC target
+
+2009-03-27 23:11  james.fuller.2007
+
+	* : migrate stuff from git back to subversion, fixed p:compare in
+	  the process
+
+2009-03-27 23:07  james.fuller.2007
+
+	* : migrate stuff from git back to subversion, fixed p:compare in
+	  the process
+
+2009-03-25 22:46  james.fuller.2007
+
+	* : starting to migrate stuff from git back to subversion, this is
+	  going to be an interesting process
+
+2009-03-25 20:01  james.fuller.2007
+
+	* : starting to migrate stuff from git back to subversion, this is
+	  going to be an interesting process
+
+2009-01-13 22:11  james.fuller.2007
+
+	* : initial cut at commandline parsing of external bindings plus
+	  ongoing chaos from refactoring preparse routines
+
+2009-01-13 00:13  james.fuller.2007
+
+	* : refactoring static parse I and parse II, steps should be fine
+	  now migrating changes to component and declare-step handling
+
+2009-01-11 23:25  james.fuller.2007
+
+	* : refactoring static parse
+
+2009-01-11 21:31  james.fuller.2007
+
+	* : refactoring static parse
+
+2009-01-10 21:47  james.fuller.2007
+
+	* : refactoring static parse I
+
+2009-01-10 20:32  james.fuller.2007
+
+	* : refactoring static parse I
+
+2009-01-09 00:34  james.fuller.2007
+
+	* : implementing unit test xproc step
+
+2009-01-09 00:33  james.fuller.2007
+
+	* : implementing unit test xproc step
+
+2009-01-08 23:52  james.fuller.2007
+
+	* : implementing unit test xproc step
+
+2009-01-08 23:22  james.fuller.2007
+
+	* : fixed stupid xquery gotcha on xproc:secondary ... arggg
+
+2009-01-08 21:17  james.fuller.2007
+
+	* : further stepfunc refactoring goodness
+
+2009-01-08 20:53  james.fuller.2007
+
+	* : refactored out stupid sequence containing function names
+
+2009-01-08 20:34  james.fuller.2007
+
+	* : established method for defining external bindings and options
+
+2009-01-07 06:39  james.fuller.2007
+
+	* : rationalized xproc:output audit trace to include all step
+	  bindings
+
+2009-01-02 21:54  james.fuller.2007
+
+	* : sync secondary input with all the options developed for primary
+	  inputs
+
+2009-01-02 16:46  james.fuller.2007
+
+	* : replaced 2 stage fixup into one
+
+2008-12-30 18:06  james.fuller.2007
+
+	* : refactoring preparse
+
+2008-12-29 22:20  james.fuller.2007
+
+	* : handled stdin port on top level input
+
+2008-12-29 20:48  james.fuller.2007
+
+	* : serious refactoring, bindings are once again a mess
+
+2008-12-27 22:55  james.fuller.2007
+
+	* : fixed trace option and fixed issue with p:pipe
+
+2008-12-27 20:45  james.fuller.2007
+
+	* : fixed trace option and fixed issue with p:pipe
+
+2008-12-27 19:08  james.fuller.2007
+
+	* : fixed nagging issue with @primary attributes on top level
+	  inputs/outputs
+
+2008-12-27 18:45  james.fuller.2007
+
+	* : fixed compile of saxon extension
+
+2008-12-27 16:26  James.Fuller.2007
+
+	* :
+
+2008-12-27 16:21  James.Fuller.2007
+
+	* :
+
+2008-12-23 21:39  James.Fuller.2007
+
+	* : added svn:externals link to tests.xproc.org
+
+2008-12-23 20:04  James.Fuller.2007
+
+	* :
+
+2008-12-23 19:59  James.Fuller.2007
+
+	* :
+
+2008-12-23 19:56  James.Fuller.2007
+
+	* : preparing for next code sync
+
+2008-12-23 19:48  James.Fuller.2007
+
+	* : preparing for next code sync
+
+2008-12-08 21:21  James.Fuller.2007
+
+	* : preparing for next code sync
+
+2008-11-17 19:19  James.Fuller.2007
+
+	* : declare-step seems to work again
+
+2008-11-17 19:19  James.Fuller.2007
+
+	* : declare-step seems to work again
+
+2008-10-29 19:27  James.Fuller.2007
+
+	* : fixed relative path in module import and bash entrypoint, fixed
+	  all secondary non primary input ports
+
+2008-10-29 12:47  James.Fuller.2007
+
+	* : adding error-codes to test suite, amended test suite scripts to
+	  redirect error output to stdout for now
+
+2008-10-28 21:26  James.Fuller.2007
+
+	* : debugging unescape step
+
+2008-10-28 00:14  James.Fuller.2007
+
+	* : first cut implementation of escape and unescape steps
+
+2008-10-27 21:51  James.Fuller.2007
+
+	* : added required and select error handling
+
+2008-10-27 21:51  James.Fuller.2007
+
+	* : added required and select error handling
+
+2008-10-27 21:27  James.Fuller.2007
+
+	* :
+
+2008-10-27 18:36  James.Fuller.2007
+
+	* : preping for submitting xprocxq basic test suite
+
+2008-10-26 20:52  James.Fuller.2007
+
+	* : preparing for implementing validation of step signatures
+
+2008-10-25 19:56  James.Fuller.2007
+
+	* : adding impartial steps
+
+2008-10-24 09:40  James.Fuller.2007
+
+	* : adding LOC
+
+2008-10-22 20:53  James.Fuller.2007
+
+	* : 1st stage refactoring of error handling
+
+2008-10-19 19:57  James.Fuller.2007
+
+	* : adjusted inputs unit tests ... lots of work still there to test
+	  things
+
+2008-10-19 19:45  James.Fuller.2007
+
+	* : change contains to matches for testing quotes around
+	  p:with-option select statements
+
+2008-10-19 19:32  James.Fuller.2007
+
+	* : fixed p:compare
+
+2008-10-19 17:44  James.Fuller.2007
+
+	* : fixed p:count, still ruminating on p:declare-step refactoring
+	  of top level ports
+
+2008-10-19 17:28  James.Fuller.2007
+
+	* : created util:get-option to facilitate extraction of options
+
+2008-10-19 13:23  James.Fuller.2007
+
+	* : generated changelog, minor changes in README for unit test
+	  results
+
+2008-10-19 12:15  James.Fuller.2007
+
+	* : added correct mimetype
+
+2008-10-19 12:10  James.Fuller.2007
+
+	* : genereted new xquery unit test results
+
+2008-10-19 12:04  James.Fuller.2007
+
+	* : creating revised testrunner based on simple xslt transform on
+	  testsuite.xml
+
+2008-10-19 11:58  James.Fuller.2007
+
+	* :
+
+2008-10-19 11:57  James.Fuller.2007
+
+	* : creating revised testrunner based on simple xslt transform on
+	  testsuite.xml
+
+2008-10-04 18:52  James.Fuller.2007
+
+	* : creating revised testrunner based on simple xslt transform on
+	  testsuite.xml
+
+2008-10-04 18:49  James.Fuller.2007
+
+	* :
+
+2008-10-01 09:47  James.Fuller.2007
+
+	* : made debug output well formed xml
+
+2008-09-30 18:25  James.Fuller.2007
+
+	* : fixed missing boundary condition for default binding of last
+	  step to stdout
+
+2008-09-30 08:50  James.Fuller.2007
+
+	* : adding back p:pipe functionality
+
+2008-09-24 18:07  James.Fuller.2007
+
+	* : fixed primary input handling
+
+2008-09-24 17:09  James.Fuller.2007
+
+	* : fixed primary input handling
+
+2008-09-03 21:47  James.Fuller.2007
+
+	* : implemented normative step naming, preparing for refactor of
+	  explicitbinding, leaving undefined inputs to be bound late
+
+2008-09-02 19:27  James.Fuller.2007
+
+	* : streamlined explicitnaming, working on explicitbinding now, esp
+	  where the p:pipe is
+
+2008-09-01 22:29  James.Fuller.2007
+
+	* : tweaks, now moving onto step functionality and test
+	  conversion/runner
+
+2008-09-01 21:02  James.Fuller.2007
+
+	* : fixed sequences finally, changed all p:pipeline to
+	  p:declare-step in basic test area
+
+2008-09-01 13:28  James.Fuller.2007
+
+	* : final release changes
+
+2008-08-26 11:03  James.Fuller.2007
+
+	* : working on release
+
+2008-08-26 10:52  James.Fuller.2007
+
+	* : working on release
+
+2008-08-25 19:43  James.Fuller.2007
+
+	* : working on release
+
+2008-08-25 17:54  James.Fuller.2007
+
+	* : working on release
+
+2008-08-25 17:44  James.Fuller.2007
+
+	* : working on release
+
+2008-08-25 16:10  James.Fuller.2007
+
+	* : validating sequence processing works .. which it still doesnt
+	  ;(
+
+2008-08-25 16:09  James.Fuller.2007
+
+	* : validating sequence processing works .. which it still doesnt
+	  ;(
+
+2008-08-25 13:25  James.Fuller.2007
+
+	* : fixed stdin error
+
+2008-08-25 10:01  James.Fuller.2007
+
+	* : preparing for release
+
+2008-08-23 15:06  James.Fuller.2007
+
+	* : preparing for release
+
+2008-08-17 20:36  James.Fuller.2007
+
+	* : preparing for release
+
+2008-08-17 19:13  James.Fuller.2007
+
+	* : fixed namespace issue
+
+2008-08-08 09:32  James.Fuller.2007
+
+	* : changed standard interface to step functions
+
+2008-08-08 09:23  James.Fuller.2007
+
+	* : changed standard interface to step functions
+
+2008-08-07 16:13  James.Fuller.2007
+
+	* : testing sequence changes
+
+2008-08-06 19:42  James.Fuller.2007
+
+	* : testing sequence changes
+
+2008-08-05 19:49  James.Fuller.2007
+
+	* : preparing for release
+
+2008-08-04 20:17  James.Fuller.2007
+
+	* : preparing for release
+
+2008-08-04 15:39  James.Fuller.2007
+
+	* : preparing for release
+
+2008-08-03 12:18  James.Fuller.2007
+
+	* : preparing for release
+
+2008-08-02 17:55  James.Fuller.2007
+
+	* : preparing for release
+
+2008-08-02 11:20  James.Fuller.2007
+
+	* : preparing for release
+
+2008-08-02 11:17  James.Fuller.2007
+
+	* : preparing for release
+
+2008-08-01 18:51  James.Fuller.2007
+
+	* : preparing for release
+
+2008-08-01 12:39  James.Fuller.2007
+
+	* : preparing for release
+
+2008-07-31 21:34  James.Fuller.2007
+
+	* : preparing for release
+
+2008-07-31 21:06  James.Fuller.2007
+
+	* : evalstep
+
+2008-07-31 19:34  James.Fuller.2007
+
+	* : cleansed unit tests
+
+2008-07-31 12:28  James.Fuller.2007
+
+	* : interim update,
+
+2008-07-31 06:33  James.Fuller.2007
+
+	* : interim update,
+
+2008-07-29 18:37  James.Fuller.2007
+
+	* : interim update,
+
+2008-07-29 14:57  James.Fuller.2007
+
+	* : interim update,
+
+2008-07-10 21:54  James.Fuller.2007
+
+	* : interim update,
+
+2008-07-10 21:22  James.Fuller.2007
+
+	* : interim update,
+
+2008-07-10 13:20  James.Fuller.2007
+
+	* : interim update,
+
+2008-07-09 15:35  James.Fuller.2007
+
+	* : interim update,
+
+2008-07-08 16:59  James.Fuller.2007
+
+	* : interim update,
+
+2008-07-08 09:42  James.Fuller.2007
+
+	* : interim update,
+
+2008-07-07 19:57  James.Fuller.2007
+
+	* : interim update,
+
+2008-06-29 12:43  James.Fuller.2007
+
+	* :
+
+2008-06-29 12:42  James.Fuller.2007
+
+	* :
+
+2008-06-29 12:34  James.Fuller.2007@gmail.com
+
+	* : starting to fold current code base back into google svn for
+	  next release
+
+2008-06-29 12:25  James.Fuller.2007@gmail.com
+
+	* : starting to fold current code base back into google svn for
+	  next release
+
+2008-06-28 18:48  James.Fuller.2007@gmail.com
+
+	* : starting to fold current code base back into google svn for
+	  next release
+
+2008-06-28 18:30  James.Fuller.2007@gmail.com
+
+	* : starting to fold current code base back into google svn for
+	  next release
+
+2008-03-01 22:43  James.Fuller.2007@gmail.com
+
+	* : i've broken things but have implemented temporary refactorings
+	  for explicitnamings and explicitbindings
+
+2008-03-01 22:20  James.Fuller.2007@gmail.com
+
+	* : added skeleton code generators for p:group, p:try,
+	  p:choose,p:viewport,p:for-each
+
+2008-02-23 20:02  James.Fuller.2007@gmail.com
+
+	* : added optional p:xquery
+
+2008-02-23 19:21  James.Fuller.2007@gmail.com
+
+	* : added optional p:xquery
+
+2008-02-23 19:09  James.Fuller.2007@gmail.com
+
+	* : added optional p:xquery
+
+2008-02-23 17:35  James.Fuller.2007@gmail.com
+
+	* : added p:compare, p:document support
+
+2008-02-23 14:50  James.Fuller.2007@gmail.com
+
+	* : added support for @select on primary p:input
+
+2008-02-22 20:21  James.Fuller.2007@gmail.com
+
+	* : implemented p:error, p:delete, etc
+
+2008-02-22 15:19  James.Fuller.2007@gmail.com
+
+	* : working on options again
+
+2008-02-20 17:10  James.Fuller.2007@gmail.com
+
+	* : integrating XML Schema validation of xproc namespace as
+	  additional static error check
+
+2008-02-19 19:48  James.Fuller.2007@gmail.com
+
+	* : integrating XML Schema validation of xproc namespace as
+	  additional static error check
+
+2008-02-19 19:47  James.Fuller.2007@gmail.com
+
+	* : integrating XML Schema validation of xproc namespace as
+	  additional static error check
+
+2008-02-19 11:55  James.Fuller.2007@gmail.com
+
+	* : added some rudiementary static error mechanisms, will need to
+	  be replaced at some point
+
+2008-02-18 19:46  James.Fuller.2007@gmail.com
+
+	* : end to end xproc processing working again, refactor is still
+	  underway on evalstep but seems to have stabilized
+
+2008-02-17 00:05  James.Fuller.2007@gmail.com
+
+	* : refactored explicit naming and binding, added pipeline.xml for
+	  std, opt, and ext steps
+
+2008-02-16 19:55  James.Fuller.2007@gmail.com
+
+	* : refactored explicit naming and binding, added pipeline.xml for
+	  std, opt, and ext steps
+
+2008-02-13 11:05  James.Fuller.2007@gmail.com
+
+	* : some testing with preparsing
+
+2008-02-12 09:58  James.Fuller.2007@gmail.com
+
+	* : some testing with preparsing
+
+2008-02-12 08:24  James.Fuller.2007@gmail.com
+
+	* : some testing with preparsing
+
+2008-02-11 23:40  James.Fuller.2007@gmail.com
+
+	* : some testing with preparsing
+
+2008-02-11 19:33  James.Fuller.2007@gmail.com
+
+	* :
+
+2008-02-08 18:53  James.Fuller.2007@gmail.com
+
+	* :
+
+2008-02-06 21:09  James.Fuller.2007@gmail.com
+
+	* :
+
+2008-02-05 20:21  James.Fuller.2007@gmail.com
+
+	* : added document {}
+
+2008-02-05 19:57  James.Fuller.2007@gmail.com
+
+	* : with wild abandon
+
+2008-02-05 18:44  James.Fuller.2007@gmail.com
+
+	* : with wild abandon
+
+2008-02-04 22:16  James.Fuller.2007@gmail.com
+
+	* : checking
+
+2007-12-08 19:53  James.Fuller.2007@gmail.com
+
+	* : refactoring util:step-fold
+
+2007-12-08 17:05  James.Fuller.2007@gmail.com
+
+	* : removed input generation for now
+
+2007-12-08 13:06  James.Fuller.2007@gmail.com
+
+	* : set mime type for xml output for xproc
+
+2007-12-08 13:04  James.Fuller.2007@gmail.com
+
+	* : commited unit test results
+
+2007-12-08 13:02  James.Fuller.2007@gmail.com
+
+	* : moved result.html to reports area
+
+2007-12-08 12:59  James.Fuller.2007@gmail.com
+
+	* : moved result.html to reports area
+
+2007-12-08 12:54  James.Fuller.2007@gmail.com
+
+	* : refactoring fold-step
+
+2007-12-06 17:01  James.Fuller.2007@gmail.com
+
+	* : migrated evalstep to xproc.xqm
+
+2007-12-06 16:34  James.Fuller.2007@gmail.com
+
+	* : refactoring of options, inputs/outputs and params continues
+
+2007-12-06 14:52  James.Fuller.2007@gmail.com
+
+	* : adding metadata for new input, output, and options handling in
+	  util:step-fold()
+
+2007-12-06 14:32  James.Fuller.2007@gmail.com
+
+	* : renamed pipeline libraries
+
+2007-12-06 13:49  James.Fuller.2007@gmail.com
+
+	* : minor README tweak
+
+2007-12-06 13:07  James.Fuller.2007@gmail.com
+
+	* : generated TODO list from google code issue list
+
+2007-12-06 12:10  James.Fuller.2007@gmail.com
+
+	* : minor tweaks
+
+2007-12-05 19:41  James.Fuller.2007@gmail.com
+
+	* : minor tweaks
+
+2007-12-05 16:21  James.Fuller.2007@gmail.com
+
+	* : minor tweaks
+
+2007-12-05 14:41  James.Fuller.2007@gmail.com
+
+	* : minor tweaks
+
+2007-12-05 14:36  James.Fuller.2007@gmail.com
+
+	* : minor tweaks
+
+2007-12-05 11:46  James.Fuller.2007@gmail.com
+
+	* : minor tweaks to standard step unit tests
+
+2007-12-05 11:42  James.Fuller.2007@gmail.com
+
+	* : minor tweaks to standard step unit tests
+
+2007-12-05 10:34  James.Fuller.2007@gmail.com
+
+	* : latest unit test results
+
+2007-12-05 07:08  James.Fuller.2007@gmail.com
+
+	* : latest unit test results
+
+2007-12-05 07:05  James.Fuller.2007@gmail.com
+
+	* : minor style tweaks
+
+2007-12-04 21:04  James.Fuller.2007
+
+	* : added html mime type to svn prop
+
+2007-12-04 21:00  James.Fuller.2007@gmail.com
+
+	* : added reports for unit test snapshots and various reports
+
+2007-12-04 20:45  James.Fuller.2007@gmail.com
+
+	* : added changelog
+
+2007-12-04 20:01  James.Fuller.2007@gmail.com
+
+	* : cleaning up before v.5 commit
+
+2007-12-04 20:00  James.Fuller.2007@gmail.com
+
+	* : cleaning up before v.5 commit
+
+2007-12-04 15:33  James.Fuller.2007@gmail.com
+
+	* : adding more steps, refactoring how to manage options
+
+2007-12-04 15:05  James.Fuller.2007@gmail.com
+
+	* : added some rough timing mechanisms, and some more simple xproc
+	  examples
+
+2007-12-04 08:40  James.Fuller.2007@gmail.com
+
+	* : alpha commit ... please ignore still has old cruft
+
+2007-12-03 20:04  James.Fuller.2007@gmail.com
+
+	* : alpha commit ... please ignore still has old cruft
+
+2007-12-03 19:48  James.Fuller.2007@gmail.com
+
+	* : alpha commit ... please ignore still has old cruft
+
+2007-12-03 19:17  James.Fuller.2007@gmail.com
+
+	* : alpha commit ... please ignore still has old cruft
+
+2007-12-03 18:59  James.Fuller.2007@gmail.com
+
+	* : alpha commit ... please ignore still has old cruft
+
+2007-12-03 18:56  James.Fuller.2007@gmail.com
+
+	* : alpha commit ... please ignore still has old cruft
+
+2007-12-03 18:27  James.Fuller.2007@gmail.com
+
+	* : alpha commit ... please ignore still has old cruft
+
+2007-12-03 15:05  James.Fuller.2007@gmail.com
+
+	* : pre-alpha commit ... please ignore still has old cruft
+
+2007-12-03 08:13  James.Fuller.2007@gmail.com
+
+	* : final pre-alpha commit ... please ignore
+
+2007-12-03 08:09  James.Fuller.2007@gmail.com
+
+	* : final pre-alpha commit ... please ignore
+
+2007-11-25 14:13  james.fuller.2007
+
+	* : added simple helloworld type xproc
+
+2007-11-06 21:20  James.Fuller.2007
+
+	* : changed license back to Mozilla ;)
+
+2007-11-06 21:18  James.Fuller.2007
+
+	* : changed license back to Mozilla ;)
+
+2007-11-06 21:11  James.Fuller.2007
+
+	* : change license to new BSD license
+
+2007-11-06 21:09  James.Fuller.2007
+
+	* : change license to new BSD license
+
+2007-11-06 15:18  James.Fuller.2007
+
+	* : refactor basic tests
+
+2007-11-06 15:17  James.Fuller.2007
+
+	* : refactor basic tests
+
+2007-11-06 15:17  James.Fuller.2007
+
+	* : refactor basic tests
+
+2007-11-06 15:14  James.Fuller.2007
+
+	* : added basic README
+
+2007-11-06 15:11  James.Fuller.2007
+
+	* : added basic README
+
+2007-11-06 14:59  James.Fuller.2007
+
+	* :
+
+2007-11-06 14:57  James.Fuller.2007
+
+	* :
+
