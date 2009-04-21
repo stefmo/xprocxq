@@ -1,8 +1,11 @@
 #summary For those who want to install and play with xproc.xq
 
-= Getting xquery.xq =
+= Getting Release version for xquery.xq =
 
-the only method of getting xproc.xq is checking it out from [http://code.google.com/p/xprocxq/source subversion].
+
+= Getting source code for xquery.xq =
+
+the method of getting xproc.xq is checking it out from [http://code.google.com/p/xprocxq/source subversion].
 
 {{{
 # Non-members may svn check out a read-only working copy anonymously over HTTP.
@@ -10,36 +13,16 @@ svn checkout http://xprocxq.googlecode.com/svn/trunk/ xprocxq-read-only
 }}}
 
 
-= Installation and Dependencies =
+= Usage, Installation and Dependencies =
 
-The current definition of dependencies is contained in the source code [http://xprocxq.googlecode.com/svn/trunk/main/README README] document.
+The current definition of how to use, install and related dependencies is contained in the source code [http://xprocxq.googlecode.com/svn/trunk/main/README README] document.
 
-*I*: install XQuery processor (only Saxon-SA currently supported, eXist XMLDB targeted as well).
+= Building xprocxq =
 
-*II*: You can use the Ant targets [http://ant.apache.org Apache Ant] to build java extension required by xprocxq and to run xquery and xproc unit tests.
-
-*III*: Run the saxon-compile Ant Target, to compile the small extension currently required for Saxon-SA (or compile manually)
-
-*IV*: Amend your local [http://xprocxq.googlecode.com/svn/trunk/main/properties.xml properties.xml] to reflect your setup and where your Xquery processor jars are.
-
-= Usage =
-
-*warning:* xproc.xq is *Alpha* software at the moment.
-
-It is not possible to run xproc.xq without SAXON-SA. 
-
-There is a primitive script, bin/xprocxq which will run things from the commandline, though this script must be amended to reflect your local conditions ... mainly means adjusting the classpath env variable.
-
-In addition, you can use Ant to run unit tests; run Apache Ant with -projecthelp switch to view options e.g. 
+run Apache Ant with -projecthelp switch to view options e.g. 
 
 > ant -projecthelp
 
 Here are the Main targets of interest:
 
- basic-xprocxq-test-suite    generates run script for xprocxq test xproc suite
-
- basic-calabash-test-suite   generates run script for calabash test xproc suite
-
- xproc-all                   run all significant xproc tests from Ant
-
- test-all-xquery             run all xquery unit tests
+ exist-jar will create eXist jar for deployment to eXist
