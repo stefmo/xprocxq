@@ -1,3 +1,5 @@
+NOTE- !!!!!!!!!!!!!!! THIS IS DEPRECATED FOR THE TIME BEING
+
 Usage: xprocxq [options] [--import library|pipeline] pipeline source
 
 xprocxq is a W3C XProc pipeline processor

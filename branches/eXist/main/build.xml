@@ -12,8 +12,9 @@
   		<copy file="LICENSE" todir="${dist}"/>
   		<copy file="VERSION" todir="${dist}"/>
   		<copy file="Changelog" todir="${dist}"/>
-  		<copy file="xprocxq.jar" todir="${dist}"/>
-  		<copy dir="test/examples" todir="${dist}"/>
+  	  	<copy todir="${dist}">
+	    	<fileset dir="test/examples"/>
+	  	</copy>
 	 	<zip destfile="xprocxq-release-${release}.zip"
 	       basedir="dist"
 	  	/>
