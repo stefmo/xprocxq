@@ -88,8 +88,7 @@ declare function opt:xsl-formatter($primary,$secondary,$options) {
 declare function opt:xquery($primary,$secondary,$options) {
 
 u:assert(exists($secondary/xproc:input[@port='query']/c:query),'p:input query is required'),
-(:TODO: need to sort out multiple c:query elements :)
-
+(:TODO: need to sort out multiple c:query elements and implied cdata sections :)
     let $xquery := $secondary/xproc:input[@port='query']/c:query/.
     let $xqueryfunc := concat($const:alt-imports,$xquery)
     let $result := u:xquery($xqueryfunc)

@@ -30,7 +30,7 @@ declare variable $xproc:parse-and-eval := util:function(xs:QName("xproc:parse_an
 declare variable $xproc:declare-step :=util:function(xs:QName("xproc:declare-step"), 4);
 declare variable $xproc:choose :=util:function(xs:QName("xproc:choose"), 5);
 declare variable $xproc:group :=util:function(xs:QName("xproc:group"), 5);
-declare variable $xproc:for-each :=util:function(xs:QName("xproc:for-each"), 4);
+declare variable $xproc:for-each :=util:function(xs:QName("xproc:for-each"), 5);
 declare variable $xproc:viewport :=util:function(xs:QName("xproc:viewport"), 4);
 declare variable $xproc:library :=util:function(xs:QName("xproc:library"), 4);
 declare variable $xproc:pipeline :=util:function(xs:QName("xproc:pipeline"), 4);
@@ -40,8 +40,15 @@ declare function xproc:declare-step($primary,$secondary,$options,$step) {
 <test1/>
 };
 
-declare function xproc:for-each($primary,$secondary,$options,$step) {
-<test2/>
+declare function xproc:for-each($primary,$secondary,$options,$currentstep,$outputs) {
+let $defaultname := concat(string($currentstep/@xproc:defaultname),'.1')
+let $steps := $currentstep
+return
+	
+	for $child in $primary/node()
+	return
+		u:call($xproc:parse-and-eval,<p:declare-step name="{$defaultname}" xproc:defaultname="{$defaultname}" >{$currentstep/*}</p:declare-step>,$child,(),$outputs)
+
 };
 
 declare function xproc:viewport($primary,$secondary,$options,$step) {
@@ -327,13 +334,13 @@ let $primaryresult := document{
 		if ($primaryinput/xproc:output) then (: prev step is multi container step output:)
     		$primaryinput/*[last()]/node()		
 		else
-        	$primaryinput/*[1]				 (: prev step is an atomic step output:)	
+        	$primaryinput/*				 (: prev step is an atomic step output:)	
     }
 
     let $select := string(if (empty($currentstep/p:input[@primary='true']/@select)) then
                         	'/'
                     	  else if($currentstep/p:input[@primary='true']/@select) then
-                             string($currentstep/p:input[@primary='true'][1]/@select)
+                             string($currentstep/p:input[@primary='true']/@select)
                     	  else
                             '/'
                     )

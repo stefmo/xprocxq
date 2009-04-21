@@ -38,57 +38,8 @@ ISSUE
 * testsuite represents sequences as t:document in count-001.xml in testing suite ?
 
 
-Limitations/Differences
-* need to use $context in p:choose
-* some step sorting issues (intermixing of steps using p:inline)
-* p:xquery currently uses a c:result element to output
-* p:compare currently has a primary result port
-* extension functions do not work in select statements (just xquery)
-* declare base-uri affects module imports in saxon (need to investigate in eXist)
-* cant pass required/add-attribute--002.xml test depends on namespace handling module to be finished
-* p:error does not write to error port (also discussing need for a generic 'implementator specific error code' with XProc WG)
-
---------------------------------------------------------------------------------------
 
 
 
 
-----------------------------------------
-exist migration
-----------------------------------------
 
-* statically load modules to conf.xml
-<module src="resource:net/xproc/xprocxq/src/xquery/xproc.xqm"                                             
-     uri="http://xproc.net/xproc"/>                                                                                                                                                                                 
-<module src="resource:net/xproc/xprocxq/src/xquery/util.xqm"                                                  uri="http://xproc.net/xproc/util"/>                                                                                                                                                                            
-<module src="resource:net/xproc/xprocxq/src/xquery/const.xqm"                                            
-     uri="http://xproc.net/xproc/const"/>                                                                                                                                                                           
-<module src="resource:net/xproc/xprocxq/src/xquery/functions.xqm"                                         
-     uri="http://xproc.net/xproc/functions"/>                                                                                                                                                                       
-<module src="resource:net/xproc/xprocxq/src/xquery/functions.xqm"                                         
-     uri="http://xproc.net/xproc/functions"/>                                                                                                                                                                      
-<module src="resource:net/xproc/xprocxq/src/xquery/std.xqm"                                               
-     uri="http://xproc.net/xproc/std"/>                                                                                                                                                                             
-<module src="resource:net/xproc/xprocxq/src/xquery/ext.xqm"                                               
-     uri="http://xproc.net/xproc/ext"/>                                                                                                                                                                             
-<module src="resource:net/xproc/xprocxq/src/xquery/opt.xqm"                                               
-     uri="http://xproc.net/xproc/opt"/>                                                                                                                                                                             
-<module src="resource:net/xproc/xprocxq/src/xquery/comp.xqm"                                              
-     uri="http://xproc.net/xproc/comp"/>
-
-* replace saxon:function with util:function
-* replace saxon:call with util:call
-
-amend
-	* u:random
-	* u:xquery
-	* u:parse-string
-	* u:eval
-	* u:xslt
-	* u:serialize
-	* u:pipeline-step-sort
-	* u:unparsed-data
-	* $const:default-imports
-	* $opt:default-imports
-
-* util:function 1st arg is a qname ala xs:QName("string value")

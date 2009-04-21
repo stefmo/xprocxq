@@ -1,43 +1,85 @@
-This is xproc.xq v.5                                      
+This is xproc.xq release v.6                                      
 ------------------------------
 
-xproc.xq is an experimental bootstrap implementation of W3C XProc Specification, written in xquery
+xprocxq is an experimental bootstrap implementation of W3C XProc Specification, written in xquery
 
+My original goal was to gain a comprehensive understanding of differences between XQuery processors whilst attempting to create a usable XProc implementation.  
 
-LICENSE INFORMATION
--------------------
+Limitations
+-----------
 
-xproc.xq is released under Mozilla Public License (MPL) v1.1, a copy of which is included
-in this distribution, under a file named LICENSE.
+xprocxq, being implemented in XQuery, currently has several limitations and is no where compliant with the existing XProc draft specification.
 
+As I originally developed using SAXON-SA, I have had to disable many of XProc steps as I port across but should have a good set of steps running somewhat soon.
+
+Here is a list of the more severe limitations:
+
+* due to my use of weak typing in XQuery there are several interrelated issues, but this will change as I sanitize the code
+* currently there is little consistent or no support for sequences where you would expect them, once again I am addressing this as I work porting things across 
+* defining reusable pipelines using p:library and p:declare-step is currently disabled 
+* errors will first start out as an XQuery error.For example, you will see that errors are reported to originate from util.xqm as this is where static and dynamic errors are evaluated.
+* need to use ./ convention in p:when (in p:choose) test attributes due to eXist
+* some step sorting issues (intermixing of steps using p:inline)
+* p:xquery currently uses a c:result element to output
+* p:xquery needs to use a <!CDATA[]> section to wrap up contents of c:query (yes, I know working on it)
+* extension functions do not work at this moment in time
+* declare base-uri affects module imports (need to investigate across all XQuery processors)
+* cant pass required/add-attribute--002.xml test depends on namespace handling module to be finished
+* errors and/or p:error does not write to error port (also discussing need for a generic 'implementator specific error code' with XProc WG)
+* current preparsing routine is naive; I have a more rigorous solution in a branch to merge soon
+
+and many more .....
+
+Please review the examples included in the release version to get a sense of what is possible with the current version.
 
 PREREQUISITES
 -------------
 
-To run unit tests and build stuff xproc.xq is dependent on Saxon-SA ... yes that is the one you
-buy. I recommend purchasing SAXON (if not just to support the heroic efforts of Michael Kay),
-but you will be disappointed if you do so just to run xproc.xq.
+The current trunk version of xprocxq runs in the eXist XML Database (exist.sourceforge.net), though it is designed to be portable to several other XQuery processors. 
 
-   Saxon-SA (www.saxonica.com): required for xproc.xq
-   Apache Ant: used to compile extensions
-
-I plan to support Saxon-B and eXist (exist.sourceforge.net) and any other XQuery processor 
-that has support for first class functions and an eval extension, though will be focusing on 
-Saxon-SA for the time being.
+I plan to support eXist (exist.sourceforge.net) and any other XQuery processor 
+that has support for first class functions and an eval extension (hopefully via EXPath/EXQuery), though will be focusing on eXist XML Database version for the time being.
    
 
 INSTALL
 -------
 
-1) Check out distro
-2) Ensure dependencies are placed in /lib directory
-3) amend properties.xml
-4) build extensions using Apache Ant
-5) amend classpath in bin/xprocxq
+To install within eXist XML Database follow these instructions.
+
+I) Place xprocxq.jar into $EXIST_HOME/lib/user directory
+
+II) insert these elements in eXist conf.xml, in <built-in-modules/> element
+
+<module src="resource:net/xproc/xprocxq/src/xquery/xproc.xqm"                                                         	 	  
+     uri="http://xproc.net/xproc"/>                                                                             
+<module src="resource:net/xproc/xprocxq/src/xquery/util.xqm"                                                    
+     uri="http://xproc.net/xproc/util"/>                                                                         
+<module src="resource:net/xproc/xprocxq/src/xquery/const.xqm"                                                    
+     uri="http://xproc.net/xproc/const"/>                                                                       
+<module src="resource:net/xproc/xprocxq/src/xquery/functions.xqm"                                                
+     uri="http://xproc.net/xproc/functions"/>                                                                    
+<module src="resource:net/xproc/xprocxq/src/xquery/functions.xqm"                                                
+     uri="http://xproc.net/xproc/functions"/>                                                                    
+<module src="resource:net/xproc/xprocxq/src/xquery/std.xqm"                                                      
+     uri="http://xproc.net/xproc/std"/>                                                                          
+<module src="resource:net/xproc/xprocxq/src/xquery/ext.xqm"                                                      
+     uri="http://xproc.net/xproc/ext"/>                                                                          
+<module src="resource:net/xproc/xprocxq/src/xquery/opt.xqm"                                                      
+     uri="http://xproc.net/xproc/opt"/>                                                                          
+<module src="resource:net/xproc/xprocxq/src/xquery/ant.xqm"                                                      
+     uri="http://xproc.net/xproc/a"/>                                                                            
+<module src="resource:net/xproc/xprocxq/src/xquery/naming.xqm"                                                   
+     uri="http://xproc.net/xproc/naming"/>
+
+note - soon this will just be one module import, but due to how static xquery loading currently works in eXist, we need to register all of xqueryxq modules
+
+III) Load /test directory included in the dist into eXist XML Database and access test.xq in browser (via eXist XML Database rest interface)
 
 
-INSTRUCTIONS
-------------
+COMMANLINE
+----------
+
+There is a commandline version but it is currently disabled as it was developed for use with SAXON-SA
 
 Usage: xprocxq [options] [--import library|pipeline] source pipeline
 
@@ -53,42 +95,33 @@ OPTIONS:
    -d      Enable DTD validation
 
 
-DISTRO
+DISTROS
 -------
 
-The distribution consists of:
+The release distribution consists zip package containing the following:
+
+	README		This document.
+    VERSION     A summary of the distribution version.
+	LICENSE		Included licenses notice
+    ChangeLog   Generated svn changelog
+	xprocxq.jar xprocxq application
+	test/		XProc tests and test.xq for testing with eXist XML Database
+
+The source distribution is available by subversion and consists of:
 
     README      This document.
-
     VERSION     A summary of the distribution version.
-
-    RELEASE     current release version
-
-    ChangeLog   generated svn changelog
-
+    RELEASE     Current release version
+	LICENSE		Included licenses notice
+	LOC			lines of code metric	
+    ChangeLog   Generated svn changelog
     build.xml   Apache Ant build file For compiling extensions, testing and customizing distro
-
     properties.xml properties used by the Apache Ant build file
-
-    bin/    xproc run script
-
-    etc/    misc artifacts
-
-    lib/    3rd party deps, this directory is empty for the time being
-
-    test/   Xquery Unit Tests & XProc Unit Tests
-
-    src/    XQuery source files
-
-
-NOTES
------
-
-xproc.xq is ALPHA software and is 100% dependent on SAXON-SA.
-
-As xquery.xq is implemented in XQuery, errors will first start out as an XQuery error.
-For example, you will see that errors are reported to originate from util.xqm as this is
-where static and dynamic errors are evaluated.
+    bin/    	Xproc run script
+    etc/    	Misc artifacts
+    lib/    	3rd party deps, this directory is empty for the time being
+    test/   	XProc Unit Tests
+    src/    	XQuery source files
 
 
 CHANGES
@@ -105,7 +138,7 @@ http://code.google.com/p/xprocxq/issues/list.
 
 
 BUGS
------------
+----
 Please report bugs to issue list
 
 http://code.google.com/p/xprocxq/issues/list.
@@ -123,6 +156,11 @@ http://www.w3.org/XML/XProc/docs/langspec.html
 tests.xproc.org
 http://tests.xproc.org
 
+www.exproc.org
+http://exproc.org
+
+eXist XML Database
+http://exist.sourceforge.net
 
 EMAIL
 ----------------
@@ -130,7 +168,8 @@ EMAIL
 jim.fuller@webcomposite.com
 
 A general mail list is maintained by W3C for xproc developers
-xproc-dev@w3.org
+xproc-dev@w3.org where questions can be asked there about xprocxq
+and other XProc processors
 
 
 COPYRIGHT
@@ -138,3 +177,11 @@ COPYRIGHT
 
 xprocxq, xproc.xq and related material is the Copyright (C) 2007,2008
 of James Fuller (jim.fuller@webcomposite.com), All rights reserved.
+
+
+NOTICE
+------
+
+xproc.xq is released under MPL v1.1, where the file LICENSE contains a copy of this license as well as links to any embedded software licenses (currently of which there is none, but in the near future we will be using EXpath/EXquery).
+
+xproc.xq is ALPHA software and is not intended for production usage.
