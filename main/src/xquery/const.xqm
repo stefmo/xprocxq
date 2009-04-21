@@ -37,15 +37,15 @@ declare variable $const:NS_XPROC_ERR_EXT := "http://xproc.net/ns/errors";
 
 (: -------------------------------------------------------------------------- :)
 (: error dictionaries :)
-declare variable $const:error := doc("resource:net/xproc/xqprocxq/etc/error-list.xml");
-declare variable  $const:xprocxq-error := doc("resource:net/xproc/xqprocxq/etc/xproc-error-list.xml");
+declare variable $const:error := doc("resource:net/xproc/xprocxq/etc/error-list.xml");
+declare variable  $const:xprocxq-error := doc("resource:net/xproc/xprocxq/etc/xproc-error-list.xml");
 
 (: -------------------------------------------------------------------------- :)
 
-declare variable $const:ext-steps := doc("resource:net/xproc/xqprocxq/etc/pipeline-extension.xml")/p:library;
-declare variable $const:std-steps := doc("resource:net/xproc/xqprocxq/etc/pipeline-standard.xml")/p:library;
-declare variable $const:opt-steps := doc("resource:net/xproc/xqprocxq/etc/pipeline-optional.xml")/p:library;
-declare variable $const:comp-steps := doc("resource:net/xproc/xqprocxq/etc/xproc-component.xml")/xproc:components;
+declare variable $const:ext-steps := doc("resource:net/xproc/xprocxq/etc/pipeline-extension.xml")/p:library;
+declare variable $const:std-steps := doc("resource:net/xproc/xprocxq/etc/pipeline-standard.xml")/p:library;
+declare variable $const:opt-steps := doc("resource:net/xproc/xprocxq/etc/pipeline-optional.xml")/p:library;
+declare variable $const:comp-steps := doc("resource:net/xproc/xprocxq/etc/xproc-component.xml")/xproc:components;
 
 (: -------------------------------------------------------------------------- :)
 
