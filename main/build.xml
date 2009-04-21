@@ -30,8 +30,7 @@
       <delete dir="dist/xprocxq.jar"/>
       <zip destfile="dist/xprocxq.jar">
         <zipfileset dir="src/xquery" includes="**/**/**.*" prefix="net/xproc/xprocxq/src/xquery"/>
-        <zipfileset dir="etc" includes="**/**/*.*" prefix="net/xproc/xqprocxq/etc"/>
-        <zipfileset dir="lib/net/xproc/saxon" includes="*.class" prefix="net/xproc/saxon"/>
+        <zipfileset dir="etc" includes="**/**/*.*" prefix="net/xproc/xprocxq/etc"/>
       </zip>
     </target>
 
