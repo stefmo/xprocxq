@@ -272,6 +272,7 @@ else
 		$result
 };
 
+
 (: -------------------------------------------------------------------------- :)
 declare function u:get-option($option-name as xs:string,$options,$v){
 
@@ -285,6 +286,16 @@ return
         string(u:evalXPATH(string($option),$v))
 };
 
+
+(: -------------------------------------------------------------------------- :)
+declare function u:get-secondary($name as xs:string,$secondary){
+	document{$secondary/xproc:input[@port=$name]/*}
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function u:get-primary($primary){
+	document{$primary/*}
+};
 
 (: -------------------------------------------------------------------------- :)
 declare function u:add-ns-node(
@@ -373,6 +384,15 @@ declare function u:attrHandler ($attr,$attName,$attValue) {
 declare function u:textHandler ($text) {
 	$text
  };
+
+
+(: -------------------------------------------------------------------------- :)
+declare function u:xquery($query,$xml){
+(: TODO - ensure query is the right datatype :)
+    let $result := util:eval-inline($xml,$query)
+    return
+        $result
+};
 
 
 (: -------------------------------------------------------------------------- :)

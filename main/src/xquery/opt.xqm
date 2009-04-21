@@ -36,9 +36,6 @@ declare variable $opt:xsl-formatter :=util:function(xs:QName("opt:xsl-formatter"
 
 
 
-
-
-
 (: -------------------------------------------------------------------------- :)
 declare function opt:exec($primary,$secondary,$options) {
     u:outputResultElement(<test3/>)
@@ -46,52 +43,69 @@ declare function opt:exec($primary,$secondary,$options) {
 
 (: -------------------------------------------------------------------------- :)
 declare function opt:hash($primary,$secondary,$options) {
- $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 (: -------------------------------------------------------------------------- :)
 declare function opt:uuid($primary,$secondary,$options) {
- $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 (: -------------------------------------------------------------------------- :)
 declare function opt:www-form-urldecode($primary,$secondary,$options) {
- $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 (: -------------------------------------------------------------------------- :)
 declare function opt:www-form-urlencode($primary,$secondary,$options) {
- $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 (: -------------------------------------------------------------------------- :)
 declare function opt:validate-with-xml-schema($primary,$secondary,$options) {
- $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 (: -------------------------------------------------------------------------- :)
 declare function opt:validate-with-schematron($primary,$secondary,$options) {
- $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 (: -------------------------------------------------------------------------- :)
 declare function opt:validate-with-relax-ng($primary,$secondary,$options) {
- $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 (: -------------------------------------------------------------------------- :)
 declare function opt:xsl-formatter($primary,$secondary,$options) {
- $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 
 (: -------------------------------------------------------------------------- :)
 declare function opt:xquery($primary,$secondary,$options) {
 
-u:assert(exists($secondary/xproc:input[@port='query']/c:query),'p:input query is required'),
+u:assert(exists(u:get-secondary('query',$secondary)/c:query),'p:input query is required'),
 (:TODO: need to sort out multiple c:query elements and implied cdata sections :)
-    let $xquery := $secondary/xproc:input[@port='query']/c:query/.
+	let $v := u:get-primary($primary)
+    let $xquery := u:get-secondary('query',$secondary)/c:query/.
     let $xqueryfunc := concat($const:alt-imports,$xquery)
-    let $result := u:xquery($xqueryfunc)
+    let $result := u:xquery($xqueryfunc,$v)
         return
             u:outputResultElement($result)
 };

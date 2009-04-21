@@ -28,10 +28,14 @@ declare variable $ext:xproc := util:function(xs:QName("ext:xproc"), 3);
 
 (: -------------------------------------------------------------------------- :)
 declare function ext:pre($primary,$secondary,$options){
-   $primary/*[1]
+let $v := u:get-primary($primary)
+return
+	$v
 };
 declare function ext:post($primary,$secondary,$options){
-   $primary
+let $v := u:get-primary($primary)
+return
+	$v
 };
 declare function ext:xproc($primary,$secondary,$options){
 	(: This is a dummy step to xproc:run-step function in xproc.xqm :)
