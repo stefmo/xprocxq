@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<project name="xproc.xq" basedir=".">
+    <description>This build file builds the distro for xprocxq.</description>
+
+	<property name="dist" location="dist"/>
+	<loadfile property="release" srcFile="VERSION"/>
+
+
+    <!-- ===================================================== -->
+    <!-- create release dist for eXist                         -->
+    <!-- ===================================================== -->
+    <target name="dist" depends="clean, exist-jar">
+  		<copy file="README.eXist" todir="${dist}"/>
+  		<copy file="LICENSE" todir="${dist}"/>
+  		<copy file="VERSION" todir="${dist}"/>
+  		<copy file="Changelog" todir="${dist}"/>
+  	  	<copy todir="${dist}/examples">
+	    	<fileset dir="test/examples"/>
+	  	</copy>
+	 	<zip destfile="${release}.zip"
+	       basedir="dist"
+	  	/>
+	</target>
+
+	
+    <!-- ===================================================== -->
+    <!-- create jar for eXist                                  -->
+    <!-- ===================================================== -->
+    <target name="exist-jar">
+      <delete dir="dist/xprocxq.jar"/>
+      <zip destfile="dist/xprocxq.jar">
+        <zipfileset dir="src/xquery" includes="**/**/**.*" prefix="net/xproc/xprocxq/src/xquery"/>
+        <zipfileset dir="etc" includes="**/**/*.*" prefix="net/xproc/xqprocxq/etc"/>
+        <zipfileset dir="lib/net/xproc/saxon" includes="*.class" prefix="net/xproc/saxon"/>
+      </zip>
+    </target>
+
+
+    <!-- ===================================================== -->
+    <!-- get artifacts from W3C site                           -->
+    <!-- ===================================================== -->
+    <target name="get-w3c-artifacts" description="download .xml files from W3C XProc">
+        <get src="http://www.w3.org/XML/XProc/docs/pipeline-library.xml" dest="etc/pipeline-library.xml"/>
+        <get src="http://www.w3.org/XML/XProc/docs/typed-pipeline-library.xml" dest="etc/typed-pipeline-library.xml"/>
+        <get src="http://www.w3.org/XML/XProc/docs/error-list.xml" dest="etc/error-list.xml"/>
+    </target>
+
+
+    <!-- ===================================================== -->
+    <!-- clean dist                                            -->
+    <!-- ===================================================== -->
+    <target name="clean">
+        <delete dir="dist"/>
+        <mkdir dir="dist"/>
+    </target>
+
+</project>
