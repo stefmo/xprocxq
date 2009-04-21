@@ -18,11 +18,11 @@ As I originally developed using SAXON-SA, I have had to disable many of XProc st
 
 Here is a list of the more severe limitations:
 
-* due to my use of weak typing in XQuery there are several interrelated issues, but this will change as I sanitize the code
+*due to my use of weak typing in XQuery there are several interrelated issues, but this will change as I sanitize the code
 
-* currently there is little consistent or no support for sequences where you would expect them, once again I am addressing this as I work porting things across 
+*currently there is little consistent or no support for sequences where you would expect them, once again I am addressing this as I work porting things across 
 
-* defining reusable pipelines using p:library and p:declare-step is currently disabled 
+*defining reusable pipelines using p:library and p:declare-step is currently disabled 
 
 * errors will first start out as an XQuery error.For example, you will see that errors are reported to originate from util.xqm as this is where static and dynamic errors are evaluated.
 
