@@ -32,8 +32,7 @@ Here is a list of the more severe limitations:
 
  * p:xquery currently uses a c:result element to output
 
- * p:xquery needs to use a <!CDATA[]> section to wrap up contents of c:query (yes, I know 
-working on it)
+ * p:xquery needs to use a <!CDATA[]> section to wrap up contents of c:query (yes, I know working on it)
 
  * xproc extension functions do not work at this moment in time
 
