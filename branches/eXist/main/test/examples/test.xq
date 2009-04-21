@@ -3,7 +3,7 @@ xquery version "1.0" encoding "UTF-8";
 
     test.xq is used to see if xprocxq is running properly 
     
-    make sure you have read the README.exist for installation
+    make sure you have read the README.eXist for installation
     instructions
     
     :)
@@ -60,7 +60,7 @@ let $pipeline1 := document {<p:pipeline name="pipeline" xmlns:p="http://www.w3.o
 </p:choose>
 
 </p:pipeline>
-}
+} (: amend xproc:run below to use this pipeline, e.g. supply with $pipeline1:)
 
 (: disabled params :)
 let $external-bindings :=() (: external bindings is disabled for the time being :)
@@ -68,7 +68,7 @@ let $external-options :=() (: external options is disabled for the time being :)
 let $timing-flag :="0" (: timing flag is disabled for the time being :)
 
 (: debug flags:)
-let $debug-flag :="1" (: to get a trace of preparsed pipeline, all generated port bindings and result switch this to 1 :)
+let $debug-flag :="0" (: to get a trace of preparsed pipeline, all generated port bindings and result switch this to 1 :)
 let $test-debug :=0  (: to see only the preparsed pipeline, switch this to 1 :)
 
 return
@@ -81,6 +81,6 @@ return
     ,$const:init_unique_id
     )
   else
-    (: xprocxq entry point:)
+    (: xprocxq entry point - this is what you would use in your own programs:)
     xproc:run($pipeline,$stdin,$debug-flag,$timing-flag,$external-bindings,$external-options)
     
