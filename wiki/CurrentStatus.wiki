@@ -2,18 +2,15 @@
 
 == Changelog ==
 
-Check out [http://xprocxq.googlecode.com/svn/trunk/main/ChangeLog Changelog] included in the source code. This file is  not always up to date in trunk but will reflect reality for tag releases.
-
+Check out [http://xprocxq.googlecode.com/svn/trunk/main/ChangeLog Changelog] included in the source distro.
 
 == Issues ==
 
 The [http://code.google.com/p/xprocxq/issues/list project issue tracker] is the best place to find and submit issues.
 
-
 == Limitations and Issues ==
 
 Here is a list of the more severe limitations:
-
 
  * due to my use of weak typing in XQuery there are several interrelated issues which will eventually go away as I apply datatypes
 
@@ -39,7 +36,6 @@ Here is a list of the more severe limitations:
 
 Please review the examples included in the release version to get a sense of what is possible with the current version. Generally simple pipelines work and xprocxq should complain if it doesn't support a particular step or component.
 
-_Note: Looking at the current trunk/TODO file will help you determine what I am focusing on for now._
 
 == Roadmap ==
 
