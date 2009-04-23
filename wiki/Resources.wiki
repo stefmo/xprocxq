@@ -1,9 +1,12 @@
-# articles
+W3C XProc dev mailing list
+xproc-dev@w3.org
+
+== XProc articles ==
 
 [http://www.ibm.com/developerworks/library/x-xproc/ Discovering XProc (by moi)]
 
 
-#summary useful links and resources
+== Useful XProc links and resources ==
 
 [http://www.w3.org/TR/2002/NOTE-xml-pipeline-20020228/ XML Pipeline Definition Language Version 1.0: W3C Note 28 February 2002]: Read the note submitted by Sun Microsystems, Alis Technologies, Arbortext, Cisco Systems, Fujitsu, Markup Technology, and Oracle.
 
@@ -27,10 +30,10 @@ Processing Model Requirements and Use Cases]: Read the W3C XProc requirements an
 
 [http://tests.xproc.org XProc W3C unit test suite]: Repository where draft unit test suite for XProc is being developed.
 
+== EX related community specifications == 
+
 [http://exprog.org EXProc]: Intended to be a place to discuss and define extension steps to XProc.
 
 [http://expath.org EXPath]: Community defined extensions to XPath.
 
-
 [http://exquery.org EXQuery]: Community defined extensions to XQuery.
-
