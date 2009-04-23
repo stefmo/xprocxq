@@ -1,31 +1,21 @@
 #summary For those who want to install and play with xproc.xq
 
-
-
-= Getting Release version for xquery.xq =
+=  xqueryxq release distro =
 
 download latest release zip [http://code.google.com/p/xprocxq/source/browse/#svn/releases xprocxq-release-v0.6.zip]
 
-= Getting source code for xquery.xq =
+The current definition of how to use, install and related dependencies is contained in the source code [http://xprocxq.googlecode.com/svn/trunk/main/README README] document.
 
-the method of getting xproc.xq is checking it out from [http://code.google.com/p/xprocxq/source subversion].
+= xqueryxq source distro=
+
+subversion check out from [http://code.google.com/p/xprocxq/source subversion].
 
 {{{
 # Non-members may svn check out a read-only working copy anonymously over HTTP.
 svn checkout http://xprocxq.googlecode.com/svn/trunk/ xprocxq-read-only
 }}}
 
+To build a release run the supplied Apache Ant build.xml file with dist target
 
-= Usage, Installation and Dependencies =
+> ant dist
 
-The current definition of how to use, install and related dependencies is contained in the source code [http://xprocxq.googlecode.com/svn/trunk/main/README README] document.
-
-= Building xprocxq =
-
-run Apache Ant with -projecthelp switch to view options e.g. 
-
-> ant -projecthelp
-
-Here are the Main targets of interest:
-
- exist-jar will create eXist jar for deployment to eXist
