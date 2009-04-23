@@ -18,23 +18,22 @@ As I originally developed using SAXON-SA, I have had to disable many of XProc st
 
 Here is a list of the more severe limitations:
 
- * due to my use of weak typing in XQuery there are several interrelated issues, but this will change as I sanitize the code
 
- * currently there is little consistent or no support for sequences where you would expect them, once again I am addressing this as I work porting things across 
+ * due to my use of weak typing in XQuery there are several interrelated issues which will eventually go away as I apply datatypes
+
+ * inconsistent or no support for sequences where you would expect them
 
  * defining reusable pipelines using p:library and p:declare-step is currently disabled 
 
- * errors will first start out as an XQuery error.For example, you will see that errors are reported to originate from util.xqm as this is where static and dynamic errors are evaluated.
+ * xproc level errors are thrown from XQuery code, makes it difficult to determine proper line numbers and the output is unwieldy.
 
- * need to use ./ convention in p:when (in p:choose) test attributes due to eXist
+ * eXist requires usage of ./ convention in p:when (in p:choose) test attributes 
 
- * some step sorting issues (intermixing of steps using p:inline)
+ * naive preparsing will get replaced by something a bit more robust, the current impact is that there are some odd step sorting issues. The way around this is to explicitly bind each port in your XProc.
 
- * p:xquery currently uses a c:result element to output
+ * p:xquery currently uses a c:result element to output. Also p:xquery requires one to escape contents of c:xquery element, which is a bit odd but how the current spec works
 
- * p:xquery needs to use a <!CDATA[]> section to wrap up contents of c:query (yes, I know working on it)
-
- * xproc extension functions do not work at this moment in time
+ * xproc xpath extension functions do not work at this moment in time
 
  * declare base-uri affects module imports (need to investigate across all XQuery processors)
 
@@ -42,12 +41,7 @@ Here is a list of the more severe limitations:
 
  * errors and/or p:error does not write to error port (also discussing need for a generic 'implementator specific error code' with XProc WG)
 
- * current preparsing routine is naive; I have a more rigorous solution in a branch to merge soon
-
-and many more .....
-
-Please review the examples included in the release version to get a sense of what is possible with the current version.
-
+Please review the examples included in the release version to get a sense of what is possible with the current version. Generally simple pipelines work and xprocxq should complain if it doesn't support a particular step or component.
 
 _Note: Looking at the current trunk/TODO file will help you determine what I am focusing on for now._
 
@@ -55,11 +49,9 @@ _Note: Looking at the current trunk/TODO file will help you determine what I am 
 
 Looks like this for now.
 
-  * release eXist version and 'throw it over the wall'
-  * implement all standard steps
-  * implement optional & extension steps
-  * enable sequences
+  * release eXist version ('throw it over the wall')
+  * implement as many of the standard & optional steps as possible
+  * refactor handling of sequences
   * refactor weak typing and preparse routines
   * ensure static and dynamic error checking is working properly
-  * check namespace fixup works as outlined in spec
-  * fix step sorting issues
+  * create namespace handling module to implement more sophisticated namespace fixup 
