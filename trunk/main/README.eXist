@@ -4,9 +4,89 @@ This is xproc.xq release v.6
 xprocxq is an experimental bootstrap implementation of W3C XProc 
 Specification, written in xquery.
 
-My original goal was to gain a comprehensive understanding of
-differences between XQuery processors whilst attempting to create 
-a usable XProc implementation using simple FP programming idioms.  
+XProc is a general utility for working with XML technologies.
+
+Using XProc's built in (or extension) steps you define XML pipelines 
+which can model a wide range of processes. Steps accept input XML and 
+produce output XML, its in this manner (somewhat analogous to unix pipes) 
+that you can orchestrate and create sophisticated XML workflows.
+
+Why XProc in XQuery ?
+---------------------
+
+XQuery's somewhat functional approach appealed to me and having been 
+a long time XSLT user I wanted to gain some understanding of the nuances 
+between XSLT and XQuery.
+
+In building xqueryxq, my primary goals were;
+
+    * Exercise fundamental FP principles building a non trivial XQuery 
+application. I think I have achieved this goal, as xprocxq 'main engine'
+ is the util:step-fold() function which operates on simple pipelines. 
+
+    * To understand variability between XQuery processors. I think there 
+is a surprising amount of differences between XQuery processors, but 
+thankfully mostly in the form of extension functions, implicit type casting 
+and in smaller part some interpretations of the spec (where the spec allowed 
+for impl to do things as they see fit). The real impact though is that we 
+need things like expath and exquery to allow for even a remote chance at 
+compatibility between processors. 
+
+
+
+PREREQUISITES
+-------------
+
+The current trunk version of xprocxq runs in the eXist XML Database 
+(exist.sourceforge.net), though it is designed to be eventually
+portable across several other XQuery processors. 
+
+I plan to support eXist (exist.sourceforge.net) and any other XQuery 
+processor that has support for first class functions and an eval 
+extension (hopefully via EXPath/EXQuery), though will be focusing on 
+eXist XML Database version for the time being.
+   
+
+INSTALL
+-------
+
+To install within eXist XML Database follow these instructions.
+
+I) Place xprocxq.jar into $EXIST_HOME/lib/user directory
+
+II) insert these elements in eXist conf.xml, in <built-in-modules/> element
+
+<module src="resource:net/xproc/xprocxq/src/xquery/xproc.xqm"
+uri="http://xproc.net/xproc"/>                                                                               
+<module src="resource:net/xproc/xprocxq/src/xquery/util.xqm"
+uri="http://xproc.net/xproc/util"/>                                                                          
+<module src="resource:net/xproc/xprocxq/src/xquery/const.xqm"
+uri="http://xproc.net/xproc/const"/>                                                                         
+<module src="resource:net/xproc/xprocxq/src/xquery/functions.xqm"
+uri="http://xproc.net/xproc/functions"/>                                                                     
+<module src="resource:net/xproc/xprocxq/src/xquery/functions.xqm"
+uri="http://xproc.net/xproc/functions"/>                                                                     
+<module src="resource:net/xproc/xprocxq/src/xquery/std.xqm"
+uri="http://xproc.net/xproc/std"/>                                                                           
+<module src="resource:net/xproc/xprocxq/src/xquery/ext.xqm"
+uri="http://xproc.net/xproc/ext"/>                                                                           
+<module src="resource:net/xproc/xprocxq/src/xquery/opt.xqm"
+uri="http://xproc.net/xproc/opt"/>                                                            
+<module src="resource:net/xproc/xprocxq/src/xquery/ant.xqm"
+uri="http://xproc.net/xproc/a"/>                                                                     
+<module src="resource:net/xproc/xprocxq/src/xquery/naming.xqm"
+uri="http://xproc.net/xproc/naming"/>
+
+
+note - soon there will be just a single module import, but due to how static 
+xquery loading currently works in eXist, we need to register all of 
+xqueryxq modules
+
+III) Load /examples directory, included in the dist, into eXist XML Database 
+and access test.xq in browser (via eXist XML Database rest interface). Change 
+the path variable.
+
+IV) Test using browser ex. http://127.0.0.1:8080/exist/rest/examples/test.xq
 
 
 Limitations
@@ -63,64 +143,12 @@ in a branch to merge soon
 Please review the examples included in the release version to get a
 sense of what is possible with the current version.
 
-PREREQUISITES
--------------
 
-The current trunk version of xprocxq runs in the eXist XML Database 
-(exist.sourceforge.net), though it is designed to be eventually
-portable across several other XQuery processors. 
+COMMANDLINE
+-----------
 
-I plan to support eXist (exist.sourceforge.net) and any other XQuery 
-processor that has support for first class functions and an eval 
-extension (hopefully via EXPath/EXQuery), though will be focusing on 
-eXist XML Database version for the time being.
-   
-
-INSTALL
--------
-
-To install within eXist XML Database follow these instructions.
-
-I) Place xprocxq.jar into $EXIST_HOME/lib/user directory
-
-II) insert these elements in eXist conf.xml, in <built-in-modules/> element
-
-<module src="resource:net/xproc/xprocxq/src/xquery/xproc.xqm"
-uri="http://xproc.net/xproc"/>                                                                               
-<module src="resource:net/xproc/xprocxq/src/xquery/util.xqm"
-uri="http://xproc.net/xproc/util"/>                                                                          
-<module src="resource:net/xproc/xprocxq/src/xquery/const.xqm"
-uri="http://xproc.net/xproc/const"/>                                                                         
-<module src="resource:net/xproc/xprocxq/src/xquery/functions.xqm"
-uri="http://xproc.net/xproc/functions"/>                                                                     
-<module src="resource:net/xproc/xprocxq/src/xquery/functions.xqm"
-uri="http://xproc.net/xproc/functions"/>                                                                     
-<module src="resource:net/xproc/xprocxq/src/xquery/std.xqm"
-uri="http://xproc.net/xproc/std"/>                                                                           
-<module src="resource:net/xproc/xprocxq/src/xquery/ext.xqm"
-uri="http://xproc.net/xproc/ext"/>                                                                           
-<module src="resource:net/xproc/xprocxq/src/xquery/opt.xqm"
-uri="http://xproc.net/xproc/opt"/>                                                            
-<module src="resource:net/xproc/xprocxq/src/xquery/ant.xqm"
-uri="http://xproc.net/xproc/a"/>                                                                     
-<module src="resource:net/xproc/xprocxq/src/xquery/naming.xqm"
-uri="http://xproc.net/xproc/naming"/>
-
-
-note - soon there will be just a single module import, but due to how static 
-xquery loading currently works in eXist, we need to register all of 
-xqueryxq modules
-
-III) Load /examples directory included in the dist into eXist XML Database 
-and access test.xq in browser (via eXist XML Database rest interface). Change 
-the path variable.
-
-
-COMMANLINE
-----------
-
-There is a commandline version but it is currently disabled as it was
-developed for use with SAXON-SA
+There is a commandline version but this was developed for earlier prototype (which used SAXON-SA),
+I have disabled for the time being.
 
 Usage: xprocxq [options] [--import library|pipeline] source pipeline
 
