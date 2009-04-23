@@ -30,7 +30,7 @@
       <p:output port="result" primary="true" select="/"/>
       <p:option name="match" required="true"/>
    </p:declare-step>
-   <p:declare-step type="p:directory-list" xml:id="directory-list" xmlns:xproc="http://xproc.net/xproc">
+   <p:declare-step type="p:directory-list" xml:id="directory-list" xmlns:xproc="http://xproc.net/xproc"  xproc:support="true">
       <p:output port="result" primary="true" select="/"/>
       <p:option name="path"/>
       <p:option name="include-filter"/>

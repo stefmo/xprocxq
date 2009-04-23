@@ -1,86 +1,104 @@
 xquery version "1.0" encoding "UTF-8";
-(: ///////////////////////////////////////////////////
 
-    test.xq is used to see if xprocxq is running properly 
-    
-    make sure you have read the README.eXist for installation
-    instructions
-    
-    :)
+(: example test for xprocxq:)
 
-(: XProc Namespace Declaration :)
-declare namespace p="http://www.w3.org/ns/xproc";
-declare namespace c="http://www.w3.org/ns/xproc-step";
-declare namespace err="http://www.w3.org/ns/xproc-error";
-declare namespace fn ="http://www.w3.org/TR/xpath-functions/";
-
-(: Module Imports - these are all static xquery imports from xproxq.jar :)
+import module namespace const = "http://xproc.net/xproc/const";
 import module namespace xproc = "http://xproc.net/xproc";
 import module namespace naming = "http://xproc.net/xproc/naming";
-import module namespace const = "http://xproc.net/xproc/const";
-import module namespace u = "http://xproc.net/xproc/util";
-import module namespace opt = "http://xproc.net/xproc/opt";
-import module namespace std = "http://xproc.net/xproc/std";
-import module namespace ext = "http://xproc.net/xproc/ext";
 
-(: standard source input :)
-let $stdin := <test>
-                   <a/>
-                   <b/>
-                   <b/>
-              </test>
+declare variable $local:XPROCXQ_INSTALL := "/db/examples";   (: CHANGE ME :)
 
-(: here are a few pipeline examples to supply to xproc:run :)
-let $pipeline := document{<p:pipeline name="pipeline" xmlns:p="http://www.w3.org/ns/xproc">
-    <p:identity/>
-    <p:identity/>
-    <p:identity/>
-    <p:identity/>
-</p:pipeline>
-}
 
-(: this pipeline demonstrates how a p:choose works, note that we have a limitation with @test xpath 
-as eXist converts root document to './' :)
-let $pipeline1 := document {<p:pipeline name="pipeline" xmlns:p="http://www.w3.org/ns/xproc">
-<p:choose name="mychoosetest">
-  <p:when test=".//b">
-    <p:identity>
-      <p:input port="source">
-	<p:inline><p>true result</p></p:inline>
-      </p:input>
-    </p:identity>
-  </p:when>
-  <p:otherwise>
-    <p:identity>
-      <p:input port="source">
-	<p:inline><p>false result</p></p:inline>
-      </p:input>
-    </p:identity>
-  </p:otherwise>
-</p:choose>
+(: define standard input port :)
+let $stdin :=document {<test><a><b/></a></test>}
 
-</p:pipeline>
-} (: amend xproc:run below to use this pipeline, e.g. supply with $pipeline1:)
+(: external bindings for when we have a commandline equiv. Takes in
+either xml fragments or file://, http:// or relative path in the
+database :)
+let $external-bindings
+:=('source2=<test/>','source3=<a>test</a>',concat('source4=',
+$local:XPROCXQ_INSTALL, '/test.xml'))
 
-(: disabled params :)
-let $external-bindings :=() (: external bindings is disabled for the time being :)
-let $external-options :=() (: external options is disabled for the time being :)
-let $timing-flag :="0" (: timing flag is disabled for the time being :)
 
-(: debug flags:)
-let $debug-flag :="0" (: to get a trace of preparsed pipeline, all generated port bindings and result switch this to 1 :)
-let $test-debug :=0  (: to see only the preparsed pipeline, switch this to 1 :)
+let $pipeline :=document{<p:pipeline xmlns:p="http://www.w3.org/ns/xproc"
+               name="pipeline">
+
+       <p:identity name="test">                          (: identity
+test step :)
+           <p:input port="source">
+               <p:pipe port="source4" step="pipeline"/>  (: use
+external binding port :)
+           </p:input>
+       </p:identity>
+
+       <p:xslt>                                          (: xslt test step:)
+           <p:input port="stylesheet">
+               <p:document
+href="{$local:XPROCXQ_INSTALL}/stylesheet.xml"/>
+           </p:input>
+       </p:xslt>
+
+       <p:compare name="compare">                        (: compare step :)
+           <p:input port="source" select="/success"/>    (: example
+of select attribute on input binding :)
+           <p:input port="alternate">
+               <p:document href="{$local:XPROCXQ_INSTALL}/test.xml"/>
+ (: example of using p:document :)
+           </p:input>
+       </p:compare>
+
+          <p:choose>
+               <p:when test=".//c:result[.='test']">      (: note the
+eXist specific path convention with root :)
+                   <p:output port="result"/>
+                   <p:identity>
+                       <p:input port="source">
+                           <p:inline>
+                               <p>This pipeline failed.</p>
+                           </p:inline>
+                       </p:input>
+                   </p:identity>
+               </p:when>
+               <p:when test=".//c:result[.='true']">  (: success :)
+                   <p:output port="result"/>
+                   <p:identity>
+                       <p:input port="source">
+                           <p:inline>
+                               <p>This pipeline processed successfully.</p>
+                           </p:inline>
+                       </p:input>
+                   </p:identity>
+                   <p:xquery>
+                       <p:input port="query">
+                           <p:inline>
+                               <c:query
+xmlns:c="http://www.w3.org/ns/xproc-step">
+                                   $xml     (: for now default
+context goes to a var, changing this soon :)
+                               </c:query>
+                           </p:inline>
+                       </p:input>
+                   </p:xquery>
+               </p:when>
+               <p:otherwise>
+                   <p:output port="result"/>
+                   <p:identity>
+                       <p:input port="source">
+                           <p:inline>
+                               <p>This pipeline failed.</p>
+                           </p:inline>
+                       </p:input>
+                   </p:identity>
+               </p:otherwise>
+           </p:choose>
+
+       </p:pipeline>}
+
+
+let $options :=() (: disabled :)
+let $dflag :="0"  (: change value to 1 to see p:log trace :)
+let $tflag :="0"  (: deprecated :)
 
 return
-
- if ($test-debug eq 1) then
-    xproc:explicitbindings(
-      naming:explicitnames(
-            naming:fixup($pipeline,$stdin)
-      )
-    ,$const:init_unique_id
-    )
-  else
-    (: xprocxq entry point - this is what you would use in your own programs:)
-    xproc:run($pipeline,$stdin,$debug-flag,$timing-flag,$external-bindings,$external-options)
-    
+   (: Main xprocxq entry point:)
+   xproc:run($pipeline,$stdin,$dflag,$tflag,$external-bindings,$options)

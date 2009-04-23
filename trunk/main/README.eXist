@@ -107,12 +107,13 @@ uri="http://xproc.net/xproc/a"/>
 uri="http://xproc.net/xproc/naming"/>
 
 
-note - soon this will just be one module import, but due to how static 
+note - soon there will be just a single module import, but due to how static 
 xquery loading currently works in eXist, we need to register all of 
 xqueryxq modules
 
-III) Load /test directory included in the dist into eXist XML Database 
-and access test.xq in browser (via eXist XML Database rest interface)
+III) Load /examples directory included in the dist into eXist XML Database 
+and access test.xq in browser (via eXist XML Database rest interface). Change 
+the path variable.
 
 
 COMMANLINE
