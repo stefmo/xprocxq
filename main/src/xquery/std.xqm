@@ -148,12 +148,10 @@ return
 
 (: -------------------------------------------------------------------------- :)
 declare function std:directory-list($primary,$secondary,$options) {
- 
-(: this should be caught as a static error someday ... will do it in refactoring  :)
-u:assert(exists($options/p:with-option[@name='path']),'p:directory-list path option does not exist'),
-
-    (u:outputResultElement(collection('file:/')))
-
+let $v := u:get-primary($primary)
+let $path := u:get-option('path',$options,$v)
+return
+    u:outputResultElement(collection($path))
 };
 
 

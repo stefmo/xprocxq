@@ -425,7 +425,7 @@ declare function u:serialize($xml,$options){
 
 
 (: -------------------------------------------------------------------------- :)
-declare function u:parse-string($string){
+declare function u:parse-string($string) as item()*{
     util:parse($string)
 };
 
