@@ -103,8 +103,12 @@ declare function opt:xquery($primary,$secondary,$options) {
 u:assert(exists(u:get-secondary('query',$secondary)/c:query),'p:input query is required'),
 (:TODO: need to sort out multiple c:query elements and implied cdata sections :)
 	let $v := u:get-primary($primary)
-    let $xquery := u:get-secondary('query',$secondary)/c:query/.
-    let $xqueryfunc := concat($const:alt-imports,$xquery)
+    let $xquery := u:get-secondary('query',$secondary)/c:query
+	let $query := if ($xquery/@xproc:escape = 'true') then
+			u:serialize($xquery,$const:TRACE_SERIALIZE)
+		else
+			$xquery
+    let $xqueryfunc := concat($const:alt-imports,$query)
     let $result := u:xquery($xqueryfunc,$v)
         return
             u:outputResultElement($result)

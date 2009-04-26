@@ -358,10 +358,7 @@ declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentste
 
 (:---------------------------------------------------------------------------:)
 declare function xproc:eval-primary($pipeline,$step,$currentstep,$primaryinput,$result){
-
-
 let $primaryresult := document{
-
     if($currentstep/p:input[@primary eq 'true']/*) then
 	(: resolve each nested port binding :)
         for $child in $currentstep/p:input[@primary eq 'true']/*
@@ -372,7 +369,7 @@ let $primaryresult := document{
 		if ($primaryinput/xproc:output) then (: prev step is multi container step output:)
     		$primaryinput/*[last()]/node()		
 		else
-        	$primaryinput (: prev step is an atomic step output:)	
+        	$primaryinput/* (: prev step is an atomic step output:)	
     }
 
     let $select := string(if (empty($currentstep/p:input[@primary='true']/@select)) then
@@ -385,8 +382,7 @@ let $primaryresult := document{
 
     let $selectval :=u:evalXPATH(string($select),$primaryresult)
        return
-            if (empty($selectval)) then
-                u:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
+            if (empty($selectval)) then                u:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
             else
                 $selectval
 
@@ -599,7 +595,8 @@ let $output := subsequence($result,2)
                 <xproc:outputs>{$output}</xproc:outputs>
             </xproc:debug>
         else
-           ($output/.)[last()]/node()
+			(: TODO - define default p:serialization options here:)
+        	u:serialize(($output/.)[last()]/node(),$const:DEFAULT_SERIALIZE)
 };
 
 
