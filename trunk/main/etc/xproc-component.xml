@@ -18,9 +18,8 @@
 	</xproc:element>
 
     <xproc:element type="p:choose" xproc:step="true" xproc:support="true">
-		<p:input port="xproc:source" primary="true" select="/"/>
+		<p:input port="xproc:xpath-context" primary="true" select="/"/>
         <p:output port="xproc:output" primary="true" select="/"/>
-		<xproc:element type="p:xpath-context" xproc:support="true"/>
  		<xproc:element type="p:when" xproc:support="true">
         	<xproc:attribute name="test"/>
     	</xproc:element>

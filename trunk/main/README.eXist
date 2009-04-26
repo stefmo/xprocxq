@@ -1,5 +1,5 @@
-This is xproc.xq release v.6                                      
-------------------------------
+This is xproc.xq release v0.6                                      
+-----------------------------
 
 xprocxq is an experimental bootstrap implementation of W3C XProc 
 Specification, written in xquery.
@@ -10,6 +10,7 @@ Using XProc's built in (or extension) steps you define XML pipelines
 which can model a wide range of processes. Steps accept input XML and 
 produce output XML, its in this manner (somewhat analogous to unix pipes) 
 that you can orchestrate and create sophisticated XML workflows.
+
 
 Why XProc in XQuery ?
 ---------------------
@@ -33,26 +34,20 @@ need things like expath and exquery to allow for even a remote chance at
 compatibility between processors. 
 
 
-
 PREREQUISITES
 -------------
 
-The current trunk version of xprocxq runs in the eXist XML Database 
-(exist.sourceforge.net), though it is designed to be eventually
-portable across several other XQuery processors. 
+xprocxq runs in the the current trunk version of eXist XML Database 
+(exist.sourceforge.net), though it is designed to eventually run
+portably across several other XQuery processors. 
 
-I plan to support eXist (exist.sourceforge.net) and any other XQuery 
-processor that has support for first class functions and an eval 
-extension (hopefully via EXPath/EXQuery), though will be focusing on 
-eXist XML Database version for the time being.
-   
 
 INSTALL
 -------
 
 To install within eXist XML Database follow these instructions.
 
-I) Place xprocxq.jar into $EXIST_HOME/lib/user directory
+I) Build (using Apache Ant) xprocxq.jar and place into $EXIST_HOME/lib/user directory
 
 II) insert these elements in eXist conf.xml, in <built-in-modules/> element
 
@@ -245,6 +240,16 @@ xproc-dev@w3.org where questions can be asked about xprocxq and
 other XProc processors.
 
 
+NOTICES
+-------
+
+xprocxq is released under MPL v1.1, where the file LICENSE contains 
+a copy of this license as well as links to any embedded software
+licenses.
+
+xprocxq uses the expath http-client module which is released under MPL v1.1
+
+
 COPYRIGHT
 ---------
 
@@ -252,13 +257,8 @@ xprocxq, xproc.xq and related material is the Copyright (C) 2009
 of James Fuller (jim.fuller@webcomposite.com), All rights reserved.
 
 
-NOTICES
--------
+DISCLAIMER
+----------
 
-xproc.xq is released under MPL v1.1, where the file LICENSE contains 
-a copy of this license as well as links to any embedded software
-licenses (currently of which there is none, but in the near future 
-we will be using EXpath/EXquery).
-
-xproc.xq is ALPHA software and is not intended for production usage 
+xprocxq is BETA software and is not intended for production usage 
 with all the usual caveats applying of use this software at your own risk.

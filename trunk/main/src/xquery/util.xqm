@@ -343,7 +343,20 @@ declare function u:copy-filter-elements($element as element(), $element-name as 
            }
 };
 
-
+declare function u:rename-inline-element($element as element(),$match,$newelement) as element() {
+   element {if(string(node-name($element)) = string($match)) then node-name($newelement) else node-name($element)}
+      {$element/@*,
+       if(string(node-name($element)) = $match) then 
+				($newelement/@*)
+		else 
+			(),
+          for $child in $element/node()
+              return
+               if ($child instance of element())
+                 then u:rename-inline-element($child,$match,$newelement)
+                 else $child
+      }
+};
 
 (: -------------------------------------------------------------------------- :)
 declare function u:treewalker ($tree,$attrFunc,$elemFunc) {
@@ -388,8 +401,10 @@ declare function u:textHandler ($text) {
 
 (: -------------------------------------------------------------------------- :)
 declare function u:xquery($query,$xml){
-(: TODO - ensure query is the right datatype :)
-    let $result := util:eval-inline($xml,$query)
+let $static-content := <static-context>
+						<default-context>{$xml}</default-context>
+						</static-context>
+    let $result := util:eval-with-context($query,$static-content,false())
     return
         $result
 };

@@ -23,8 +23,11 @@ declare variable $const:NS_XPROC_ERR := "http://www.w3.org/ns/xproc-error";
 
 (: -------------------------------------------------------------------------- :)
 
+declare variable $const:DEFAULT_SERIALIZE := 'method=xml indent=yes';
 declare variable $const:TRACE_SERIALIZE := 'method=xml';
+declare variable $const:XINCLUDE_SERIALIZE := 'method=xml expand-xincludes= yes';
 declare variable $const:TEXT_SERIALIZE := 'method=text';
+declare variable $const:ESCAPE_SERIALIZE := 'method=xml';
 
 
 (: -------------------------------------------------------------------------- :)

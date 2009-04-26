@@ -21,6 +21,7 @@ declare namespace saxon = "http://dummy.org";
 (: Module Imports :)
 import module namespace u = "http://xproc.net/xproc/util";
 import module namespace const = "http://xproc.net/xproc/const";
+import module namespace http = "http://www.expath.org/mod/http-client";
 
 
 (: -------------------------------------------------------------------------- :)
@@ -157,9 +158,12 @@ return
 
 (: -------------------------------------------------------------------------- :)
 declare function std:escape-markup($primary,$secondary,$options) {
+(: TODO: test with sequences :)
 let $v := u:get-primary($primary)
 return
-    u:serialize($v,$const:TRACE_SERIALIZE)
+	element{name($v/*)}{
+    	u:serialize($v/*/*,$const:ESCAPE_SERIALIZE)
+	}
 };
 
 
@@ -204,8 +208,22 @@ let $result := u:evalXPATH(string($xpath),$v)
 (: -------------------------------------------------------------------------- :)
 declare function std:http-request($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
+let $href := $v/c:request/@href
+let $method := $v/c:request/@method
+let $content-type := $v/c:request/c:body/@content-type
+let $body := $v/c:request/c:body
+
 return
-	$v
+	http:send-request(
+	   <http:request href="{$href}" method="{$method}">{
+		if (empty($body)) then () 
+		else
+	      <http:body content-type="{$content-type}">
+	         {$body}
+	      </http:body>
+	}
+	   </http:request>
+	)
 };
 
 
@@ -329,11 +347,12 @@ return
 
 (: -------------------------------------------------------------------------- :)
 declare function std:unescape-markup($primary,$secondary,$options){
-(: TODO: doesnt work with nested xml elements :)
+(: TODO: test with sequences :)
 let $v := u:get-primary($primary)
-let $parsed := document{u:serialize($v,$const:TRACE_SERIALIZE)}
 return
-    util:parse($parsed)
+    element{name($v/*)}{
+		util:parse($v)
+		}
 };
 
 
@@ -341,7 +360,7 @@ return
 declare function std:xinclude($primary,$secondary,$options){
 let $v := u:get-primary($primary)
 return
-	$v
+	u:serialize($v,$const:XINCLUDE_SERIALIZE)
 };
 
 

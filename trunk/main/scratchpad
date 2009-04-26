@@ -20,7 +20,8 @@ before container
 ISSUE
 ----------------------------------------
 
-* components/multi-container steps needs implementation (p:group,p:viewport,p:choose,p:for-each, p:pipeline, p:library, p:try/catch)
+* need to check eq and = throughout the codebase to ensure we are testing equality properly
+* components/multi-container steps needs implementation (p:viewport,p:for-each, p:pipeline, p:library, p:try/catch)
 * migrate errors from string to QName
 * make error reporting look nicer and try to get some semblance of line number reporting correct
 * declare-steps needs refactoring in parsing and execution
@@ -38,8 +39,15 @@ ISSUE
 * create namespace module to manage namespace fixups 
 * testsuite represents sequences as t:document in count-001.xml in testing suite ?
 
+----------------------------------------
+eXist issues
+----------------------------------------
 
+* does exist have a problem with util:eval ...
 
+let $r := 'this pipeline successfully processed' return <test>{$r}</test>
+
+* problem with inline serialization with expand-xincludes= yes ?
 
 
 

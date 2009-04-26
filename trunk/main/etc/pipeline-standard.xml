@@ -41,7 +41,7 @@
       <p:option name="code" required="true"/>
 	  <p:output port="error" primary="true" select="/"/>
    </p:declare-step>
-   <p:declare-step type="p:escape-markup" xml:id="escape-markup">
+   <p:declare-step type="p:escape-markup" xml:id="escape-markup" xproc:support="true">
       <p:input port="source" primary="true" select="/"/>
       <p:output port="result" primary="true" select="/"/>
       <p:option name="cdata-section-elements"/>
@@ -62,7 +62,7 @@
       <p:output port="result" primary="true" sequence="true" select="/"/>
       <p:option name="select" required="true"/>
    </p:declare-step>
-   <p:declare-step type="p:http-request" xml:id="http-request">
+   <p:declare-step type="p:http-request" xml:id="http-request" xproc:support="true">
       <p:input port="source" primary="true" select="/"/>
       <p:output port="result" primary="true" select="/"/>
       <p:option name="byte-order-mark"/>
@@ -182,7 +182,7 @@
       <p:option name="match" required="true"/>
       <p:option name="replace" required="true"/>
    </p:declare-step>
-   <p:declare-step type="p:unescape-markup" xml:id="unescape-markup">
+   <p:declare-step type="p:unescape-markup" xml:id="unescape-markup" xproc:support="true">
       <p:input port="source" primary="true" select="/"/>
       <p:output port="result" primary="true" select="/"/>
       <p:option name="namespace"/>
@@ -208,7 +208,7 @@
       <p:option name="wrapper" required="true"/>
       <p:option name="group-adjacent"/>
    </p:declare-step>
-   <p:declare-step type="p:xinclude" xml:id="xinclude">
+   <p:declare-step type="p:xinclude" xml:id="xinclude" xproc:support="true">
       <p:input port="source" primary="true" select="/"/>
       <p:output port="result" primary="true" select="/"/>
       <p:option name="fixup-xml-base" select="'false'"/>

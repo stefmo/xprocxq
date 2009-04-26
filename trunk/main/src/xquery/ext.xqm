@@ -32,11 +32,17 @@ let $v := u:get-primary($primary)
 return
 	$v
 };
+
+
+(: -------------------------------------------------------------------------- :)
 declare function ext:post($primary,$secondary,$options){
 let $v := u:get-primary($primary)
 return
 	$v
 };
+
+
+(: -------------------------------------------------------------------------- :)
 declare function ext:xproc($primary,$secondary,$options){
 (: NOTE - this function needs to be defined here, but use-function in xproc.xqm :)
 ()
