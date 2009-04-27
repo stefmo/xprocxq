@@ -105,9 +105,9 @@ u:assert(exists(u:get-secondary('query',$secondary)/c:query),'p:input query is r
 	let $v := u:get-primary($primary)
     let $xquery := u:get-secondary('query',$secondary)/c:query
 	let $query := if ($xquery/@xproc:escape = 'true') then
-			u:serialize($xquery,$const:TRACE_SERIALIZE)
+			u:serialize($xquery/node(),$const:TRACE_SERIALIZE)
 		else
-			$xquery
+			$xquery/node()
     let $xqueryfunc := concat($const:alt-imports,$query)
     let $result := u:xquery($xqueryfunc,$v)
         return

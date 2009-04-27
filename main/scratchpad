@@ -49,6 +49,6 @@ let $r := 'this pipeline successfully processed' return <test>{$r}</test>
 
 * problem with inline serialization with expand-xincludes= yes ?
 
-
+* added xproc:escape attribute to c:query for p:xquery
 
 
