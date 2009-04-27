@@ -571,7 +571,7 @@ else
     let $port := substring-before($binding,'=')
     let $data := substring-after($binding,'=')
         return
-        <xproc:output exbinding="true" port-type="external" port="{$port}" step="{concat('!',$pipelinename)}">
+        <xproc:output port-type="external" port="{$port}" step="{concat('!',$pipelinename)}">
         	{
 			if(contains($data,'http:') or contains($data,'file:') or starts-with($data,'/')) then 
 				doc($data) (: TODO - identify URI better :)
@@ -596,7 +596,7 @@ let $output := subsequence($result,2)
             </xproc:debug>
         else
 			(: TODO - define default p:serialization options here:)
-        	u:serialize(($output/.)[last()]/node(),$const:DEFAULT_SERIALIZE)
+			($output/.)[last()]/node()
 };
 
 
@@ -655,7 +655,7 @@ declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options){
 
 declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options,$outputs){
 
-
+if (not(empty($pipeline))) then
     (: STEP I: generate parse tree :)
     let $preparse-naming := naming:explicitnames(naming:fixup($pipeline,$stdin))
     let $xproc-binding := xproc:explicitbindings($preparse-naming,$const:init_unique_id)
@@ -699,4 +699,7 @@ declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options,$ou
                     $serialized_result
                     }
         )
+else
+	u:xprocxqError('xxq-error:XXQ0003','check pipeleine.')
+
 };
