@@ -23,7 +23,7 @@ import module namespace std = "http://xproc.net/xproc/std";
 import module namespace ext = "http://xproc.net/xproc/ext";
 import module namespace naming = "http://xproc.net/xproc/naming";
 
-(: disallow xinclude for p:xinclude step to manage :)
+(: disallow xinclude for p:xinclude step to manage:)
 declare option exist:serialize "expand-xincludes=no";
 
 (: -------------------------------------------------------------------------- :)
@@ -109,9 +109,9 @@ declare function xproc:choose($primary,$secondary,$options,$currentstep,$outputs
 					)
 	return
 		if ($when) then
-			u:call($xproc:parse-and-eval,<p:declare-step name="{$defaultname}" xproc:defaultname="{$defaultname}" >{$when/*}</p:declare-step>,$v,(),$outputs)
+			u:call($xproc:parse-and-eval,<p:declare-step name="{$defaultname}" xproc:defaultname="{$defaultname}" >{$when/*}</p:declare-step>,$v,(),())
         else
-			u:call($xproc:parse-and-eval,<p:declare-step name="{$defaultname}" xproc:defaultname="{$defaultname}" >{$otherwise/*}</p:declare-step>,$v,(),$outputs)
+			u:call($xproc:parse-and-eval,<p:declare-step name="{$defaultname}" xproc:defaultname="{$defaultname}" >{$otherwise/*}</p:declare-step>,$v,(),())
 
 };
 
@@ -347,11 +347,12 @@ declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentste
 (: top level input :)       else if ($child/@step eq $pipeline/@name) then                       
  							$result/xproc:output[@port=$child/@port][@step=concat('!',$pipeline/@name)]/*
 
-(: pipe :)                  else if ($child/@port) then
-                                  if ($result/xproc:output[@port=$child/@port][@step=$child/@step]) then
+
+(: pipe :)                  else if ($child/@port and $child/@step) then
+                               if ($result/xproc:output[@port=$child/@port][@step=$child/@step]) then
                                   $result/xproc:output[@port=$child/@port][@step=$child/@step]/*
-                            	  else
-                                       u:dynamicError('err:XD0001',concat(" cannot bind to port: ",$child/@port," step: ",$child/@step,' ',u:serialize($currentstep,$const:TRACE_SERIALIZE)))
+                           	  else
+                                  u:dynamicError('err:XD0001',concat(" cannot bind to port: ",$child/@port," step: ",$child/@step,' ',u:serialize($currentstep,$const:TRACE_SERIALIZE)))
 
                             else
 
@@ -506,7 +507,7 @@ u:call(u:xquery($stepfunc),$primary,$secondary,$options,$currentstep,($outputs,$
                                       port-type="output"
                                       primary="false"
                                       select="{$currentstep/p:output[@primary='false']/@select}"
-                                      port="{$currentstep/p:output[@primary='false']/@port}"
+                                      port="{if (empty($currentstep/p:output[@primary='false']/@port)) then 'result' else $currentstep/p:output[@primary='false']/@port}"
                                       func="{$stepfuncname}">
                                       {
                                           if(contains($stepfuncname,'xproc:')) then

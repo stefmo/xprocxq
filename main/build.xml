@@ -10,14 +10,18 @@
     <!-- create release dist for eXist                         -->
     <!-- ===================================================== -->
     <target name="dist" depends="clean, exist-jar">
-  		<copy file="README.eXist" todir="${dist}"/>
+  		
+		<buildnumber/>
+		<copy file="README.eXist" todir="${dist}"/>
   		<copy file="LICENSE" todir="${dist}"/>
   		<copy file="VERSION" todir="${dist}"/>
   		<copy file="Changelog" todir="${dist}"/>
   	  	<copy todir="${dist}/examples">
 	    	<fileset dir="test/examples"/>
 	  	</copy>
-	 	<zip destfile="${release}.zip"
+		<propertyfile file="build.number"/>
+		<move file="${dist}/xprocxq.jar" tofile="${dist}/${release}.${build.number}.jar"/> 
+	 	<zip destfile="${release}.${build.number}.zip"
 	       basedir="dist"
 	  	/>
 	</target>
@@ -27,8 +31,8 @@
     <!-- create jar for eXist                                  -->
     <!-- ===================================================== -->
     <target name="exist-jar">
-      <delete dir="dist/xprocxq.jar"/>
-      <zip destfile="dist/xprocxq.jar">
+      <delete dir="${dist}/xprocxq.jar"/>
+      <zip destfile="${dist}/xprocxq.jar">
         <zipfileset dir="src/xquery" includes="**/**/**.*" prefix="net/xproc/xprocxq/src/xquery"/>
         <zipfileset dir="etc" includes="**/**/*.*" prefix="net/xproc/xprocxq/etc"/>
       </zip>
