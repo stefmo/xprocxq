@@ -343,6 +343,7 @@ declare function u:copy-filter-elements($element as element(), $element-name as 
            }
 };
 
+
 declare function u:rename-inline-element($element as element(),$match,$newelement) as element() {
    element {if(string(node-name($element)) = string($match)) then node-name($newelement) else node-name($element)}
       {$element/@*,
