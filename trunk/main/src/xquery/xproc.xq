@@ -1,7 +1,9 @@
 xquery version "1.0" encoding "UTF-8";
 (: ------------------------------------------------------------------------------------- 
 
-	xproc.xq - entry point for command-line invocation.
+DEPRECATED
+
+	xproc.xq - entry point for command-line invocation. 
 
 ---------------------------------------------------------------------------------------- :)
 
@@ -36,6 +38,7 @@ declare variable $tflag as item() external;
 declare variable $oval as item() external;
 declare variable $ival as item() external;
 
+declare option exist:serialize "expand-xincludes=no";
 
 (: -------------------------------------------------------------------------- :)
 
