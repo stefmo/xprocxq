@@ -254,8 +254,12 @@ return
 (: -------------------------------------------------------------------------- :)
 declare function std:load($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
+let $href := u:get-option('href',$options,$v)
 return
-	$v
+if (empty($href)) then
+	u:dynamicError('err:XC0026',"p:load href was empty.")
+else
+	doc($href)
 };
 
 
@@ -351,7 +355,7 @@ declare function std:unescape-markup($primary,$secondary,$options){
 let $v := u:get-primary($primary)
 return
     element{name($v/*)}{
-		util:parse($v)
+		u:parse-string($v)
 		}
 };
 
@@ -360,7 +364,7 @@ return
 declare function std:xinclude($primary,$secondary,$options){
 let $v := u:get-primary($primary)
 return
-	u:serialize($v,$const:XINCLUDE_SERIALIZE)
+	u:parse-string(u:serialize($v,'expand-xincludes=yes'))
 };
 
 
@@ -368,8 +372,25 @@ return
 declare function std:wrap($primary,$secondary,$options) {
 (: TODO - The match option must only match element, text, processing instruction, and comment nodes. It is a dynamic error (err:XC0041) if the match pattern matches any other kind of node. :)
 
+let $v := u:get-primary($primary)
+let $wrapper := u:get-option('wrapper',$options,$v)
+let $match := u:get-option('match',$options,$v)
+let $replace := u:evalXPATH($match,$v)
+return
+	$replace
+
+(:
 u:assert(exists($options/p:with-option[@name='match']/@select),'p:with-option match is required'),
 u:assert(exists($options/p:with-option[@name='wrapper']/@select),'p:with-option wrapper is required'),
+
+element {node-name($element) }
+          { $element/@*,
+            for $child in $element/node()[not(name(.)=$element-name)]
+               return if ($child instance of element())
+                 then u:copy-filter-elements($child,$element-name)
+                 else $child
+        }
+
 
 	let $v := u:get-primary($primary)
     let $wrapper := u:get-option('wrapper',$options,$v)
@@ -383,6 +404,8 @@ u:assert(exists($options/p:with-option[@name='wrapper']/@select),'p:with-option 
             u:evalXPATH($match,$v)
         }
        } 
+:)
+
 };
 
 
@@ -402,6 +425,7 @@ u:assert(exists($options/p:with-option[@name='match']/@select),'p:with-option ma
 
 (: TODO - The value of the match option must be an XSLTMatchPattern. It is a dynamic error (err:XC0023)
 if that pattern matches anything other than element nodes. :)
+
 let $v := u:get-primary($primary)
 let $match := u:get-option('match',$options,$v)
     return

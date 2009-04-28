@@ -100,7 +100,7 @@
       <p:option name="match" select="'*'"/>
       <p:option name="replace" select="'true'"/>
    </p:declare-step>
-   <p:declare-step type="p:load" xml:id="load" xmlns:xproc="http://xproc.net/xproc">
+   <p:declare-step type="p:load" xml:id="load" xmlns:xproc="http://xproc.net/xproc" xproc:support="true">
       <p:output port="result" primary="true" select="/"/>
       <p:option name="href" required="true"/>
       <p:option name="dtd-validate" select="&#34;false&#34;"/>

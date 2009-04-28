@@ -23,6 +23,9 @@ import module namespace std = "http://xproc.net/xproc/std";
 import module namespace ext = "http://xproc.net/xproc/ext";
 import module namespace naming = "http://xproc.net/xproc/naming";
 
+(: disallow xinclude for p:xinclude step to manage :)
+declare option exist:serialize "expand-xincludes=no";
+
 (: -------------------------------------------------------------------------- :)
 declare variable $xproc:run-step := util:function(xs:QName("xproc:run-step"), 5);
 declare variable $xproc:parse-and-eval := util:function(xs:QName("xproc:parse_and_eval"), 4);
@@ -117,12 +120,13 @@ declare function xproc:choose($primary,$secondary,$options,$currentstep,$outputs
 declare function xproc:run-step($primary,$secondary,$options,$step,$outputs) {
 	let $v := u:get-primary($primary)
 	let $pipeline := u:get-secondary('pipeline',$secondary)
-	let $bindings := () (: TODO - need to enable :)
+	let $bindings := u:get-secondary('bindings',$secondary)
 	let $options :=()
-	let $dflag :="0"  (: TODO - need to enable :)
-	let $tflag :="0"  (: TODO - probably deprecated :)
+	let $dflag :="0"  
+	let $tflag :="0"  
 	return
-    	xproc:run($pipeline,$v,$dflag,$tflag,$bindings,$options,$outputs)
+    	xproc:run($pipeline,$primary,$dflag,$tflag,$bindings,$options,$outputs)
+
 };
 
 

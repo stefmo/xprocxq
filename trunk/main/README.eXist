@@ -79,6 +79,7 @@ II) Place expath.jar in $EXIST_HOME/lib/user directory and insert these elements
 note -  we use expath http-client module for p:http-request step and will opt to use EXPath/EXQuery function 
 variants wherever available.
 
+enable-xinclude=yes
 
 III) Load /examples directory, included in the dist, into eXist XML Database. You 
 can use the eXist webadmin or java client to do this.
@@ -266,5 +267,5 @@ of James Fuller (jim.fuller@webcomposite.com), All rights reserved.
 DISCLAIMER
 ----------
 
-xprocxq is BETA software and is not intended for production usage 
-with all the usual caveats applying of use this software at your own risk.
+xprocxq is BETA software and is not intended for production usage. Use this
+software at your own risk.
