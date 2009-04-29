@@ -10,55 +10,56 @@ The current definition of how to use, install and related dependencies is contai
 
 The release distribution consists zip package containing the following:
 
-  README.eXist    This document
+  README.eXist   - This document
 
-  VERSION         A summary of the distribution version
+  VERSION        - A summary of the distribution version
 
-  LICENSE            Included licenses notice
+  LICENSE        - Included licenses notice
   
-  ChangeLog       Generated svn changelog
+  ChangeLog      - Generated svn changelog
 
-  xprocxq.jar     xprocxq application
+  xprocxq.jar    - xprocxq application
 
-  expath.jar        expath module deps        
+  expath.jar     - expath module deps        
 
-  test/examples    XProc tests and test.xq for testing with eXist XML Database
+  test/examples  - XProc tests and test.xq for testing with eXist XML Database
 
 
 
 = xqueryxq source distro=
 
+Get source code via subversion check out from [http://code.google.com/p/xprocxq/source subversion].
+
 The source distribution consists of:
    
-  README      This document
+  README      - This document
 
-  VERSION     A summary of the distribution version
+  VERSION     - A summary of the distribution version
 
-  RELEASE     Current release version    
+  RELEASE     - Current release version    
 
-  LICENSE        Included licenses notice
+  LICENSE     - Included licenses notice
 
-  LOC            lines of code metric    
+  LOC         - lines of code metric    
 
-  ChangeLog   Generated svn changelog
+  ChangeLog   - Generated svn changelog
 
-  build.xml   Apache Ant build file For generating release dist
+  build.xml   - Apache Ant build file For generating release dist
 
-  bin/        Xproc run script
+  bin/        - Xproc run script
 
-  etc/        Misc artifacts
+  etc/        - Misc artifacts
 
-  lib/        3rd party deps, this directory is empty for the time being
+  lib/        - 3rd party deps, this directory is empty for the time being
 
-  test/       XProc Unit Tests
+  test/       - XProc Unit Tests
 
-  src/        XQuery source files
+  src/        - XQuery source files
 
 
-To build a release distro run the *dist* Apache Ant target.
+To build a release run the supplied Apache Ant build.xml file with dist target
 
-subversion check out from [http://code.google.com/p/xprocxq/source subversion].
-
+> ant dist
 
 
 
@@ -66,7 +67,3 @@ subversion check out from [http://code.google.com/p/xprocxq/source subversion].
 # Non-members may svn check out a read-only working copy anonymously over HTTP.
 svn checkout http://xprocxq.googlecode.com/svn/trunk/ xprocxq-read-only
 }}}
-
-To build a release run the supplied Apache Ant build.xml file with dist target
-
-> ant dist
