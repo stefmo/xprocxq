@@ -21,40 +21,40 @@ of steps running somewhat soon.
 
 Here is a list of the more severe limitations:
 
-* due to my use of weak typing in XQuery there are several 
+  * due to my use of weak typing in XQuery there are several 
 interrelated issues, but this will change as I sanitize the code
 
-* currently there is little consistent support for sequences 
+  * currently there is little consistent support for sequences 
 where you would expect them, once again I am addressing this as I 
 work porting things across 
 
-* defining reusable pipelines using p:library, p:import and p:declare-step 
+  * defining reusable pipelines using p:library, p:import and p:declare-step 
 is currently disabled 
 
-* errors are thrown as XQuery errors, making it difficult to report
+  * errors are thrown as XQuery errors, making it difficult to report
 correct line numbers, not to mention that errors themselves look quite
 ugly
 
-* need to use ./ convention in p:when (in p:choose) test attributes 
+  * need to use ./ convention in p:when (in p:choose) test attributes 
 due to limitation in eXist util:eval function
 
-* some step sorting issues (intermixing of steps using p:inline), best
+  * some step sorting issues (intermixing of steps using p:inline), best
 to use explicit port binding to avoid.
 
-* p:xquery currently uses a c:result element to output, I also added a
+  * p:xquery currently uses a c:result element to output, I also added a
 xproc:escape attribute to c:query to avoid having to wrap XQuery using
 CDATA (which is XProc spec requirement).
 
-* declare base-uri affects module imports (need to investigate across 
+  * declare base-uri affects module imports (need to investigate across 
 all XQuery processors)
 
-* cant pass required/add-attribute--002.xml test depends on namespace 
+  * cant pass required/add-attribute--002.xml test depends on namespace 
 handling module to be finished
 
-* errors and/or p:error does not write to error port (also discussing 
+  * errors and/or p:error does not write to error port (also discussing 
 need for a generic 'implementator specific error code' with XProc WG)
 
-* current preparsing routine is naive; I have a more rigorous solution 
+  * current preparsing routine is naive; I have a more rigorous solution 
 in a source control branch to merge
 
 
