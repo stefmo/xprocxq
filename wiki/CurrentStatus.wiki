@@ -1,3 +1,4 @@
+#labels xproc,xml,xquery
 21/04/2009 xprocxq has now been ported to eXist 
 
 == Changelog ==
@@ -10,31 +11,51 @@ The [http://code.google.com/p/xprocxq/issues/list project issue tracker] is the 
 
 == Limitations and Issues ==
 
+xprocxq, being implemented in XQuery, currently has several
+limitations and is no where compliant with the existing XProc 
+draft specification.
+
+As I originally developed using SAXON-SA, I have had to disable 
+many of XProc steps as I port across but should have a good set 
+of steps running somewhat soon.
+
 Here is a list of the more severe limitations:
 
- * due to my use of weak typing in XQuery there are several interrelated issues which will eventually go away as I apply datatypes
+* due to my use of weak typing in XQuery there are several 
+interrelated issues, but this will change as I sanitize the code
 
- * inconsistent or no support for sequences where you would expect them
+* currently there is little consistent support for sequences 
+where you would expect them, once again I am addressing this as I 
+work porting things across 
 
- * defining reusable pipelines using p:library and p:declare-step is currently disabled 
+* defining reusable pipelines using p:library, p:import and p:declare-step 
+is currently disabled 
 
- * xproc level errors are thrown from XQuery code, makes it difficult to determine proper line numbers and the output is unwieldy.
+* errors are thrown as XQuery errors, making it difficult to report
+correct line numbers, not to mention that errors themselves look quite
+ugly
 
- * eXist requires usage of ./ convention in p:when (in p:choose) test attributes 
+* need to use ./ convention in p:when (in p:choose) test attributes 
+due to limitation in eXist util:eval function
 
- * naive preparsing will get replaced by something a bit more robust, the current impact is that there are some odd step sorting issues. The way around this is to explicitly bind each port in your XProc.
+* some step sorting issues (intermixing of steps using p:inline), best
+to use explicit port binding to avoid.
 
- * p:xquery currently uses a c:result element to output. Also p:xquery requires one to escape contents of c:xquery element, which is a bit odd but how the current spec works
+* p:xquery currently uses a c:result element to output, I also added a
+xproc:escape attribute to c:query to avoid having to wrap XQuery using
+CDATA (which is XProc spec requirement).
 
- * xproc xpath extension functions do not work at this moment in time
+* declare base-uri affects module imports (need to investigate across 
+all XQuery processors)
 
- * declare base-uri affects module imports (need to investigate across all XQuery processors)
+* cant pass required/add-attribute--002.xml test depends on namespace 
+handling module to be finished
 
- * cant pass required/add-attribute--002.xml test depends on namespace handling module to be finished
+* errors and/or p:error does not write to error port (also discussing 
+need for a generic 'implementator specific error code' with XProc WG)
 
- * errors and/or p:error does not write to error port (also discussing need for a generic 'implementator specific error code' with XProc WG)
-
-Please review the examples included in the release version to get a sense of what is possible with the current version. Generally simple pipelines work and xprocxq should complain if it doesn't support a particular step or component.
+* current preparsing routine is naive; I have a more rigorous solution 
+in a source control branch to merge
 
 
 == Roadmap ==
