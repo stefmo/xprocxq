@@ -1,5 +1,5 @@
 #labels xproc,xml,xquery
-21/04/2009 xprocxq has now been ported to eXist 
+29/04/2009 xprocxq has been released
 
 == Changelog ==
 
@@ -52,3 +52,4 @@ Looks like this for now.
   * refactor weak typing and preparse routines
   * ensure static and dynamic error checking is working properly
   * create namespace handling module to implement more sophisticated namespace fixup 
+  * release SAXON, MarkLogic, and other XQuery processor versions
