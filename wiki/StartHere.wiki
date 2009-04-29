@@ -1,12 +1,14 @@
 #summary For those who want to install and play with xproc.xq
 
-=  xqueryxq release distro =
+=  Installation =
 
-Download latest release zip [http://xprocxq.googlecode.com/files/xprocxq-release-v0.6.62.zip xprocxq-release-v0.6.61.zip] 
+Download latest release zip [http://xprocxq.googlecode.com/files/xprocxq-release-v0.6.62.zip xprocxq-release-v0.6.61.zip] which requires latest trunk version of [http://exist.sourceforge.net eXist XML Database].
+
+The current definition of how to use and install is contained in the source code [http://xprocxq.googlecode.com/svn/trunk/main/README.eXist README.eXist] document.
 
 View all releases from the Downloads tab [http://code.google.com/p/xprocxq/downloads/list here].
 
-The current definition of how to use and install is contained in the source code [http://xprocxq.googlecode.com/svn/trunk/main/README.eXist README.eXist] document.
+=  xqueryxq release distro =
 
 The release distribution consists zip package containing the following:
 
