@@ -6,4 +6,6 @@
 	</error>
    <error code="XXQ0003">XProc pipeline supplied is empty, non-existent or corrupted. 
 	</error>	
+   <error code="XXQ0004">This step requires has dependencies which have not loaded. 
+	</error>
 </error-list>
