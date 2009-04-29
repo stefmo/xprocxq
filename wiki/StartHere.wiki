@@ -6,7 +6,7 @@ Download latest release zip [http://code.google.com/p/xprocxq/downloads/list her
 
 The current definition of how to use and install is contained in the source code [http://xprocxq.googlecode.com/svn/trunk/main/README.eXist README.eXist] document.
 
-View all releases from the Downloads tab [http://code.google.com/p/xprocxq/downloads/list here].
+View all releases from the Downloads tab [http://code.google.com/p/xprocxq/downloads/list?can=1&q=&colspec=Filename+Summary+Uploaded+Size+DownloadCount here].
 
 =  xqueryxq release distro =
 
