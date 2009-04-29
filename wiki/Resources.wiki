@@ -34,6 +34,6 @@ Processing Model Requirements and Use Cases]: Read the W3C XProc requirements an
 
 [http://exprog.org EXProc]: Intended to be a place to discuss and define extension steps to XProc.
 
-[http://expath.org EXPath]: Community defined extensions to XPath.
+[http://expath.org EXPath]: Community defined extensions to XPath. Currently, xprocxq uses expath http-client module.
 
-[http://exquery.org EXQuery]: Community defined extensions to XQuery.
+[http://exquery.org EXQuery]: Community defined extensions to XQuery. Predicted that xprocxq will use any output from this effort.
