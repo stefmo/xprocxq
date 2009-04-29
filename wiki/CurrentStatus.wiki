@@ -19,7 +19,9 @@ Here is a list of the more severe limitations:
 
   * due to my use of weak typing in XQuery there are several interrelated issues, but this will change as I sanitize the code
 
-  * currently there is little consistent support for sequences where you would expect them, once again I am addressing this as I work porting things across 
+  * little consistent support for sequences where you would expect them, once again I am addressing this as I work porting things across 
+
+  * have disabled namespace management for the time being which applies XProc namespace fixup rules
 
   * defining reusable pipelines using p:library, p:import and p:declare-step is currently disabled 
 
