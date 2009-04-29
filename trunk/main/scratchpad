@@ -1,17 +1,10 @@
 ----------------------------------------
-general
+ISSUE
 ----------------------------------------
 
 * add primary input to evaluation in u:xquery, instead of passing
 to each function
-
-* fix p:choose to allow for steps after it,deal with xpath-context, each subpipeline must have the same output signature, need to ensure source input gets bound
-
-
-----------------------------------------
-ISSUE
-----------------------------------------
-
+* fix p:choose deal with xpath-context, each subpipeline must have the same output signature (static check)
 * need to check eq and = throughout the codebase to ensure we are testing equality properly
 * migrate errors from string to QName
 * make error reporting look nicer and try to get some semblance of line number reporting correct

@@ -661,6 +661,7 @@ declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options){
 declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options,$outputs){
 
 if (not(empty($pipeline))) then
+
     (: STEP I: generate parse tree :)
     let $preparse-naming := naming:explicitnames(naming:fixup($pipeline,$stdin))
     let $xproc-binding := xproc:explicitbindings($preparse-naming,$const:init_unique_id)
@@ -706,5 +707,6 @@ if (not(empty($pipeline))) then
         )
 else
 	u:xprocxqError('xxq-error:XXQ0003','check pipeleine.')
+
 
 };

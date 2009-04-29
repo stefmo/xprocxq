@@ -107,3 +107,4 @@ declare variable $const:alt-imports :=' declare copy-namespaces no-preserve, no-
 
 (: -------------------------------------------------------------------------- :)
 
+declare variable $const:pdf-mimetype := 'application/pdf';

@@ -30,7 +30,7 @@ let $pipeline :=document{<p:pipeline xmlns:p="http://www.w3.org/ns/xproc"
 
 <p:xinclude/>
 
-<p:unescape-markup/>			(: unescape markup step test :)
+<p:unescape-markup/>		   	  (: unescape markup step test :)
 //-->
 
 <p:http-request name="http-get">  (: http get test step :)
@@ -103,6 +103,20 @@ let $pipeline :=document{<p:pipeline xmlns:p="http://www.w3.org/ns/xproc"
 let $external-options :=() (: disabled :)
 let $timing-flag :="0"  (: deprecated :)
 let $debug-flag :="1"  (: change value to 1 to see p:log trace :)
+let $internaldbg := 0
 
 return
-	xproc:run($pipeline,$stdin,$debug-flag,$timing-flag,$external-bindings,$external-options) 
+        if ($internaldbg eq 1) then
+                    xproc:explicitbindings(
+                      naming:explicitnames(
+                            naming:fixup($pipeline,$stdin)
+                      )
+                    ,$const:init_unique_id
+                    )
+        else if ($internaldbg eq 2) then
+                      naming:explicitnames(
+                            naming:fixup($pipeline,$stdin)
+                      )
+
+        else
+            xproc:run($pipeline,$stdin,$debug-flag,$timing-flag,$external-bindings,$external-options) 

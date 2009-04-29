@@ -19,6 +19,7 @@ declare namespace xproc = "http://xproc.net/xproc";
 (: Module Imports :)
 import module namespace u = "http://xproc.net/xproc/util";
 import module namespace const = "http://xproc.net/xproc/const";
+import module namespace xslfo = "http://exist-db.org/xquery/xslfo"; (: for p:xsl-formatter :)
 
 (: -------------------------------------------------------------------------- :)
 
@@ -90,11 +91,21 @@ return
 	$v
 };
 
+
 (: -------------------------------------------------------------------------- :)
 declare function opt:xsl-formatter($primary,$secondary,$options) {
+
 let $v := u:get-primary($primary)
+let $href-uri := u:get-option('href',$options,$v)
+let $name := tokenize($href-uri, "/")[last()]
+let $path := substring-before($href-uri,$name)
+let $pdf := xslfo:render($v,'application/pdf',<parameters/>) 
+let $store := xmldb:store($path,$name,$pdf)
 return
-	$v
+	if($store) then
+		u:outputResultElement(concat($path,$name))
+	else
+		u:dynamicError('err:XC0050',"p:xsl-formatter cannot store pdf.")
 };
 
 (: -------------------------------------------------------------------------- :)
