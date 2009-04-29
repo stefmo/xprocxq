@@ -1,3 +1,4 @@
+#labels xproc,xml,XQuery
 W3C XProc dev mailing list
 xproc-dev@w3.org
 
