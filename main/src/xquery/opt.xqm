@@ -99,7 +99,7 @@ let $v := u:get-primary($primary)
 let $href-uri := u:get-option('href',$options,$v)
 let $name := tokenize($href-uri, "/")[last()]
 let $path := substring-before($href-uri,$name)
-let $pdf := xslfo:render($v,'application/pdf',<parameters/>) 
+let $pdf := xslfo:render($v,$const:pdf-mimetype,<parameters/>) 
 let $store := xmldb:store($path,$name,$pdf)
 return
 	if($store) then
@@ -107,6 +107,7 @@ return
 	else
 		u:dynamicError('err:XC0050',"p:xsl-formatter cannot store pdf.")
 };
+
 
 (: -------------------------------------------------------------------------- :)
 declare function opt:xquery($primary,$secondary,$options) {
@@ -124,5 +125,6 @@ u:assert(exists(u:get-secondary('query',$secondary)/c:query),'p:input query is r
         return
             u:outputResultElement($result)
 };
+
 
 (: -------------------------------------------------------------------------- :)

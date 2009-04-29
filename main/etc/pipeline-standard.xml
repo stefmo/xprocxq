@@ -156,7 +156,7 @@
       <p:option name="initial-only" select="'false'"/>
       <p:option name="test" required="true"/>
    </p:declare-step>
-   <p:declare-step type="p:store" xml:id="store" xmlns:xproc="http://xproc.net/xproc">
+   <p:declare-step type="p:store" xml:id="store" xmlns:xproc="http://xproc.net/xproc" xproc:support="true">
       <p:input port="source" select="/"/>
       <p:output port="result" primary="false" select="/"/>
       <p:option name="href" select="''"/>

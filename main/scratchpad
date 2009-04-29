@@ -2,6 +2,8 @@
 ISSUE
 ----------------------------------------
 
+* implement p:store and p:delete
+
 * add primary input to evaluation in u:xquery, instead of passing
 to each function
 * fix p:choose deal with xpath-context, each subpipeline must have the same output signature (static check)
