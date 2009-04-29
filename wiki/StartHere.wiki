@@ -2,9 +2,9 @@
 
 =  xqueryxq release distro =
 
-download latest release zip [http://xprocxq.googlecode.com/files/xprocxq-release-v0.6.62.zip xprocxq-release-v0.6.61.zip] 
+Download latest release zip [http://xprocxq.googlecode.com/files/xprocxq-release-v0.6.62.zip xprocxq-release-v0.6.61.zip] 
 
-To view all releases from the Downloads tab [http://code.google.com/p/xprocxq/downloads/list here].
+View all releases from the Downloads tab [http://code.google.com/p/xprocxq/downloads/list here].
 
 The current definition of how to use and install is contained in the source code [http://xprocxq.googlecode.com/svn/trunk/main/README.eXist README.eXist] document.
 
@@ -57,7 +57,7 @@ The source distribution consists of:
   src/        - XQuery source files
 
 
-To build a release run the supplied Apache Ant build.xml file with dist target
+To build a release from source, run the supplied Apache Ant build.xml file with dist target
 
 > ant dist
 
