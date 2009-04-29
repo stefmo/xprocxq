@@ -2,21 +2,21 @@
 
 =  xqueryxq release distro =
 
-download latest release zip [http://code.google.com/p/xprocxq/source/browse/releases/xprocxq-release-v0.6.61.zip xprocxq-release-v0.6.61.zip] 
+download latest release zip [http://xprocxq.googlecode.com/files/xprocxq-release-v0.6.62.zip xprocxq-release-v0.6.61.zip] 
 
-To view all releases [http://code.google.com/p/xprocxq/source/browse/#svn/releases xprocxq-release-v0.6.zip]
+To view all releases from the Downloads tab [http://xprocxq.googlecode.com/files/ here].
 
 The current definition of how to use, install and related dependencies is contained in the source code [http://xprocxq.googlecode.com/svn/trunk/main/README.eXist README.eXist] document.
 
 The release distribution consists zip package containing the following:
 
-README.eXist	This document
-VERSION     	A summary of the distribution version
-LICENSE			Included licenses notice
-ChangeLog   	Generated svn changelog
-xprocxq.jar 	xprocxq application
-expath.jar		expath module deps		
-test/examples	XProc tests and test.xq for testing with eXist XML Database
+README.eXist    This document
+VERSION         A summary of the distribution version
+LICENSE            Included licenses notice
+ChangeLog       Generated svn changelog
+xprocxq.jar     xprocxq application
+expath.jar        expath module deps        
+test/examples    XProc tests and test.xq for testing with eXist XML Database
 
 
 = xqueryxq source distro=
@@ -25,16 +25,16 @@ The source distribution consists of:
    
 README      This document
 VERSION     A summary of the distribution version
-RELEASE     Current release version	
-LICENSE		Included licenses notice
-LOC			lines of code metric	
+RELEASE     Current release version    
+LICENSE        Included licenses notice
+LOC            lines of code metric    
 ChangeLog   Generated svn changelog
 build.xml   Apache Ant build file For generating release dist
-bin/    	Xproc run script
-etc/    	Misc artifacts
-lib/    	3rd party deps, this directory is empty for the time being
-test/   	XProc Unit Tests
-src/    	XQuery source files
+bin/        Xproc run script
+etc/        Misc artifacts
+lib/        3rd party deps, this directory is empty for the time being
+test/       XProc Unit Tests
+src/        XQuery source files
 
 subversion check out from [http://code.google.com/p/xprocxq/source subversion].
 
