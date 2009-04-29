@@ -1,4 +1,5 @@
 #summary For those who want to install and play with xproc.xq
+#labels xproc
 
 =  Installation =
 
