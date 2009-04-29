@@ -335,9 +335,17 @@ return
 
 (: -------------------------------------------------------------------------- :)
 declare function std:store($primary,$secondary,$options) {
+
 let $v := u:get-primary($primary)
+let $href-uri := u:get-option('href',$options,$v)
+let $name := tokenize($href-uri, "/")[last()]
+let $path := substring-before($href-uri,$name)
+let $store := xmldb:store($path,$name,$v)
 return
-	$v
+	if($store) then
+		u:outputResultElement(concat($path,$name))
+	else
+		u:dynamicError('err:XC0050',"p:store could not store document.")
 };
 
 

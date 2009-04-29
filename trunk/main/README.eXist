@@ -73,8 +73,10 @@ II) Please follow these instructions to support the following steps.
 
   p:xinclude - you must enable-xincludes within eXist XML Database conf.xml
 
-  p:xsl-formatter - rebuild eXist with extension XSLFO by setting include.module.xslfo = true 
-in extensions/build.properties
+  p:xsl-formatter - you will need to build eXist with extension XSLFO enabled. To do this set
+  include.module.xslfo = true in extensions/build.properties
+
+Note - xprocxq currently will not work if you do not follow this installation step.
 
 III) Load /examples directory, included in the dist, into eXist XML Database. You 
 can use the eXist webadmin, webdav or java client interfaces to do this.
