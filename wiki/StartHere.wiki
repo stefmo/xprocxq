@@ -11,12 +11,19 @@ The current definition of how to use, install and related dependencies is contai
 The release distribution consists zip package containing the following:
 
 README.eXist    This document
+
 VERSION         A summary of the distribution version
+
 LICENSE            Included licenses notice
+
 ChangeLog       Generated svn changelog
+
 xprocxq.jar     xprocxq application
+
 expath.jar        expath module deps        
+
 test/examples    XProc tests and test.xq for testing with eXist XML Database
+
 
 
 = xqueryxq source distro=
@@ -24,17 +31,31 @@ test/examples    XProc tests and test.xq for testing with eXist XML Database
 The source distribution consists of:
    
 README      This document
+
 VERSION     A summary of the distribution version
+
 RELEASE     Current release version    
+
 LICENSE        Included licenses notice
+
 LOC            lines of code metric    
+
 ChangeLog   Generated svn changelog
+
 build.xml   Apache Ant build file For generating release dist
+
 bin/        Xproc run script
+
 etc/        Misc artifacts
+
 lib/        3rd party deps, this directory is empty for the time being
+
 test/       XProc Unit Tests
+
 src/        XQuery source files
+
+
+To build a release distro run the *dist* Apache Ant target.
 
 subversion check out from [http://code.google.com/p/xprocxq/source subversion].
 
