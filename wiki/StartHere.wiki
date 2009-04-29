@@ -9,7 +9,7 @@ The current definition of how to use and install is contained in the source code
 
 View all releases from the Downloads tab [http://code.google.com/p/xprocxq/downloads/list?can=1&q=&colspec=Filename+Summary+Uploaded+Size+DownloadCount here].
 
-=  xqueryxq release distro =
+= Release Distro =
 
 The release distribution consists zip package containing the following:
 
@@ -29,7 +29,7 @@ The release distribution consists zip package containing the following:
 
 
 
-= xqueryxq source distro=
+= Source Distro=
 
 Get source code via subversion check out from [http://code.google.com/p/xprocxq/source subversion].
 
@@ -63,7 +63,6 @@ The source distribution consists of:
 To build a release from source, run the supplied Apache Ant build.xml file with dist target
 
 > ant dist
-
 
 
 {{{
