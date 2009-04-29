@@ -4,24 +4,26 @@
 
 	<property name="dist" location="dist"/>
 	<loadfile property="release" srcFile="VERSION"/>
+	<property name="release-dest" location="../../xprocxq-releases"/>
 
 
     <!-- ===================================================== -->
     <!-- create release dist for eXist                         -->
     <!-- ===================================================== -->
     <target name="dist" depends="clean, exist-jar">
-  		
 		<buildnumber/>
 		<copy file="README.eXist" todir="${dist}"/>
   		<copy file="LICENSE" todir="${dist}"/>
   		<copy file="VERSION" todir="${dist}"/>
   		<copy file="Changelog" todir="${dist}"/>
+  		<copy file="lib/expath.jar" todir="${dist}"/>
+
   	  	<copy todir="${dist}/examples">
 	    	<fileset dir="test/examples"/>
 	  	</copy>
 		<propertyfile file="build.number"/>
 		<move file="${dist}/xprocxq.jar" tofile="${dist}/${release}.${build.number}.jar"/> 
-	 	<zip destfile="${release}.${build.number}.zip"
+	 	<zip destfile="${release-dest}/${release}.${build.number}.zip"
 	       basedir="dist"
 	  	/>
 	</target>

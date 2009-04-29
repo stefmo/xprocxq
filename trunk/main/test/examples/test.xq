@@ -23,11 +23,15 @@ let $external-bindings
 let $pipeline :=document{<p:pipeline xmlns:p="http://www.w3.org/ns/xproc"
                name="pipeline">
 
+<!--
 <p:escape-markup/> 				(: escape markup step test :)
 
+<p:load href="/db/examples/test.xml"/>
+
+<p:xinclude/>
 
 <p:unescape-markup/>			(: unescape markup step test :)
-
+//-->
 
 <p:http-request name="http-get">  (: http get test step :)
 <p:input port="source">
@@ -74,7 +78,7 @@ let $pipeline :=document{<p:pipeline xmlns:p="http://www.w3.org/ns/xproc"
            <p:xquery name='myexquerystep'>
                <p:input port="query">
                    <p:inline>
-                       <c:query xmlns:c="http://www.w3.org/ns/xproc-step" xproc:escape="false">
+                       <c:query xmlns:c="http://www.w3.org/ns/xproc-step" xproc:escape="true">
                            let $r := 'this pipeline successfully processed' return $r (: for now default context goes to xml database :)
                        </c:query>
                    </p:inline>
@@ -92,6 +96,8 @@ let $pipeline :=document{<p:pipeline xmlns:p="http://www.w3.org/ns/xproc"
        </p:otherwise>
    </p:choose>
 
+<p:identity/>
+
 </p:pipeline>}
 
 let $external-options :=() (: disabled :)
@@ -99,4 +105,4 @@ let $timing-flag :="0"  (: deprecated :)
 let $debug-flag :="1"  (: change value to 1 to see p:log trace :)
 
 return
-        xproc:run($pipeline,$stdin,$debug-flag,$timing-flag,$external-bindings,$external-options) 
+	xproc:run($pipeline,$stdin,$debug-flag,$timing-flag,$external-bindings,$external-options) 
