@@ -6,7 +6,7 @@ download latest release zip [http://xprocxq.googlecode.com/files/xprocxq-release
 
 To view all releases from the Downloads tab [http://code.google.com/p/xprocxq/downloads/list here].
 
-The current definition of how to use, install and related dependencies is contained in the source code [http://xprocxq.googlecode.com/svn/trunk/main/README.eXist README.eXist] document.
+The current definition of how to use and install is contained in the source code [http://xprocxq.googlecode.com/svn/trunk/main/README.eXist README.eXist] document.
 
 The release distribution consists zip package containing the following:
 
