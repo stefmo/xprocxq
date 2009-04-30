@@ -1,4 +1,4 @@
-#summary README.eXist installation instructions
+#summary Installation instructions for xprocxq eXist XML Database version
 
 = Download = 
 
