@@ -80,6 +80,10 @@ return
 
 == p:xquery ==
 
+The p:xquery step will execute an arbitrary bit of xquery. The default context is currently the eXist XML Database, it should be the source port input binding but I have a few more tweaks on util:eval within eXist.
+
+I also added a xproc:escape extension attribute to the c:query element as XProc spec wants the XQuery to not be considered XML. 
+ 
 {{{
 xquery version "1.0" encoding "UTF-8";
 
