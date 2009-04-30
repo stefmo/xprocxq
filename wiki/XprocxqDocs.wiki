@@ -26,8 +26,7 @@ let $stdin :=document{<test>Hello World</test>}
 
 let $pipeline :=document{
                     <p:pipeline name="pipeline"
-                                xmlns:p="http://www.w3.org/ns/xproc"
-                                xmlns:c="http://www.w3.org/ns/xproc-step">
+                                xmlns:p="http://www.w3.org/ns/xproc">
                         <p:identity/>
                     </p:pipeline>
                 }
