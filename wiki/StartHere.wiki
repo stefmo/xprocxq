@@ -5,11 +5,11 @@
 
 Download latest release zip [http://code.google.com/p/xprocxq/downloads/list here], which requires latest trunk version of [http://exist.sourceforge.net eXist XML Database].
 
-[XprocxqDocsInstallation Install]: Install xprocxq on eXist
+  * [XprocxqDocsInstallation Install]: Install xprocxq on eXist
  
-[XprocxqRunning using xproc:run in XQuery]: Learn how to use xprocxq in XQuery
+  * [XprocxqRunning using xproc:run in XQuery]: Learn how to use xprocxq in XQuery
 
-[XprocxqDocs Hello World] Run your first XProc pipeline
+  * [XprocxqDocs Hello World] Run your first XProc pipeline
 
 Alternatively read the README.eXist document included with the release.
 
