@@ -79,7 +79,20 @@ $stdin is the standard input source port
 
 $debug set to "1" will output p:log trace
 
-$bindings allow you to define input ports 
+$bindings allow you to define input ports outside of xprocxq, here are
+a few examples 
+
+{{{
+let $bindings :=('source2=<test/>')
+}}}
+
+the above would expose a p:input port named source2 to XProc
+
+You can also define multiple ports as well as use a URI to retrieve a document
+{{{
+let $bindings := ('source3=<a>test</a>','source4=/db/examples/xml/test.xml')
+}}}
+
+
 
 $options are currently disabled
-
