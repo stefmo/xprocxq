@@ -1,10 +1,10 @@
 #summary using p:declare-step to define new reusable pipelines
 
-= Introduction =
-
 These examples have been tested against xprocxq.
 
 *note*: the links after each example will run your local eXist copy of /examples which you must upload to eXist.
+
+<wiki:toc max_depth="1" />
 
 == p:identity Hello World =
 
@@ -68,6 +68,8 @@ return
 }}}
 [http://127.0.0.1:8080/exist/rest/examples/step_examples/pxslt.xq pxslt.xq]
 
+
+
 == p:xquery ==
 
 {{{
@@ -104,6 +106,8 @@ return
 
 }}}
 [http://127.0.0.1:8080/exist/rest/examples/step_examples/pxslt.xq pxquery.xq]
+
+
 
 == p:http-request ==
 
