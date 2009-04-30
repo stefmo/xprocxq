@@ -1,13 +1,6 @@
 #labels xproc,documentation,xprocxq
 #xprocxq documentation.
-
-  * [XprocxqDocs xprocxq documentation]
-    * [XprocxqRunning running xprocxq from XQuery]
-    * [XprocxqSimpleExamples Simple XProc examples]
-    * [XprocxqWhatWorks What currently works with xprocxq]
-  * [XprocxqStdStepReference XProc Standard Step reference]
-  * [XprocxqOptStepReference XProc Optional Step reference]
-  * [XprocxqExtStepReference xprocxq extension Step reference]
+#sidebar XprocxqDocsSideBar
 
 = XProc Examples =
 
