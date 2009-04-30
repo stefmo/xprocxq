@@ -83,7 +83,7 @@
       <p:input port="parameters" kind="parameter" select="/"/>
       <p:output port="result" primary="true" sequence="true" select="/"/>
    </p:declare-step>
-   <p:declare-step type="p:xsl-formatter" xml:id="xsl-formatter" xproc:support="true">
+   <p:declare-step type="p:xsl-formatter" xml:id="xsl-formatter">
       <p:input port="source" primary="true" select="/"/>
       <p:input port="parameters" kind="parameter" select="/"/>
       <p:output port="result" primary="false" select="/"/>

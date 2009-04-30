@@ -30,7 +30,7 @@
       <p:output port="result" primary="true" select="/"/>
       <p:option name="match" required="true"/>
    </p:declare-step>
-   <p:declare-step type="p:directory-list" xml:id="directory-list" xmlns:xproc="http://xproc.net/xproc"  xproc:support="true">
+   <p:declare-step type="p:directory-list" xml:id="directory-list" xmlns:xproc="http://xproc.net/xproc">
       <p:output port="result" primary="true" select="/"/>
       <p:option name="path"/>
       <p:option name="include-filter"/>
@@ -41,7 +41,7 @@
       <p:option name="code" required="true"/>
 	  <p:output port="error" primary="true" select="/"/>
    </p:declare-step>
-   <p:declare-step type="p:escape-markup" xml:id="escape-markup" xproc:support="true">
+   <p:declare-step type="p:escape-markup" xml:id="escape-markup">
       <p:input port="source" primary="true" select="/"/>
       <p:output port="result" primary="true" select="/"/>
       <p:option name="cdata-section-elements"/>
@@ -62,7 +62,7 @@
       <p:output port="result" primary="true" sequence="true" select="/"/>
       <p:option name="select" required="true"/>
    </p:declare-step>
-   <p:declare-step type="p:http-request" xml:id="http-request" xproc:support="true">
+   <p:declare-step type="p:http-request" xml:id="http-request">
       <p:input port="source" primary="true" select="/"/>
       <p:output port="result" primary="true" select="/"/>
       <p:option name="byte-order-mark"/>
@@ -100,7 +100,7 @@
       <p:option name="match" select="'*'"/>
       <p:option name="replace" select="'true'"/>
    </p:declare-step>
-   <p:declare-step type="p:load" xml:id="load" xmlns:xproc="http://xproc.net/xproc" xproc:support="true">
+   <p:declare-step type="p:load" xml:id="load" xmlns:xproc="http://xproc.net/xproc">
       <p:output port="result" primary="true" select="/"/>
       <p:option name="href" required="true"/>
       <p:option name="dtd-validate" select="&#34;false&#34;"/>
@@ -156,7 +156,7 @@
       <p:option name="initial-only" select="'false'"/>
       <p:option name="test" required="true"/>
    </p:declare-step>
-   <p:declare-step type="p:store" xml:id="store" xmlns:xproc="http://xproc.net/xproc" xproc:support="true">
+   <p:declare-step type="p:store" xml:id="store" xmlns:xproc="http://xproc.net/xproc">
       <p:input port="source" select="/"/>
       <p:output port="result" primary="false" select="/"/>
       <p:option name="href" select="''"/>
@@ -182,7 +182,7 @@
       <p:option name="match" required="true"/>
       <p:option name="replace" required="true"/>
    </p:declare-step>
-   <p:declare-step type="p:unescape-markup" xml:id="unescape-markup" xproc:support="true">
+   <p:declare-step type="p:unescape-markup" xml:id="unescape-markup">
       <p:input port="source" primary="true" select="/"/>
       <p:output port="result" primary="true" select="/"/>
       <p:option name="namespace"/>
@@ -208,7 +208,7 @@
       <p:option name="wrapper" required="true"/>
       <p:option name="group-adjacent"/>
    </p:declare-step>
-   <p:declare-step type="p:xinclude" xml:id="xinclude" xproc:support="true">
+   <p:declare-step type="p:xinclude" xml:id="xinclude">
       <p:input port="source" primary="true" select="/"/>
       <p:output port="result" primary="true" select="/"/>
       <p:option name="fixup-xml-base" select="'false'"/>

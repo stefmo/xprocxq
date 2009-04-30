@@ -1,19 +1,31 @@
 ----------------------------------------
+general
+----------------------------------------
+
+replace calls to secondary with a u:get-binding-output() function
+
+----------------------------------------
+p:choose
+----------------------------------------
+* each subpipeline must have the same output signature
+* need to ensure source input gets bound
+* need to cater for multiple p:when statements
+* xpath-context is just a p:input used with $when_eval
+
+after container
+before container
+
+----------------------------------------
 ISSUE
 ----------------------------------------
 
-* p:store uses 
-
-* add primary input to evaluation in u:xquery, instead of passing
-to each function
-* fix p:choose deal with xpath-context, each subpipeline must have the same output signature (static check)
-* need to check eq and = throughout the codebase to ensure we are testing equality properly
+* components/multi-container steps needs implementation (p:group,p:viewport,p:choose,p:for-each, p:pipeline, p:library, p:try/catch)
 * migrate errors from string to QName
 * make error reporting look nicer and try to get some semblance of line number reporting correct
 * declare-steps needs refactoring in parsing and execution
 * inputs in nested p:declare-steps need fixing due to $allcomp in xproc:explicitnames
 * namespace fixups: enumerate step level in scope namespaces
-* sequences need rationalization and sanitization
+* sequences need rationalisation and sanitisation
 * p:try in evalstep ?
 * target main eXist scenarios
     - xquery->p:choose->xquery
@@ -24,5 +36,10 @@ to each function
 	
 * create namespace module to manage namespace fixups 
 * testsuite represents sequences as t:document in count-001.xml in testing suite ?
-* p:xinclude needs a serialize and parse operation
+
+
+
+
+
+
 

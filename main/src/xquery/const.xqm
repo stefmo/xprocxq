@@ -23,11 +23,8 @@ declare variable $const:NS_XPROC_ERR := "http://www.w3.org/ns/xproc-error";
 
 (: -------------------------------------------------------------------------- :)
 
-declare variable $const:DEFAULT_SERIALIZE := 'method=xml indent=yes';
 declare variable $const:TRACE_SERIALIZE := 'method=xml';
-declare variable $const:XINCLUDE_SERIALIZE := 'expand-xincludes=yes';
 declare variable $const:TEXT_SERIALIZE := 'method=text';
-declare variable $const:ESCAPE_SERIALIZE := 'method=xml';
 
 
 (: -------------------------------------------------------------------------- :)
@@ -40,15 +37,15 @@ declare variable $const:NS_XPROC_ERR_EXT := "http://xproc.net/ns/errors";
 
 (: -------------------------------------------------------------------------- :)
 (: error dictionaries :)
-declare variable $const:error := doc("resource:net/xproc/xprocxq/etc/error-list.xml");
-declare variable  $const:xprocxq-error := doc("resource:net/xproc/xprocxq/etc/xproc-error-list.xml");
+declare variable $const:error := doc("resource:net/xproc/xqprocxq/etc/error-list.xml");
+declare variable  $const:xprocxq-error := doc("resource:net/xproc/xqprocxq/etc/xproc-error-list.xml");
 
 (: -------------------------------------------------------------------------- :)
 
-declare variable $const:ext-steps := doc("resource:net/xproc/xprocxq/etc/pipeline-extension.xml")/p:library;
-declare variable $const:std-steps := doc("resource:net/xproc/xprocxq/etc/pipeline-standard.xml")/p:library;
-declare variable $const:opt-steps := doc("resource:net/xproc/xprocxq/etc/pipeline-optional.xml")/p:library;
-declare variable $const:comp-steps := doc("resource:net/xproc/xprocxq/etc/xproc-component.xml")/xproc:components;
+declare variable $const:ext-steps := doc("resource:net/xproc/xqprocxq/etc/pipeline-extension.xml")/p:library;
+declare variable $const:std-steps := doc("resource:net/xproc/xqprocxq/etc/pipeline-standard.xml")/p:library;
+declare variable $const:opt-steps := doc("resource:net/xproc/xqprocxq/etc/pipeline-optional.xml")/p:library;
+declare variable $const:comp-steps := doc("resource:net/xproc/xqprocxq/etc/xproc-component.xml")/xproc:components;
 
 (: -------------------------------------------------------------------------- :)
 
@@ -97,9 +94,6 @@ declare variable $const:default-imports :='
     import module namespace std = "http://xproc.net/xproc/std";
     import module namespace ext = "http://xproc.net/xproc/ext";
     import module namespace opt = "http://xproc.net/xproc/opt";
-
-	declare option exist:serialize "expand-xincludes=no";
-
 ';
 
 
@@ -107,4 +101,3 @@ declare variable $const:alt-imports :=' declare copy-namespaces no-preserve, no-
 
 (: -------------------------------------------------------------------------- :)
 
-declare variable $const:pdf-mimetype := 'application/pdf';

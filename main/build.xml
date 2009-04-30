@@ -4,43 +4,34 @@
 
 	<property name="dist" location="dist"/>
 	<loadfile property="release" srcFile="VERSION"/>
-	<property name="release-dest" location=".."/>
 
 
     <!-- ===================================================== -->
     <!-- create release dist for eXist                         -->
     <!-- ===================================================== -->
     <target name="dist" depends="clean, exist-jar">
-	
-		<buildnumber/>
-	
-		<copy file="README.eXist" todir="${dist}"/>
+  		<copy file="README.eXist" todir="${dist}"/>
   		<copy file="LICENSE" todir="${dist}"/>
+  		<copy file="VERSION" todir="${dist}"/>
   		<copy file="Changelog" todir="${dist}"/>
-  		<copy file="lib/expath.jar" todir="${dist}"/>
-
   	  	<copy todir="${dist}/examples">
-	    	<fileset dir="docs/examples" excludes="**/*.svn"/>
+	    	<fileset dir="test/examples"/>
 	  	</copy>
-	
-		<propertyfile file="build.number"/>
-	
-		<move file="${dist}/xprocxq.jar" tofile="${dist}/${release}.${build.number}.jar"/> 
-	
-	 	<zip destfile="${release-dest}/${release}.${build.number}.zip"
+	 	<zip destfile="${release}.zip"
 	       basedir="dist"
 	  	/>
 	</target>
 
-
+	
     <!-- ===================================================== -->
     <!-- create jar for eXist                                  -->
     <!-- ===================================================== -->
     <target name="exist-jar">
-      <delete dir="${dist}/xprocxq.jar"/>
-      <zip destfile="${dist}/xprocxq.jar">
+      <delete dir="dist/xprocxq.jar"/>
+      <zip destfile="dist/xprocxq.jar">
         <zipfileset dir="src/xquery" includes="**/**/**.*" prefix="net/xproc/xprocxq/src/xquery"/>
-        <zipfileset dir="etc" includes="**/**/*.*" prefix="net/xproc/xprocxq/etc"/>
+        <zipfileset dir="etc" includes="**/**/*.*" prefix="net/xproc/xqprocxq/etc"/>
+        <zipfileset dir="lib/net/xproc/saxon" includes="*.class" prefix="net/xproc/saxon"/>
       </zip>
     </target>
 

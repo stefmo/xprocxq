@@ -21,7 +21,6 @@ declare namespace saxon = "http://dummy.org";
 (: Module Imports :)
 import module namespace u = "http://xproc.net/xproc/util";
 import module namespace const = "http://xproc.net/xproc/const";
-import module namespace http = "http://www.expath.org/mod/http-client";
 
 
 (: -------------------------------------------------------------------------- :)
@@ -64,10 +63,10 @@ declare function std:add-attribute($primary,$secondary,$options) {
 
 (: TODO: need to refactor match attribute :)
 
-let $v := u:get-primary($primary)
-let $match := u:get-option('match',$options,$v)
-let $attrName := u:get-option('attribute-name',$options,$v)
-let $attrValue := u:get-option('attribute-value',$options,$v)
+let $v := $primary/*[1]
+let $match := u:get-option('match',$options,$primary/*)
+let $attrName := u:get-option('attribute-name',$options,$primary/*)
+let $attrValue := u:get-option('attribute-value',$options,$primary/*)
 return
     u:treewalker-add-attribute($v,$match,$attrName,$attrValue)
 };
@@ -78,15 +77,14 @@ declare function std:add-xml-base($primary,$secondary,$options) {
 
 (: TODO: need to refactor to pass in pipeline uri and any external input uri :)
 
-let $v := u:get-primary($primary)
-let $all := xs:boolean(u:get-option('all',$options,$v))
-let $relative := xs:boolean(u:get-option('relative',$options,$v))
+let $all := xs:boolean(u:get-option('all',$options,$primary))
+let $relative := xs:boolean(u:get-option('relative',$options,$primary))
 let $attrNames := xs:QName('xml:base')
-let $attrValues := base-uri($v) 
+let $attrValues := base-uri($primary[1]) 
 
 return
     if ($all) then
-    for $element in $v/*
+    for $element in $primary[1]/*
        return element { node-name($element)}
                       { for $attrName at $seq in $attrNames
                         return if ($element/@*[node-name(.) = $attrName])
@@ -96,7 +94,7 @@ return
                         $element/@*,
                         $element/node() }
 else
-    for $element in $v/*
+    for $element in $primary[1]/*
        return element { node-name($element)}
                       { for $attrName at $seq in $attrNames
                         return if ($element/@*[node-name(.) = $attrName])
@@ -110,8 +108,9 @@ else
 
 (: -------------------------------------------------------------------------- :)
 declare function std:compare($primary,$secondary,$options) {
-let $v := u:get-primary($primary)
-let $result := deep-equal($v,u:get-secondary('alternate',$secondary))
+let $v := $primary/*[1]
+let $alternate := $secondary/xproc:input[@port='alternate']/*
+let $result := deep-equal($v,$secondary/xproc:input[@port='alternate']/*)
 let $fail-if-not-equal := xs:boolean(u:get-option('fail-if-not-equal',$options,$v))
     return
 
@@ -127,7 +126,8 @@ let $fail-if-not-equal := xs:boolean(u:get-option('fail-if-not-equal',$options,$
 
 (: -------------------------------------------------------------------------- :)
 declare function std:count($primary,$secondary,$options){
-let $v := u:get-primary($primary)
+
+let $v := document{$primary}
 let $limit := xs:integer(u:get-option('limit',$options,$v))
 let $count := count($v/*)
 return
@@ -140,30 +140,29 @@ return
 
 (: -------------------------------------------------------------------------- :)
 declare function std:delete($primary,$secondary,$options){
-let $v := u:get-primary($primary)
-let $match := u:get-option('match',$options,$v)
+let $match := u:get-option('match',$options,$primary)
 return
-	u:copy-filter-elements($v, $match)
+	u:copy-filter-elements($primary/*, $match)
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:directory-list($primary,$secondary,$options) {
-let $v := u:get-primary($primary)
-let $path := u:get-option('path',$options,$v)
-return
-    u:outputResultElement(collection($path))
+ 
+(: this should be caught as a static error someday ... will do it in refactoring  :)
+u:assert(exists($options/p:with-option[@name='path']),'p:directory-list path option does not exist'),
+
+    (u:outputResultElement(collection('file:/')))
+
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:escape-markup($primary,$secondary,$options) {
-(: TODO: test with sequences :)
-let $v := u:get-primary($primary)
-return
-	element{name($v/*)}{
-    	u:serialize($v/*/*,$const:ESCAPE_SERIALIZE)
-	}
+    u:serialize($primary,<xsl:output method="xml"
+                                 omit-xml-declaration="yes"
+                                 indent="yes"
+                                 />)
 };
 
 
@@ -171,8 +170,8 @@ return
 declare function std:error($primary,$secondary,$options) {
 (: TODO: this should be generated to the error port:)
 
-let $v := u:get-primary($primary)
-let $code := u:get-option('code',$options,$v)
+let $v := $primary/*[1]
+let $code := u:get-option('code',$options,$primary/*[1])
 let $err := <c:errors xmlns:c="http://www.w3.org/ns/xproc-step"
           xmlns:p="http://www.w3.org/ns/xproc"
           xmlns:my="http://www.example.org/error">
@@ -194,7 +193,7 @@ declare function std:filter($primary,$secondary,$options) {
 (: TODO: is it an error for a empty match ? :)
 u:assert(exists($options/p:with-option[@name='select']/@select),'p:with-option match is required'),
 
-let $v := u:get-primary($primary)
+let $v :=document{$primary/*[1]}
 let $xpath := u:get-option('select',$options,$v)
 let $result := u:evalXPATH(string($xpath),$v)
     return
@@ -207,115 +206,73 @@ let $result := u:evalXPATH(string($xpath),$v)
 
 (: -------------------------------------------------------------------------- :)
 declare function std:http-request($primary,$secondary,$options) {
-let $v := u:get-primary($primary)
-let $href := $v/c:request/@href
-let $method := $v/c:request/@method
-let $content-type := $v/c:request/c:body/@content-type
-let $body := $v/c:request/c:body
-
-return
-	http:send-request(
-	   <http:request href="{$href}" method="{$method}">{
-		if (empty($body)) then () 
-		else
-	      <http:body content-type="{$content-type}">
-	         {$body}
-	      </http:body>
-	}
-	   </http:request>
-	)
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:identity($primary,$secondary,$options) {
-let $v := u:get-primary($primary)
-return
-	$v
+    $primary/*
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:insert($primary,$secondary,$options) {
-let $v := u:get-primary($primary)
-return
-	$v
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:label-elements($primary,$secondary,$options) {
-let $v := u:get-primary($primary)
-return
-	$v
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:load($primary,$secondary,$options) {
-let $v := u:get-primary($primary)
-let $href := u:get-option('href',$options,$v)
-return
-if (empty($href)) then
-	u:dynamicError('err:XC0026',"p:load href was empty.")
-else
-	doc($href)
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:make-absolute-uris($primary,$secondary,$options) {
-let $v := u:get-primary($primary)
-return
-	$v
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:namespace-rename($primary,$secondary,$options) {
-let $v := u:get-primary($primary)
-return
-	$v
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:pack($primary,$secondary,$options) {
-let $v := u:get-primary($primary)
-return
-	$v
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:parameters($primary,$secondary,$options) {
-let $v := u:get-primary($primary)
-return
-	$v
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:rename($primary,$secondary,$options) {
-let $v := u:get-primary($primary)
-return
-	$v
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:replace($primary,$secondary,$options) {
-let $v := u:get-primary($primary)
-return
-	$v
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:set-attributes($primary,$secondary,$options) {
-let $v := u:get-primary($primary)
-return
-	$v
+    $primary
 };
 
 
@@ -327,52 +284,37 @@ declare function std:sink($primary,$secondary,$options) {
 
 (: -------------------------------------------------------------------------- :)
 declare function std:split-sequence($primary,$secondary,$options) {
-let $v := u:get-primary($primary)
-return
-	$v
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:store($primary,$secondary,$options) {
-
-let $v := u:get-primary($primary)
-let $href-uri := u:get-option('href',$options,$v)
-let $name := tokenize($href-uri, "/")[last()]
-let $path := substring-before($href-uri,$name)
-let $store := xmldb:store($path,$name,$v)
-return
-	if($store) then
-		u:outputResultElement(concat($path,$name))
-	else
-		u:dynamicError('err:XC0050',"p:store could not store document.")
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:string-replace($primary,$secondary,$options) {
-let $v := u:get-primary($primary)
-return
-	$v
+    $primary
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:unescape-markup($primary,$secondary,$options){
-(: TODO: test with sequences :)
-let $v := u:get-primary($primary)
+(: TODO: doesnt work with nested xml elements :)
+let $parsed := document{u:serialize($primary,<xsl:output method="xml"
+                                 omit-xml-declaration="yes"
+                                 indent="yes"
+                                 />)}
 return
-    element{name($v/*)}{
-		u:parse-string($v)
-		}
+    util:parse($parsed)
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:xinclude($primary,$secondary,$options){
-let $v := u:get-primary($primary)
-return
-	u:parse-string(u:serialize($v,'expand-xincludes=yes'))
+    $primary
 };
 
 
@@ -380,27 +322,10 @@ return
 declare function std:wrap($primary,$secondary,$options) {
 (: TODO - The match option must only match element, text, processing instruction, and comment nodes. It is a dynamic error (err:XC0041) if the match pattern matches any other kind of node. :)
 
-let $v := u:get-primary($primary)
-let $wrapper := u:get-option('wrapper',$options,$v)
-let $match := u:get-option('match',$options,$v)
-let $replace := u:evalXPATH($match,$v)
-return
-	$replace
-
-(:
 u:assert(exists($options/p:with-option[@name='match']/@select),'p:with-option match is required'),
 u:assert(exists($options/p:with-option[@name='wrapper']/@select),'p:with-option wrapper is required'),
 
-element {node-name($element) }
-          { $element/@*,
-            for $child in $element/node()[not(name(.)=$element-name)]
-               return if ($child instance of element())
-                 then u:copy-filter-elements($child,$element-name)
-                 else $child
-        }
-
-
-	let $v := u:get-primary($primary)
+    let $v :=document{$primary/*[1]}
     let $wrapper := u:get-option('wrapper',$options,$v)
     let $match := u:get-option('match',$options,$v)
     let $replace := u:evalXPATH($match,$v)
@@ -412,16 +337,12 @@ element {node-name($element) }
             u:evalXPATH($match,$v)
         }
        } 
-:)
-
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:wrap-sequence($primary,$secondary,$options){
-let $v := u:get-primary($primary)
-return
-	$v
+    $primary
 };
 
 
@@ -433,8 +354,7 @@ u:assert(exists($options/p:with-option[@name='match']/@select),'p:with-option ma
 
 (: TODO - The value of the match option must be an XSLTMatchPattern. It is a dynamic error (err:XC0023)
 if that pattern matches anything other than element nodes. :)
-
-let $v := u:get-primary($primary)
+let $v :=document{$primary/*[1]}
 let $match := u:get-option('match',$options,$v)
     return
          u:evalXPATH($match,$v)
@@ -445,8 +365,8 @@ let $match := u:get-option('match',$options,$v)
 declare function std:xslt($primary,$secondary,$options){
 
     u:assert(exists($secondary/xproc:input[@port='stylesheet']/*),'stylesheet is required'),
-	let $v := u:get-primary($primary)
-    let $stylesheet := u:get-secondary('stylesheet',$secondary)
+    let $stylesheet := $secondary/xproc:input[@port='stylesheet']/*
+    let $v := document {$primary/*[1]}
     return
         u:xslt($stylesheet,$v)
 };
