@@ -11,7 +11,27 @@ xproc-dev@w3.org
 [http://www.xmlprague.cz/2009/presentations/Vojtech-Toman-Optimizing-XML-Content-Delivery-with-XProc.pdf Vojtěch Toman XLM Prague 2009 XProc Talk]
 
 
-== Useful XProc links and resources ==
+
+[http://www.w3.org/XML/XProc/docs/langspec.html XProc: An XML Pipeline Language]: Explore this W3C XProc Editors Draft (the W3C working draft dated 01 May 2008).
+
+
+[http://www.w3.org/XML/XProc/docs/langspec.html#namespace-fixup-guidance XProc:
+Section E. Guidance on Namespace Fixup]: Review the non-normative list of suggestions for implementors to follow to reduce the need to fix up namespaces.
+
+
+[http://tests.xproc.org XProc W3C unit test suite]: Repository where draft unit test suite for XProc is being developed.
+
+
+== EXProc/EXpath/EXQuery community specifications == 
+
+[http://exprog.org EXProc]: Intended to be a place to discuss and define extension steps to XProc.
+
+[http://expath.org EXPath]: Community defined extensions to XPath. Currently, xprocxq uses expath http-client module.
+
+[http://exquery.org EXQuery]: Community defined extensions to XQuery. Predicted that xprocxq will use any output from this effort.
+
+
+== Historical XProc links and resources ==
 
 [http://www.w3.org/TR/2002/NOTE-xml-pipeline-20020228/ XML Pipeline Definition Language Version 1.0: W3C Note 28 February 2002]: Read the note submitted by Sun Microsystems, Alis Technologies, Arbortext, Cisco Systems, Fujitsu, Markup Technology, and Oracle.
 
@@ -20,11 +40,6 @@ xproc-dev@w3.org
 [http://www.w3.org/Submission/2005/SUBM-xpl-20050411/ XML Pipeline Language (XPL)
 Version 1.0 (Draft)]: Review the W3C Member Submission submitted by Orbeon on 11 March 2005 and published on 11 April 2005.
 
-[http://www.w3.org/XML/XProc/docs/langspec.html XProc: An XML Pipeline Language]: Explore this W3C XProc Editors Draft (the W3C working draft dated 01 May 2008).
-
-[http://www.w3.org/XML/XProc/docs/langspec.html#namespace-fixup-guidance XProc:
-Section E. Guidance on Namespace Fixup]: Review the non-normative list of suggestions for implementors to follow to reduce the need to fix up namespaces.
-
 [http://www.w3.org/XML/XProc/docs/diff.html XProc: An XML Pipeline Language (with
 revision marks)]: Peruse the W3C Working Draft with differences dated 8 May 2008.
 
@@ -32,13 +47,3 @@ revision marks)]: Peruse the W3C Working Draft with differences dated 8 May 2008
 Processing Model Requirements and Use Cases]: Read the W3C XProc requirements and use cases document dated 11 April 2006.
 
 [http://www.w3.org/Submission/xpl/ XML Pipeline Language (XPL) Version 1.0 (Draft)]: Check out this draft of the early W3C member submission of an XML pipeline language.
-
-[http://tests.xproc.org XProc W3C unit test suite]: Repository where draft unit test suite for XProc is being developed.
-
-== EX related community specifications == 
-
-[http://exprog.org EXProc]: Intended to be a place to discuss and define extension steps to XProc.
-
-[http://expath.org EXPath]: Community defined extensions to XPath. Currently, xprocxq uses expath http-client module.
-
-[http://exquery.org EXQuery]: Community defined extensions to XQuery. Predicted that xprocxq will use any output from this effort.
