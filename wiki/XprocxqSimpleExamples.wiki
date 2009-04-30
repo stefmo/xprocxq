@@ -176,6 +176,8 @@ This step returns the `<doc/>` element from a sequence of two items, courtesy of
 }}}
 
 Your browser will not be able to display this, so view source on the page to see the actual output.
+
+
 == p:store ==
 
 p:store can save document to eXist XML Database. To run this example you will have to allow write permissions for XQuery to generate storetest.xml to /db/examples/result collection, otherwise you will get an error.
@@ -204,7 +206,7 @@ return
 
 
 }}}
-[http://127.0.0.1:8080/exist/rest/examples/step_examples/pstore.xq pstore.xq]
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/pstore.xq pstore.xq] [http://127.0.0.1:8080/exist/rest/examples/result/storetest.xml generated storetest.xml]
 
 *note*: no support for file: and http: at this time
 
@@ -332,6 +334,6 @@ return
                
         
 }}}
-[http://127.0.0.1:8080/exist/rest/examples/step_examples/pxslformatter.xq pxslformatter.xq]
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/pxslformatter.xq pxslformatter.xq] [http://127.0.0.1:8080/exist/rest/examples/result/test.pdf generated test.pdf]
 
 You will need to ensure that you have built the XSLFO eXist extension and ensure the module is activated in conf.xml
