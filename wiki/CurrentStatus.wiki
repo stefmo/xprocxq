@@ -1,5 +1,5 @@
 #labels xproc,xml,xquery
-29/04/2009 xprocxq has been released
+30/04/2009 making public announcement re xprocxq release and adding docs
 
 == Changelog ==
 
