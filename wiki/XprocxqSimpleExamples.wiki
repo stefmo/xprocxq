@@ -1,0 +1,108 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+These examples have been tested against xprocxq
+
+== p:identity Hello World =
+
+{{{
+
+xquery version "1.0" encoding "UTF-8";
+
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace xproc = "http://xproc.net/xproc";
+import module namespace u = "http://xproc.net/xproc/util";
+
+declare variable $local:XPROCXQ_EXAMPLES := "/db/examples";   (: CHANGE ME :)
+
+let $stdin :=document{<test>Hello World</test>}
+
+let $pipeline :=document{
+                    <p:pipeline name="pipeline"
+                                xmlns:p="http://www.w3.org/ns/xproc"
+                                xmlns:c="http://www.w3.org/ns/xproc-step">
+                        <p:identity/>
+                    </p:pipeline>
+                }
+
+return
+     xproc:run($pipeline,$stdin) 
+
+
+}}}
+
+== p:xslt ==
+
+== p:xquery ==
+
+== p:store ==
+
+p:store can save document to eXist XML Database
+
+{{{
+xquery version "1.0" encoding "UTF-8";
+
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace xproc = "http://xproc.net/xproc";
+import module namespace u = "http://xproc.net/xproc/util";
+
+declare variable $local:XPROCXQ_EXAMPLES := "/db/examples";   (: CHANGE ME :)
+
+let $stdin :=document{<test/>}
+
+let $pipeline :=document{
+                    <p:pipeline name="pipeline"
+                                xmlns:p="http://www.w3.org/ns/xproc"
+                                xmlns:c="http://www.w3.org/ns/xproc-step">
+                        <p:store href="{$local:XPROCXQ_EXAMPLES}/result/storetest.xml"/>
+                    </p:pipeline>
+                }
+
+return
+     xproc:run($pipeline,$stdin) 
+
+
+}}}
+
+*note*: no support for file: and http: at this time
+
+== p:choose ==
+
+== p:escape-markup / p:unescape-markup ==
+
+== p:xsl-formatter ==
+
+This example takes 
+
+{{{
+xquery version "1.0" encoding "UTF-8";
+
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace xproc = "http://xproc.net/xproc";
+import module namespace naming = "http://xproc.net/xproc/naming";
+import module namespace u = "http://xproc.net/xproc/util";
+
+import module namespace xslfo = "http://exist-db.org/xquery/xslfo"; (: required for p:xsl-formatter :)
+
+declare variable $local:XPROCXQ_EXAMPLES := "/db/examples";   (: CHANGE ME :)
+
+let $stdin :=doc('/db/xqdocs/index.xml')//body             (: need eXist index page as example :)
+  
+let $pipeline :=document{<p:pipeline name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc">
+
+<p:xslt>                                         
+   <p:input port="stylesheet">
+       <p:document href="{$local:XPROCXQ_EXAMPLES}/existdoc2pdf.xsl"/>
+   </p:input>
+</p:xslt>
+<p:xsl-formatter href='{XPROCXQ_EXAMPLES}/result/existdocs.pdf'/>
+
+</p:pipeline>}
+
+return
+    xproc:run($pipeline,$stdin)
+        
+        
+}}}
