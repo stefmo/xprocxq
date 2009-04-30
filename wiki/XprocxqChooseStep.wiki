@@ -2,12 +2,15 @@
 
 = p:choose =
 
+
+== issues ==
 p:xpath-context is currently not working
 
 p:when tests need to use `.//` instead of `//` for paths or `./` for `/`. This is related to how eXist represents root document internally and should be addressed soon.
 
+p:choose step requires that all the branches should have the equiv output which is currently a little strange in xprocxq ... means you need to explicitly binding to result port for the step to use output.
 
-xprocxq definition
+== xprocxq definition ==
 {{{
     <xproc:element type="p:choose" xproc:step="true" xproc:support="true">
         <p:input port="xproc:xpath-context" primary="false" select="/"/>
