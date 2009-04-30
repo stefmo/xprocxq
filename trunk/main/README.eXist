@@ -32,6 +32,14 @@ need things like expath and exquery to allow for even a remote chance at
 compatibility between processors. 
 
 
+Documentation
+-------------
+
+Documentation is online at http://code.google.com/p/xprocxq/wiki/XprocxqDocs
+
+Examples are included in the /examples directory
+
+
 Prerequisites
 -------------
 This version of xprocxq requires the current trunk version of eXist XML Database 
@@ -74,13 +82,13 @@ II) Please follow these instructions to support the following steps.
 
 Note - this step is required but may become optional in the future
 
-III) Load /examples directory, included in the dist, into eXist XML Database. You 
+III) Load doc/examples directory, included in the dist, into eXist XML Database. You 
 can use the eXist webadmin, webdav or java client interfaces to do this.
 
 IV) Amend the path variable in test.xq to reflect the collection path you have placed it
 in (most likely /db/examples) and test using the browser.
 
-ex. http://127.0.0.1:8080/exist/rest/examples/test.xq
+ex. http://127.0.0.1:8080/exist/rest/examples/helloworld.xq
 
 
 Build from Source
