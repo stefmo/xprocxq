@@ -9,20 +9,22 @@ import module namespace xslfo = "http://exist-db.org/xquery/xslfo"; (: required 
 
 declare variable $local:XPROCXQ_EXAMPLES := "/db/examples";   (: CHANGE ME :)
 
-let $stdin :=doc('/db/xqdocs/index.xml')//body             (: need eXist index page as example :)
+let $stdin :=doc('http://www.xproc.org')             (: get index page of a website :)
   
 let $pipeline :=document{<p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
 
 <p:xslt>                                         
    <p:input port="stylesheet">
-       <p:document href="{$local:XPROCXQ_EXAMPLES}/xslt/existdoc2pdf.xsl"/>
+        (: use antennahouse xhtml2fo xslt transformation :)
+       <p:document href="http://www.antennahouse.com/XSLsample/sample-xsl-xhtml2fo/xhtml2fo.xsl"/>
    </p:input>
 </p:xslt>
-<p:xsl-formatter href='{$local:XPROCXQ_EXAMPLES}/result/existdocs.pdf'/>
+
+(: generate pdf:)
+<p:xsl-formatter href='{$local:XPROCXQ_EXAMPLES}/result/test.pdf'/>
 
 </p:pipeline>}
 
 return
-    xproc:run($pipeline,$stdin)
-        
+    xproc:run($pipeline,$stdin,"1")
