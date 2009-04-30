@@ -2,7 +2,10 @@
 
 = p:choose =
 
-tba
+p:xpath-context is currently not working
+
+p:when tests need to use `.//` instead of `//` for paths or `./` for `/`. This is related to how eXist represents root document internally and should be addressed soon.
+
 
 xprocxq definition
 {{{
