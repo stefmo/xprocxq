@@ -1,5 +1,9 @@
 #summary p:library
 
+= p:import  =
+
+Using p:import to bring in XProc libraries is currently disabled whilst I refactor.
+
 = p:library  =
 
 Defining and using your own libraries is disabled whilst I refactor. 
