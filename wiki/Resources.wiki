@@ -4,7 +4,11 @@ xproc-dev@w3.org
 
 == XProc articles ==
 
-[http://www.ibm.com/developerworks/library/x-xproc/ Discovering XProc (by moi)]
+[http://www.ibm.com/developerworks/library/x-xproc/ Jim Fuller 'Discovering XProc' IBM Developworks 2008]
+
+[http://www.xmlprague.cz/2009/presentations/Norman-Walsh-Exploring-XProc/index.html Norman Walsh XML Prague 2009 XProc Talk]
+
+[http://www.xmlprague.cz/2009/presentations/Vojtech-Toman-Optimizing-XML-Content-Delivery-with-XProc.pdf Vojtěch Toman XLM Prague 2009 XProc Talk]
 
 
 == Useful XProc links and resources ==
