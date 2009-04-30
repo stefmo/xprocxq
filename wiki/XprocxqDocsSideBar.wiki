@@ -2,7 +2,7 @@
 
   * [StartHere Quick Start]
   * [CurrentStatus Current Status]
-  * [XprocxqDocs xprocxq docs]
+  * [XprocxqDocs Documentation]
     * [XprocxqDocsInstallation Installation]
     * [XprocxqRunning running xprocxq from XQuery]
     * [XprocxqSimpleExamples Simple XProc examples]
