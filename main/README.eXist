@@ -1,5 +1,5 @@
-This is xprocxq release v0.6                                      
------------------------------
+This is xprocxq release v0.6.74 BETA                                      
+------------------------------------
 xprocxq is an experimental bootstrap implementation of W3C XProc 
 Specification, written in xquery.
 
@@ -9,6 +9,14 @@ Using XProc's built in (or extension) steps you define XML pipelines
 which can model a wide range of processes. Steps accept input XML and 
 produce output XML, its in this manner (somewhat analogous to unix pipes) 
 that you can orchestrate and create sophisticated XML workflows.
+
+
+eXist Integration
+-----------------
+
+For future releases xprocxq will be built and installed as part of 
+eXist XML Database own build process. For BETA releases you will have
+to build xprocxq or download release zip and install manually.
 
 
 Why XProc in XQuery ?
