@@ -296,7 +296,7 @@ return
 
 == p:xsl-formatter ==
 
-This example takes a web page (http://www.xproc.org/index.html) and converts into a simple pdf representation. To run this example you will have to allow write permissions for XQuery to generate storetest.xml to /db/examples/result collection, otherwise you will get an error.  
+This example takes a web page (http://www.xproc.org/index.html) and converts into a simple pdf representation. To run this example you will have to allow write permissions for XQuery to generate test.pdf to /db/examples/result collection, otherwise you will get an error.  
 
 {{{
 xquery version "1.0" encoding "UTF-8";
