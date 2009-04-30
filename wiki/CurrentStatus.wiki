@@ -19,7 +19,9 @@ Here is a list of the more severe limitations:
 
   * errors are thrown as XQuery errors, making it difficult to reportcorrect line numbers, not to mention that errors themselves look quite ugly
 
-  * need to use ./ convention in p:when (in p:choose) test attributes due to limitation in eXist util:eval function
+  * p:choose xpath-context is not implemented just yet
+
+  * in p:choose, need to use ./ convention in p:when (in p:choose) test attributes due to limitation in eXist util:eval function
 
   * some step sorting issues (intermixing of steps using p:inline), best to use explicit port binding to avoid.
 
