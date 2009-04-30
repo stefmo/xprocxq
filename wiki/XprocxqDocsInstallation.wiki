@@ -45,9 +45,9 @@ Please follow these instructions to support the following steps.
 
   p:xinclude - you must `enable-xincludes='yes'' within eXist XML Database conf.xml
 
-  p:xsl-formatter - you will need to build eXist with extension XSLFO enabled. To do this set `include.module.xslfo = true` in extensions/build.properties
+  p:xsl-formatter - you will *need* to build eXist with extension XSLFO enabled. To do this set `include.module.xslfo = true` in extensions/build.properties and rerun eXist build process (please follow eXist instructions on this)
 
-*note*: this installation step is required but may become optional in the future for people who won't need 
+*note*: this installation step is required for BETA releases but may become optional in the future for people who won't need.
 
 == Step III ==
 Load /examples directory, included in the dist, into eXist XML Database. You 
