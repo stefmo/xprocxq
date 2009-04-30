@@ -17,4 +17,5 @@
     * [XprocxqStdStepReference standard steps]
     * [XprocxqOptStepReference optional steps]
     * [XprocxqExtStepReference extension steps]
+  * [FeaturesRoadmap Features & Roadmap]
   * [Resources XProc resources]
