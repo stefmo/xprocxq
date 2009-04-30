@@ -1,7 +1,7 @@
 #summary documentation sidebar.
 
-  * [XprocxqDocs Quick Start]
-  * [XprocxqDocs Current Status]
+  * [StartHere Quick Start]
+  * [CurrentStatus Current Status]
   * [XprocxqDocs Installation]
 
   * [XprocxqDocs xprocxq docs]
