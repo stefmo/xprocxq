@@ -2,7 +2,7 @@
  
 = Running xprocxq from XQuery =
 
-To use xprocxq in eXist you invoke the `xproc:run()` function, supplying it with the XProc pipeline and default standard source input.
+To use xprocxq in eXist invoke the `xproc:run()` function, supplying it with the XProc pipeline and default standard source input.
 
 {{{
 let $stdin := document {<test/>}
