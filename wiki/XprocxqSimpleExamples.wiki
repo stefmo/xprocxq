@@ -39,6 +39,11 @@ return
 
 [http://127.0.0.1:8080/exist/rest/examples/helloworld.xq helloworld.xq]
 
+== p:filter ==
+
+see the p:http-request example
+
+
 == p:xslt ==
 
 {{{
