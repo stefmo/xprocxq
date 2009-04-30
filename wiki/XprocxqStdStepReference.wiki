@@ -2,7 +2,7 @@
 
 = XProc Standard Step Reference =
 
-coming soon ....
+tba
 
 {{{
    <p:declare-step type="p:add-attribute" xml:id="add-attribute" xmlns:xproc="http://xproc.net/xproc">
@@ -43,7 +43,7 @@ coming soon ....
    <p:declare-step type="p:error" xml:id="error" xmlns:xproc="http://xproc.net/xproc">
       <p:input port="source" primary="true" select="/"/>
       <p:option name="code" required="true"/>
-	  <p:output port="error" primary="true" select="/"/>
+      <p:output port="error" primary="true" select="/"/>
    </p:declare-step>
    <p:declare-step type="p:escape-markup" xml:id="escape-markup" xproc:support="true">
       <p:input port="source" primary="true" select="/"/>
