@@ -10,7 +10,7 @@ xproc-dev@w3.org
 
 [http://www.xmlprague.cz/2009/presentations/Vojtech-Toman-Optimizing-XML-Content-Delivery-with-XProc.pdf Vojtěch Toman XLM Prague 2009 XProc Talk]
 
-
+== XProc Specifications ==
 
 [http://www.w3.org/XML/XProc/docs/langspec.html XProc: An XML Pipeline Language]: Explore this W3C XProc Editors Draft (the W3C working draft dated 01 May 2008).
 
@@ -31,7 +31,16 @@ Section E. Guidance on Namespace Fixup]: Review the non-normative list of sugges
 [http://exquery.org EXQuery]: Community defined extensions to XQuery. Predicted that xprocxq will use any output from this effort.
 
 
-== Historical XProc links and resources ==
+== XQuery == 
+
+[ http://en.wikibooks.org/wiki/XQuery/ XQuery WikiBooks]: Excellent XQuery reference led by Chris Wallace et al.
+
+[http://thewallaceline.blogspot.com/2009/04/xquery-unit-tests.html Chris Wallace Unit Testing]: Nice article on the right way to do Unit Testing in XQuery
+
+[http://code.google.com/p/xprocxq/source/browse/trunk/main/test/xquery/test.xqm Jim Fuller 'poor mans' XQuery unit testing]: simple XQuery module for facilitating tests that I developed during development of xprocxq.
+
+
+== Historical XProc links ==
 
 [http://www.w3.org/TR/2002/NOTE-xml-pipeline-20020228/ XML Pipeline Definition Language Version 1.0: W3C Note 28 February 2002]: Read the note submitted by Sun Microsystems, Alis Technologies, Arbortext, Cisco Systems, Fujitsu, Markup Technology, and Oracle.
 
