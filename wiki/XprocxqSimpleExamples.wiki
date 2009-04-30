@@ -2,7 +2,9 @@
 
 = Introduction =
 
-These examples have been tested against xprocxq
+These examples have been tested against xprocxq.
+
+*note*: the links after each example will run your local eXist copy of /examples which you must upload to eXist.
 
 == p:identity Hello World =
 
@@ -32,9 +34,21 @@ return
 
 }}}
 
+[http://127.0.0.1:8080/exist/rest/examples/helloworld.xq helloworld.xq]
+
 == p:xslt ==
 
+{{{
+
+}}}
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/pxslt.xq pxslt.xq]
+
 == p:xquery ==
+
+{{{
+
+}}}
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/pxslt.xq pxquery.xq]
 
 == p:store ==
 
@@ -64,12 +78,23 @@ return
 
 
 }}}
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/pstore.xq pstore.xq]
 
 *note*: no support for file: and http: at this time
 
 == p:choose ==
 
+{{{
+
+}}}
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/pchoose.xq pchoose.xq]
+
 == p:escape-markup / p:unescape-markup ==
+
+{{{
+
+}}}
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/pescapemarkup.xq pescapemarkup.xq]
 
 == p:xsl-formatter ==
 
@@ -106,3 +131,5 @@ return
         
         
 }}}
+
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/pxslformatter.xq pxslformatter.xq]
