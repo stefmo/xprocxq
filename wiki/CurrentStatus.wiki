@@ -18,6 +18,7 @@ Here is a list of the more severe limitations:
   * defining reusable pipelines using p:library, p:import and p:declare-step is currently disabled 
 
   * errors are thrown as XQuery errors, making it difficult to reportcorrect line numbers, not to mention that errors themselves look quite ugly
+  * p:compare outputs a c:result element by default
 
   * p:choose xpath-context is not implemented just yet
 
