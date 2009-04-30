@@ -36,9 +36,11 @@ return
      xproc:run($pipeline,$stdin) 
 
 }}}
+[http://127.0.0.1:8080/exist/rest/examples/helloworld.xq helloworld.xq]
 
+If you installed xprocxq and uploaded the `/examples` directory into eXist then the above link should run the helloworld.xq example via eXist REST interface. 
 
-If you installed xprocxq and uploaded the /examples directory to eXist then [http://127.0.0.1:8080/exist/rest/examples/helloworld.xq this] link should run the helloworld.xq example via eXist REST interface. Or just cut n paste the following URL to your browser.
+Or just cut n paste the following URL to your browser.
 
 {{{
 http://127.0.0.1:8080/exist/rest/examples/helloworld.xq
