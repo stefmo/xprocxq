@@ -3,12 +3,36 @@
 
 = Introduction =
 
-Add your content here.
+= using xproc:run =
 
+xproc:run($pipeline,$stdin)
 
-= Details =
+where
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+$pipeline is the XProc pipeline
+$stdin is the standard input source port
+
+ 
+= simple example =
+
+{{{
+
+xquery version "1.0" encoding "UTF-8";
+
+import module namespace xproc = "http://xproc.net/xproc";
+
+let $stdin := <test><a><b/></a></test>
+
+let $pipeline := <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline">
+                        <p:identity name="test"/>
+                    </p:pipeline>
+return
+      xproc:run($pipeline,$stdin) 
+
+}}}
+
+= p:choose example =
+
+= p:xslt example = 
+
+= p:xquery example = 
