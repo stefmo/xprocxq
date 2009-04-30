@@ -1,15 +1,15 @@
 #summary documentation sidebar.
 
-* [StartHere Quick Start]
-* [CurrentStatus Current Status]
+  * [StartHere Quick Start]
+  * [CurrentStatus Current Status]
 
-* [XprocxqDocs xprocxq docs]
-  * [XprocxqDocsInstallation Installation]
-  * [XprocxqRunning running xprocxq from XQuery]
-  * [XprocxqSimpleExamples Simple XProc examples]
+  * [XprocxqDocs xprocxq docs]
+    * [XprocxqDocsInstallation Installation]
+    * [XprocxqRunning running xprocxq from XQuery]
+    * [XprocxqSimpleExamples Simple XProc examples]
 
-* [XprocxqStdStepReference Standard Step ref]
-* [XprocxqOptStepReference Optional Step ref]
-* [XprocxqExtStepReference Extension Step ref]
+  * [XprocxqStdStepReference Standard Step ref]
+  * [XprocxqOptStepReference Optional Step ref]
+  * [XprocxqExtStepReference Extension Step ref]
 
-* [Resources XProc Resources]
+  * [Resources XProc Resources]
