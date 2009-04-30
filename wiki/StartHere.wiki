@@ -31,7 +31,9 @@ The release distribution consists zip package containing the following:
 
 = Source Distro=
 
-Get source code via subversion check out from [http://code.google.com/p/xprocxq/source subversion].
+xprocxq source lives under [http://exist.sourceforge.net eXist XML database] `trunk/extensions/xprocxq` directory.
+ 
+You may also checkout source code via google code project [http://code.google.com/p/xprocxq/source subversion].
 
 The source distribution consists of:
    
