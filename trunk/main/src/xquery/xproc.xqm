@@ -658,6 +658,18 @@ declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options){
         )
 };
 
+declare function xproc:run($pipeline,$stdin){
+	xproc:run($pipeline,$stdin,"0","0",(),())
+};
+
+declare function xproc:run($pipeline,$stdin,$debug){
+	xproc:run($pipeline,$stdin,$debug,"0",(),())
+};
+
+declare function xproc:run($pipeline,$stdin,$debug,$bindings,$options){
+	xproc:run($pipeline,$stdin,$debug,"0",$bindings,$options)
+};
+
 declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options,$outputs){
 
 if (not(empty($pipeline))) then

@@ -2,7 +2,7 @@
 ISSUE
 ----------------------------------------
 
-* implement p:store and p:delete
+* p:store uses 
 
 * add primary input to evaluation in u:xquery, instead of passing
 to each function
