@@ -6,15 +6,15 @@ xprocxq provides several overloaded xproc:run functions.
 
 == xproc:run($pipeline,$stdin) ==
 
-_$pipeline_ is the XProc pipeline
+_$pipeline_ should contain the XProc pipeline XML document
 
-_$stdin_ is the default input source port
+_$stdin_ contains the default input source port XML document
 
 == xproc:run($pipeline,$stdin,$debug) ==
 
-_$pipeline_ is the XProc pipeline
+_$pipeline_ should contain the XProc pipeline XML document
 
-_$stdin_ is the standard input source port
+_$stdin_ contains the default input source port XML document
 
 _$debug_ set to "1" will output p:log trace which for a simple example looks like
 
@@ -73,14 +73,14 @@ _$debug_ set to "1" will output p:log trace which for a simple example looks lik
 
 == xproc:run($pipeline,$stdin,$debug,$bindings,$options) ==
 
-_$pipeline_ is the XProc pipeline
+_$pipeline_ should contain the XProc pipeline XML document
 
-_$stdin_ is the standard input source port
+_$stdin_ contains the default input source port XML document
 
 _$debug_ set to "1" will output p:log trace
 
 _$bindings_ allow you to define input ports outside of xprocxq, here are
-a few examples 
+a few examples
 
 {{{
 let $bindings :=('source2=<test/>')
