@@ -51,6 +51,11 @@ let $pipeline :=document{<p:pipeline xmlns:p="http://www.w3.org/ns/xproc"
        </p:otherwise>
    </p:choose>
 
+   <p:identity>        (: need to explicitly define p:step to get multi container step output :)
+       <p:input port="source">
+           <p:step port="result" step="mychoosestep"/>
+       </p:input>
+   </p:identity>
 
 </p:pipeline>}
 
