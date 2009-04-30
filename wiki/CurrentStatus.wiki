@@ -3,7 +3,7 @@
 
 == Limitations and Issues ==
 
-xprocxq, being implemented in XQuery, currently has several limitations and is no where compliant with the existing XProc draft specification.
+xprocxq, being implemented in XQuery, currently has several limitations and is no where compliant with the existing XProc draft specification. The best way to understand what works or doesn't currently is to check out [XprocxqSimpleExamples step examples] included in the release.
 
 As I originally developed using SAXON-SA, I have had to disable many of XProc steps as I port across but should have a good set of steps running somewhat soon.
 
