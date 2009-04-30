@@ -1,32 +1,6 @@
 #labels xproc,documentation,xprocxq
 #xprocxq documentation.
-#sidebar XprocxqDocsSideBar
+
 
 = XProc Examples =
 
-
-== p:identity step ==
-
-{{{
-
-xquery version "1.0" encoding "UTF-8";
-
-import module namespace xproc = "http://xproc.net/xproc";
-
-let $stdin := <test>Hello World</test>
-
-let $pipeline := <p:pipeline xmlns:p="http://www.w3.org/ns/xproc" name="pipeline">
-                        <p:identity name="test"/>
-                    </p:pipeline>
-return
-      xproc:run($pipeline,$stdin) 
-
-}}}
-
-== p:xslt step = 
-
-== p:xquery step = 
-
-== p:escape-markup / p:unescape-markup step ==
-
-== p:choose step ==
