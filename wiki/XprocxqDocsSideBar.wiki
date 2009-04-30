@@ -2,15 +2,11 @@
 
   * [StartHere Quick Start]
   * [CurrentStatus Current Status]
-
   * [XprocxqDocs xprocxq docs]
-
     * [XprocxqDocsInstallation Installation]
     * [XprocxqRunning running xprocxq from XQuery]
     * [XprocxqSimpleExamples Simple XProc examples]
-
   * [XprocxqStdStepReference Standard Step ref]
   * [XprocxqOptStepReference Optional Step ref]
   * [XprocxqExtStepReference Extension Step ref]
-
   * [Resources XProc Resources]
