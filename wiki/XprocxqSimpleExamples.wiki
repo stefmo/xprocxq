@@ -53,11 +53,11 @@ let $pipeline :=document{
                     <p:pipeline name="pipeline"
                                 xmlns:p="http://www.w3.org/ns/xproc"
                                 xmlns:c="http://www.w3.org/ns/xproc-step">
-								<p:xslt>                                         
-								   <p:input port="stylesheet">
-								       <p:document href="{$local:XPROCXQ_EXAMPLES}/xslt/stylesheet.xsl"/>
-								   </p:input>
-								</p:xslt>
+                                <p:xslt>                                         
+                                   <p:input port="stylesheet">
+                                       <p:document href="{$local:XPROCXQ_EXAMPLES}/xslt/stylesheet.xsl"/>
+                                   </p:input>
+                                </p:xslt>
 
                     </p:pipeline>
                 }
@@ -85,15 +85,15 @@ let $pipeline :=document{
                     <p:pipeline name="pipeline"
                                 xmlns:p="http://www.w3.org/ns/xproc"
                                 xmlns:c="http://www.w3.org/ns/xproc-step">
-					           <p:xquery>
-					               <p:input port="query">
-					                   <p:inline>
-					                       <c:query xmlns:c="http://www.w3.org/ns/xproc-step" xproc:escape="true">
-					                           let $r := 'this pipeline successfully processed' return $r (: for now default context goes to xml database :)
-					                       </c:query>
-					                   </p:inline>
-					               </p:input>
-					           </p:xquery>
+                               <p:xquery>
+                                   <p:input port="query">
+                                       <p:inline>
+                                           <c:query xmlns:c="http://www.w3.org/ns/xproc-step" xproc:escape="true">
+                                               let $r := 'this pipeline successfully processed' return $r (: for now default context goes to xml database :)
+                                           </c:query>
+                                       </p:inline>
+                                   </p:input>
+                               </p:xquery>
 
                     </p:pipeline>
                 }
@@ -140,7 +140,65 @@ return
 == p:choose ==
 
 {{{
+xquery version "1.0" encoding "UTF-8";
 
+(: example test for xprocxq:)
+
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace xproc = "http://xproc.net/xproc";
+import module namespace naming = "http://xproc.net/xproc/naming";
+import module namespace u = "http://xproc.net/xproc/util";
+
+declare variable $local:XPROCXQ_EXAMPLES := "/db/examples";   (: CHANGE ME :)
+
+let $stdin :=doc(concat($local:XPROCXQ_EXAMPLES,'/xml/test.xml'))
+
+let $pipeline :=document{<p:pipeline xmlns:p="http://www.w3.org/ns/xproc"
+                                     xmlns:c="http://www.w3.org/ns/xproc-step"
+                           name="pipeline">
+
+<p:compare name="compare">                       (: compare test step :)
+   <p:input port="alternate">
+       <p:document href="{$local:XPROCXQ_EXAMPLES}/xml/test.xml"/> (: example of using p:document :)
+   </p:input>
+</p:compare>
+
+<p:choose name="mychoosestep">
+       <p:when test=".//c:result[.='false']">      (: note the eXist specific path convention with root :)
+           <p:identity>
+               <p:input port="source">
+                   <p:inline>
+                       <p>This pipeline failed.</p>
+                   </p:inline>
+               </p:input>
+           </p:identity>
+       </p:when>
+       <p:when test=".//c:result[.='true']">  (: success :)
+       <p:identity>
+           <p:input port="source">
+               <p:inline>
+                   <p>This pipeline successfully processed.</p>
+               </p:inline>
+           </p:input>
+       </p:identity>
+       </p:when>
+       <p:otherwise>
+           <p:identity>
+               <p:input port="source">
+                   <p:inline>
+                       <p>This pipeline failed.</p>
+                   </p:inline>
+               </p:input>
+           </p:identity>
+       </p:otherwise>
+   </p:choose>
+
+
+</p:pipeline>}
+
+return
+    xproc:run($pipeline,$stdin)
+    
 }}}
 [http://127.0.0.1:8080/exist/rest/examples/step_examples/pchoose.xq pchoose.xq]
 
