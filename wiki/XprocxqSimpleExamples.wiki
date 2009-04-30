@@ -9,7 +9,7 @@ These examples have been tested against xprocxq.
 <wiki:toc max_depth="1" />
 
 
-== p:identity Hello World =
+== p:identity ==
 
 {{{
 
