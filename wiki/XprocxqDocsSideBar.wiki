@@ -1,9 +1,13 @@
 #summary documentation sidebar.
 
-  * [XprocxqDocs xprocxq documentation]
+  * [XprocxqDocs Quick Start]
+  * [XprocxqDocs Current Status]
+  * [XprocxqDocs Installation]
+
+  * [XprocxqDocs xprocxq docs]
     * [XprocxqRunning running xprocxq from XQuery]
     * [XprocxqSimpleExamples Simple XProc examples]
-    * [XprocxqWhatWorks What currently works with xprocxq]
-  * [XprocxqStdStepReference XProc Standard Step reference]
-  * [XprocxqOptStepReference XProc Optional Step reference]
-  * [XprocxqExtStepReference xprocxq extension Step reference]
+
+  * [XprocxqStdStepReference Standard Step ref]
+  * [XprocxqOptStepReference Optional Step ref]
+  * [XprocxqExtStepReference Extension Step ref]
