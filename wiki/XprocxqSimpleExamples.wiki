@@ -211,7 +211,7 @@ return
 
 == p:xsl-formatter ==
 
-This example takes 
+This example uses eXist own documentation (which should be in the /db/xqdocs collection) and convert to a simple pdf. To run this example you will have to allow write permissions for XQuery to generate storetest.xml to /db/examples/result collection, otherwise you will get an error.  
 
 {{{
 xquery version "1.0" encoding "UTF-8";
