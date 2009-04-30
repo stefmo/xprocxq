@@ -1,6 +1,5 @@
 #summary using p:declare-step to define new reusable pipelines
 
-
 These examples have been tested against xprocxq.
 
 <wiki:toc max_depth="1" />
@@ -8,6 +7,7 @@ These examples have been tested against xprocxq.
 *note*: the links after each example will run your local eXist copy of /examples which you must upload to eXist.
 
 <wiki:toc max_depth="1" />
+
 
 == p:identity Hello World =
 
@@ -144,6 +144,8 @@ let $pipeline :=document{<p:pipeline xmlns:p="http://www.w3.org/ns/xproc"
 </p:input>
 </p:http-request>
 
+<p:filter select="/doc"/>
+
 </p:pipeline>}
 
 return
@@ -151,7 +153,7 @@ return
 }}}
 [http://127.0.0.1:8080/exist/rest/examples/step_examples/phttp-request.xq phttp-request.xq]
 
-This step returns a sequence of two items
+This step returns the `<doc/>` element from a sequence of two items, courtesy of using a p:filter step. The output from the p:http-request looks like the following code listing.
 
 {{{
 <http:response xmlns:http="http://www.expath.org/mod/http-client" status="200">
