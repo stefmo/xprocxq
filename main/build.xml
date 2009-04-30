@@ -4,7 +4,7 @@
 
 	<property name="dist" location="dist"/>
 	<loadfile property="release" srcFile="VERSION"/>
-	<property name="release-dest" location="."/>
+	<property name="release-dest" location=".."/>
 
 
     <!-- ===================================================== -->
