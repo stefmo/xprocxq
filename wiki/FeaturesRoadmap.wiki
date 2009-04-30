@@ -1,0 +1,21 @@
+#summary Overview of planned features and where xprocxq is going.
+
+= Planned Features =
+
+*XProc Standard Steps*: tba
+
+*XProc Multi Container Steps*: tba
+
+*W3C XProc Unit Test results*: I am developing an extension step to run xprocxq against the [http://tests.xproc.org W3C XProc Unit Test suite]. It works but needs a bit of attention before I release both the step and the results
+
+*compile XProc to XQuery*: The way xprocxq has been created its relatively easy to generate an XQuery code listing which can run (with xprocxq modules).
+
+= Roadmap =
+
+  * release eXist version ('throw it over the wall')
+  * implement as many of the standard & optional steps as possible
+  * refactor handling of sequences, weak typing and replace preparse routine
+  * ensure static and dynamic error checking is working properly and try to beautify
+  and add useful things like line numbers where error occurred 
+  * integrate namespace handling module to implement more sophisticated namespace fixup 
+  * release SAXON, MarkLogic, and other XQuery processor versions
