@@ -2,9 +2,9 @@
 
 = Planned Features =
 
-*XProc Standard Steps*: tba
+*XProc Standard Step Compliance*: tba
 
-*XProc Multi Container Steps*: tba
+*XProc Multi Container Step Compliance*: tba
 
 *W3C XProc Unit Test results*: I am developing an extension step to run xprocxq against the [http://tests.xproc.org W3C XProc Unit Test suite]. It works but needs a bit of attention before I release both the step and the results
 
