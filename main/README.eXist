@@ -1,6 +1,5 @@
-This is xproc.xq release v0.6                                      
+This is xprocxq release v0.6                                      
 -----------------------------
-
 xprocxq is an experimental bootstrap implementation of W3C XProc 
 Specification, written in xquery.
 
@@ -14,7 +13,6 @@ that you can orchestrate and create sophisticated XML workflows.
 
 Why XProc in XQuery ?
 ---------------------
-
 XQuery's somewhat functional approach appealed to me and having been 
 a long time XSLT user I wanted to gain some understanding of the nuances 
 between XSLT and XQuery.
@@ -34,9 +32,8 @@ need things like expath and exquery to allow for even a remote chance at
 compatibility between processors. 
 
 
-PREREQUISITES
+Prerequisites
 -------------
-
 This version of xprocxq requires the current trunk version of eXist XML Database 
 (exist.sourceforge.net).
 
@@ -44,9 +41,8 @@ xprocxq uses the EXPath http-client module which I have included in jar
 form.
 
 
-INSTALL
+Install
 -------
-
 To install within eXist XML Database follow these instructions.
 
 I) Place xprocxq.jar and expath.jar into $EXIST_HOME/lib/user directory
@@ -76,7 +72,7 @@ II) Please follow these instructions to support the following steps.
   p:xsl-formatter - you will need to build eXist with extension XSLFO enabled. To do this set
   include.module.xslfo = true in extensions/build.properties
 
-Note - xprocxq currently will not work if you do not follow this installation step.
+Note - this step is required but may become optional in the future
 
 III) Load /examples directory, included in the dist, into eXist XML Database. You 
 can use the eXist webadmin, webdav or java client interfaces to do this.
@@ -89,13 +85,11 @@ ex. http://127.0.0.1:8080/exist/rest/examples/test.xq
 
 Build from Source
 -----------------
-
 You may build xprocxq.jar from source distribution by running the dist Apache Ant target.
 
 
 Limitations
 -----------
-
 xprocxq, being implemented in XQuery, currently has several
 limitations and is no where compliant with the existing XProc 
 draft specification.
@@ -146,9 +140,8 @@ Please review the examples included in the release version to get a
 sense of what is possible with the current version.
 
 
-RELEASE DISTRIBUTION
---------------------
-
+Release Distro
+--------------
 The release distribution zip package contains the following:
 
 README.eXist	This document
@@ -162,9 +155,8 @@ test/examples	XProc tests and test.xq for testing with eXist XML Database
 All release files can be found here http://code.google.com/p/xprocxq/source/browse/#svn/releases
 
 
-SOURCE DISTRIBUTION
--------------------
-
+Source Distro
+-------------
 The source distribution consists of:
    
 README      This document
@@ -183,25 +175,31 @@ src/    	XQuery source files
 Source distro is available by svn checkout http://xprocxq.googlecode.com/svn/trunk/ xprocxq-read-only
 
 
-CHANGES
+Contact
 -------
+A general mailing list is maintained by W3C for xproc developers
+xproc-dev@w3.org where questions can be asked about xprocxq and 
+other XProc processors.
 
+You can always contact me direct at jim.fuller@webcomposite.com
+
+
+Changes
+-------
 Review the ChangeLog file which is generated from svn 
 history (http://code.google.com/p/xprocxq/source/list). 
 
 
-TODO/ISSUES/BUGS
+Todo/Issues/Bugs
 ----------------
-
 Known issues are tracked using the project issue tracker
 http://code.google.com/p/xprocxq/issues/list.
 
 Please report bugs here.
 
 
-WEBSITES
---------
-
+More Info
+---------
 xproc.xq 
 http://code.google.com/p/xprocxq/
 
@@ -218,37 +216,25 @@ eXist XML Database
 http://exist.sourceforge.net
 
 
-EMAIL
------
-
-jim.fuller@webcomposite.com
-
-A general mailing list is maintained by W3C for xproc developers
-xproc-dev@w3.org where questions can be asked about xprocxq and 
-other XProc processors.
-
-
-NOTICES
+Notices
 -------
-
 xprocxq is released under MPL v1.1, where the file LICENSE contains 
 a copy of this license as well as links to any embedded software
 licenses.
 
-xprocxq uses Florent Georges excellent expath http-client module which 
+xprocxq uses Florent Georges excellent EXPath http-client module which 
 is also released under MPL v1.1. I have included expath.jar in the release
-distribution for convenience.
+distribution for convenience. More information about EXPath can be found 
+at http://www.expath.org.
 
 
-COPYRIGHT
+Copyright
 ---------
-
 xprocxq, xproc.xq and related material is the Copyright (C) 2009
 of James Fuller (jim.fuller@webcomposite.com), All rights reserved.
 
 
-DISCLAIMER
+Disclaimer
 ----------
-
 xprocxq is BETA software and is not intended for production usage. Use this
 software at your own risk.
