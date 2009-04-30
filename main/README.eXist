@@ -11,12 +11,14 @@ produce output XML, its in this manner (somewhat analogous to unix pipes)
 that you can orchestrate and create sophisticated XML workflows.
 
 
-eXist Integration
------------------
+eXist XMLDB Integration
+-----------------------
 
-For future releases xprocxq will be built and installed as part of 
-eXist XML Database own build process. For BETA releases you will have
-to build xprocxq or download release zip and install manually.
+Future releases of xprocxq will be built and installed as part of 
+eXist XML Database own build process.
+
+For BETA releases you will have to build xprocxq or download release 
+zip and install manually into eXist.
 
 
 Why XProc in XQuery ?

@@ -25,6 +25,8 @@ let $pipeline :=document{<p:pipeline xmlns:p="http://www.w3.org/ns/xproc"
 </p:input>
 </p:http-request>
 
+<p:filter select="/doc"/>
+
 </p:pipeline>}
 
 return
