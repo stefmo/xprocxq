@@ -1,11 +1,14 @@
 #summary README.eXist installation instructions
 
+= Download = 
+
+Download latest release zip here, which requires latest trunk version of [http://exist.sourceforge.net eXist XML Database]. 
+
 = Prerequisites =
 
 This version of xprocxq requires the current trunk version of [http://exist.sourceforge.net eXist XML Database].
 
 xprocxq uses the [http://www.expath.org EXPath] http-client module which I have included in jar form for convenience.
-
 
 = Installing xprocxq =
 
