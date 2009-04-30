@@ -296,7 +296,7 @@ return
 
 == p:xsl-formatter ==
 
-This example uses eXist own documentation (which should be in the /db/xqdocs collection) and convert to a simple pdf. To run this example you will have to allow write permissions for XQuery to generate storetest.xml to /db/examples/result collection, otherwise you will get an error.  
+This example takes a web page (http://www.xproc.org/index.html) and converts into a simple pdf representation. To run this example you will have to allow write permissions for XQuery to generate storetest.xml to /db/examples/result collection, otherwise you will get an error.  
 
 {{{
 xquery version "1.0" encoding "UTF-8";
@@ -310,23 +310,26 @@ import module namespace xslfo = "http://exist-db.org/xquery/xslfo"; (: required 
 
 declare variable $local:XPROCXQ_EXAMPLES := "/db/examples";   (: CHANGE ME :)
 
-let $stdin :=doc('/db/xqdocs/index.xml')//body             (: need eXist index page as example :)
+let $stdin :=doc('http://www.xproc.org')             (: get index page of a website :)
   
 let $pipeline :=document{<p:pipeline name="pipeline"
             xmlns:p="http://www.w3.org/ns/xproc">
 
 <p:xslt>                                         
    <p:input port="stylesheet">
-       <p:document href="{$local:XPROCXQ_EXAMPLES}/existdoc2pdf.xsl"/>
+        (: use antennahouse xhtml2fo xslt transformation :)
+       <p:document href="http://www.antennahouse.com/XSLsample/sample-xsl-xhtml2fo/xhtml2fo.xsl"/>
    </p:input>
 </p:xslt>
-<p:xsl-formatter href='{XPROCXQ_EXAMPLES}/result/existdocs.pdf'/>
+
+(: generate pdf:)
+<p:xsl-formatter href='{$local:XPROCXQ_EXAMPLES}/result/test.pdf'/>
 
 </p:pipeline>}
 
 return
-    xproc:run($pipeline,$stdin)
-        
+    xproc:run($pipeline,$stdin,"1")
+               
         
 }}}
 [http://127.0.0.1:8080/exist/rest/examples/step_examples/pxslformatter.xq pxslformatter.xq]
