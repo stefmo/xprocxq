@@ -144,6 +144,24 @@ return
 }}}
 [http://127.0.0.1:8080/exist/rest/examples/step_examples/phttp-request.xq phttp-request.xq]
 
+This step returns a sequence of two items
+
+{{{
+<http:response xmlns:http="http://www.expath.org/mod/http-client" status="200">
+    <http:header name="Date" value="Thu, 30 Apr 2009 17:25:08 GMT"/>
+    <http:header name="Server" value="Apache/2.0.63 (Unix) PHP/4.4.7 mod_ssl/2.0.63 OpenSSL/0.9.7e mod_fastcgi/2.4.2 Phusion_Passenger/2.0.6 DAV/2 SVN/1.4.2"/>
+    <http:header name="Content-Length" value="63"/>
+    <http:header name="Content-Type" value="application/xml"/>
+    <http:body content-type="application/xml"/>
+</http:response>
+<doc>
+    <title>Sample document</title>
+<p>Hello world!</p>
+
+</doc>
+}}}
+
+Your browser will not be able to display this, so view source on the page to see the actual output.
 == p:store ==
 
 p:store can save document to eXist XML Database. To run this example you will have to allow write permissions for XQuery to generate storetest.xml to /db/examples/result collection, otherwise you will get an error.
