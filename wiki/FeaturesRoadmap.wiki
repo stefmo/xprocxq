@@ -2,6 +2,8 @@
 
 = Planned Features =
 
+* Tighter eXist integration *: next version will have tighter integration with eXist in that xprocxq will get built and included automatically via the build process
+
 *XProc Standard Step Compliance*: tba
 
 *XProc Multi Container Step Compliance*: tba
