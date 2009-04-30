@@ -329,5 +329,6 @@ return
         
         
 }}}
-
 [http://127.0.0.1:8080/exist/rest/examples/step_examples/pxslformatter.xq pxslformatter.xq]
+
+You will need to ensure that you have built the XSLFO eXist extension and ensure the module is activated in conf.xml
