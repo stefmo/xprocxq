@@ -7,7 +7,7 @@
     * [XprocxqRunning xproc:run function]
     * [XprocxqSimpleExamples step examples]
     * [XprocxqDeclareStep p:declare-step]
-    * [XprocxqLibraryStep p:library]
+    * [XprocxqLibraryStep p:library/p:import]
     * [XprocxqMultiContainerStep multicontainer steps]
       * [XprocxqChooseStep p:choose]
       * [XprocxqForEachStep p:for-each]
