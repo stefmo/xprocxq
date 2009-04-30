@@ -1,5 +1,5 @@
 #labels xproc,xml,xquery
-30/04/2009 making public announcement re xprocxq release and adding docs
+30/04/2009 xprocxq released, expect more docs, more steps and unit test results in the coming week or so
 
 == Limitations and Issues ==
 
