@@ -4,7 +4,7 @@
   * [CurrentStatus Current Status]
   * [XprocxqDocs Docs]
     * [XprocxqDocsInstallation Installation]
-    * [XprocxqRunning running xprocxq from XQuery]
+    * [XprocxqRunning xproc:run function]
     * [XprocxqSimpleExamples Simple XProc examples]
   * [XprocxqStdStepReference Standard Step ref]
   * [XprocxqOptStepReference Optional Step ref]
