@@ -21,6 +21,12 @@ Section E. Guidance on Namespace Fixup]: Review the non-normative list of sugges
 
 [http://tests.xproc.org XProc W3C unit test suite]: Repository where draft unit test suite for XProc is being developed.
 
+== Useful == 
+
+[http://xproc.org xproc.org]
+
+[http://xproc.org/implementations/ implementations]
+
 
 == EXProc/EXpath/EXQuery community specifications == 
 
