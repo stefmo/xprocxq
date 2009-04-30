@@ -1,9 +1,8 @@
 ----------------------------------------
-ISSUE
+current
 ----------------------------------------
 
-* p:store uses 
-
+* p:store can only store to  collections
 * add primary input to evaluation in u:xquery, instead of passing
 to each function
 * fix p:choose deal with xpath-context, each subpipeline must have the same output signature (static check)
@@ -15,28 +14,13 @@ to each function
 * namespace fixups: enumerate step level in scope namespaces
 * sequences need rationalization and sanitization
 * p:try in evalstep ?
+* create namespace module to manage namespace fixups 
+* testsuite represents sequences as t:document in count-001.xml in testing suite ?
+
 * target main eXist scenarios
-    - xquery->p:choose->xquery
-    - xslt -> xslfo -> pdf
 	- form handler
 	- the same applies to all apps where a user needs to log in first
 	- how about a simple wizard-style example, e.g. along the lines of the "number guessing" example in eXist. I think the page flow logic could all be done in xproc.
-	
-* create namespace module to manage namespace fixups 
-* testsuite represents sequences as t:document in count-001.xml in testing suite ?
-* p:xinclude needs a serialize and parse operation
 
 
 
-
-== Roadmap ==
-
-Looks like this for now.
-
-  * release eXist version ('throw it over the wall')
-  * implement as many of the standard & optional steps as possible
-  * refactor handling of sequences
-  * refactor weak typing and preparse routines
-  * ensure static and dynamic error checking is working properly
-  * create namespace handling module to implement more sophisticated namespace fixup 
-  * release SAXON, MarkLogic, and other XQuery processor versions
