@@ -35,6 +35,7 @@ Place xprocxq.jar and expath.jar into $EXIST_HOME/lib/user directory and insert 
 <module src="resource:net/xproc/xprocxq/src/xquery/naming.xqm" uri="http://xproc.net/xproc/naming"/>
 }}}
 
+
 *note*: Future releases will reduce this to a single module import
 
 == Step II ==
