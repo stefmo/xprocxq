@@ -26,3 +26,17 @@ to each function
 * testsuite represents sequences as t:document in count-001.xml in testing suite ?
 * p:xinclude needs a serialize and parse operation
 
+
+
+
+== Roadmap ==
+
+Looks like this for now.
+
+  * release eXist version ('throw it over the wall')
+  * implement as many of the standard & optional steps as possible
+  * refactor handling of sequences
+  * refactor weak typing and preparse routines
+  * ensure static and dynamic error checking is working properly
+  * create namespace handling module to implement more sophisticated namespace fixup 
+  * release SAXON, MarkLogic, and other XQuery processor versions

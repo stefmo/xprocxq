@@ -19,7 +19,7 @@ let $pipeline :=document{<p:pipeline name="pipeline"
        <p:document href="{$local:XPROCXQ_EXAMPLES}/xslt/existdoc2pdf.xsl"/>
    </p:input>
 </p:xslt>
-<p:xsl-formatter href='{XPROCXQ_EXAMPLES}/result/existdocs.pdf'/>
+<p:xsl-formatter href='{$local:XPROCXQ_EXAMPLES}/result/existdocs.pdf'/>
 
 </p:pipeline>}
 
