@@ -7,7 +7,7 @@ Download latest release zip [http://code.google.com/p/xprocxq/downloads/list her
 
   * [XprocxqDocsInstallation Install]: Install xprocxq on eXist
  
-  * [XprocxqRunning using xproc:run in XQuery]: Learn how to use xprocxq in XQuery
+  * [XprocxqRunning using xproc:run() in XQuery]: Learn how to use xprocxq in XQuery
 
   * [XprocxqDocs Hello World] Run your first XProc pipeline
 
