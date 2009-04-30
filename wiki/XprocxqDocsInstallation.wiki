@@ -11,7 +11,7 @@ xprocxq uses the [http://www.expath.org EXPath] http-client module which I have 
 
 To install within eXist XML Database follow these instructions.
 
-I) Place xprocxq.jar and expath.jar into $EXIST_HOME/lib/user directory and insert the following elements into eXist's conf.xml, in <built-in-modules/> element
+I) Place xprocxq.jar and expath.jar into $EXIST_HOME/lib/user directory and insert the following elements into eXist's conf.xml, in `<built-in-modules/>` element
 
 {{{
 <!-- expath module imports (for p:http-request)//-->
