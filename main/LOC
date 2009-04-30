@@ -1,11 +1,12 @@
-  16 src/xquery/ant.xqm
- 103 src/xquery/const.xqm
-  43 src/xquery/ext.xqm
-  44 src/xquery/functions.xqm
- 301 src/xquery/naming.xqm
-  99 src/xquery/opt.xqm
- 374 src/xquery/std.xqm
- 492 src/xquery/util.xqm
-  52 src/xquery/xproc.xq
- 624 src/xquery/xproc.xqm
-2148 total
+  16 main/src/xquery/ant.xqm
+ 110 main/src/xquery/const.xqm
+  56 main/src/xquery/ext.xqm
+  44 main/src/xquery/functions.xqm
+ 301 main/src/xquery/naming.xqm
+ 130 main/src/xquery/opt.xqm
+ 454 main/src/xquery/std.xqm
+ 528 main/src/xquery/util.xqm
+  55 main/src/xquery/xproc.xq
+ 724 main/src/xquery/xproc.xqm
+2418 total
+

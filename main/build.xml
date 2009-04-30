@@ -20,7 +20,7 @@
   		<copy file="lib/expath.jar" todir="${dist}"/>
 
   	  	<copy todir="${dist}/examples">
-	    	<fileset dir="test/examples"/>
+	    	<fileset dir="docs/examples" excludes="**/*.svn">
 	  	</copy>
 	
 		<propertyfile file="build.number"/>
