@@ -11,7 +11,9 @@ xprocxq uses the [http://www.expath.org EXPath] http-client module which I have 
 
 To install within eXist XML Database follow these instructions.
 
-I) Place xprocxq.jar and expath.jar into $EXIST_HOME/lib/user directory and insert the following elements into eXist's conf.xml, in `<built-in-modules/>` element
+== Step I ==
+
+Place xprocxq.jar and expath.jar into $EXIST_HOME/lib/user directory and insert the following elements into eXist's conf.xml, in `<built-in-modules/>` element
 
 {{{
 <!-- expath module imports (for p:http-request)//-->
@@ -32,7 +34,9 @@ I) Place xprocxq.jar and expath.jar into $EXIST_HOME/lib/user directory and inse
 
 *note*: Future releases will reduce this to a single module import
 
-II) Please follow these instructions to support the following steps.
+== Step II ==
+
+Please follow these instructions to support the following steps.
 
   p:xinclude - you must `enable-xincludes='yes'' within eXist XML Database conf.xml
 
@@ -40,10 +44,12 @@ II) Please follow these instructions to support the following steps.
 
 *note*: this installation step is required but may become optional in the future for people who won't need 
 
-III) Load /examples directory, included in the dist, into eXist XML Database. You 
+== Step III ==
+Load /examples directory, included in the dist, into eXist XML Database. You 
 can use the eXist webadmin, webdav or java client interfaces to do this.
 
-IV) Amend the path variable in test.xq to reflect the collection path you have placed it
+== Step IV == 
+Amend the path variable in test.xq to reflect the collection path you have placed it
 in (most likely /db/examples) and test using the browser.
 
 {{{
