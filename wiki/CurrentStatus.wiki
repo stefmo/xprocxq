@@ -1,14 +1,6 @@
 #labels xproc,xml,xquery
 30/04/2009 making public announcement re xprocxq release and adding docs
 
-== Changelog ==
-
-Check out [http://xprocxq.googlecode.com/svn/trunk/main/ChangeLog Changelog] included in the source distro.
-
-== Issues ==
-
-The [http://code.google.com/p/xprocxq/issues/list project issue tracker] is the best place to find and submit issues.
-
 == Limitations and Issues ==
 
 xprocxq, being implemented in XQuery, currently has several limitations and is no where compliant with the existing XProc draft specification.
@@ -41,15 +33,8 @@ Here is a list of the more severe limitations:
 
   * current preparsing routine is naive; I have a more rigorous solution in a source control branch to merge
 
+The [http://code.google.com/p/xprocxq/issues/list project issue tracker] is the best place to find and submit issues.
 
-== Roadmap ==
+== Changelog ==
 
-Looks like this for now.
-
-  * release eXist version ('throw it over the wall')
-  * implement as many of the standard & optional steps as possible
-  * refactor handling of sequences
-  * refactor weak typing and preparse routines
-  * ensure static and dynamic error checking is working properly
-  * create namespace handling module to implement more sophisticated namespace fixup 
-  * release SAXON, MarkLogic, and other XQuery processor versions
+Check out [http://xprocxq.googlecode.com/svn/trunk/main/ChangeLog Changelog] included in the source distro.
