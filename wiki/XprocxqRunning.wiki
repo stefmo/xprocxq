@@ -1,6 +1,15 @@
 #summary definition of overloaded xproc:run XQuery function.
-
+ 
 = Running xprocxq from XQuery =
+
+To use xprocxq in eXist you invoke the `xproc:run()` function.
+
+{{{
+let $stdin := document {<test/>}
+let $pipeline := document {<p:pipeline> .... </p:pipeline>}
+return
+ xproc:run($pipeline, $std)
+}}}
 
 xprocxq provides several overloaded xproc:run functions.
 
