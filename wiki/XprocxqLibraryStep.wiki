@@ -1,0 +1,5 @@
+#summary p:library
+
+= p:library  =
+
+Defining and using your own libraries is disabled whilst I refactor. 
