@@ -3,15 +3,27 @@
 
 = Introduction =
 
-= using xproc:run =
+xprocxq provides several overloaded xproc:run functions.
 
-xproc:run($pipeline,$stdin)
+= xproc:run($pipeline,$stdin) =
 
-where
+$pipeline is the XProc pipeline
+
+$stdin is the standard input source port
+
+= xproc:run($pipeline,$stdin,$debug) =
 
 $pipeline is the XProc pipeline
 $stdin is the standard input source port
+$debug set to "1" will output p:log trace
 
+= xproc:run($pipeline,$stdin,$debug,$bindings,$options) =
+
+$pipeline is the XProc pipeline
+$stdin is the standard input source port
+$debug set to "1" will output p:log trace
+$bindings
+$options
  
 = simple example =
 
