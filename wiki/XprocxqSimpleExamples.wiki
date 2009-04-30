@@ -1,6 +1,9 @@
 #summary using p:declare-step to define new reusable pipelines
 
+
 These examples have been tested against xprocxq.
+
+<wiki:toc max_depth="1" />
 
 *note*: the links after each example will run your local eXist copy of /examples which you must upload to eXist.
 
