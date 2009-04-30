@@ -337,3 +337,5 @@ return
 [http://127.0.0.1:8080/exist/rest/examples/step_examples/pxslformatter.xq pxslformatter.xq] [http://127.0.0.1:8080/exist/rest/examples/result/test.pdf generated test.pdf]
 
 You will need to ensure that you have built the XSLFO eXist extension and ensure the module is activated in conf.xml
+
+In this example I used the version of xproc:run function, ` xproc:run($pipeline,$stdin,"1")`,  that outputs debug output 
