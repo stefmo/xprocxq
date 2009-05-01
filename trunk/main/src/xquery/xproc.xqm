@@ -202,13 +202,27 @@ for $input in $step/p:input
 						$input/*
                 else
                     if(name($step)="ext:pre" or name($step)="ext:post" ) then
-                        $input/*
+					let $a := $unique_before
+					let $a1 := substring-before($a,'.0')
+					let $b := tokenize($a1,'\.')[last()]
+					let $c := substring-before($a1,$b)
+
+
+						return
+                        	if($input/*/p:pipe or contains($b,'!')) then
+								$input/*
+							else 
+							let $d := xs:integer($b) - 1
+							let $e := concat($c,$d)
+							return
+                				<p:pipe step="{$e}"
+							  port="result"/>
                     else
 						let $l_count := $count - 1
 						return					
 							if($l_count=0) then
                         		<p:pipe step="{substring-before($unique_id,'.1')}"
-								 		port="xproc:source"/>	
+								 		port="source"/>	
 							else
                          		<p:pipe step="{
 										if (empty(string($xproc/*[$l_count]/@name)) or string($xproc/*[$l_count]/@name) eq '') then
@@ -353,9 +367,11 @@ declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentste
 (: pipe :)                  else if ($child/@port and $child/@step) then
                                if ($result/xproc:output[@port=$child/@port][@step=$child/@step]) then
                                   $result/xproc:output[@port=$child/@port][@step=$child/@step]/*
-                           	  else
-                                  u:dynamicError('err:XD0001',concat(" cannot bind to port: ",$child/@port," step: ",$child/@step,' ',u:serialize($currentstep,$const:TRACE_SERIALIZE)))
+                           	  else 
+                              	$result/xproc:output[last()]/*
 
+(:                                  u:dynamicError('err:XD0001',concat(" cannot bind to port: ",$child/@port," step: ",$child/@step,' ',u:serialize($result,$const:TRACE_SERIALIZE)))
+:)
                             else
 
                             u:dynamicError('err:XD0001',concat(" cannot bind to port: ",$child/@port," step: ",$child/@step,' ',u:serialize($currentstep,$const:TRACE_SERIALIZE)))
@@ -495,6 +511,7 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
                      <xproc:output step="{$step}"
                                       port-type="output"
                                       primary="true"
+									  xproc:defaultname="{$currentstep/@xproc:defaultname}"
                                       select="{$currentstep/p:output[@primary='true']/@select}"
                                       port="{$currentstep/p:output[@primary='true']/@port}"
                                       func="{$stepfuncname}">{
@@ -508,6 +525,7 @@ u:call(u:xquery($stepfunc),$primary,$secondary,$options,$currentstep,($outputs,$
                          <xproc:output step="{$step}"
                                       port-type="output"
                                       primary="false"
+									  xproc:defaultname="{$currentstep/@xproc:defaultname}"
                                       select="{$currentstep/p:output[@primary='false']/@select}"
                                       port="{if (empty($currentstep/p:output[@primary='false']/@port)) then 'result' else $currentstep/p:output[@primary='false']/@port}"
                                       func="{$stepfuncname}">
@@ -608,12 +626,23 @@ let $output := subsequence($result,2)
 
 
                 
-(: --------------------------------------------------------------------------- :)                                                                				(: ENTRY POINT   :)
+(: --------------------------------------------------------------------------- :)                                                                				(: ENTRY POINTS   :)
 (: --------------------------------------------------------------------------- :)
 
 
-declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options){
+declare function xproc:run($pipeline,$stdin){
+	xproc:run($pipeline,$stdin,"0","0",(),())
+};
 
+declare function xproc:run($pipeline,$stdin,$debug){
+	xproc:run($pipeline,$stdin,$debug,"0",(),())
+};
+
+declare function xproc:run($pipeline,$stdin,$debug,$bindings,$options){
+	xproc:run($pipeline,$stdin,$debug,"0",$bindings,$options)
+};
+
+declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options){
 
     (: STEP I: generate parse tree :)
     let $preparse-naming := naming:explicitnames(naming:fixup($pipeline,$stdin))
@@ -660,17 +689,6 @@ declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options){
         )
 };
 
-declare function xproc:run($pipeline,$stdin){
-	xproc:run($pipeline,$stdin,"0","0",(),())
-};
-
-declare function xproc:run($pipeline,$stdin,$debug){
-	xproc:run($pipeline,$stdin,$debug,"0",(),())
-};
-
-declare function xproc:run($pipeline,$stdin,$debug,$bindings,$options){
-	xproc:run($pipeline,$stdin,$debug,"0",$bindings,$options)
-};
 
 declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options,$outputs){
 
