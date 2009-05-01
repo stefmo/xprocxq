@@ -295,10 +295,40 @@ return
 
 == p:escape-markup / p:unescape-markup ==
 
-{{{
+The p:escape-markup step will escape all data below the root element.
 
+{{{
+xquery version "1.0" encoding "UTF-8";
+
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace xproc = "http://xproc.net/xproc";
+import module namespace naming = "http://xproc.net/xproc/naming";
+import module namespace u = "http://xproc.net/xproc/util";
+
+declare variable $local:XPROCXQ_EXAMPLES := "/db/examples";   (: CHANGE ME :)
+
+let $stdin :=<test><a/></test>
+  
+let $pipeline :=document{<p:pipeline name="pipeline"
+            xmlns:p="http://www.w3.org/ns/xproc">
+
+<p:escape-markup/>
+
+</p:pipeline>}
+
+return
+    xproc:run($pipeline,$stdin,"1")
 }}}
 [http://127.0.0.1:8080/exist/rest/examples/step_examples/pescapemarkup.xq pescapemarkup.xq]
+
+the result of this processing should look like 
+
+{{{
+<test>&lt;a&gt;
+    &lt;b/&gt;
+&lt;/a&gt;</test>
+}}}
+
 
 == p:xsl-formatter ==
 
