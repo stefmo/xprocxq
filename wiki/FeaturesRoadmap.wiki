@@ -14,7 +14,6 @@
 
 = Roadmap =
 
-  * release eXist version ('throw it over the wall')
   * implement as many of the standard & optional steps as possible
   * refactor handling of sequences, weak typing and replace preparse routine
   * ensure static and dynamic error checking is working properly and try to beautify
