@@ -22,5 +22,4 @@ to each function
 	- the same applies to all apps where a user needs to log in first
 	- how about a simple wizard-style example, e.g. along the lines of the "number guessing" example in eXist. I think the page flow logic could all be done in xproc.
 
-
-
+parameters are like options, names until runtime (good to use with p:xslt). 

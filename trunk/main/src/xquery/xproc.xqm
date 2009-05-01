@@ -210,10 +210,12 @@ for $input in $step/p:input
                         		<p:pipe step="{substring-before($unique_id,'.1')}"
 								 		port="xproc:source"/>	
 							else
-                         		<p:pipe step="{if ($xproc/*[$l_count]/@name eq '') then
-											$unique_before
+                         		<p:pipe step="{
+										if (empty(string($xproc/*[$l_count]/@name)) or string($xproc/*[$l_count]/@name) eq '') then
+											$unique_before											
 										else
-											$xproc/*[$l_count]/@name}"
+											$xproc/*[$l_count]/@name
+											}"
 								 port="{$xproc/*[$l_count]/p:output[@primary='true']/@port}"/>
            		}
 };
@@ -239,7 +241,7 @@ declare function xproc:generate-explicit-options($step){
 declare function xproc:generate-step-binding($step,$xproc,$count,$stepname,$is_declare-step,$unique_id,$unique_before,$allstep){
 
             element {if (empty($allstep/@xproc:use-function)) then node-name($step) else $allstep/@xproc:use-function} {
-                attribute name{ if($step/@name eq '') then $unique_id else $step/@name},
+                attribute name{ if(empty(string($step/@name)) or string($step/@name) eq '') then $unique_id else $step/@name},
                 attribute xproc:defaultname{$unique_id},
                 attribute xproc:type{xproc:type($stepname,$is_declare-step)},
                 attribute xproc:step{if (empty($allstep/@xproc:use-function)) then concat('$',xproc:type($stepname,$is_declare-step),':',local-name($step)) else concat('$',$allstep/@xproc:use-function)},
