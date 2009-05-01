@@ -20,4 +20,4 @@
   * ensure static and dynamic error checking is working properly and try to beautify
   and add useful things like line numbers where error occurred 
   * integrate namespace handling module to implement more sophisticated namespace fixup 
-  * release SAXON, MarkLogic, and other XQuery processor versions
+  * consider porting to other XQuery processors
