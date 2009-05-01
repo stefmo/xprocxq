@@ -5,8 +5,6 @@
 
 xprocxq, being implemented in XQuery, currently has several limitations and is no where compliant with the existing XProc draft specification. The best way to understand what works or doesn't currently is to check out [XprocxqSimpleExamples step examples] included in the release.
 
-As I originally developed using SAXON-SA, I have had to disable many of XProc steps as I port across but should have a good set of steps running somewhat soon.
-
 Here is a list of the more severe limitations:
 
   * due to my use of weak typing in XQuery there are several interrelated issues, but this will change as I sanitize the code
