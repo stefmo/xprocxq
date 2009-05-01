@@ -295,7 +295,7 @@ return
 
 == p:escape-markup / p:unescape-markup ==
 
-The p:escape-markup step will escape all data below the root element.
+The p:escape-markup step will escape all data below the root element of the input document.
 
 {{{
 xquery version "1.0" encoding "UTF-8";
@@ -317,7 +317,7 @@ let $pipeline :=document{<p:pipeline name="pipeline"
 </p:pipeline>}
 
 return
-    xproc:run($pipeline,$stdin,"1")
+    xproc:run($pipeline,$stdin)
 }}}
 [http://127.0.0.1:8080/exist/rest/examples/step_examples/pescapemarkup.xq pescapemarkup.xq]
 
@@ -328,6 +328,8 @@ the result of this processing should look like
     &lt;b/&gt;
 &lt;/a&gt;</test>
 }}}
+
+p:unescape-markup does the reverse action.
 
 
 == p:xsl-formatter ==
