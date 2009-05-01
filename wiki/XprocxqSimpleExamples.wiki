@@ -218,9 +218,12 @@ return
 
 The p:choose step has a few [CurrentStatus Limitations] at this time
 
-  * p:xpath-context does not work 
+  * p:xpath-context does not work
   * need to use special eXist convention for p:when paths ( `.//` for `//`)
+  * steps contained in p:choose branches should probably use explicit input port
+binding to define step input
   * to use output from a p:choose step need to explicitly define port binding
+
 
 This example pipeline first compares 2 xml documents (both the same document) and returns either `<c:result>true</c:result>` or `<c:result>false</c:result>` if documents are equal or not. Based on that value a branch in the p:choose is executed.
 
