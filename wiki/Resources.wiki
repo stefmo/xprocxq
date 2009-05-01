@@ -39,7 +39,7 @@ Section E. Guidance on Namespace Fixup]: Review the non-normative list of sugges
 
 == XQuery == 
 
-[www.ibm.com/developerworks/edu/x-dw-x-advxquery.html Jim Fuller Advancing with XQuery]: IBM Developerworks article on implementing application idioms in XQuery
+[http://www.ibm.com/developerworks/edu/x-dw-x-advxquery.html Jim Fuller Advancing with XQuery]: IBM Developerworks article on implementing application idioms in XQuery
 
 [http://en.wikibooks.org/wiki/XQuery/ XQuery WikiBooks]: Excellent XQuery reference led by Chris Wallace et al.
 
