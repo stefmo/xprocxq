@@ -4,7 +4,7 @@ xproc-dev@w3.org
 
 == XProc articles ==
 
-[http://www.ibm.com/developerworks/library/x-xproc/ Jim Fuller 'Discovering XProc' IBM Developworks 2008]
+[http://www.ibm.com/developerworks/library/x-xproc/ Jim Fuller's 'Discovering XProc' IBM Developworks 2008]
 
 [http://www.xmlprague.cz/2009/presentations/Norman-Walsh-Exploring-XProc/index.html Norman Walsh XML Prague 2009 XProc Talk]
 
@@ -39,11 +39,13 @@ Section E. Guidance on Namespace Fixup]: Review the non-normative list of sugges
 
 == XQuery == 
 
-[ http://en.wikibooks.org/wiki/XQuery/ XQuery WikiBooks]: Excellent XQuery reference led by Chris Wallace et al.
+[www.ibm.com/developerworks/edu/x-dw-x-advxquery.html Jim Fuller's Advancing with XQuery]: IBM Developerworks article on implementing application idioms in XQuery
+
+[http://en.wikibooks.org/wiki/XQuery/ XQuery WikiBooks]: Excellent XQuery reference led by Chris Wallace et al.
 
 [http://thewallaceline.blogspot.com/2009/04/xquery-unit-tests.html Chris Wallace Unit Testing]: Nice article on the right way to do Unit Testing in XQuery
 
-[http://code.google.com/p/xprocxq/source/browse/trunk/main/test/xquery/test.xqm Jim Fuller 'poor mans' XQuery unit testing]: simple XQuery module for facilitating tests that I developed during development of xprocxq.
+[http://code.google.com/p/xprocxq/source/browse/trunk/main/test/xquery/test.xqm Jim Fuller's 'poor mans' XQuery unit testing]: simple XQuery module for facilitating tests that I developed during development of xprocxq.
 
 
 == Historical XProc links ==
