@@ -314,6 +314,8 @@ let $pipeline :=document{<p:pipeline name="pipeline"
 
 <p:escape-markup/>
 
+<!-- <p:unescape-markup/> //-->
+
 </p:pipeline>}
 
 return
@@ -329,7 +331,7 @@ the result of this processing should look like
 &lt;/a&gt;</test>
 }}}
 
-p:unescape-markup does the reverse action.
+p:unescape-markup does the reverse action and you can view this for yourself by uncommenting the step in the example.
 
 
 == p:xsl-formatter ==
