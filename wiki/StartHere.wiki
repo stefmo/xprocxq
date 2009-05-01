@@ -11,7 +11,9 @@ Download latest release zip [http://code.google.com/p/xprocxq/downloads/list her
 
   * [XprocxqDocs Hello World] Run your first XProc pipeline
 
-Alternatively read the README.eXist document included with the release.
+  * [XprocxqSimpleExamples Step examples] Run step examples known to work with xprocxq
+
+Alternatively you can read the README.eXist document included with the release.
 
 View all releases from the Downloads tab [http://code.google.com/p/xprocxq/downloads/list?can=1&q=&colspec=Filename+Summary+Uploaded+Size+DownloadCount here].
 
@@ -31,8 +33,7 @@ The release distribution consists zip package containing the following:
 
   expath.jar     - expath module deps        
 
-  test/examples  - XProc tests and test.xq for testing with eXist XML Database
-
+  test/examples  - XProc tests and helloworld.xq for testing with eXist XML Database
 
 
 = Source Distro=
@@ -71,7 +72,6 @@ The source distribution consists of:
 To build a release from source, run the supplied Apache Ant build.xml file with dist target
 
 > ant dist
-
 
 {{{
 # Non-members may svn check out a read-only working copy anonymously over HTTP.
