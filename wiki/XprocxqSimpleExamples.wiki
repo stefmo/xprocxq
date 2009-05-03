@@ -117,7 +117,7 @@ return
 
 
 }}}
-[http://127.0.0.1:8080/exist/rest/examples/step_examples/pxslt.xq pxquery.xq]
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/pxquery.xq pxquery.xq]
 
 
 
