@@ -59,7 +59,7 @@
     <!-- clean dist                                            -->
     <!-- ===================================================== -->
     <target name="clean">
-        <delete dir="dist" quiet="true"/>
+        <delete dir="dist" quiet="true" failonerror="false"/>
         <mkdir dir="dist"/>
     </target>
 
