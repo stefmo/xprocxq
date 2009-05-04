@@ -78,7 +78,7 @@ return
 
 
 
-== p:xquery 1 ==
+== p:xquery 1: using p:inline ==
 
 The p:xquery step will execute an arbitrary bit of xquery. The default context is currently the eXist XML Database, it should be the source port input binding but I have a few more tweaks on util:eval within eXist.
 
@@ -139,14 +139,14 @@ let $pipeline :=document{
                     <p:pipeline name="pipeline"
                                 xmlns:p="http://www.w3.org/ns/xproc"
                                 xmlns:c="http://www.w3.org/ns/xproc-step">
-					           <p:xquery>
-					               <p:input port="query">
-    					               <p:data href="/db/examples/helloworld.xq" 
-    					                       wrapper="c:query" 
-    					                       content-type="plain/text" 
-    					                       xproc:escape="false"/>
-					               </p:input>
-					           </p:xquery>
+                               <p:xquery>
+                                   <p:input port="query">
+                                       <p:data href="/db/examples/helloworld.xq" 
+                                               wrapper="c:query" 
+                                               content-type="plain/text" 
+                                               xproc:escape="false"/>
+                                   </p:input>
+                               </p:xquery>
                     </p:pipeline>
                 }
 
@@ -182,11 +182,11 @@ let $pipeline :=document{
                     <p:pipeline name="pipeline"
                                 xmlns:p="http://www.w3.org/ns/xproc"
                                 xmlns:c="http://www.w3.org/ns/xproc-step">
-					           <p:xquery>
-					               <p:input port="query">
-					                   <p:pipe step="pipeline" port="xquerysrc1"/>
-					               </p:input>
-					           </p:xquery>
+                               <p:xquery>
+                                   <p:input port="query">
+                                       <p:pipe step="pipeline" port="xquerysrc1"/>
+                                   </p:input>
+                               </p:xquery>
                     </p:pipeline>
                 }
 
