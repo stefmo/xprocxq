@@ -70,8 +70,9 @@ insert these elements in eXist conf.xml, in <built-in-modules/> element (soon th
 <!-- expath module imports (for p:http-request)//-->
 <module class="org.exist.xquery.modules.httpclient.HTTPClientModule" uri="http://exist-db.org/xquery/httpclient" />
 <module src="resource:org/expath/www/mod/http-client/http-client.xqm" uri="http://www.expath.org/mod/http-client"/>
-<!-- eXist XSL FO module (for p:xsl-formatter)//-->
+<!-- uncomment to use p:xsl-formatter
 <module class="org.exist.xquery.modules.xslfo.XSLFOModule" uri="http://exist-db.org/xquery/xslfo" />
+//-->
 <!-- xprocxq module imports //-->
 <module src="resource:net/xproc/xprocxq/src/xquery/const.xqm" uri="http://xproc.net/xproc/const"/>
 <module src="resource:net/xproc/xprocxq/src/xquery/xproc.xqm" uri="http://xproc.net/xproc"/>
@@ -87,10 +88,8 @@ II) Please follow these instructions to support the following steps.
 
   p:xinclude - you must enable-xincludes within eXist XML Database conf.xml
 
-  p:xsl-formatter - you will need to build eXist with extension XSLFO enabled. To do this set
-  include.module.xslfo = true in extensions/build.properties
-
-Note - this step is required but may become optional in the future
+  p:xsl-formatter - you will need to build eXist with extension XSLFO enabled if you would
+like to use the p:xsl-formatter task. To do this set include.module.xslfo = true in extensions/build.properties
 
 III) Load doc/examples directory, included in the dist, into eXist XML Database. You 
 can use the eXist webadmin, webdav or java client interfaces to do this.
