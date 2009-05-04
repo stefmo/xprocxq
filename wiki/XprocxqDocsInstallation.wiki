@@ -23,8 +23,9 @@ Place xprocxq.jar and expath.jar into $EXIST_HOME/lib/user directory and insert 
 <!-- expath module imports (for p:http-request)//-->
 <module class="org.exist.xquery.modules.httpclient.HTTPClientModule" uri="http://exist-db.org/xquery/httpclient" />
 <module src="resource:org/expath/www/mod/http-client/http-client.xqm" uri="http://www.expath.org/mod/http-client"/>
-<!-- eXist XSL FO module (for p:xsl-formatter)//-->
+<!-- uncomment if you want to use the p:xsl-formatter step
 <module class="org.exist.xquery.modules.xslfo.XSLFOModule" uri="http://exist-db.org/xquery/xslfo" />
+//-->
 <!-- xprocxq module imports //-->
 <module src="resource:net/xproc/xprocxq/src/xquery/const.xqm" uri="http://xproc.net/xproc/const"/>
 <module src="resource:net/xproc/xprocxq/src/xquery/xproc.xqm" uri="http://xproc.net/xproc"/>
@@ -45,9 +46,8 @@ Please follow these instructions to support the following steps.
 
   p:xinclude - you must `enable-xincludes='yes'' within eXist XML Database conf.xml
 
-  p:xsl-formatter - you will *need* to build eXist with extension XSLFO enabled. To do this set `include.module.xslfo = true` in extensions/build.properties and rerun eXist build process (please follow eXist instructions on this)
-
-*note*: this installation step is required for BETA releases but may become optional in the future for people who won't need.
+  p:xsl-formatter - you will *need* to build eXist with extension XSLFO enabled if you 
+want to use the p:xsl-formatter step. To do this set `include.module.xslfo = true` in extensions/build.properties and rerun eXist build process (please follow eXist instructions on this)
 
 == Step III ==
 Load /examples directory, included in the dist, into eXist XML Database. You 
