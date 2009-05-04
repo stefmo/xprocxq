@@ -61,7 +61,20 @@ form.
 
 Install
 -------
-To install within eXist XML Database follow these instructions.
+
+xprocxq is part of eXist own build process.
+
+I) Download latest trunk version of eXist XML Database (via svn is best)
+
+II) follow eXist build instructions
+
+You should have xprocxq installed by default.
+
+ 
+Manual Install
+--------------
+
+To manually install xprocxq within eXist XML Database follow these instructions.
 
 I) Place xprocxq.jar and expath.jar into $EXIST_HOME/lib/user directory
 
