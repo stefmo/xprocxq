@@ -1,5 +1,5 @@
 #labels xproc,xml,xquery
-30/04/2009 xprocxq released, expect more docs, more steps and unit test results in the coming week or so
+04/05/2009 xprocxq now part of eXist own build process ... so all you have to do is download (via svn) and build eXist XML Database and you should have xprocxq already installed
 
 == Limitations and Issues ==
 
