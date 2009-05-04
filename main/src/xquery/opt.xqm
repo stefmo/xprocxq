@@ -121,7 +121,7 @@ u:assert(exists(u:get-secondary('query',$secondary)/c:query),'p:input query is r
 		else
 			$xquery/node()
     let $xqueryfunc := concat($const:alt-imports,$query)
-    let $result := u:xquery($xqueryfunc,$v)
+    let $result := u:xquery($query,$v)
         return
             u:outputResultElement($result)
 };

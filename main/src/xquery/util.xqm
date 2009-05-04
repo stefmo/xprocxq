@@ -152,25 +152,7 @@ else
 
 (: -------------------------------------------------------------------------- :)
 declare function u:unparsed-data($uri as xs:string, $mediatype as xs:string)  {
-
-let $xslt := document {
-  <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                  xmlns:c="http://www.w3.org/ns/xproc-step"
-                  version="2.0">
-    <xsl:template match="/">
-    <c:data content-type="{$mediatype}">
-        <xsl:copy-of select="unparsed-text('{$uri}')"/>
-    </c:data>
-    </xsl:template>
-  </xsl:stylesheet>
-}
-
-let $source :=
-  document { <empty/>}
-
-return
-     transform:transform($source, $xslt, ())
-
+	util:binary-to-string(util:binary-doc($uri))
 };
 
 (: -------------------------------------------------------------------------- :)

@@ -23,3 +23,5 @@ to each function
 	- how about a simple wizard-style example, e.g. along the lines of the "number guessing" example in eXist. I think the page flow logic could all be done in xproc.
 
 parameters are like options, names until runtime (good to use with p:xslt). 
+
+* in p:escape-markup / p:unescape-markup lose top level text() ... amend so it doesn't get stripped
