@@ -99,7 +99,7 @@ let $v := u:get-primary($primary)
 let $href-uri := u:get-option('href',$options,$v)
 let $name := tokenize($href-uri, "/")[last()]
 let $path := substring-before($href-uri,$name)
-let $pdf := util:eval("xslfo:render($v,$const:pdf-mimetype,<parameters/>)") 
+let $pdf := u:eval("xslfo:render($v,$const:pdf-mimetype,<parameters/>)") 
 let $store := xmldb:store($path,$name,$pdf)
 return
 	if($store) then
