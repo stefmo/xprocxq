@@ -5,19 +5,15 @@
 
 As xprocxq is contained in eXist own source tree and built by default all you need is to get and install trunk version of [http://exist.sourceforge.net eXist XML Database].
 
-Currently xprocxq works *only* in the latest trunk version of eXist XML Database.
-
-=  Manual Installation =
-
-Download latest release zip [http://code.google.com/p/xprocxq/downloads/list here], which requires latest trunk version of [http://exist.sourceforge.net eXist XML Database].
-
-  * xprocxq is now part of standard eXist installation (of the latest trunk version of eXist) ... so nothing to do but install and build eXist XML Database. Here is the subversion for checking out trunk source code of eXist
+Here is the subversion for checking out trunk source code of eXist
 
 {{{
 svn co https://exist.svn.sourceforge.net/svnroot/exist/trunk/eXist exist 
 }}}
 
-otherwise you can [XprocxqDocsInstallation manually] install if you would like.
+*note*: Currently xprocxq ships and works *only* in the latest trunk version of eXist XML Database.
+
+= Next Steps =
  
   * [XprocxqRunning using xproc:run() in XQuery]: Learn how to use xprocxq in XQuery
 
@@ -29,6 +25,14 @@ Alternatively you can read the README.eXist document included with the release.
 
 View all releases from the Downloads tab [http://code.google.com/p/xprocxq/downloads/list?can=1&q=&colspec=Filename+Summary+Uploaded+Size+DownloadCount here].
 
+=  Manual Installation =
+
+Otherwise if for some strange reason you want to manually install here are the instructions.
+
+Download latest release zip [http://code.google.com/p/xprocxq/downloads/list here], which requires latest trunk version of [http://exist.sourceforge.net eXist XML Database].
+
+otherwise you can [XprocxqDocsInstallation manually] install if you would like.
+ 
 = Release Distro =
 
 The release distribution consists zip package containing the following:
