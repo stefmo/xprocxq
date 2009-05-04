@@ -1,9 +1,11 @@
 #summary For those who want to install and play with xproc.xq
 #labels xproc
 
-=  Default Installation =
+=  Installation =
 
-All you need to do is build trunk version of eXist XML Database; xprocxq is included and built with default build.
+As xprocxq is contained in eXist own source tree and built by default all you need is to get and install trunk version of [http://exist.sourceforge.net eXist XML Database].
+
+Currently xprocxq works *only* in the latest trunk version of eXist XML Database.
 
 =  Manual Installation =
 
