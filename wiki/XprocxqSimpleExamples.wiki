@@ -78,7 +78,7 @@ return
 
 
 
-== p:xquery ==
+== p:xquery 1 ==
 
 The p:xquery step will execute an arbitrary bit of xquery. The default context is currently the eXist XML Database, it should be the source port input binding but I have a few more tweaks on util:eval within eXist.
 
@@ -119,6 +119,82 @@ return
 }}}
 [http://127.0.0.1:8080/exist/rest/examples/step_examples/pxquery.xq pxquery.xq]
 
+== p:xquery 2: using p:data ==
+
+To bring in an external xquery use the p:data element.
+
+{{{
+
+xquery version "1.0" encoding "UTF-8";
+
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace xproc = "http://xproc.net/xproc";
+import module namespace u = "http://xproc.net/xproc/util";
+
+declare variable $local:XPROCXQ_EXAMPLES := "/db/examples";   (: CHANGE ME :)
+
+let $stdin :=document{<test/>}
+
+let $pipeline :=document{
+                    <p:pipeline name="pipeline"
+                                xmlns:p="http://www.w3.org/ns/xproc"
+                                xmlns:c="http://www.w3.org/ns/xproc-step">
+					           <p:xquery>
+					               <p:input port="query">
+    					               <p:data href="/db/examples/helloworld.xq" 
+    					                       wrapper="c:query" 
+    					                       content-type="plain/text" 
+    					                       xproc:escape="false"/>
+					               </p:input>
+					           </p:xquery>
+                    </p:pipeline>
+                }
+
+return
+    xproc:run($pipeline,$stdin) 
+
+
+}}}
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/pxquery2.xq pxquery2.xq]
+
+== p:xquery 3: use external bindings ==
+You can also pass input in via external bindings mechanism. The $external-bindings variable is a sequence which lets you define named input sources either inline or referring to another resource URL.
+
+
+{{{
+xquery version "1.0" encoding "UTF-8";
+
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace xproc = "http://xproc.net/xproc";
+import module namespace u = "http://xproc.net/xproc/util";
+
+declare variable $local:XPROCXQ_EXAMPLES := "/db/examples";   (: CHANGE ME :)
+
+let $stdin :=document{<test/>}
+let $external-options :=() (: disabled :)
+let $timing-flag :="0"  (: deprecated :)
+let $debug-flag :="0"  (: change value to 1 to see p:log trace :)
+let $internaldbg := 0
+
+let $external-bindings :=('xquerysrc1=/db/examples/xml/xquery.xml')
+
+let $pipeline :=document{
+                    <p:pipeline name="pipeline"
+                                xmlns:p="http://www.w3.org/ns/xproc"
+                                xmlns:c="http://www.w3.org/ns/xproc-step">
+					           <p:xquery>
+					               <p:input port="query">
+					                   <p:pipe step="pipeline" port="xquerysrc1"/>
+					               </p:input>
+					           </p:xquery>
+                    </p:pipeline>
+                }
+
+return
+            xproc:run($pipeline,$stdin,$debug-flag,$timing-flag,$external-bindings,$external-options) 
+
+}}}
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/pxquery3.xq pxquery3.xq]
 
 
 == p:http-request ==
