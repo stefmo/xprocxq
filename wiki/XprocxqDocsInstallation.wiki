@@ -2,7 +2,7 @@
 
 = Download = 
 
-Download latest release zip here, which requires latest trunk version of [http://exist.sourceforge.net eXist XML Database]. 
+Download latest release zip here, which requires *latest* trunk version of [http://exist.sourceforge.net eXist XML Database]. 
 
 = Prerequisites =
 
