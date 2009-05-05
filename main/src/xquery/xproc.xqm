@@ -61,7 +61,7 @@ let $steps := $currentstep
 return
 	for $child in $primary/node()
 	return
-		(u:call($xproc:parse-and-eval,<p:declare-step name="{$defaultname}" xproc:defaultname="{$defaultname}" >{$currentstep/*}</p:declare-step>,$child,(),$outputs)/.)[last()]
+		u:call($xproc:parse-and-eval,<p:declare-step name="{$defaultname}" xproc:defaultname="{$defaultname}" >{$currentstep/*}</p:declare-step>,$child,(),$outputs)
 
 };
 
@@ -102,8 +102,8 @@ declare function xproc:choose($primary,$secondary,$options,$currentstep,$outputs
 	let $defaultname := concat(string($currentstep/@xproc:defaultname),'.1')
     let $stepfuncname := '$xproc:parse-and-eval'
     let $stepfunc := concat($const:default-imports,$stepfuncname)    
-    let $whens := $currentstep//p:when
-    let $otherwise := $currentstep//p:otherwise
+    let $whens := $currentstep/p:when
+    let $otherwise := $currentstep/p:otherwise
 	let $when := (for $when in $whens
 	    	let $when_eval := u:boolean-evalXPATH(string($when/@test),$v)
 			return
