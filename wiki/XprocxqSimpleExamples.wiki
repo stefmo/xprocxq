@@ -121,7 +121,7 @@ return
 
 == p:xquery 2: using p:data ==
 
-To bring in an external xquery use the p:data element.
+Probably the best way to bring in an external xquery is to use the p:data element.
 
 {{{
 
@@ -156,6 +156,8 @@ return
 
 }}}
 [http://127.0.0.1:8080/exist/rest/examples/step_examples/pxquery2.xq pxquery2.xq]
+
+p:data also has the `xproc:escape` extension attribute which you can use to 'escape' the contents of the file. 
 
 == p:xquery 3: use external bindings ==
 You can also pass input in via external bindings mechanism. The $external-bindings variable is a sequence which lets you define named input sources either inline or referring to another resource URL.
