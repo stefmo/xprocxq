@@ -37,7 +37,7 @@ return
 
 }}}
 
-[http://127.0.0.1:8080/exist/rest/examples/step_examples/helloworld.xq helloworld.xq]
+[http://127.0.0.1:8080/exist/rest/examples/helloworld.xq helloworld.xq]
 
 == p:filter ==
 
@@ -73,7 +73,7 @@ let $pipeline :=document{
 return
      xproc:run($pipeline,$stdin,'0') 
 }}}
-[http://127.0.0.1:8080/exist/rest/examples/pxinclude.xq pxinclude.xq]
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/pxinclude.xq pxinclude.xq]
 
 Of course, since eXist has enabled-xincludes on by default you may never need this step, but in situations where you want to control the behavior then add an eXist pragma exist:serialzie (as shown in the code).
 
