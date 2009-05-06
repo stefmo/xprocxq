@@ -124,11 +124,8 @@ declare function xproc:choose($primary,$secondary,$options,$currentstep,$outputs
     let $whens := $currentstep/p:when
     let $otherwise := $currentstep/p:otherwise
 	let $when := (for $when in $whens
-	
-	let $when_eval := u:xquery(string($when/@test),$v)
-	
-(:	    	let $when_eval := u:boolean-evalXPATH(string($when/@test),$v)
-:)
+		
+	    	let $when_eval := u:boolean-evalXPATH(string($when/@test),$v)
 			return
     			if($when_eval) then  
 					$when
