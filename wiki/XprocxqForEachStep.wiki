@@ -7,6 +7,8 @@ tba
 
 == issues ==
 
+p:iteration-source can't be defined currently
+
 == xprocxq definition ==
 {{{
     <xproc:element type="p:for-each" xproc:step="true" xproc:support="true">
