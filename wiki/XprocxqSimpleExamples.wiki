@@ -292,6 +292,40 @@ return
 
 *note*: no support for file: and http: at this time
 
+
+== p:group ==
+{{{
+
+xquery version "1.0" encoding "UTF-8";
+
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace xproc = "http://xproc.net/xproc";
+import module namespace u = "http://xproc.net/xproc/util";
+
+declare variable $local:XPROCXQ_EXAMPLES := "/db/examples";   (: CHANGE ME :)
+
+let $stdin :=document{<test/>}
+
+let $pipeline :=document{
+                    <p:pipeline name="pipeline"
+                                xmlns:p="http://www.w3.org/ns/xproc"
+                                xmlns:c="http://www.w3.org/ns/xproc-step">
+								<p:group name="test">
+								<p:xslt>                                         
+								   <p:input port="stylesheet">
+								       <p:document href="{$local:XPROCXQ_EXAMPLES}/xslt/stylesheet.xsl"/>
+								   </p:input>
+								</p:xslt>
+								</p:group>
+                    </p:pipeline>
+                }
+
+return
+     xproc:run($pipeline,$stdin) 
+
+}}}
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/pgroup.xq pgroup.xq] 
+
 == p:choose ==
 
 The p:choose step has a few [CurrentStatus Limitations] at this time
@@ -395,11 +429,11 @@ let $pipeline :=document{<p:pipeline xmlns:p="http://www.w3.org/ns/xproc"
                name="pipeline">
 
 <p:for-each name="test">
-	<p:xslt>                      
-	   <p:input port="stylesheet">
-	       <p:document href="{$local:XPROCXQ_EXAMPLES}/xslt/stylesheet.xsl"/>
-	   </p:input>
-	</p:xslt>
+    <p:xslt>                      
+       <p:input port="stylesheet">
+           <p:document href="{$local:XPROCXQ_EXAMPLES}/xslt/stylesheet.xsl"/>
+       </p:input>
+    </p:xslt>
 </p:for-each>
 
 </p:pipeline>}
