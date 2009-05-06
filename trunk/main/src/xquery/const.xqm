@@ -101,3 +101,9 @@ declare variable $const:alt-imports :=' declare copy-namespaces no-preserve, no-
 (: Mime types :)
 (: -------------------------------------------------------------------------- :)
 declare variable $const:pdf-mimetype := 'application/pdf';
+
+
+(: -------------------------------------------------------------------------- :)
+(: XSLT to transform eXist specific file listing :)
+(: -------------------------------------------------------------------------- :)
+declare variable $const:directory-list-xslt := 'resource:net/xproc/xprocxq/etc/directory-list.xsl';

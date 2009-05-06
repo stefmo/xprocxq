@@ -46,21 +46,21 @@
       <p:option name="match" required="true"/>
       <p:option name="version"/>
    </p:declare-step>
-   <p:declare-step type="p:validate-with-relax-ng" xml:id="validate-with-relax-ng">
+   <p:declare-step type="p:validate-with-relax-ng" xml:id="validate-with-relax-ng"  xproc:support="true">
       <p:input port="source" primary="true" select="/"/>
       <p:input port="schema" primary="false" select="/"/>
       <p:output port="result" primary="true" select="/"/>
       <p:option name="dtd-compatibility" select="'false'"/>
       <p:option name="assert-valid" select="'true'"/>
    </p:declare-step>
-   <p:declare-step type="p:validate-with-schematron" xml:id="validate-with-schematron">
+   <p:declare-step type="p:validate-with-schematron" xml:id="validate-with-schematron"  xproc:support="true">
       <p:input port="source" primary="true" select="/"/>
       <p:input port="schema" primary="false" select="/"/>
       <p:output port="result" primary="true" select="/"/>
       <p:output port="report" sequence="true" select="/"/>
       <p:option name="assert-valid" select="'true'"/>
    </p:declare-step>
-   <p:declare-step type="p:validate-with-xml-schema" xml:id="validate-with-xml-schema">
+   <p:declare-step type="p:validate-with-xml-schema" xml:id="validate-with-xml-schema"  xproc:support="true">
       <p:input port="source" primary="true" select="/"/>
       <p:input port="schema" primary="false" sequence="true" select="/"/>
       <p:output port="result" primary="true" select="/"/>
