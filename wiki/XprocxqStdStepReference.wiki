@@ -2,7 +2,7 @@
 
 = XProc Standard Step Reference =
 
-tba
+Please check [XprocxqSimpleExamples Step examples] to see what steps are working.
 
 {{{
    <p:declare-step type="p:add-attribute" xml:id="add-attribute" xmlns:xproc="http://xproc.net/xproc">
