@@ -2,5 +2,4 @@
 
 = Multi Container steps =
 
-In XProc there are  ...
-
+Please check [XprocxqSimpleExamples Step examples] to see what steps are working.
