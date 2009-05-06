@@ -15,6 +15,7 @@ declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace comp="http://xproc.net/xproc/comp";
 declare namespace xproc = "http://xproc.net/xproc";
+declare namespace validate ="http://exist-db.org/xquery/validation";
 
 (: Module Imports :)
 import module namespace u = "http://xproc.net/xproc/util";
@@ -73,22 +74,28 @@ return
 (: -------------------------------------------------------------------------- :)
 declare function opt:validate-with-xml-schema($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
+let $schema := u:get-secondary('schema',$secondary)
 return
-	$v
+$schema
+(:
+	validation:validate($v, $schema)
+:)
 };
 
 (: -------------------------------------------------------------------------- :)
 declare function opt:validate-with-schematron($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
+let $schema := u:get-secondary('schema',$secondary)
 return
-	$v
+	validation:validate($v, $schema)
 };
 
 (: -------------------------------------------------------------------------- :)
 declare function opt:validate-with-relax-ng($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
+let $schema := u:get-secondary('schema',$secondary)
 return
-	$v
+	validation:validate($v, $schema)
 };
 
 

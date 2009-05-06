@@ -123,15 +123,15 @@ declare function xproc:choose($primary,$secondary,$options,$currentstep,$outputs
 				
     let $whens := $currentstep/p:when
     let $otherwise := $currentstep/p:otherwise
-	let $when := (for $when in $whens
-		
+	let $when := (
+		for $when in $whens
 	    	let $when_eval := u:boolean-evalXPATH(string($when/@test),$v)
 			return
     			if($when_eval) then  
 					$when
 				else
 					()
-					)
+		)
 	return
 		if ($when) then
 			(u:call($xproc:parse-and-eval,<p:declare-step name="{$defaultname}" xproc:defaultname="{$defaultname}" >{$when/*}</p:declare-step>,$v,(),$outputs)/.)[last()]/node()
