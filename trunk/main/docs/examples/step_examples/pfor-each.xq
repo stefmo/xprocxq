@@ -14,7 +14,7 @@ let $pipeline :=document{<p:pipeline xmlns:p="http://www.w3.org/ns/xproc"
                name="pipeline">
 
 <p:for-each name="test">
-	<p:xslt>                      
+	<p:xslt>
 	   <p:input port="stylesheet">
 	       <p:document href="{$local:XPROCXQ_EXAMPLES}/xslt/stylesheet.xsl"/>
 	   </p:input>

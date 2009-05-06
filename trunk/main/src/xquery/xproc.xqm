@@ -101,7 +101,7 @@ declare function xproc:group($primary,$secondary,$options,$currentstep,$outputs)
 	let $v := u:get-primary($primary)
 	let $defaultname := concat(string($currentstep/@xproc:defaultname),'.0')
 	return
-		u:call($xproc:parse-and-eval,<p:declare-step name="{$defaultname}" xproc:defaultname="{$defaultname}" >{$currentstep/*}</p:declare-step>,$v,(),$outputs)
+		(u:call($xproc:parse-and-eval,<p:declare-step name="{$defaultname}" xproc:defaultname="{$defaultname}" >{$currentstep/*}</p:declare-step>,$v,(),$outputs)/.)[last()]/node()
 };
 
 
@@ -110,10 +110,25 @@ declare function xproc:choose($primary,$secondary,$options,$currentstep,$outputs
 (: -------------------------------------------------------------------------- :)
 	let $v := u:get-primary($primary)
 	let $defaultname := concat(string($currentstep/@xproc:defaultname),'.0')
+	let $xpath-context := <test1/>
+	let $xpath-context-output := <xproc:output step="{$defaultname}"
+                  port-type="output"
+                  primary="false"
+				  xproc:defaultname="$defaultname"
+                  select="/"
+                  port="xpath-context"
+                  func="$xproc:choose">
+					{$xpath-context}
+				  </xproc:output>
+				
     let $whens := $currentstep/p:when
     let $otherwise := $currentstep/p:otherwise
 	let $when := (for $when in $whens
-	    	let $when_eval := u:boolean-evalXPATH(string($when/@test),$v)
+	
+	let $when_eval := u:xquery(string($when/@test),$v)
+	
+(:	    	let $when_eval := u:boolean-evalXPATH(string($when/@test),$v)
+:)
 			return
     			if($when_eval) then  
 					$when
