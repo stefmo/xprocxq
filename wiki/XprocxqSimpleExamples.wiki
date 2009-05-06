@@ -374,6 +374,56 @@ return
 }}}
 [http://127.0.0.1:8080/exist/rest/examples/step_examples/pchoose.xq pchoose.xq]
 
+== p:for-each ==
+
+The p:for-each step applies a subpipeline to each item in the input sequence.
+
+{{{
+xquery version "1.0" encoding "UTF-8";
+
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace xproc = "http://xproc.net/xproc";
+import module namespace naming = "http://xproc.net/xproc/naming";
+import module namespace u = "http://xproc.net/xproc/util";
+
+declare variable $local:XPROCXQ_EXAMPLES:= "/db/examples";   (: CHANGE ME :)
+
+let $stdin :=(<test/>,<a/>,<b/>)
+let $external-bindings := ()
+
+let $pipeline :=document{<p:pipeline xmlns:p="http://www.w3.org/ns/xproc"
+               name="pipeline">
+
+<p:for-each name="test">
+	<p:xslt>                      
+	   <p:input port="stylesheet">
+	       <p:document href="{$local:XPROCXQ_EXAMPLES}/xslt/stylesheet.xsl"/>
+	   </p:input>
+	</p:xslt>
+</p:for-each>
+
+</p:pipeline>}
+
+return
+    xproc:run($pipeline,$stdin,'0')
+
+}}}
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/pfor-each.xq pfor-each.xq]
+
+the result of this pipeline should return the following: 
+
+{{{
+<success version="" vendor="Apache Software Foundation">
+    <test/>
+</success>
+<success version="" vendor="Apache Software Foundation">
+    <a/>
+</success>
+<success version="" vendor="Apache Software Foundation">
+    <b/>
+</success>
+}}}
+
 == p:escape-markup / p:unescape-markup ==
 
 The p:escape-markup step will escape all data below the root element of the input document.
