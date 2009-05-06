@@ -18,10 +18,8 @@
 	</xproc:element>
 
     <xproc:element type="p:choose" xproc:step="true" xproc:support="true">
-		<p:input port="xproc:xpath-context" primary="false" select="/"/>
 		<p:input port="source" primary="true" select="/"/>
         <p:output port="result" primary="true" select="/"/>	
-
  		<xproc:element type="p:when" xproc:support="true">
         	<xproc:attribute name="test"/>
     	</xproc:element>
@@ -29,7 +27,6 @@
     </xproc:element>
 
     <xproc:element type="p:for-each" xproc:step="true" xproc:support="true">
-		<p:input port="xproc:iteration-source" primary="false" select="/"/>
 		<p:input port="source" primary="true" select="/"/>
         <p:output port="result" primary="true" select="/"/>
 	</xproc:element>
@@ -53,8 +50,9 @@
    
 <!-- Input alternatives //-->    
 
-    <xproc:element type="p:iteration-source"/>
-    <xproc:element type="p:viewport-source"/>
+    <xproc:element type="p:iteration-source" xproc:support="false"/>
+    <xproc:element type="p:viewport-source" xproc:support="false"/>
+    <xproc:element type="p:xpath-context" xproc:support="false"/>
 
 <!-- //-->    
 
