@@ -44,6 +44,39 @@ return
 see the p:http-request example
 
 
+== p:xinclude ==
+
+This step will resolve any xinclude statements within your source XML document.
+
+{{{
+xquery version "1.0" encoding "UTF-8";
+
+declare option exist:serialize "expand-xincludes=no";
+
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace xproc = "http://xproc.net/xproc";
+import module namespace u = "http://xproc.net/xproc/util";
+
+declare variable $local:XPROCXQ_EXAMPLES := "/db/examples";   (: CHANGE ME :)
+
+
+let $stdin :=doc(concat($local:XPROCXQ_EXAMPLES,'/data/xinclude_test.xml'))
+
+let $pipeline :=document{
+                    <p:pipeline name="pipeline"
+                                xmlns:p="http://www.w3.org/ns/xproc"
+                                xmlns:c="http://www.w3.org/ns/xproc-step">
+                        <p:xinclude/>
+                    </p:pipeline>
+                }
+
+return
+     xproc:run($pipeline,$stdin,'0') 
+}}}
+[http://127.0.0.1:8080/exist/rest/examples/pxinclude.xq pxinclude.xq]
+
+Of course, since eXist has enabled-xincludes on by default you may never need this step, but in situations where you want to control the behavior then add an eXist pragma exist:serialzie (as shown in the code).
+
 == p:xslt ==
 
 {{{
@@ -310,13 +343,13 @@ let $pipeline :=document{
                     <p:pipeline name="pipeline"
                                 xmlns:p="http://www.w3.org/ns/xproc"
                                 xmlns:c="http://www.w3.org/ns/xproc-step">
-								<p:group name="test">
-								<p:xslt>                                         
-								   <p:input port="stylesheet">
-								       <p:document href="{$local:XPROCXQ_EXAMPLES}/xslt/stylesheet.xsl"/>
-								   </p:input>
-								</p:xslt>
-								</p:group>
+                                <p:group name="test">
+                                <p:xslt>                                         
+                                   <p:input port="stylesheet">
+                                       <p:document href="{$local:XPROCXQ_EXAMPLES}/xslt/stylesheet.xsl"/>
+                                   </p:input>
+                                </p:xslt>
+                                </p:group>
                     </p:pipeline>
                 }
 
