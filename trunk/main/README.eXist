@@ -86,6 +86,9 @@ insert these elements in eXist conf.xml, in <built-in-modules/> element (soon th
 <!-- uncomment to use p:xsl-formatter step
 <module class="org.exist.xquery.modules.xslfo.XSLFOModule" uri="http://exist-db.org/xquery/xslfo" />
 //-->
+<!-- uncomment to use p:directory-list step
+<module class="org.exist.xquery.modules.file.FileModule" uri="http://exist-db.org/xquery/file" />
+//-->
 <!-- xprocxq module imports //-->
 <module src="resource:net/xproc/xprocxq/src/xquery/const.xqm" uri="http://xproc.net/xproc/const"/>
 <module src="resource:net/xproc/xprocxq/src/xquery/xproc.xqm" uri="http://xproc.net/xproc"/>
@@ -103,6 +106,10 @@ II) Please follow these instructions to support the following steps.
 
   p:xsl-formatter - you will need to build eXist with extension XSLFO enabled if you would
 like to use the p:xsl-formatter step. To do this set include.module.xslfo = true in extensions/build.properties
+
+  p:directory-list - you will need to build eXist with extension File enabled if you would like
+to use the p:directory-list step. To do this set include.module.file = true in 
+extensions/build.properties
 
 III) Load doc/examples directory, included in the dist, into eXist XML Database. You 
 can use the eXist webadmin, webdav or java client interfaces to do this.

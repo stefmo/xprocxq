@@ -76,10 +76,7 @@ declare function opt:validate-with-xml-schema($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
 let $schema := u:get-secondary('schema',$secondary)
 return
-$schema
-(:
-	validation:validate($v, $schema)
-:)
+	u:outputResultElement(validation:validate($v, $schema))
 };
 
 (: -------------------------------------------------------------------------- :)
