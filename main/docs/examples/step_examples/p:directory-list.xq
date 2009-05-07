@@ -16,9 +16,9 @@ let $pipeline :=document{
                     <p:pipeline name="pipeline"
                                 xmlns:p="http://www.w3.org/ns/xproc"
                                 xmlns:c="http://www.w3.org/ns/xproc-step">
-                        <p:directory-list path="/Users/jimfuller" include-filter='*.*'/>
+                        <p:directory-list path="/usr/local/bin" include-filter='*.*'/>
                     </p:pipeline>
                 }
 
 return
-     xproc:run($pipeline,$stdin,'1')
+     xproc:run($pipeline,$stdin,'0')
