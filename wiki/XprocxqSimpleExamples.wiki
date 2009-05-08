@@ -58,8 +58,8 @@ import module namespace u = "http://xproc.net/xproc/util";
 declare variable $local:XPROCXQ_EXAMPLES := "/db/examples";   (: CHANGE ME :)
 
 let $stdin :=document{<doc>
-                    	<title>Title</title>
-                    	<p>Some paragraph.</p>
+                        <title>Title</title>
+                        <p>Some paragraph.</p>
                       </doc>
                       }
 
@@ -355,8 +355,38 @@ return
 }}}
 [http://127.0.0.1:8080/exist/rest/examples/step_examples/pstore.xq pstore.xq] [http://127.0.0.1:8080/exist/rest/examples/result/storetest.xml generated storetest.xml]
 
-*note*: no support for file: and http: at this time
 
+
+== p:store ==
+
+Here is an example of storing to the file system. 
+
+{{{
+xquery version "1.0" encoding "UTF-8";
+
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace xproc = "http://xproc.net/xproc";
+import module namespace u = "http://xproc.net/xproc/util";
+
+declare variable $local:XPROCXQ_EXAMPLES := "file:///tmp";   (: CHANGE ME :)
+
+let $stdin :=document{<test/>}
+
+let $pipeline :=document{
+                    <p:pipeline name="pipeline"
+                                xmlns:p="http://www.w3.org/ns/xproc"
+                                xmlns:c="http://www.w3.org/ns/xproc-step">
+                        <p:store href="{$local:XPROCXQ_EXAMPLES}/storetest.xml"/>
+                    </p:pipeline>
+                }
+
+return
+    xproc:run($pipeline,$stdin) 
+
+}}}
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/pstore2.xq pstore2.xq] 
+
+note: currently there is a limitation in that only xml documents can be stored via file://
 
 == p:group ==
 {{{
