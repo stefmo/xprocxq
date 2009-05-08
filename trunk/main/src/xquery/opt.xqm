@@ -74,9 +74,9 @@ return
 (: -------------------------------------------------------------------------- :)
 declare function opt:validate-with-xml-schema($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
-let $schema := u:get-secondary('schema',$secondary)
+let $xproc:schema := u:get-option('schema',$options,$v)
 return
-	u:outputResultElement(validation:validate($v, $schema))
+	u:outputResultElement(validation:validate($v, xs:anyURI(string($xproc:schema))))
 };
 
 (: -------------------------------------------------------------------------- :)
@@ -103,8 +103,21 @@ let $v := u:get-primary($primary)
 let $href-uri := u:get-option('href',$options,$v)
 let $name := tokenize($href-uri, "/")[last()]
 let $path := substring-before($href-uri,$name)
-let $pdf := u:eval("xslfo:render($v,$const:pdf-mimetype,<parameters/>)") 
-let $store := xmldb:store($path,$name,$pdf)
+let $query := concat("xslfo:render(",u:serialize($v,$const:DEFAULT_SERIALIZE),",$const:pdf-mimetype,<parameters/>)")
+let $pdf := u:eval($query)
+let $store := if(starts-with($path,'file://')) then
+				let $query := concat("file:serialize('",
+									 $pdf,
+								 	 "','",
+									 substring-after($href-uri,'file://'),
+									 "','method=text')")
+				return
+				(: u:eval($query) :)
+				u:dynamicError('err:XC0050',"p:xsl-formatter cannot store pdf as xprocxq does not yet support file:// protocol yet (soon!).")
+				
+			  else
+				xmldb:store($path,$name,$pdf)
+				
 return
 	if($store) then
 		u:outputResultElement(concat($path,$name))
