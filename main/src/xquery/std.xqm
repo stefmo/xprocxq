@@ -222,10 +222,21 @@ let $href := $v/c:request/@href
 let $method := $v/c:request/@method
 let $content-type := $v/c:request/c:body/@content-type
 let $body := $v/c:request/c:body
-
-return
+let $status-only := ''
+let $username := ''
+let $password := ''
+let $auth-method := ''
+let $send-authorization := ''
+let $override-content-type := ''
+let $follow-redirect := ''
+let $response :=
 	http:send-request(
 	   <http:request href="{$href}" method="{$method}">{
+	
+		for $header in $v/c:request/c:header
+		return
+			<http:header name="" value=""/>,
+	
 		if (empty($body)) then () 
 		else
 	      <http:body content-type="{$content-type}">
@@ -234,6 +245,16 @@ return
 	}
 	   </http:request>
 	)
+return
+	<c:response status="{$response/@status}">{
+	for $header in $response/http:header
+	return
+		<c:header name="{$header/@name}" value="{$header/@value}"/>,
+		<c:body>{$response/*[not(name(.) eq 'http:response')][not(name(.) eq 'http:body')][not(name(.) eq 'http:header')]}</c:body>
+	}
+	</c:response>
+
+
 };
 
 
