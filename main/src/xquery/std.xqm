@@ -350,7 +350,17 @@ let $v := u:get-primary($primary)
 let $href-uri := u:get-option('href',$options,$v)
 let $name := tokenize($href-uri, "/")[last()]
 let $path := substring-before($href-uri,$name)
-let $store := xmldb:store($path,$name,$v)
+let $serialized := u:serialize($v,$const:DEFAULT_SERIALIZE)
+let $store := if(starts-with($path,'file://')) then
+				let $query := concat("file:serialize(",
+									 $serialized,
+								 	 ",'",
+									 substring-after($href-uri,'file://'),
+									 "','method=xml')")
+				return
+					u:eval($query) 
+			  else
+				xmldb:store($path,$name,$v)
 return
 	if($store) then
 		u:outputResultElement(concat($path,$name))
