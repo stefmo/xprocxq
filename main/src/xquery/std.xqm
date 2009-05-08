@@ -288,9 +288,27 @@ let $v := u:get-primary($primary)
 let $href := u:get-option('href',$options,$v)
 return
 if (empty($href)) then
-	u:dynamicError('err:XC0026',"p:load href was empty.")
+	u:dynamicError('err:XC0026',"p:load option href is empty.")
+else if(starts-with($href,'file://')) then
+		let $test-exists := concat("file:exists('",
+									 substring-after($href,'file://'),
+									 "')")
+		let $query := concat("file:read('",
+									 $href,
+									 "')")			
+		return
+			if (u:eval($test-exists)) then
+				u:parse-string(u:eval($query))
+			else
+				u:dynamicError('err:XC0026',"p:load could not access or find the file.")			
 else
-	doc($href)
+	let $load := doc($href)
+	return
+		if ($load) then
+			$load
+		else
+			u:dynamicError('err:XC0026',"p:load had a problem loading document.")
+		
 };
 
 
