@@ -69,7 +69,7 @@ let $match := u:get-option('match',$options,$v)
 let $attrName := u:get-option('attribute-name',$options,$v)
 let $attrValue := u:get-option('attribute-value',$options,$v)
 return
-    u:treewalker-add-attribute($v,$match,$attrName,$attrValue)
+    u:treewalker($v)
 };
 
 
@@ -331,8 +331,10 @@ return
 (: -------------------------------------------------------------------------- :)
 declare function std:pack($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
+let $wrapper := u:get-option('wrapper',$options,$v)
+let $alternate := u:get-secondary('alternate',$secondary)
 return
-	$v
+	element {$wrapper}{$v,$alternate}
 };
 
 

@@ -36,3 +36,62 @@ parameters are like options, names until runtime (good to use with p:xslt).
 Variables are created in compound steps and are single assignment (like XSLT variables).
 Options can be declared on atomic or compound steps.
 Parameters, unlike options and variables, have names that can be computed at runtime.
+
+
+------------------------------
+outstanding complex/container steps
+------------------------------
+p:try/catch
+p:viewport - treewalker and then apply ext:eval-step to node
+
+------------------------------
+outstanding standard steps
+------------------------------
+p:delete - treewalker
+p:insert - treewalker
+p:label-elements - treewalker
+p:rename - treewalker
+p:replace - treewalker
+p:set-attributes - treewalker
+p:string-replace - treewalker
+p:wrap/unwrap - treewalker
+p:add-attribute
+p:add-xml-base
+p:wrap-sequence 
+p:split-sequence - easy
+p:make-absolute-uris
+p:namespace-rename
+p:pack - easy
+p:parameters
+
+------------------------------
+outstanding optional steps
+------------------------------
+
+p:exec - anywhere in eXist a util:exec function ?
+p:hash - easy
+p:uuid - easy
+
+p:validate-with-relax-ng - deps on Dannes
+p:validate-with-schematron - deps on Dannes
+p:validate-with-xml-schema - deps on Dannes
+
+p:www-form-urldecode - easy
+p:www-form-urlencode - easy
+
+------------------------------
+outstanding extension functions
+------------------------------
+p:step-available()
+
+
+------------------------------
+outstanding components
+------------------------------
+
+p:serialisation
+p:log
+p:pipeinfo
+p:declare-step
+p:libary
+p:import
