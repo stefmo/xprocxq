@@ -36,7 +36,7 @@
       <p:option name="include-filter" select="'*'"/>
       <p:option name="exclude-filter"/>
    </p:declare-step>
-   <p:declare-step type="p:error" xml:id="error" xmlns:xproc="http://xproc.net/xproc">
+   <p:declare-step type="p:error" xml:id="error" xmlns:xproc="http://xproc.net/xproc"  xproc:support="true">
       <p:input port="source" primary="true" select="/"/>
       <p:option name="code" required="true"/>
 	  <p:output port="error" primary="true" select="/"/>

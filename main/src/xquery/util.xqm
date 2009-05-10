@@ -381,6 +381,27 @@ declare function u:textHandler ($text) {
 	$text
  };
 
+(: -------------------------------------------------------------------------- :)
+declare function u:declare-used-namespaces ( $root as node()? )  as xs:anyURI* {
+let $namespaces :=   (distinct-values($root/descendant-or-self::*/(.|@*)/namespace-uri(.)) )
+return
+for $namespace at $pos in $namespaces
+return 
+    let $ns := concat('ns',$pos)
+    return
+        util:declare-namespace($ns,$namespace)
+} ;
+
+(: -------------------------------------------------------------------------- :)
+declare function u:list-used-namespaces ( $root as node()? )  as xs:string {
+let $namespaces :=   (distinct-values($root/descendant-or-self::*/(.|@*)/namespace-uri(.)) )
+return
+for $namespace at $pos in $namespaces
+return 
+    let $ns := concat('ns',$pos)
+    return
+        concat('declare namespace ',$ns,'="',$namespace,'";')
+} ;
 
 (: -------------------------------------------------------------------------- :)
 declare function u:xquery($query,$xml){

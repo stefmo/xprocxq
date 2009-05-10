@@ -2,15 +2,21 @@
 current
 ----------------------------------------
 
-* p:store can only store to  collections
 * add primary input to evaluation in u:xquery, instead of passing
 to each function
+
 * fix p:choose deal with xpath-context, each subpipeline must have the same output signature (static check)
+
 * need to check eq and = throughout the codebase to ensure we are testing equality properly
+
 * migrate errors from string to QName
+
 * make error reporting look nicer and try to get some semblance of line number reporting correct
+
 * declare-steps needs refactoring in parsing and execution
+
 * inputs in nested p:declare-steps need fixing due to $allcomp in xproc:explicitnames
+
 * namespace fixups: enumerate step level in scope namespaces
 * sequences need rationalization and sanitization
 * p:try in evalstep ?
@@ -25,3 +31,8 @@ to each function
 parameters are like options, names until runtime (good to use with p:xslt). 
 
 * in p:escape-markup / p:unescape-markup lose top level text() ... amend so it doesn't get stripped
+
+
+Variables are created in compound steps and are single assignment (like XSLT variables).
+Options can be declared on atomic or compound steps.
+Parameters, unlike options and variables, have names that can be computed at runtime.

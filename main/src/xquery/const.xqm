@@ -87,9 +87,15 @@ declare variable $const:default-imports :='
     import module namespace std = "http://xproc.net/xproc/std";
     import module namespace ext = "http://xproc.net/xproc/ext";
     import module namespace opt = "http://xproc.net/xproc/opt";
+
 	declare option exist:serialize "expand-xincludes=no";
 
 ';
+
+declare variable $const:xpath-imports :='
+    declare copy-namespaces preserve, inherit;
+';
+
 
 (: -------------------------------------------------------------------------- :)
 (: Default imports for XProc xpath extension functions :)

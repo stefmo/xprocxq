@@ -481,6 +481,8 @@ declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentste
 (:---------------------------------------------------------------------------:)
 declare function xproc:eval-primary($pipeline,$step,$currentstep,$primaryinput,$result){
 (: -------------------------------------------------------------------------- :)
+let $ns1 := string-join(u:list-used-namespaces($pipeline),'')
+
 let $primaryresult := document{
     if($currentstep/p:input[@primary eq 'true']/*) then
 	(: resolve each nested port binding :)
@@ -504,8 +506,12 @@ let $primaryresult := document{
                     	  else
                             '/'
                     )
-
-    let $selectval :=u:evalXPATH(string($select),$primaryresult)
+(:	$let $query := concat('xquery version "1.0" encoding "UTF-8";',$const:xpath-imports,string-join($namespaces,''),string($select))
+:)
+    let $selectval := if ($select eq '/') then 
+						$primaryresult
+					 else
+						u:evalXPATH(string($select),$primaryresult)
        return
             if (empty($selectval)) then                u:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
             else
@@ -576,6 +582,14 @@ declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
 
     let $primary := xproc:eval-primary($pipeline,$step,$currentstep,$primaryinput,$outputs)
     let $secondary := xproc:eval-secondary($pipeline,$step,$currentstep,$primaryinput,$outputs)
+
+
+(:
+	let $namespaces := for $namespace-uri in u:list-used-namespaces($primary)
+					   return
+							util:declare-namespace(prefix-from-QName($primary/*[string(@*) eq $namespace-uri][1] ),$namespace-uri)
+:)	
+	
     let $options := xproc:eval-options($pipeline,$step)
     let $output := xproc:eval-outputs($pipeline,$step)
 
