@@ -148,6 +148,45 @@ return
 }}}
 [http://127.0.0.1:8080/exist/rest/examples/step_examples/pdirectory-list.xq pdirectory-list.xq]
 
+== p:pack ==
+
+Concatenate two inputs.
+ 
+{{{
+xquery version "1.0" encoding "UTF-8";
+
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace xproc = "http://xproc.net/xproc";
+import module namespace u = "http://xproc.net/xproc/util";
+
+let $stdin :=document{<doc>
+                    	<title>Title</title>
+                    	<p>Some bad document .</p>
+                      </doc>
+                      }
+
+let $pipeline :=document{
+                    <p:pipeline name="pipeline"
+                                xmlns:p="http://www.w3.org/ns/xproc"
+                                xmlns:c="http://www.w3.org/ns/xproc-step">
+
+                    <p:pack  wrapper="root">
+                       <p:input port="alternate">
+                         <p:inline>
+                           <message>This demonstrates how 2 xml docs are concatanated using p:pack.</message>
+                         </p:inline>
+                       </p:input>
+                    </p:pack>
+
+        </p:pipeline>
+                }
+
+return
+     xproc:run($pipeline,$stdin,'0') 
+
+}}}
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/ppack.xq ppack.xq]
+
 == p:xinclude ==
 
 This step will resolve any xinclude statements within your source XML document.
@@ -227,8 +266,8 @@ import module namespace xproc = "http://xproc.net/xproc";
 import module namespace u = "http://xproc.net/xproc/util";
 
 let $stdin :=document{<doc>
-                    	<title>Title</title>
-                    	<p>Some bad document .</p>
+                        <title>Title</title>
+                        <p>Some bad document .</p>
                       </doc>
                       }
 
