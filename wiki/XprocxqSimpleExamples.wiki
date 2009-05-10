@@ -39,6 +39,10 @@ return
 
 [http://127.0.0.1:8080/exist/rest/examples/helloworld.xq helloworld.xq]
 
+== p:compare ==
+
+see p:choose example
+
 == p:load ==
 
 Step loads up xml document from a collection or file://
@@ -53,8 +57,8 @@ import module namespace u = "http://xproc.net/xproc/util";
 declare variable $local:XPROCXQ_EXAMPLES := "file:///tmp";   (: CHANGE ME :)
 
 let $stdin :=document{<doc>
-                    	<title>Title</title>
-                    	<p>Some paragraph.</p>
+                        <title>Title</title>
+                        <p>Some paragraph.</p>
                       </doc>
                       }
 
