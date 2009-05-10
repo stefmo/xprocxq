@@ -8,6 +8,41 @@ These examples have been tested against xprocxq.
 
 <wiki:toc max_depth="1" />
 
+== p:count ==
+
+The p:count step returns the number of items selected by the input binding. In its simplest usage it is used to count the number of items in a sequence as illustrated in the following example.
+
+{{{
+
+xquery version "1.0" encoding "UTF-8";
+
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace xproc = "http://xproc.net/xproc";
+import module namespace u = "http://xproc.net/xproc/util";
+
+let $stdin :=(<doc/>,<doc/>,<doc/>)
+
+let $pipeline :=document{
+                    <p:pipeline name="pipeline"
+                                xmlns:p="http://www.w3.org/ns/xproc"
+                                xmlns:c="http://www.w3.org/ns/xproc-step">
+
+            <p:count/>
+
+</p:pipeline>
+                }
+
+return
+     xproc:run($pipeline,$stdin,'0') 
+
+}}}
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/pcount.xq pcount.xq]
+
+When this example is processed it should return something like
+
+{{{
+<c:result xmlns:c="http://www.w3.org/ns/xproc-step">3</c:result>
+}}}
 
 == p:identity ==
 
