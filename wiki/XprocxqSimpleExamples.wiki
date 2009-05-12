@@ -771,7 +771,7 @@ let $pipeline :=document{<p:pipeline name="pipeline"
 return
     xproc:run($pipeline,$stdin)
 }}}
-[http://127.0.0.1:8080/exist/rest/examples/step_examples/pescapemarkup.xq pescapemarkup.xq]
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/pescape-markup.xq pescape-markup.xq]
 
 the result of this processing should look like 
 
