@@ -202,16 +202,16 @@ return
 (: -------------------------------------------------------------------------- :)
 declare function std:filter($primary,$secondary,$options) {
 (: TODO: is it an error for a empty match ? :)
+util:declare-namespace('atom',xs:anyURI('http://www.w3.org/2005/Atom')),
 u:assert(exists($options/p:with-option[@name='select']/@select),'p:with-option match is required'),
-
 let $v := u:get-primary($primary)
-let $xpath := u:get-option('select',$options,$v)
-let $result := u:evalXPATH(string($xpath),$v)
+let $select := string(u:get-option('select',$options,$v))
+let $result := u:evalXPATH($select,$v)
     return
         if(exists($result)) then
             $result
         else
-            $xpath
+            $select
 };
 
 

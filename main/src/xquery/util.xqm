@@ -151,6 +151,11 @@ else
 };
 
 (: -------------------------------------------------------------------------- :)
+declare function u:uuid()  {
+	util:uuid()
+};
+
+(: -------------------------------------------------------------------------- :)
 declare function u:unparsed-data($uri as xs:string, $mediatype as xs:string)  {
 	util:binary-to-string(util:binary-doc($uri))
 };
@@ -226,8 +231,10 @@ declare function u:function($func,$arity){
 :)
 
 (: -------------------------------------------------------------------------- :)
-(: TODO - need to refactor for eXist :)
 declare function u:evalXPATH($xpathstring, $xml){
+
+
+util:declare-namespace('atom',xs:anyURI('http://www.w3.org/2005/Atom')),
 
 if(empty($xpathstring) or $xpathstring eq '/') then
 	$xml
@@ -239,6 +246,18 @@ else
 			$result
 		else 
 			u:dynamicError('err:XD0016',$xpathstring)
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function u:evalXPATH($xpathstring, $xml, $namespaces){
+
+if(empty($xpathstring) or $xpathstring eq '/') then
+	$xml
+else
+	let $query := concat(string-join($namespaces,''),'$xml',$xpathstring)
+	let $result := util:eval($query)
+    return
+			$result
 };
 
 
@@ -393,14 +412,37 @@ return
 } ;
 
 (: -------------------------------------------------------------------------- :)
-declare function u:list-used-namespaces ( $root as node()? )  as xs:string {
+declare function u:list-used-namespaces1 ( $root as node()? )  {
+let $prefix :=   (distinct-values($root/descendant-or-self::*/(.|@*)/substring-before(name(.), ':')) )
 let $namespaces :=   (distinct-values($root/descendant-or-self::*/(.|@*)/namespace-uri(.)) )
 return
 for $namespace at $pos in $namespaces
-return 
-    let $ns := concat('ns',$pos)
-    return
-        concat('declare namespace ',$ns,'="',$namespace,'";')
+	return 
+	 if ($namespace eq 'http://www.w3.org/XML/1998/namespace') then
+		()
+	 else
+		let $ns := $prefix[$pos]
+    			return
+         			concat('declare namespace ',$ns,'="',$namespace,'";')
+} ;
+
+ declare function u:list-used-namespaces ( $root as node()? )  as xs:string* {
+let $prefix :=   (distinct-values($root/descendant-or-self::*/(.|@*)/substring-before(name(.), ':')) )
+let $namespaces :=   (distinct-values($root/descendant-or-self::*/(.|@*)/namespace-uri(.)) )
+return
+for $namespace at $pos in $namespaces
+    return 
+        
+		let $ns := $prefix[$pos - 1]
+    			return
+            if ($namespace eq '') then
+                ()
+            else if ($ns) then 	
+       			concat('declare namespace ',$ns,'="',$namespace,'";')
+            else if ($namespace eq 'http://www.w3.org/XML/1998/namespace') then
+                ()
+            else
+                concat('declare default element namespace "',$namespace,'";')
 } ;
 
 (: -------------------------------------------------------------------------- :)
