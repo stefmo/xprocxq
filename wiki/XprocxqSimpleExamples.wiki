@@ -44,6 +44,35 @@ When this example is processed it should return something like
 <c:result xmlns:c="http://www.w3.org/ns/xproc-step">3</c:result>
 }}}
 
+== p:delete ==
+
+Using a match pattern you can delete elements from a document. This step is rather naively implemented at the moment.
+
+{{{
+xquery version "1.0" encoding "UTF-8";
+
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace xproc = "http://xproc.net/xproc";
+import module namespace u = "http://xproc.net/xproc/util";
+
+declare variable $local:XPROCXQ_EXAMPLES := "/db/examples";   (: CHANGE ME :)
+
+let $stdin := document{<test><a><b/></a></test>}
+
+let $pipeline :=document{
+                    <p:pipeline name="pipeline"
+                                xmlns:p="http://www.w3.org/ns/xproc"
+                                xmlns:c="http://www.w3.org/ns/xproc-step">
+						<p:delete match="//b"/>
+                    </p:pipeline>
+                }
+
+return
+     xproc:run($pipeline,$stdin) 
+
+}}}
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/pdelete.xq pdelete.xq]
+
 == p:identity ==
 
 {{{
