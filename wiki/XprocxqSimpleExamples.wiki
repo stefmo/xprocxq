@@ -547,7 +547,7 @@ return
 
 
 
-== p:store ==
+== p:store2 ==
 
 Here is an example of storing to the file system. 
 
@@ -692,6 +692,8 @@ return
     
 }}}
 [http://127.0.0.1:8080/exist/rest/examples/step_examples/pchoose.xq pchoose.xq]
+
+
 
 == p:for-each ==
 
