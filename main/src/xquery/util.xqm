@@ -33,17 +33,14 @@ import module namespace p = "http://xproc.net/xproc/functions";
 (: set to 1 to enable debugging :)
 declare variable $u:NDEBUG :=0;
 
-(: -------------------------------------------------------------------------- :)
-
-
 
 (: -------------------------------------------------------------------------- :)
 (: generate unique id														  :)
 (: -------------------------------------------------------------------------- :)
-
 declare function u:uniqueid($unique_id,$count) as xs:string{
     concat($unique_id,'.',$count)
 };
+
 
 (: -------------------------------------------------------------------------- :)
 (: returns comp from comp definitions :)
@@ -52,12 +49,14 @@ declare function u:get-comp($compname as xs:string) {
     $const:comp-steps//xproc:element[@type=$compname]
 };
 
+
 (: -------------------------------------------------------------------------- :)
 (: checks to see if this component exists :)
 (: -------------------------------------------------------------------------- :)
 declare function u:comp-available($compname as xs:string) as xs:boolean {
         exists(u:get-comp($compname))
 };
+
 
 (: -------------------------------------------------------------------------- :)
 (: returns step from std, opt and ext step definitions :)
@@ -101,23 +100,6 @@ declare function u:type($stepname as xs:string,$is_declare-step) as xs:string {
 };
 
 
-
-(: -------------------------------------------------------------------------- :)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 (: -------------------------------------------------------------------------- :)
 declare function u:assert($booleanexp as item(), $why as xs:string)  {
 if(not($booleanexp) and boolean($u:NDEBUG)) then 
@@ -125,6 +107,7 @@ if(not($booleanexp) and boolean($u:NDEBUG)) then
 else
     ()
 };
+
 
 (: -------------------------------------------------------------------------- :)
 declare function u:trace($value as item()*, $what as xs:string)  {
@@ -134,6 +117,7 @@ else
     ()
 };
 
+
 (: -------------------------------------------------------------------------- :)
 declare function u:assert($booleanexp as item(), $why as xs:string,$error)  {
 if(not($booleanexp) and boolean($u:NDEBUG)) then 
@@ -141,6 +125,7 @@ if(not($booleanexp) and boolean($u:NDEBUG)) then
 else
     ()
 };
+
 
 (: -------------------------------------------------------------------------- :)
 declare function u:boolean($test as xs:string)  {
@@ -150,15 +135,18 @@ else
     true()
 };
 
+
 (: -------------------------------------------------------------------------- :)
 declare function u:uuid()  {
 	util:uuid()
 };
 
+
 (: -------------------------------------------------------------------------- :)
 declare function u:unparsed-data($uri as xs:string, $mediatype as xs:string)  {
 	util:binary-to-string(util:binary-doc($uri))
 };
+
 
 (: -------------------------------------------------------------------------- :)
 (: TODO: consider combining error throwing functions :)
@@ -169,11 +157,13 @@ declare function u:dynamicError($error,$string) {
         error(QName('http://www.w3.org/ns/xproc-error',$error),concat($error,": XProc Dynamic Error - ",$string," ",$info/text(),'&#10;'))
 };
 
+
 declare function u:staticError($error,$string) {
 let $info := $const:error//err:error[@code=substring-after($error,':')]
     return
         error(QName('http://www.w3.org/ns/xproc-error',$error),concat($error,": XProc Static Error - ",$string," ",$info/text(),'&#10;'))
 };
+
 
 declare function u:stepError($error,$string) {
 let $info := $const:error//err:error[@code=substring-after($error,':')]
@@ -181,25 +171,30 @@ let $info := $const:error//err:error[@code=substring-after($error,':')]
         error(QName('http://www.w3.org/ns/xproc-error',$error),concat($error,": XProc Step Error - ",$string," ",$info/text(),'&#10;'))
 };
 
+
 declare function u:xprocxqError($error,$string) {
 let $info := $const:xprocxq-error//xxq-error:error[@code=substring-after($error,':')]
     return
         error(QName('http://xproc.net/xproc/error',$error),concat($error,": xprocxq error - ",$string," ",$info/text(),'&#10;'))};
+
 
 (: -------------------------------------------------------------------------- :)
 declare function u:outputResultElement($exp){
     <c:result>{$exp}</c:result>
 };
 
+
 (: -------------------------------------------------------------------------- :)
 declare function u:random() as  xs:double  {
    util:random()
 };
 
+
 (: -------------------------------------------------------------------------- :)
 declare function u:eval($exp as xs:string) as item()*{
     util:eval($exp)
 };
+
 
 (: -------------------------------------------------------------------------- :)
 (: TODO: refactor the following into a single function :)
@@ -223,6 +218,7 @@ declare function u:call($func,$a,$b,$c,$d,$e,$f) as item()*{
     util:call($func,$a,$b,$c,$d,$e,$f)
 };
 
+
 (: -------------------------------------------------------------------------- :)
 (:
 declare function u:function($func,$arity){
@@ -230,10 +226,9 @@ declare function u:function($func,$arity){
 };
 :)
 
+
 (: -------------------------------------------------------------------------- :)
 declare function u:evalXPATH($xpathstring, $xml){
-
-
 util:declare-namespace('atom',xs:anyURI('http://www.w3.org/2005/Atom')),
 
 if(empty($xpathstring) or $xpathstring eq '/') then
@@ -360,6 +355,20 @@ declare function u:rename-inline-element($element as element(),$match,$newelemen
       }
 };
 
+(: return a deep copy of  the element and all sub elements :)
+declare function u:delete-matching-elements($element as element(),$select) as element() {
+   element {node-name($element)}
+      {$element/@*,
+          for $child in $element/node()[not(. intersect $select)]
+              return                             
+               if ($child instance of element())
+                 then 
+                     u:delete-matching-elements($child,$select)
+                 else
+                     $child
+      }
+};
+
 (: -------------------------------------------------------------------------- :)
 declare function u:treewalker ($tree,$attrFunc,$elemFunc) {
 
@@ -437,6 +446,8 @@ for $namespace at $pos in $namespaces
     			return
             if ($namespace eq '') then
                 ()
+			else if ($namespace eq 'http://www.w3.org/XML/1998/namespace') then
+				()
             else if ($ns) then 	
        			concat('declare namespace ',$ns,'="',$namespace,'";')
             else if ($namespace eq 'http://www.w3.org/XML/1998/namespace') then

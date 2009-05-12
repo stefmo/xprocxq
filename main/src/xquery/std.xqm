@@ -131,19 +131,20 @@ let $v := u:get-primary($primary)
 let $limit := xs:integer(u:get-option('limit',$options,$v))
 let $count := count($v/*)
 return
-
     if (empty($limit) or $limit eq 0 or $count lt $limit ) then
 		u:outputResultElement($count)
     else
    		u:outputResultElement($limit)
 };
 
+
 (: -------------------------------------------------------------------------- :)
 declare function std:delete($primary,$secondary,$options){
 let $v := u:get-primary($primary)
 let $match := u:get-option('match',$options,$v)
+let $matchresult := u:evalXPATH(string($match), $v)
 return
-	u:copy-filter-elements($v, $match)
+	u:delete-matching-elements($v/*, $matchresult)
 };
 
 

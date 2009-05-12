@@ -539,7 +539,12 @@ declare function xproc:eval-secondary($pipeline,$step,$currentstep,$primaryinput
                         string($input/@select)
                     )
 
-        let $selectval :=u:evalXPATH(string($select),$primaryresult)
+        let $selectval := if ($select eq '/') then 
+								$primaryresult
+ 						 else					
+								let $namespaces :=   u:list-used-namespaces ($primaryresult) 
+									return
+										u:evalXPATH(string($select),$primaryresult, $namespaces)
            return
                 if (empty($selectval)) then
                     u:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))

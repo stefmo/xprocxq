@@ -25,7 +25,7 @@
       <p:output port="result" primary="true" select="/"/>
       <p:option name="limit" select="'0'"/>
    </p:declare-step>
-   <p:declare-step type="p:delete" xml:id="delete" xmlns:xproc="http://xproc.net/xproc">
+   <p:declare-step type="p:delete" xml:id="delete" xmlns:xproc="http://xproc.net/xproc" xproc:support="true">
       <p:input port="source" primary="true" select="/"/>
       <p:output port="result" primary="true" select="/"/>
       <p:option name="match" required="true"/>
