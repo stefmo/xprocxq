@@ -160,8 +160,8 @@ import module namespace xproc = "http://xproc.net/xproc";
 import module namespace u = "http://xproc.net/xproc/util";
 
 let $stdin :=document{<doc>
-                    	<title>Title</title>
-                    	<p>Some bad document .</p>
+                        <title>Title</title>
+                        <p>Some bad document .</p>
                       </doc>
                       }
 
@@ -475,6 +475,45 @@ This step returns the `<doc/>` element from a sequence of two items, courtesy of
 
 Your browser will not be able to display this, so view source on the page to see the actual output.
 
+== p:http-request2 ==
+
+This shows how namespaced elements can be selected
+{{{
+xquery version "1.0" encoding "UTF-8";
+
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace xproc = "http://xproc.net/xproc";
+import module namespace u = "http://xproc.net/xproc/util";
+
+declare namespace atom="http://www.w3.org/2005/Atom";
+
+declare variable $local:XPROCXQ_EXAMPLES := "/db/examples";   (: CHANGE ME :)
+
+let $stdin :=(<test>Hello <a>World</a></test>)
+
+let $pipeline :=document{<p:pipeline name="pipeline"
+    xmlns:p="http://www.w3.org/ns/xproc"
+    xmlns:c="http://www.w3.org/ns/xproc-step"
+    xmlns:atom="http://www.w3.org/2005/Atom">
+    <p:http-request name="http-get">
+        <p:input port="source">
+            <p:inline>
+                <c:request href="http://twitter.com/statuses/user_timeline/existdb.atom" 
+                    method="get"/>
+            </p:inline>
+        </p:input>
+    </p:http-request>
+
+<p:filter select="//atom:feed"/>
+
+</p:pipeline>
+                }
+
+return
+     xproc:run($pipeline,$stdin,'0') 
+
+}}}
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/phttp-request2.xq phttp-request2.xq]
 
 == p:store ==
 
