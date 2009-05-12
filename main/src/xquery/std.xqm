@@ -38,6 +38,7 @@ declare variable $std:directory-list :=util:function(xs:QName("std:directory-lis
 declare variable $std:escape-markup :=util:function(xs:QName("std:escape-markup"), 3);
 declare variable $std:http-request :=util:function(xs:QName("std:http-request"), 3);
 declare variable $std:identity :=util:function(xs:QName("std:identity"), 3);
+declare variable $std:insert :=util:function(xs:QName("std:insert"), 3);
 declare variable $std:label-elements :=util:function(xs:QName("std:label-elements"), 3);
 declare variable $std:load :=util:function(xs:QName("std:load"), 3);
 declare variable $std:make-absolute-uris :=util:function(xs:QName("std:make-absolute-uris"), 3);
@@ -270,8 +271,11 @@ return
 (: -------------------------------------------------------------------------- :)
 declare function std:insert($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
+let $match := u:get-option('match',$options,$v)
+let $matchresult := u:evalXPATH(string($match), $v)
+let $insertion := u:get-secondary('insertion',$secondary)
 return
-	$v
+	u:insert-matching-elements($v/*,$matchresult,$insertion)
 };
 
 

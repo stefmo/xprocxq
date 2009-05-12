@@ -355,7 +355,6 @@ declare function u:rename-inline-element($element as element(),$match,$newelemen
       }
 };
 
-(: return a deep copy of  the element and all sub elements :)
 declare function u:delete-matching-elements($element as element(),$select) as element() {
    element {node-name($element)}
       {$element/@*[not(. intersect $select)],
@@ -366,6 +365,24 @@ declare function u:delete-matching-elements($element as element(),$select) as el
                      u:delete-matching-elements($child,$select)
                  else
                      $child
+      }
+};
+
+
+
+declare function u:insert-matching-elements($element as element(),$select,$replace) as element() {
+   element {node-name($element)}
+      {$element/@*,
+          for $child in $element/node()
+              return                   
+              if ($child instance of element())
+                then
+            		if ($child intersect $select) then
+	    	    		$replace
+    			    else
+                        u:insert-matching-elements($child,$select,$replace)
+                else
+                    $child          		
       }
 };
 

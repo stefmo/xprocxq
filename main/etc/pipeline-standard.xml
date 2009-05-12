@@ -85,7 +85,7 @@
       <p:input port="source" sequence="true" primary="true" select="/"/>
       <p:output port="result" sequence="true" primary="true" select="/"/>
    </p:declare-step>
-   <p:declare-step type="p:insert" xml:id="insert" xmlns:xproc="http://xproc.net/xproc">
+   <p:declare-step type="p:insert" xml:id="insert" xmlns:xproc="http://xproc.net/xproc" xproc:support="true">
       <p:input port="source" primary="true" select="/"/>
       <p:input port="insertion" primary="false" sequence="true" select="/"/>
       <p:output port="result" primary="true" select="/"/>
