@@ -358,7 +358,7 @@ declare function u:rename-inline-element($element as element(),$match,$newelemen
 (: return a deep copy of  the element and all sub elements :)
 declare function u:delete-matching-elements($element as element(),$select) as element() {
    element {node-name($element)}
-      {$element/@*,
+      {$element/@*[not(. intersect $select)],
           for $child in $element/node()[not(. intersect $select)]
               return                             
                if ($child instance of element())
