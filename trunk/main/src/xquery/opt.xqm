@@ -46,6 +46,10 @@ declare function opt:exec($primary,$secondary,$options) {
 (: -------------------------------------------------------------------------- :)
 declare function opt:hash($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
+let $match := u:get-option('match',$options,$v)
+let $version := u:get-option('version',$options,$v)
+let $algorithm := u:get-option('algorithm',$options,$v)
+let $value := u:get-option('value',$options,$v)
 return
 	$v
 };
@@ -53,8 +57,11 @@ return
 (: -------------------------------------------------------------------------- :)
 declare function opt:uuid($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
+let $match := u:get-option('match',$options,$v)
+let $version := u:get-option('version',$options,$v)
 return
 	$v
+
 };
 
 (: -------------------------------------------------------------------------- :)
