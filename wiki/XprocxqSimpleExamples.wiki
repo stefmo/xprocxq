@@ -44,9 +44,9 @@ When this example is processed it should return something like
 <c:result xmlns:c="http://www.w3.org/ns/xproc-step">3</c:result>
 }}}
 
-== p:insert ==
+== p:replace ==
 
-Using a match pattern you can insert elements from a document. This step is rather naively implemented at the moment and completely replaces matched element.
+The p:replace step replaces matching elements in its primary input with the document element of the replacement port's document.
 
 {{{
 xquery version "1.0" encoding "UTF-8";
@@ -63,13 +63,47 @@ let $pipeline :=document{
                     <p:pipeline name="pipeline"
                                 xmlns:p="http://www.w3.org/ns/xproc"
                                 xmlns:c="http://www.w3.org/ns/xproc-step">
-						<p:insert match="//c" position="disabled">
-    						<p:input port="insertion">
+						<p:replace match="//c">
+    						<p:input port="replacement">
     						    <p:inline>
     						        <success/>
     						    </p:inline>
     						</p:input>
-						</p:insert>
+						</p:replace>
+                    </p:pipeline>
+                }
+
+return
+     xproc:run($pipeline,$stdin)
+}}}
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/preplace.xq preplace.xq]
+
+== p:insert ==
+
+this step is undergoing refactoring, acts just like p:replace step currently.
+
+{{{
+xquery version "1.0" encoding "UTF-8";
+
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace xproc = "http://xproc.net/xproc";
+import module namespace u = "http://xproc.net/xproc/util";
+
+declare variable $local:XPROCXQ_EXAMPLES := "/db/examples";   (: CHANGE ME :)
+
+let $stdin := document{<test><a><b/></a><c><b/></c></test>}
+
+let $pipeline :=document{
+                    <p:pipeline name="pipeline"
+                                xmlns:p="http://www.w3.org/ns/xproc"
+                                xmlns:c="http://www.w3.org/ns/xproc-step">
+                        <p:insert match="//c" position="disabled">
+                            <p:input port="insertion">
+                                <p:inline>
+                                    <success/>
+                                </p:inline>
+                            </p:input>
+                        </p:insert>
                     </p:pipeline>
                 }
 
