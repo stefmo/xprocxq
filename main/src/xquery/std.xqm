@@ -355,8 +355,11 @@ return
 (: -------------------------------------------------------------------------- :)
 declare function std:rename($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
+let $match := u:get-option('match',$options,$v)
+let $matchresult := u:evalXPATH(string($match), $v)
+let $new-name := u:get-option('new-name',$options,$v)
 return
-	$v
+	u:rename-matching-elements($v/*,$matchresult,$new-name)
 };
 
 
