@@ -62,15 +62,13 @@ declare variable $std:xslt :=util:function(xs:QName("std:xslt"), 3);
 
 (: -------------------------------------------------------------------------- :)
 declare function std:add-attribute($primary,$secondary,$options) {
-
-(: TODO: need to refactor match attribute :)
-
 let $v := u:get-primary($primary)
 let $match := u:get-option('match',$options,$v)
-let $attrName := u:get-option('attribute-name',$options,$v)
-let $attrValue := u:get-option('attribute-value',$options,$v)
+let $attribute-name := u:get-option('attribute-name',$options,$v)
+let $attribute-value := u:get-option('attribute-value',$options,$v)
+let $matchresult := u:evalXPATH(string($match), $v)
 return
-    u:treewalker($v)
+	u:add-attribute-matching-elements($v/*,$matchresult,$attribute-name,$attribute-value)
 };
 
 
