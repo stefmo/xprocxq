@@ -272,10 +272,11 @@ return
 declare function std:insert($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
 let $match := u:get-option('match',$options,$v)
+let $position := u:get-option('position',$options,$v)
 let $matchresult := u:evalXPATH(string($match), $v)
 let $insertion := u:get-secondary('insertion',$secondary)
 return
-	u:insert-matching-elements($v/*,$matchresult,$insertion)
+	u:insert-matching-elements($v/*,$matchresult,$insertion,$position)
 };
 
 

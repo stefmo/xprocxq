@@ -12,7 +12,7 @@ let $pipeline :=document{
                     <p:pipeline name="pipeline"
                                 xmlns:p="http://www.w3.org/ns/xproc"
                                 xmlns:c="http://www.w3.org/ns/xproc-step">
-						<p:insert match="//c" position="disabled">
+						<p:insert match="//a" position="after">
     						<p:input port="insertion">
     						    <p:inline>
     						        <success/>

@@ -386,7 +386,7 @@ declare function u:replace-matching-elements($element as element(),$select,$repl
       }
 };
 
-declare function u:insert-matching-elements($element as element(),$select,$replace) as element() {
+declare function u:insert-matching-elements($element as element(),$select,$replace,$position) as element() {
    element {node-name($element)}
       {$element/@*,
           for $child in $element/node()
@@ -394,9 +394,16 @@ declare function u:insert-matching-elements($element as element(),$select,$repla
               if ($child instance of element())
                 then
             		if ($child intersect $select) then
-	    	    		$replace
+
+						if($position eq 'before' or $position eq 'first-child') then
+							($replace,u:insert-matching-elements($child,$select,$replace,$position))
+						else if($position eq 'after' or $position eq 'last-child') then
+							(u:insert-matching-elements($child,$select,$replace,$position),$replace)
+						else	
+							u:insert-matching-elements($child,$select,$replace,$position)
+						
     			    else
-                        u:insert-matching-elements($child,$select,$replace)
+                        u:insert-matching-elements($child,$select,$replace,$position)
                 else
                     $child          		
       }
