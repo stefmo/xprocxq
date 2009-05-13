@@ -362,8 +362,11 @@ return
 (: -------------------------------------------------------------------------- :)
 declare function std:replace($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
+let $match := u:get-option('match',$options,$v)
+let $matchresult := u:evalXPATH(string($match), $v)
+let $replacement := u:get-secondary('replacement',$secondary)
 return
-	$v
+	u:replace-matching-elements($v/*,$matchresult,$replacement)
 };
 
 

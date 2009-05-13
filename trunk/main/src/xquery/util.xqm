@@ -370,6 +370,22 @@ declare function u:delete-matching-elements($element as element(),$select) as el
 
 
 
+declare function u:replace-matching-elements($element as element(),$select,$replace) as element() {
+   element {node-name($element)}
+      {$element/@*,
+          for $child in $element/node()
+              return                   
+              if ($child instance of element())
+                then
+            		if ($child intersect $select) then
+	    	    		$replace
+    			    else
+                        u:replace-matching-elements($child,$select,$replace)
+                else
+                    $child          		
+      }
+};
+
 declare function u:insert-matching-elements($element as element(),$select,$replace) as element() {
    element {node-name($element)}
       {$element/@*,
