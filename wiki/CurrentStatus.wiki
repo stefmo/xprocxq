@@ -1,5 +1,5 @@
 #labels xproc,xml,xquery
-04/05/2009 xprocxq now part of eXist own build process ... so all you have to do is download (via svn) and build eXist XML Database and you should have xprocxq already installed
+04/05/2009 added a bunch of steps, working on p:declare-step and p:library to enable reusable pipelines
 
 == Limitations and Issues ==
 
@@ -16,9 +16,10 @@ Here is a list of the more severe limitations:
   * defining reusable pipelines using p:library, p:import and p:declare-step is currently disabled 
 
   * errors are thrown as XQuery errors, making it difficult to report correct line numbers, not to mention that errors themselves look quite ugly
+
   * p:compare outputs a c:result element by default
 
-  * p:choose xpath-context is not implemented just yet
+  * p:choose xpath-context, iteration, etc is not implemented just yet
 
   * in p:choose, need to use ./ convention in p:when (in p:choose) test attributes due to limitation in eXist util:eval function
 
