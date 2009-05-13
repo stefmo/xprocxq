@@ -63,13 +63,13 @@ let $pipeline :=document{
                     <p:pipeline name="pipeline"
                                 xmlns:p="http://www.w3.org/ns/xproc"
                                 xmlns:c="http://www.w3.org/ns/xproc-step">
-						<p:replace match="//c">
-    						<p:input port="replacement">
-    						    <p:inline>
-    						        <success/>
-    						    </p:inline>
-    						</p:input>
-						</p:replace>
+                        <p:replace match="//c">
+                            <p:input port="replacement">
+                                <p:inline>
+                                    <success/>
+                                </p:inline>
+                            </p:input>
+                        </p:replace>
                     </p:pipeline>
                 }
 
@@ -80,7 +80,7 @@ return
 
 == p:insert ==
 
-this step is undergoing refactoring, acts just like p:replace step currently.
+this step is undergoing refactoring, so it may not do all that p:insert is supposed to.
 
 {{{
 xquery version "1.0" encoding "UTF-8";
@@ -97,13 +97,13 @@ let $pipeline :=document{
                     <p:pipeline name="pipeline"
                                 xmlns:p="http://www.w3.org/ns/xproc"
                                 xmlns:c="http://www.w3.org/ns/xproc-step">
-                        <p:insert match="//c" position="disabled">
-                            <p:input port="insertion">
-                                <p:inline>
-                                    <success/>
-                                </p:inline>
-                            </p:input>
-                        </p:insert>
+						<p:insert match="//a" position="after">
+    						<p:input port="insertion">
+    						    <p:inline>
+    						        <success/>
+    						    </p:inline>
+    						</p:input>
+						</p:insert>
                     </p:pipeline>
                 }
 
