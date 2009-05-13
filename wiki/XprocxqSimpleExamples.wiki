@@ -170,6 +170,46 @@ return
 }}}
 [http://127.0.0.1:8080/exist/rest/examples/step_examples/pdelete.xq pdelete.xq]
 
+== p:label-elements ==
+
+On matched elements this step will create a new label. This step is limited in that one cannot currently generate the attribute value (e.g. label option) dynamically just yet.
+ 
+{{{
+
+xquery version "1.0" encoding "UTF-8";
+
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace xproc = "http://xproc.net/xproc";
+import module namespace u = "http://xproc.net/xproc/util";
+
+declare variable $local:XPROCXQ_EXAMPLES := "/db/examples";   (: CHANGE ME :)
+
+let $stdin := document{<test>
+                            <a>
+                                <c/>
+                                <b/>
+                            </a>
+                            <c>
+                                <d>test
+                                 </d>
+                                <b/>
+                             </c>
+                       </test>}
+
+let $pipeline :=document{
+                    <p:pipeline name="pipeline"
+                                xmlns:p="http://www.w3.org/ns/xproc"
+                                xmlns:c="http://www.w3.org/ns/xproc-step">
+						<p:label-elements attribute="label" label="part # " replace="true" match="//c"/>
+	             	</p:pipeline>
+                }
+
+return
+     xproc:run($pipeline,$stdin)
+
+}}}
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/plabel-elements.xq plabel-elements.xq]
+
 == p:wrap ==
 Wrap matched element with an element.
 
@@ -262,8 +302,8 @@ let $pipeline :=document{
                     <p:pipeline name="pipeline"
                                 xmlns:p="http://www.w3.org/ns/xproc"
                                 xmlns:c="http://www.w3.org/ns/xproc-step">
-						<p:unwrap match="//a"/>
-	             	</p:pipeline>
+                        <p:unwrap match="//a"/>
+                     </p:pipeline>
                 }
 
 return
