@@ -380,8 +380,11 @@ return
 (: -------------------------------------------------------------------------- :)
 declare function std:set-attributes($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
+let $attributes := u:get-secondary('attributes',$secondary)
+let $match := u:get-option('match',$options,$v)
+let $matchresult := u:evalXPATH(string($match), $v)
 return
-	$v
+	u:add-attributes-matching-elements($v/*,$matchresult,$attributes/*/@*)
 };
 
 

@@ -47,17 +47,9 @@ outstanding complex/container steps
 ------------------------------
 outstanding standard steps
 ------------------------------
-	p:delete - treewalker
-	p:insert - treewalker
-	p:label-elements - treewalker
-	p:rename - treewalker
-	p:replace - treewalker
 	p:set-attributes - treewalker
 	p:string-replace - treewalker
-	p:wrap/unwrap - treewalker
-	p:add-attribute
 	p:add-xml-base
-	p:wrap-sequence 
 	p:split-sequence - easy
 	p:make-absolute-uris
 	p:namespace-rename
@@ -69,7 +61,6 @@ outstanding optional steps
 
 	p:exec - anywhere in eXist a util:exec function ?
 	p:hash - easy
-	p:uuid - easy
 
 	p:validate-with-relax-ng - deps on Dannes
 	p:validate-with-schematron - deps on Dannes
