@@ -92,7 +92,7 @@
       <p:option name="match" select="'/*'"/>
       <p:option name="position" required="true"/>
    </p:declare-step>
-   <p:declare-step type="p:label-elements" xml:id="label-elements">
+   <p:declare-step type="p:label-elements" xml:id="label-elements" xproc:support="true">
       <p:input port="source" primary="true" select="/"/>
       <p:output port="result" primary="true" select="/"/>
       <p:option name="attribute" select="'xml:id'"/>

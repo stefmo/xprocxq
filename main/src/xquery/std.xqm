@@ -283,8 +283,13 @@ return
 (: -------------------------------------------------------------------------- :)
 declare function std:label-elements($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
+let $match := u:get-option('match',$options,$v)
+let $attribute := u:get-option('attribute',$options,$v)
+let $label := u:get-option('label',$options,$v)
+let $replace := u:get-option('replace',$options,$v)
+let $matchresult := u:evalXPATH(string($match), $v)
 return
-	$v
+	u:label-matching-elements($v/*,$matchresult,$attribute,$label,$replace)
 };
 
 
