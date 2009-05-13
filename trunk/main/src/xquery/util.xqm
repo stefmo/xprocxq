@@ -464,6 +464,25 @@ declare function u:unwrap-matching-elements($element as element(),$select) as el
       }
 };
 
+declare function u:label-matching-elements($element as element(),$select,$attribute,$label,$replace) as element() {
+   element {node-name($element)}
+      {$element/@*,
+          for $child at $pos in $element/node()
+              return                   
+              if ($child instance of element())
+                then
+            		if ($child intersect $select) then
+				   element {node-name($child)}{    
+				        attribute {$attribute} {$label,"_",$pos},
+                   		u:label-matching-elements($child,$select,$attribute,$label,$replace)
+						}	
+    			    else
+                        u:label-matching-elements($child,$select,$attribute,$label,$replace)
+                else
+                    $child          		
+      }
+};
+
 (: -------------------------------------------------------------------------- :)
 declare function u:treewalker ($tree,$attrFunc,$elemFunc) {
 
