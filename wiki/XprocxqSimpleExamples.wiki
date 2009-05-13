@@ -200,8 +200,8 @@ let $pipeline :=document{
                     <p:pipeline name="pipeline"
                                 xmlns:p="http://www.w3.org/ns/xproc"
                                 xmlns:c="http://www.w3.org/ns/xproc-step">
-						<p:label-elements attribute="label" label="part # " replace="true" match="//c"/>
-	             	</p:pipeline>
+                        <p:label-elements attribute="label" label="part # " replace="true" match="//c"/>
+                     </p:pipeline>
                 }
 
 return
@@ -485,7 +485,45 @@ return
 }}}
 [http://127.0.0.1:8080/exist/rest/examples/step_examples/pxinclude.xq pxinclude.xq]
 
-Of course, since eXist has enabled-xincludes on by default you may never need this step, but in situations where you want to control the behavior then add an eXist pragma exist:serialzie (as shown in the code).
+Of course, since eXist has enabled-xincludes on by default you may never need this step, but in situations where you want to control the behavior then add an eXist pragma exist:serialize (as shown in the code).
+
+== p:uuid ==
+
+Generates a Universally Unique Identifier and places an xproc:uuid attribute on the matched elements. This step is not yet conformant with XProc specification.
+
+{{{
+xquery version "1.0" encoding "UTF-8";
+
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace xproc = "http://xproc.net/xproc";
+import module namespace u = "http://xproc.net/xproc/util";
+
+declare variable $local:XPROCXQ_EXAMPLES := "/db/examples";   (: CHANGE ME :)
+
+let $stdin := document{<test>
+                            <a>
+                                <c/>
+                                <b/>
+                            </a>
+                            <c>
+                                <d>test
+                                 </d>
+                                <b/>
+                             </c>
+                       </test>}
+
+let $pipeline :=document{
+                    <p:pipeline name="pipeline"
+                                xmlns:p="http://www.w3.org/ns/xproc"
+                                xmlns:c="http://www.w3.org/ns/xproc-step">
+						<p:uuid match="//c"/>
+	             	</p:pipeline>
+                }
+
+return
+     xproc:run($pipeline,$stdin)
+}}}
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/puuid.xq puuid.xq]
 
 == p:xslt ==
 
