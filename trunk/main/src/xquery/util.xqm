@@ -237,10 +237,12 @@ else
 	let $query := concat('$xml',$xpathstring)
 	let $result := util:eval($query)
     return
-		if ( $result instance of element() or $result instance of document-node()) then 
 			$result
-		else 
+		(: 
+		if ( $result instance of element() or $result instance of document-node()) then 
+		
 			u:dynamicError('err:XD0016',$xpathstring)
+			:)
 };
 
 (: -------------------------------------------------------------------------- :)
@@ -404,6 +406,25 @@ declare function u:insert-matching-elements($element as element(),$select,$repla
 						
     			    else
                         u:insert-matching-elements($child,$select,$replace,$position)
+                else
+                    $child          		
+      }
+};
+
+
+
+declare function u:rename-matching-elements($element as element(),$select,$new-name) as element() {
+   element {node-name($element)}
+      {$element/@*,
+          for $child in $element/node()
+              return                   
+              if ($child instance of element())
+                then
+            		if ($child intersect $select) then
+				   		element {$new-name}{$child/*
+						}						
+    			    else
+                        u:rename-matching-elements($child,$select,$new-name)
                 else
                     $child          		
       }

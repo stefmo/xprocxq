@@ -128,7 +128,7 @@
       <p:input port="parameters" kind="parameter" primary="false" select="/"/>
       <p:output port="result" primary="false" select="/"/>
    </p:declare-step>
-   <p:declare-step type="p:rename" xml:id="rename">
+   <p:declare-step type="p:rename" xml:id="rename" xproc:support="true">
       <p:input port="source" select="/"/>
       <p:output port="result" select="/"/>
       <p:option name="match" required="true"/>
