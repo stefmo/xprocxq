@@ -58,9 +58,13 @@ return
 declare function opt:uuid($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
 let $match := u:get-option('match',$options,$v)
+let $matchresult := u:evalXPATH(string($match), $v)
 let $version := u:get-option('version',$options,$v)
+let $attribute := 'xproc:uuid'
+let $label := u:uuid()
+let $replace := 'true'
 return
-	$v
+	u:label-matching-elements($v/*,$matchresult,$attribute,$label,$replace)
 
 };
 
