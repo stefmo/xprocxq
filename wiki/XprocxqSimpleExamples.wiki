@@ -8,6 +8,35 @@ These examples have been tested against xprocxq.
 
 <wiki:toc max_depth="1" />
 
+== p:rename ==
+
+Renames matched elements
+
+{{{
+xquery version "1.0" encoding "UTF-8";
+
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace xproc = "http://xproc.net/xproc";
+import module namespace u = "http://xproc.net/xproc/util";
+
+declare variable $local:XPROCXQ_EXAMPLES := "/db/examples";   (: CHANGE ME :)
+
+let $stdin := document{<test><a><b/></a><c><b/></c></test>}
+
+let $pipeline :=document{
+                    <p:pipeline name="pipeline"
+                                xmlns:p="http://www.w3.org/ns/xproc"
+                                xmlns:c="http://www.w3.org/ns/xproc-step">
+						<p:rename match="//c" new-name="success"/>
+	             	</p:pipeline>
+                }
+
+return
+     xproc:run($pipeline,$stdin)
+}}}
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/prename.xq prename.xq]
+
+
 == p:count ==
 
 The p:count step returns the number of items selected by the input binding. In its simplest usage it is used to count the number of items in a sequence as illustrated in the following example.
@@ -97,13 +126,13 @@ let $pipeline :=document{
                     <p:pipeline name="pipeline"
                                 xmlns:p="http://www.w3.org/ns/xproc"
                                 xmlns:c="http://www.w3.org/ns/xproc-step">
-						<p:insert match="//a" position="after">
-    						<p:input port="insertion">
-    						    <p:inline>
-    						        <success/>
-    						    </p:inline>
-    						</p:input>
-						</p:insert>
+                        <p:insert match="//a" position="after">
+                            <p:input port="insertion">
+                                <p:inline>
+                                    <success/>
+                                </p:inline>
+                            </p:input>
+                        </p:insert>
                     </p:pipeline>
                 }
 
