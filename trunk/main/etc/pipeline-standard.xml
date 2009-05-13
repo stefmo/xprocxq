@@ -176,7 +176,7 @@
       <p:option name="undeclare-prefixes"/>
       <p:option name="version" select="'1.0'"/>
    </p:declare-step>
-   <p:declare-step type="p:string-replace" xml:id="string-replace">
+   <p:declare-step type="p:string-replace" xml:id="string-replace" xproc:support="true">
       <p:input port="source" primary="true" select="/"/>
       <p:output port="result" primary="true" select="/"/>
       <p:option name="match" required="true"/>

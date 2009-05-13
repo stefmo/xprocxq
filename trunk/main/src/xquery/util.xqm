@@ -540,6 +540,22 @@ declare function u:add-attributes-matching-elements($element as element(),$selec
       }
 };
 
+declare function u:string-replace-matching-elements($element as element(),$select,$replace) as element() {
+   element {node-name($element)}
+      {$element/@*,
+          for $child at $pos in $element/node()
+              return                   
+              if ($child instance of element())
+                then
+        			if ($child intersect $select) then
+    	    			string($replace)
+			    	else
+                    	u:string-replace-matching-elements($child,$select,$replace)
+                else
+                    $child          		
+      }
+};
+
 (: -------------------------------------------------------------------------- :)
 declare function u:treewalker ($tree,$attrFunc,$elemFunc) {
 
