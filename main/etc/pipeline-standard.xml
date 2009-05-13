@@ -134,7 +134,7 @@
       <p:option name="match" required="true"/>
       <p:option name="new-name" required="true"/>
    </p:declare-step>
-   <p:declare-step type="p:replace" xml:id="replace">
+   <p:declare-step type="p:replace" xml:id="replace" xproc:support="true">>
       <p:input port="source" primary="true" select="/"/>
       <p:input port="replacement" primary="false" select="/"/>
       <p:output port="result" primary="true"/>
