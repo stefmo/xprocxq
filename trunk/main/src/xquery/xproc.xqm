@@ -578,24 +578,20 @@ declare function xproc:eval-outputs($pipeline,$step){
 (: -------------------------------------------------------------------------- :)
 declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
 (: -------------------------------------------------------------------------- :)
-    let $currentstep := $pipeline/*[@name=$step][1]
+   	let $currentstep := $pipeline/*[@name=$step][1]
     let $stepfuncname := $currentstep/@xproc:step
     let $stepfunc := concat($const:default-imports,$stepfuncname)    
     let $outputs := document{$outputs}
-
+	
     let $primary := xproc:eval-primary($pipeline,$step,$currentstep,$primaryinput,$outputs)
     let $secondary := xproc:eval-secondary($pipeline,$step,$currentstep,$primaryinput,$outputs)
-
-
-(:
-	let $namespaces := for $namespace-uri in u:list-used-namespaces($primary)
-					   return
-							util:declare-namespace(prefix-from-QName($primary/*[string(@*) eq $namespace-uri][1] ),$namespace-uri)
-:)	
 	
     let $options := xproc:eval-options($pipeline,$step)
     let $output := xproc:eval-outputs($pipeline,$step)
 
+	let $log-href := $currentstep/p:log/@href
+	let $log-port := $currentstep/p:log/@port
+	
     return
         if(name($currentstep) = "p:declare-step") then
 			(: TODO - refactor p:pipeline and p:declare-step :)

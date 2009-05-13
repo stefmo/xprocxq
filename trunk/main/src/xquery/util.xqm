@@ -521,6 +521,25 @@ declare function u:add-attribute-matching-elements($element as element(),$select
       }
 };
 
+declare function u:add-attributes-matching-elements($element as element(),$select,$attributes) as element() {
+   element {node-name($element)}
+      {$element/@*,
+          for $child at $pos in $element/node()
+              return                   
+              if ($child instance of element())
+                then
+            		if ($child intersect $select) then
+				   element {node-name($child)}{
+				    	$attributes,
+                   		u:add-attributes-matching-elements($child,$select,$attributes)
+						}	
+    			    else
+                        u:add-attributes-matching-elements($child,$select,$attributes)
+                else
+                    $child          		
+      }
+};
+
 (: -------------------------------------------------------------------------- :)
 declare function u:treewalker ($tree,$attrFunc,$elemFunc) {
 
