@@ -198,8 +198,8 @@ let $pipeline :=document{
                     <p:pipeline name="pipeline"
                                 xmlns:p="http://www.w3.org/ns/xproc"
                                 xmlns:c="http://www.w3.org/ns/xproc-step">
-						<p:wrap match="//c" wrapper="success"/>
-	             	</p:pipeline>
+                        <p:wrap match="//c" wrapper="success"/>
+                     </p:pipeline>
                 }
 
 return
@@ -225,14 +225,51 @@ let $pipeline :=document{
                     <p:pipeline name="pipeline"
                                 xmlns:p="http://www.w3.org/ns/xproc"
                                 xmlns:c="http://www.w3.org/ns/xproc-step">
-						<p:wrap-sequence wrapper="success"/>
-	             	</p:pipeline>
+                        <p:wrap-sequence wrapper="success"/>
+                     </p:pipeline>
                 }
 
 return
      xproc:run($pipeline,$stdin)
 }}}
 [http://127.0.0.1:8080/exist/rest/examples/step_examples/pwrap-sequence.xq pwrap-sequence.xq]
+
+== p:wrap ==
+Unwrap an element, replacing it with its children
+
+{{{
+xquery version "1.0" encoding "UTF-8";
+
+import module namespace const = "http://xproc.net/xproc/const";
+import module namespace xproc = "http://xproc.net/xproc";
+import module namespace u = "http://xproc.net/xproc/util";
+
+declare variable $local:XPROCXQ_EXAMPLES := "/db/examples";   (: CHANGE ME :)
+
+let $stdin := document{<test>
+                            <a>
+                                <c/>
+                                <b/>
+                            </a>
+                            <c>
+                                <d>test
+                                 </d>
+                                <b/>
+                             </c>
+                       </test>}
+
+let $pipeline :=document{
+                    <p:pipeline name="pipeline"
+                                xmlns:p="http://www.w3.org/ns/xproc"
+                                xmlns:c="http://www.w3.org/ns/xproc-step">
+						<p:unwrap match="//a"/>
+	             	</p:pipeline>
+                }
+
+return
+     xproc:run($pipeline,$stdin)
+}}}
+[http://127.0.0.1:8080/exist/rest/examples/step_examples/punwrap.xq punwrap.xq ]
 
 == p:identity ==
 
