@@ -430,6 +430,40 @@ declare function u:rename-matching-elements($element as element(),$select,$new-n
       }
 };
 
+declare function u:wrap-matching-elements($element as element(),$select,$wrapper) as element() {
+   element {node-name($element)}
+      {$element/@*,
+          for $child in $element/node()
+              return                   
+              if ($child instance of element())
+                then
+            		if ($child intersect $select) then
+				   		element {$wrapper}{
+                        	u:wrap-matching-elements($child,$select,$wrapper)
+						}						
+    			    else
+                        u:wrap-matching-elements($child,$select,$wrapper)
+                else
+                    $child          		
+      }
+};
+
+declare function u:unwrap-matching-elements($element as element(),$select) as element() {
+   element {node-name($element)}
+      {$element/@*,
+          for $child in $element/node()
+              return                   
+              if ($child instance of element())
+                then
+            		if ($child intersect $select) then
+                        	$child/*
+    			    else
+                        u:unwrap-matching-elements($child,$select)
+                else
+                    $child          		
+      }
+};
+
 (: -------------------------------------------------------------------------- :)
 declare function u:treewalker ($tree,$attrFunc,$elemFunc) {
 

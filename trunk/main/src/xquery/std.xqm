@@ -451,66 +451,35 @@ return
 
 (: -------------------------------------------------------------------------- :)
 declare function std:wrap($primary,$secondary,$options) {
-(: TODO - The match option must only match element, text, processing instruction, and comment nodes. It is a dynamic error (err:XC0041) if the match pattern matches any other kind of node. :)
-
 let $v := u:get-primary($primary)
-let $wrapper := u:get-option('wrapper',$options,$v)
 let $match := u:get-option('match',$options,$v)
-let $replace := u:evalXPATH($match,$v)
+let $matchresult := u:evalXPATH(string($match), $v)
+let $wrapper := u:get-option('wrapper',$options,$v)
+let $group-adjacent := u:get-option('group-adjacent',$options,$v)
 return
-	$replace
-
-(:
-u:assert(exists($options/p:with-option[@name='match']/@select),'p:with-option match is required'),
-u:assert(exists($options/p:with-option[@name='wrapper']/@select),'p:with-option wrapper is required'),
-
-element {node-name($element) }
-          { $element/@*,
-            for $child in $element/node()[not(name(.)=$element-name)]
-               return if ($child instance of element())
-                 then u:copy-filter-elements($child,$element-name)
-                 else $child
-        }
-
-
-	let $v := u:get-primary($primary)
-    let $wrapper := u:get-option('wrapper',$options,$v)
-    let $match := u:get-option('match',$options,$v)
-    let $replace := u:evalXPATH($match,$v)
-
-    return
-       document 
-       {
-        element {string($wrapper)} {
-            u:evalXPATH($match,$v)
-        }
-       } 
-:)
-
+	u:wrap-matching-elements($v/*,$matchresult,$wrapper)
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:wrap-sequence($primary,$secondary,$options){
 let $v := u:get-primary($primary)
+let $wrapper := u:get-option('wrapper',$options,$v)
+let $group-adjacent := u:get-option('group-adjacent',$options,$v)
 return
-	$v
+	element {$wrapper}{
+		$v
+	}
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:unwrap($primary,$secondary,$options) {
-
-(: this should be caught as a static error someday ... will do it in refactoring :)
-u:assert(exists($options/p:with-option[@name='match']/@select),'p:with-option match is required'),
-
-(: TODO - The value of the match option must be an XSLTMatchPattern. It is a dynamic error (err:XC0023)
-if that pattern matches anything other than element nodes. :)
-
 let $v := u:get-primary($primary)
 let $match := u:get-option('match',$options,$v)
-    return
-         u:evalXPATH($match,$v)
+let $matchresult := u:evalXPATH(string($match), $v)
+return
+	u:unwrap-matching-elements($v/*,$matchresult)
 };
 
 
