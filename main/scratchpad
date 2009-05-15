@@ -18,9 +18,13 @@ to each function
 * inputs in nested p:declare-steps need fixing due to $allcomp in xproc:explicitnames
 
 * namespace fixups: enumerate step level in scope namespaces
+
 * sequences need rationalization and sanitization
+
 * p:try in evalstep ?
+
 * create namespace module to manage namespace fixups 
+
 * testsuite represents sequences as t:document in count-001.xml in testing suite ?
 
 * target main eXist scenarios
@@ -32,23 +36,27 @@ parameters are like options, names until runtime (good to use with p:xslt).
 
 * in p:escape-markup / p:unescape-markup lose top level text() ... amend so it doesn't get stripped
 
-
-Variables are created in compound steps and are single assignment (like XSLT variables).
+Variables are created in compound steps and are immutable
 Options can be declared on atomic or compound steps.
 Parameters, unlike options and variables, have names that can be computed at runtime.
 
 
 ------------------------------
-outstanding complex/container steps
+complex/container steps
 ------------------------------
 	p:try/catch
 	p:viewport - treewalker and then apply ext:eval-step to node
 
 ------------------------------
-outstanding standard steps
+Reuse
 ------------------------------
-	p:set-attributes - treewalker
-	p:string-replace - treewalker
+	p:declare-step
+	p:libary
+	p:import
+
+------------------------------
+standard steps
+------------------------------
 	p:add-xml-base
 	p:split-sequence - easy
 	p:make-absolute-uris
@@ -56,31 +64,25 @@ outstanding standard steps
 	p:parameters
 
 ------------------------------
-outstanding optional steps
+optional steps
 ------------------------------
-
 	p:exec - anywhere in eXist a util:exec function ?
 	p:hash - easy
-
 	p:validate-with-relax-ng - deps on Dannes
 	p:validate-with-schematron - deps on Dannes
 	p:validate-with-xml-schema - deps on Dannes
-
 	p:www-form-urldecode - easy
 	p:www-form-urlencode - easy
 
 ------------------------------
-outstanding extension functions
+extension functions
 ------------------------------
 	p:step-available()
 
 
 ------------------------------
-outstanding components
+components
 ------------------------------
 	p:serialisation
 	p:log
 	p:pipeinfo
-	p:declare-step
-	p:libary
-	p:import

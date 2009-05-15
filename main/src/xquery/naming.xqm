@@ -240,6 +240,7 @@ else
                     $sorted
                 }
                 <ext:post name="{$pipelinename}!">
+					{$xproc/p:serialization/@*}
                     <p:input port="source" primary="true"/>
                     <p:output primary="true" port="stdout" select="/"/>
                 </ext:post>
