@@ -616,7 +616,7 @@ for $namespace at $pos in $namespaces
 	return 
 	 if ($namespace eq 'http://www.w3.org/XML/1998/namespace') then
 		()
-	 if ($namespace eq 'http://www.w3.org/ns/xproc-step') then
+	 else if ($namespace eq 'http://www.w3.org/ns/xproc-step') then
 		()
 
 	 else
