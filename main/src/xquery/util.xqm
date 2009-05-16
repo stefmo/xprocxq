@@ -638,14 +638,8 @@ for $namespace at $pos in $namespaces
                 ()
 			else if ($namespace eq 'http://www.w3.org/XML/1998/namespace') then
 				()
-			 else if ($namespace eq 'http://www.w3.org/ns/xproc-step') then
-				()
             else if ($ns) then 	
        			concat('declare namespace ',$ns,'="',$namespace,'";')
-            else if ($namespace eq 'http://www.w3.org/XML/1998/namespace') then
-                ()
-			 else if ($namespace eq 'http://www.w3.org/ns/xproc-step') then
-				()
             else
                 concat('declare default element namespace "',$namespace,'";')
 } ;
