@@ -422,7 +422,7 @@ let $store := if(starts-with($path,'file://')) then
 			  else
 				xmldb:store($path,$name,$v)
 return
-	if($xproc:output-document) then
+	if($xproc:output-document eq 'true') then
 		$v
 	else
 		u:outputResultElement(concat($path,$name))
