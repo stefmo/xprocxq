@@ -317,7 +317,7 @@ else
 		if ($xproc:output-document eq 'true') then
 			$load
 		else
-			$href
+			u:outputResultElement($href)
 };
 
 
