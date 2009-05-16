@@ -7,7 +7,6 @@ module namespace naming = "http://xproc.net/xproc/naming";
 
 ---------------------------------------------------------------------------------------- :)
 
-declare copy-namespaces no-preserve, no-inherit;
 
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";

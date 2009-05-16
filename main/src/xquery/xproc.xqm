@@ -7,7 +7,6 @@ module namespace xproc = "http://xproc.net/xproc";
 	
 ---------------------------------------------------------------------------------------- :)
 
-declare copy-namespaces no-preserve, no-inherit;
 
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
@@ -38,7 +37,6 @@ declare variable $xproc:viewport :=util:function(xs:QName("xproc:viewport"), 4);
 declare variable $xproc:library :=util:function(xs:QName("xproc:library"), 4);
 declare variable $xproc:pipeline :=util:function(xs:QName("xproc:pipeline"), 4);
 (: -------------------------------------------------------------------------- :)
-
 
 
 (: ------------------------------------------------------------------------------------------ :)
@@ -578,6 +576,7 @@ declare function xproc:eval-outputs($pipeline,$step){
 (: -------------------------------------------------------------------------- :)
 declare function xproc:evalstep ($step,$primaryinput,$pipeline,$outputs) {
 (: -------------------------------------------------------------------------- :)
+	
    	let $currentstep := $pipeline/*[@name=$step][1]
     let $stepfuncname := $currentstep/@xproc:step
     let $stepfunc := concat($const:default-imports,$stepfuncname)    
@@ -771,6 +770,7 @@ declare function xproc:run($pipeline,$stdin,$debug,$bindings,$options){
 (: -------------------------------------------------------------------------- :)
 declare function xproc:run($pipeline,$stdin,$dflag,$tflag,$bindings,$options){
 (: -------------------------------------------------------------------------- :)
+
     (: STEP I: generate parse tree :)
     let $preparse-naming := naming:explicitnames(naming:fixup($pipeline,$stdin))
     let $xproc-binding := xproc:explicitbindings($preparse-naming,$const:init_unique_id)
@@ -865,5 +865,5 @@ if (not(empty($pipeline))) then
                     }
         )
 else
-	u:xprocxqError('xxq-error:XXQ0003','check pipeleine.')
+	u:xprocxqError('xxq-error:XXQ0003','check pipeline.')
 };

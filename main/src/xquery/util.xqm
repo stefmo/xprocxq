@@ -8,11 +8,6 @@ module namespace u = "http://xproc.net/xproc/util";
 ---------------------------------------------------------------------------------------- :)
 
 
-declare copy-namespaces no-preserve, no-inherit;
-
-(:todo - needed to resolve @select on p:input related to compile- to investigate why I need to add this xmlns:)
-declare namespace t="http://xproc.org/ns/testsuite";
-
 (: XProc Namespace Declaration :)
 declare namespace p1="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
@@ -229,7 +224,6 @@ declare function u:function($func,$arity){
 
 (: -------------------------------------------------------------------------- :)
 declare function u:evalXPATH($xpathstring, $xml){
-util:declare-namespace('atom',xs:anyURI('http://www.w3.org/2005/Atom')),
 
 if(empty($xpathstring) or $xpathstring eq '/') then
 	$xml
@@ -247,6 +241,10 @@ else
 
 (: -------------------------------------------------------------------------- :)
 declare function u:evalXPATH($xpathstring, $xml, $namespaces){
+(:
+util:declare-namespace('xhtml',xs:anyURI('http://www.w3.org/1999/xhtml')),
+util:declare-namespace('atom',xs:anyURI('http://www.w3.org/2005/Atom')),
+:)
 
 if(empty($xpathstring) or $xpathstring eq '/') then
 	$xml

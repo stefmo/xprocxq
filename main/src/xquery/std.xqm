@@ -6,7 +6,6 @@ module namespace std = "http://xproc.net/xproc/std";
 	
 ---------------------------------------------------------------------------------------- :)
 
-declare copy-namespaces no-preserve, no-inherit;
 
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
@@ -195,18 +194,15 @@ let $err := <c:errors xmlns:c="http://www.w3.org/ns/xproc-step"
 return
 	u:dynamicError('err:XD0030',concat(": p:error throw custom error code - ",$code," ",u:serialize($err,$const:TRACE_SERIALIZE)))
 
-
 };
 
 
 (: -------------------------------------------------------------------------- :)
 declare function std:filter($primary,$secondary,$options) {
 (: TODO: is it an error for a empty match ? :)
-util:declare-namespace('atom',xs:anyURI('http://www.w3.org/2005/Atom')),
 u:assert(exists($options/p:with-option[@name='select']/@select),'p:with-option match is required'),
 let $v := u:get-primary($primary)
 let $select := string(u:get-option('select',$options,$v))
-let $namespaces :=   u:list-used-namespaces ($v) 
 let $result := u:evalXPATH($select,$v)
     return
         if(exists($result)) then
