@@ -7,7 +7,7 @@ xprocxq, being implemented in XQuery, currently has several limitations and is n
 
 Here is a list of the more severe limitations:
 
-  * when selecting elements in a namespace u might have to generically select them e.g. *
+  * when selecting elements in a namespace u might have to generically select them
 
   * due to my use of weak typing in XQuery there are several interrelated issues, but this will change as I sanitize the code
 
