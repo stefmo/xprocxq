@@ -207,11 +207,11 @@ u:assert(exists($options/p:with-option[@name='select']/@select),'p:with-option m
 let $v := u:get-primary($primary)
 let $select := string(u:get-option('select',$options,$v))
 let $namespaces :=   u:list-used-namespaces ($v) 
-let $result := u:evalXPATH(string($select),$v, $namespaces)
+let $result := u:evalXPATH($select,$v)
     return
         if(exists($result)) then
-            $result
-        else
+        	$result
+		else
             $select
 };
 
