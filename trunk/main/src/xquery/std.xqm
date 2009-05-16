@@ -313,10 +313,7 @@ else if(starts-with($href,'file://')) then
 else
 	let $load := doc($href)
 	return
-		if ($load) then
 			$load
-		else
-			u:dynamicError('err:XC0026',"p:load had a problem loading document.")
 		
 };
 
