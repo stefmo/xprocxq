@@ -408,6 +408,7 @@ declare function std:store($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
 let $href-uri := u:get-option('href',$options,$v)
 let $name := tokenize($href-uri, "/")[last()]
+let $xproc:output-document := u:get-option('xproc:output-document',$options,$v)
 let $path := substring-before($href-uri,$name)
 let $serialized := u:serialize($v,$const:DEFAULT_SERIALIZE)
 let $store := if(starts-with($path,'file://')) then
@@ -421,10 +422,10 @@ let $store := if(starts-with($path,'file://')) then
 			  else
 				xmldb:store($path,$name,$v)
 return
-	if($store) then
-		u:outputResultElement(concat($path,$name))
+	if($xproc:output-document) then
+		$v
 	else
-		u:dynamicError('err:XC0050',"p:store could not store document.")
+		u:outputResultElement(concat($path,$name))
 };
 
 
