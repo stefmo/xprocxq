@@ -7,8 +7,6 @@ module namespace ext = "http://xproc.net/xproc/ext";
 ---------------------------------------------------------------------------------------- :)
 
 
-declare copy-namespaces no-preserve, no-inherit;
-
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";

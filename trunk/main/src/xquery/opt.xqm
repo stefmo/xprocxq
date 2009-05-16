@@ -7,8 +7,6 @@ module namespace opt = "http://xproc.net/xproc/opt";
 ---------------------------------------------------------------------------------------- :)
 
 
-declare copy-namespaces no-preserve, no-inherit;
-
 (: XProc Namespace Declaration :)
 declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
@@ -148,7 +146,7 @@ u:assert(exists(u:get-secondary('query',$secondary)/c:query),'p:input query is r
 			u:serialize($xquery/node(),$const:TRACE_SERIALIZE)
 		else
 			$xquery/node()
-    let $xqueryfunc := concat($const:alt-imports,$query)
+
     let $result := u:xquery($query,$v)
         return
             u:outputResultElement($result)
