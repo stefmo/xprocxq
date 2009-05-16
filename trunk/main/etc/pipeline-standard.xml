@@ -103,7 +103,7 @@
    <p:declare-step type="p:load" xml:id="load" xmlns:xproc="http://xproc.net/xproc" xproc:support="true">
       <p:output port="result" primary="true" select="/"/>
       <p:option name="href" required="true"/>
-      <p:option name="xproc:output-document"/>
+      <p:option name="xproc:output-uri"/>
       <p:option name="dtd-validate" select="&#34;false&#34;"/>
    </p:declare-step>
    <p:declare-step type="p:make-absolute-uris" xml:id="make-absolute-uris">
