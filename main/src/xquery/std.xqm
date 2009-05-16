@@ -295,7 +295,7 @@ return
 declare function std:load($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
 let $href := u:get-option('href',$options,$v)
-let $xproc:output-document := u:get-option('xproc:output-document',$options,$v)
+let $xproc:output-uri := u:get-option('xproc:output-uri',$options,$v)
 return
 if (empty($href)) then
 	u:dynamicError('err:XC0026',"p:load option href is empty.")
@@ -314,10 +314,10 @@ else if(starts-with($href,'file://')) then
 else
 	let $load := doc($href)
 	return
-		if ($xproc:output-document eq 'true') then
-			$load
-		else
+		if ($xproc:output-uri eq 'true') then
 			u:outputResultElement($href)
+		else
+			$load
 };
 
 
