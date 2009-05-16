@@ -206,7 +206,7 @@ util:declare-namespace('atom',xs:anyURI('http://www.w3.org/2005/Atom')),
 u:assert(exists($options/p:with-option[@name='select']/@select),'p:with-option match is required'),
 let $v := u:get-primary($primary)
 let $select := string(u:get-option('select',$options,$v))
-let $namespaces :=   u:list-used-namespaces ($primaryresult) 
+let $namespaces :=   u:list-used-namespaces ($v) 
 let $result := u:evalXPATH(string($select),$v, $namespaces)
     return
         if(exists($result)) then
