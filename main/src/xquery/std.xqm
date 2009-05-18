@@ -417,9 +417,9 @@ let $store := if(starts-with($path,'file://')) then
 				return
 					u:eval($query) 
 			  else
-				xmldb:store($path,$name,$v)
+								xmldb:store($path,$name,$v)
 return
-	if($xproc:output-document eq 'true') then
+if($xproc:output-document eq 'true') then
 		$v
 	else
 		u:outputResultElement(concat($path,$name))
