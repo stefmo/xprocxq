@@ -118,12 +118,12 @@ declare function xproc:choose($primary,$secondary,$options,$currentstep,$outputs
                   func="$xproc:choose">
 					{$xpath-context}
 				  </xproc:output>
-				
+
     let $whens := $currentstep/p:when
     let $otherwise := $currentstep/p:otherwise
 	let $when := (
 		for $when in $whens
-	    	let $when_eval := u:boolean-evalXPATH(string($when/@test),$v)
+	    	let $when_eval := u:evalXPATH(string($when/@test),$v)
 			return
     			if($when_eval) then  
 					$when
@@ -150,8 +150,12 @@ declare function xproc:run-step($primary,$secondary,$options,$step,$outputs) {
 	let $dflag :="0"  
 	let $tflag :="0"  
 	return
-    	xproc:run($pipeline,$primary,$dflag,$tflag,$bindings,$options,$outputs)
+		xproc:run($pipeline,$primary,$dflag)
 
+	(:
+    	xproc:run($pipeline,$primary,$dflag
+,$tflag,$bindings,$options,$outputs)
+	:)
 };
 
 
@@ -477,7 +481,7 @@ declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentste
 
 
 (:---------------------------------------------------------------------------:)
-declare function xproc:eval-primary($pipeline,$step,$currentstep,$primaryinput,$result){
+declare function xproc:eval-primary1($pipeline,$step,$currentstep,$primaryinput,$result){
 (: -------------------------------------------------------------------------- :)
 let $primaryresult := document{
     if($currentstep/p:input[@primary eq 'true']/*) then
@@ -507,12 +511,37 @@ let $primaryresult := document{
 					 else					
 						let $namespaces :=   u:list-used-namespaces ($primaryresult) 
 							return
-								u:evalXPATH(string($select),$primaryresult, $namespaces)
+								u:evalXPATH(string($select),$primaryresult)
        return
+
             if (empty($selectval)) then                u:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
             else
                 $selectval
+};
 
+(:---------------------------------------------------------------------------:)
+declare function xproc:eval-primary($pipeline,$step,$currentstep,$primaryinput,$result){
+(: -------------------------------------------------------------------------- :)
+let $primaryresult := document{
+    if($currentstep/p:input[@primary eq 'true']/*) then
+		(: resolve each nested port binding :)
+        for $child in $currentstep/p:input[@primary eq 'true']/*
+            return
+            	xproc:resolve-port-binding($child,$result,$pipeline,$currentstep)
+    else
+        	$primaryinput/* (: prev step is an atomic step output:)	
+    }
+
+    let $select := string($currentstep/p:input[@primary='true']/@select)
+	let $selectval := if ($select eq '/' or $select eq '') then 
+						$primaryresult
+					 else					
+						u:evalXPATH(string($select),$primaryresult)
+       return
+
+            if (empty($selectval)) then                u:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
+            else
+                $selectval
 };
 
 
@@ -542,7 +571,7 @@ declare function xproc:eval-secondary($pipeline,$step,$currentstep,$primaryinput
  						 else					
 								let $namespaces :=   u:list-used-namespaces ($primaryresult) 
 									return
-										u:evalXPATH(string($select),$primaryresult, $namespaces)
+										u:evalXPATH(string($select),$primaryresult)
            return
                 if (empty($selectval)) then
                     u:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))

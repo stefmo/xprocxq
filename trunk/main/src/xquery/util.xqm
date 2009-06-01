@@ -19,6 +19,7 @@ declare namespace opt = "http://xproc.net/xproc/opt";
 declare namespace ext = "http://xproc.net/xproc/ext";
 declare namespace xxq-error = "http://xproc.net/xproc/error";
 
+declare namespace t = "http://xproc.org/ns/testsuite";
 
 (: Module Imports :)
 import module namespace const = "http://xproc.net/xproc/const";
@@ -223,15 +224,18 @@ declare function u:function($func,$arity){
 
 
 (: -------------------------------------------------------------------------- :)
-declare function u:evalXPATH($xpathstring, $xml){
+declare function u:evalXPATH($qry as xs:string, $xml){
 
-if(empty($xpathstring) or $xpathstring eq '/') then
+if(empty($qry) or $qry eq '/') then
 	$xml
 else
-	let $query := concat('$xml',$xpathstring)
-	let $result := util:eval($query)
+	let $query := if (starts-with($qry,'/') or starts-with($qry,'//')) then
+                concat('.',$qry)
+              else
+                  $qry
+	
     return
-			$result
+			util:eval-inline($xml,$query)
 		(: 
 		if ( $result instance of element() or $result instance of document-node()) then 
 		
@@ -239,6 +243,7 @@ else
 			:)
 };
 
+(:)
 (: -------------------------------------------------------------------------- :)
 declare function u:evalXPATH($xpathstring, $xml, $namespaces){
 (:
@@ -255,19 +260,7 @@ else
 			$result
 };
 
-
-(: -------------------------------------------------------------------------- :)
-(: TODO - need to refactor for eXist :)
-declare function u:boolean-evalXPATH($query, $xml){
-
-if(empty($query)) then
-	false()
-else
-	let $result := util:eval-inline($xml,$query)
-    return
-		$result
-};
-
+:)
 
 (: -------------------------------------------------------------------------- :)
 declare function u:get-option($option-name as xs:string,$options,$v){
@@ -290,7 +283,7 @@ declare function u:get-secondary($name as xs:string,$secondary){
 
 (: -------------------------------------------------------------------------- :)
 declare function u:get-primary($primary){
-	document{$primary/*}
+	document{$primary/.}
 };
 
 (: -------------------------------------------------------------------------- :)

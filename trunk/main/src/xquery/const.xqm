@@ -79,7 +79,7 @@ declare variable $const:init_unique_id :="!1";
 (: Default imports for eval-step :)
 (: -------------------------------------------------------------------------- :)
 declare variable $const:default-imports :='
-
+	
     import module namespace const = "http://xproc.net/xproc/const";
     import module namespace xproc = "http://xproc.net/xproc";
     import module namespace u = "http://xproc.net/xproc/util";
