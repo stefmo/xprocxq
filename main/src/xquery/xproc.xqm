@@ -150,12 +150,7 @@ declare function xproc:run-step($primary,$secondary,$options,$step,$outputs) {
 	let $dflag :="0"  
 	let $tflag :="0"  
 	return
-		xproc:run($pipeline,$primary,$dflag)
-
-	(:
-    	xproc:run($pipeline,$primary,$dflag
-,$tflag,$bindings,$options,$outputs)
-	:)
+    	xproc:run($pipeline,$primary,$dflag,$tflag,$bindings,$options,$outputs)
 };
 
 
@@ -727,7 +722,13 @@ declare function xproc:parse_and_eval($pipeline,$stdin,$bindings,$outputs) {
                        $steps,
                        util:function(xs:QName("xproc:evalstep"), 4),
                        $stdin,
-                       ($outputs,xproc:resolve-external-bindings($bindings,$pipeline/@name))
+                       ($outputs,xproc:resolve-external-bindings($bindings,$pipeline/@name),
+<xproc:output
+	                            step="{concat('!',$pipeline/@name)}"
+	                            port="stdin"
+	                            port-type="external"
+	                            primary="false"								
+	                            func="example">{$stdin}</xproc:output>)
         				)
 };
 
@@ -739,17 +740,23 @@ if (empty($bindings)) then
     ()
 else
     for $binding in $bindings
-    let $port := substring-before($binding,'=')
-    let $data := substring-after($binding,'=')
-        return
-        <xproc:output port-type="external" port="{$port}" step="{concat('!',$pipelinename)}">
-        	{
-			if(contains($data,'http:') or contains($data,'file:') or starts-with($data,'/')) then 
-				doc($data) (: TODO - identify URI better :)
-			else
-				util:parse($data)
-			}
-        </xproc:output>
+	return
+	if ($binding/*:input/@port) then
+		<xproc:output port-type="external" port="{$binding/*:input/@port}" step="{concat('!',$pipelinename)}">
+			{$binding/*:input/*}
+		</xproc:output>
+	else
+    	let $port := substring-before($binding,'=')
+    	let $data := substring-after($binding,'=')
+        	return
+        	<xproc:output port-type="external" port="{$port}" step="{concat('!',$pipelinename)}">
+        		{
+				if(contains($data,'http:') or contains($data,'file:') or starts-with($data,'/')) then 
+					doc($data) (: TODO - identify URI better :)
+				else
+					util:parse($data)
+				}
+        	</xproc:output>
 };
 
 
