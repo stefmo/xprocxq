@@ -14,7 +14,6 @@ declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
 declare namespace xproc = "http://xproc.net/xproc";
 
-
 declare namespace saxon = "http://dummy.org";
 
 (: Module Imports :)
@@ -155,7 +154,7 @@ let $exclude-filter := u:get-option('exclude-filter',$options,$v)
 let $query := concat("file:directory-list('",$path,"','",$include-filter,"')")
 let $directory-list := u:eval($query) 
 let $result := <c:directory name="{$directory-list/@name}">
-					{for $file in $directory-list//file:file
+					{for $file in $directory-list//*:file
 					return
 						<c:file name="{$file/@name}"/>
 					}
