@@ -147,8 +147,8 @@ declare function xproc:run-step($primary,$secondary,$options,$step,$outputs) {
 	let $pipeline := u:get-secondary('pipeline',$secondary)
 	let $bindings := u:get-secondary('bindings',$secondary)
 	let $options :=()
-	let $dflag :="0"  
-	let $tflag :="0"  
+	let $dflag := u:get-option('dflag',$options,$v)  
+	let $tflag := u:get-option('tflag',$options,$v)
 	return
     	xproc:run($pipeline,$primary,$dflag,$tflag,$bindings,$options,$outputs)
 };
@@ -476,45 +476,6 @@ declare function xproc:resolve-port-binding($child,$result,$pipeline,$currentste
 
 
 (:---------------------------------------------------------------------------:)
-declare function xproc:eval-primary1($pipeline,$step,$currentstep,$primaryinput,$result){
-(: -------------------------------------------------------------------------- :)
-let $primaryresult := document{
-    if($currentstep/p:input[@primary eq 'true']/*) then
-	(: resolve each nested port binding :)
-        for $child in $currentstep/p:input[@primary eq 'true']/*
-            return
-            	xproc:resolve-port-binding($child,$result,$pipeline,$currentstep)
-    else
-	(: TODO - this should be a rare event as all port bindings should be explicitly set by now
-	, probably could get refactored out :)
-	(: get previous step output and bind to input:)
-		if ($primaryinput/xproc:output) then (: prev step is multi container step output:)
-    		$primaryinput/*[last()]/node()		
-		else
-        	$primaryinput/* (: prev step is an atomic step output:)	
-    }
-
-    let $select := string(if (empty($currentstep/p:input[@primary='true']/@select)) then
-                        	'/'
-                    	  else if($currentstep/p:input[@primary='true']/@select) then
-                             string($currentstep/p:input[@primary='true']/@select)
-                    	  else
-                            '/'
-                    )
-    let $selectval := if ($select eq '/') then 
-						$primaryresult
-					 else					
-						let $namespaces :=   u:list-used-namespaces ($primaryresult) 
-							return
-								u:evalXPATH(string($select),$primaryresult)
-       return
-
-            if (empty($selectval)) then                u:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
-            else
-                $selectval
-};
-
-(:---------------------------------------------------------------------------:)
 declare function xproc:eval-primary($pipeline,$step,$currentstep,$primaryinput,$result){
 (: -------------------------------------------------------------------------- :)
 let $primaryresult := document{
@@ -569,7 +530,9 @@ declare function xproc:eval-secondary($pipeline,$step,$currentstep,$primaryinput
 										u:evalXPATH(string($select),$primaryresult)
            return
                 if (empty($selectval)) then
-                    u:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
+                   
+(: todo - investigate empty bindings :)
+ u:dynamicError('err:XD0016',concat(string($pipeline/*[@name=$step]/p:input[@primary='true'][@select]/@select)," did not select anything at ",$step," ",name($pipeline/*[@name=$step])))
                 else
                     $selectval
     }
@@ -739,11 +702,11 @@ declare function xproc:resolve-external-bindings($bindings,$pipelinename){
 if (empty($bindings)) then
     ()
 else
-    for $binding in $bindings
+    for $binding in $bindings/*
 	return
-	if ($binding/*:input/@port) then
-		<xproc:output port-type="external" port="{$binding/*:input/@port}" step="{concat('!',$pipelinename)}">
-			{$binding/*:input/*}
+	if ($binding/@port) then
+		<xproc:output port-type="external" port="{$binding/@port}" step="{concat('!',$pipelinename)}">
+			{$binding/*}
 		</xproc:output>
 	else
     	let $port := substring-before($binding,'=')
