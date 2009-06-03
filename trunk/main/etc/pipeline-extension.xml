@@ -18,8 +18,8 @@
         <p:input port="pipeline" primary="false" select="/"/>
         <p:input port="bindings" primary="false" select="/"/>
         <p:output port="result" primary="true"/>
-        <p:option name="dflag" select="'0'"/>
-        <p:option name="tflag" select="'0'"/>
+        <p:option name="dflag" select="0"/>
+        <p:option name="tflag" select="0"/>
     </p:declare-step>
 
 </p:library>

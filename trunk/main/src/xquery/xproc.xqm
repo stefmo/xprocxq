@@ -70,7 +70,7 @@ return
 				  </xproc:output>
 	return
 		(u:call($xproc:parse-and-eval,<p:declare-step name="{$defaultname}" xproc:defaultname="{$defaultname}" >
-		{$subpipeline}</p:declare-step>,$v,(),($outputs,$iteration-source))/.)[last()]/node()
+		{$subpipeline}</p:declare-step>,$child,(),($outputs,$iteration-source))/.)[last()]/node()
 
 };
 
@@ -146,11 +146,11 @@ declare function xproc:run-step($primary,$secondary,$options,$step,$outputs) {
 	let $v := u:get-primary($primary)
 	let $pipeline := u:get-secondary('pipeline',$secondary)
 	let $bindings := u:get-secondary('bindings',$secondary)
-	let $options :=()
-	let $dflag := u:get-option('dflag',$options,$v)  
+	let $dflag := u:get-option('dflag',$options,$v)
 	let $tflag := u:get-option('tflag',$options,$v)
+	let $step-options := ()
 	return
-    	xproc:run($pipeline,$primary,$dflag,$tflag,$bindings,$options,$outputs)
+    	xproc:run($pipeline,$primary,$dflag,$tflag,$bindings,$step-options,$outputs)
 };
 
 
