@@ -9,7 +9,7 @@ module namespace u = "http://xproc.net/xproc/util";
 
 
 (: XProc Namespace Declaration :)
-declare namespace p1="http://www.w3.org/ns/xproc";
+declare namespace p="http://www.w3.org/ns/xproc";
 declare namespace c="http://www.w3.org/ns/xproc-step";
 declare namespace err="http://www.w3.org/ns/xproc-error";
 declare namespace xsl="http://www.w3.org/1999/XSL/Transform";
@@ -23,7 +23,7 @@ declare namespace t = "http://xproc.org/ns/testsuite";
 
 (: Module Imports :)
 import module namespace const = "http://xproc.net/xproc/const";
-import module namespace p = "http://xproc.net/xproc/functions";
+import module namespace p1 = "http://xproc.net/xproc/functions";
 
 
 (: set to 1 to enable debugging :)
@@ -226,6 +226,10 @@ declare function u:function($func,$arity){
 (: -------------------------------------------------------------------------- :)
 declare function u:evalXPATH($qry as xs:string, $xml){
 
+util:declare-namespace('xhtml',xs:anyURI('http://www.w3.org/1999/xhtml')),
+util:declare-namespace('atom',xs:anyURI('http://www.w3.org/2005/Atom')),
+util:declare-namespace('p',xs:anyURI('http://www.w3.org/ns/xproc')),
+
 if(empty($qry) or $qry eq '/') then
 	$xml
 else
@@ -246,10 +250,11 @@ else
 (:)
 (: -------------------------------------------------------------------------- :)
 declare function u:evalXPATH($xpathstring, $xml, $namespaces){
-(:
+
 util:declare-namespace('xhtml',xs:anyURI('http://www.w3.org/1999/xhtml')),
 util:declare-namespace('atom',xs:anyURI('http://www.w3.org/2005/Atom')),
-:)
+util:declare-namespace('p',xs:anyURI('http://www.w3.org/ns/xproc')),
+
 
 if(empty($xpathstring) or $xpathstring eq '/') then
 	$xml
@@ -303,9 +308,12 @@ declare function u:treewalker($element as element()) as element() {
       {$element/@*,
           for $child in $element/node()
               return
-               if ($child instance of element())
-                 then u:treewalker($child)
-                 else $child
+               if ($child instance of element()) then 
+					u:treewalker($child)
+ 				else if ($child instance of text()) then
+					normalize-space($child/text())
+                 else 
+					$child
       }
 };
 
@@ -500,15 +508,25 @@ declare function u:add-attribute-matching-elements($element as element(),$select
               return                   
               if ($child instance of element())
                 then
+
             		if ($child intersect $select) then
-				   element {node-name($child)}{    
-				        attribute {$attribute} {$label},
-                   		u:add-attribute-matching-elements($child,$select,$attribute,$label)
+				   		element {node-name($child)}{
+				    		$child/@*[not(name(.)=$attribute)],
+				        	attribute {$attribute} {$label},
+							if ($child/node() instance of text()) then
+								$child/text()
+							else if ($child/node() instance of element()) then						
+               					u:add-attribute-matching-elements($child,$select,$attribute,$label)
+							else
+								$child/*
 						}	
     			    else
                         u:add-attribute-matching-elements($child,$select,$attribute,$label)
-                else
-                    $child          		
+                
+				else if ($child/node() instance of text()) then
+                    $child/text()
+          		else 
+					$child
       }
 };
 
