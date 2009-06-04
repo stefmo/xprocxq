@@ -62,9 +62,13 @@ declare variable $std:xslt :=util:function(xs:QName("std:xslt"), 3);
 declare function std:add-attribute($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
 let $match := u:get-option('match',$options,$v)
+let $query := if (starts-with($match,'/')) then
+				$match
+			  else
+				concat('//',$match)
+let $matchresult := u:evalXPATH($query, $v)
 let $attribute-name := u:get-option('attribute-name',$options,$v)
 let $attribute-value := u:get-option('attribute-value',$options,$v)
-let $matchresult := u:evalXPATH(string($match), $v)
 return
 	u:add-attribute-matching-elements($v/*,$matchresult,$attribute-name,$attribute-value)
 };
@@ -108,7 +112,7 @@ else
 (: -------------------------------------------------------------------------- :)
 declare function std:compare($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
-let $result := deep-equal($v,u:get-secondary('alternate',$secondary))
+let $result := deep-equal(u:treewalker($v/*),u:treewalker(u:get-secondary('alternate',$secondary)/*))
 let $fail-if-not-equal := xs:boolean(u:get-option('fail-if-not-equal',$options,$v))
     return
 
@@ -119,6 +123,7 @@ let $fail-if-not-equal := xs:boolean(u:get-option('fail-if-not-equal',$options,$
                 u:stepError('err:XC0019','p:compare fail-if-not-equal option is enabled and documents were not equal')
         else
             u:outputResultElement($result)
+
 };
 
 
@@ -139,7 +144,11 @@ return
 declare function std:delete($primary,$secondary,$options){
 let $v := u:get-primary($primary)
 let $match := u:get-option('match',$options,$v)
-let $matchresult := u:evalXPATH(string($match), $v)
+let $query := if (contains($match,'/')) then
+				$match
+			  else
+				concat('//',$match)
+let $matchresult := u:evalXPATH($query, $v)
 return
 	u:delete-matching-elements($v/*, $matchresult)
 };
