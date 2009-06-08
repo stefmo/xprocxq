@@ -7,7 +7,8 @@ import module namespace xproc = "http://xproc.net/xproc";
 import module namespace u = "http://xproc.net/xproc/util";
 import module namespace naming = "http://xproc.net/xproc/naming";
 
-let $files := file:directory-list('/Users/jimfuller/Source/Webcomposite/xprocxq-exist/main/test/tests.xproc.org/required/','delete-*.xml')
+let $file :=  request:get-parameter("test", ())
+let $files := file:directory-list('/Users/jimfuller/Source/Webcomposite/xprocxq-exist/main/test/tests.xproc.org/required/',$file)
 return
 
 <result>
@@ -29,7 +30,7 @@ let $runtime-debug := '0'
     return
     <test file="{$file/@name}">
         {
-        if (contains($path,'err-')) then
+        if (contains($path,request:get-parameter("debug", ()))) then
             xproc:run($pipeline,$stdin,$runtime-debug)
         else
             util:catch('java.lang.Exception', xproc:run($pipeline,$stdin,$runtime-debug), 'fail')

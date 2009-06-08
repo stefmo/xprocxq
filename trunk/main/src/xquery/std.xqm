@@ -116,10 +116,26 @@ let $alternate := u:get-secondary('alternate',$secondary)
 let $strict := xs:boolean(u:get-option('xproc:strict',$options,$v)) (: ext attribute xproc:strict:)
 let $fail-if-not-equal := xs:boolean(u:get-option('fail-if-not-equal',$options,$v))
 
-let $result :=  if ($strict) then
-deep-equal($v/*,u:get-secondary('alternate',$secondary)/*)
+let $result :=  if ($strict and count($v/*) eq 1) then
+		deep-equal($v,$alternate)
+
+else if (count($v) gt 1) then
+
+let $e1 := (for $child in $primary
+		 return
+			u:treewalker($child))
+			
+let $e2 := (for $child in $secondary
+			return
+				u:treewalker($child))
+				
+return
+
+every $i in 1 to max((count($e1),count($e2)))
+satisfies deep-equal($e1[$i],$e2[$i])
+
 else
-	deep-equal(u:treewalker($v/*),u:treewalker(u:get-secondary('alternate',$secondary)/*))
+	deep-equal(u:treewalker($v/*),u:treewalker($alternate/*))
 
     return
 
@@ -138,8 +154,9 @@ else
 declare function std:count($primary,$secondary,$options){
 let $v := u:get-primary($primary)
 let $limit := xs:integer(u:get-option('limit',$options,$v))
-let $count := count($v/*)
+let $count := count($v)
 return
+
     if (empty($limit) or $limit eq 0 or $count lt $limit ) then
 		u:outputResultElement($count)
     else

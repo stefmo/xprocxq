@@ -181,6 +181,35 @@ declare function u:outputResultElement($exp){
 
 
 (: -------------------------------------------------------------------------- :)
+declare function u:get-option($option-name as xs:string,$options,$v){
+
+let $option := xs:string($options/*[@name=$option-name]/@select)
+return
+    if (empty($option)) then
+		(: TODO - if required this could be an error :)
+        ()
+    else if(contains($option,"'")) then
+    	string(replace($option,"'",""))
+    else
+    	string(u:evalXPATH(string($option),$v))
+};
+
+
+(: -------------------------------------------------------------------------- :)
+declare function u:get-secondary($name as xs:string,$secondary){
+for $child in $secondary/xproc:input[@port=$name]/*
+return
+	document{$child}
+};
+
+(: -------------------------------------------------------------------------- :)
+declare function u:get-primary($primary){
+	for $child in $primary/*
+	return
+		document{$child}
+};
+
+(: -------------------------------------------------------------------------- :)
 declare function u:random() as  xs:double  {
    util:random()
 };
@@ -247,6 +276,7 @@ else
 			:)
 };
 
+
 (:)
 (: -------------------------------------------------------------------------- :)
 declare function u:evalXPATH($xpathstring, $xml, $namespaces){
@@ -267,31 +297,6 @@ else
 
 :)
 
-(: -------------------------------------------------------------------------- :)
-declare function u:get-option($option-name as xs:string,$options,$v){
-
-let $option := xs:string($options//*[@name=$option-name]/@select)
-return
-    if (empty($option)) then
-        ()
-    else if(contains($option,"'")) then
-        string(replace($option,"'",""))
-    else
-        string(u:evalXPATH(string($option),$v))
-};
-
-
-(: -------------------------------------------------------------------------- :)
-declare function u:get-secondary($name as xs:string,$secondary){
-	document{$secondary/xproc:input[@port=$name]/*}
-};
-
-(: -------------------------------------------------------------------------- :)
-declare function u:get-primary($primary){
-	for $child in $primary/*
-	return
-		document{$child}
-};
 
 (: -------------------------------------------------------------------------- :)
 declare function u:add-ns-node(
@@ -306,17 +311,17 @@ declare function u:add-ns-node(
 
 (: -------------------------------------------------------------------------- :)
 declare function u:treewalker($element) {
-   element {node-name($element)}
-      {$element/@*,
-          for $child in $element/node()
-              return
-               if ($child instance of element()) then 
+element {node-name($element)}
+   {$element/@*,
+
+       for $child in $element/node()
+           return
+            if ($child instance of element()) then 
 					u:treewalker($child)
- 				else if ($child instance of text()) then
-					normalize-space($child/text())
-                 else 
-					$child
-      }
+              else 
+					normalize-space($child)
+															
+   }
 };
 
 
