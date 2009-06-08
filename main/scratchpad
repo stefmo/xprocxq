@@ -94,7 +94,7 @@ components
 --------------------------------------------------------------------------------
 
 
-filter 0 *
+filter 1 * (one test should be error, the other is dynamically constructed select)
 insert 0 *
 label-elements 0 *
 pack 0 *
@@ -118,7 +118,7 @@ evaluation-order 3
 for-each 0
 group 2
 http-request 0
-identity 5
+identity 4 (1 due to eXist issue with PI)
 input 5
 load 0
 pipe 001 1

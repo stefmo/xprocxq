@@ -14,11 +14,8 @@ that you can orchestrate and create sophisticated XML workflows.
 eXist XMLDB Integration
 -----------------------
 
-Future releases of xprocxq will be built and installed as part of 
-eXist XML Database own build process.
-
-For BETA releases you will have to build xprocxq or download release 
-zip and install manually into eXist.
+xprocxq is now a part of the eXist standard build and release and enabled
+by default.
 
 
 Why XProc in XQuery ?
