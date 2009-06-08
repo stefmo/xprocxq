@@ -112,8 +112,15 @@ else
 (: -------------------------------------------------------------------------- :)
 declare function std:compare($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
-let $result := deep-equal(u:treewalker($v/*),u:treewalker(u:get-secondary('alternate',$secondary)/*))
+let $alternate := u:get-secondary('alternate',$secondary)
+let $strict := xs:boolean(u:get-option('xproc:strict',$options,$v)) (: ext attribute xproc:strict:)
 let $fail-if-not-equal := xs:boolean(u:get-option('fail-if-not-equal',$options,$v))
+
+let $result :=  if ($strict) then
+deep-equal($v/*,u:get-secondary('alternate',$secondary)/*)
+else
+	deep-equal(u:treewalker($v/*),u:treewalker(u:get-secondary('alternate',$secondary)/*))
+
     return
 
        if($fail-if-not-equal) then
@@ -276,7 +283,11 @@ declare function std:insert($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
 let $match := u:get-option('match',$options,$v)
 let $position := u:get-option('position',$options,$v)
-let $matchresult := u:evalXPATH(string($match), $v)
+let $query := if (contains($match,'/')) then
+				$match
+			  else
+				concat('//',$match)
+let $matchresult := u:evalXPATH($query, $v)
 let $insertion := u:get-secondary('insertion',$secondary)
 return
 	u:insert-matching-elements($v/*,$matchresult,$insertion,$position)
