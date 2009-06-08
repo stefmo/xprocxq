@@ -264,6 +264,8 @@ if(empty($qry) or $qry eq '/') then
 else
 	let $query := if (starts-with($qry,'/') or starts-with($qry,'//')) then
                 concat('.',$qry)
+			  else if(contains($qry,'(/')) then
+				replace($qry,'\(/','(./')
               else
                   $qry
 	
