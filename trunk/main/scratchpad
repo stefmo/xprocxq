@@ -2,6 +2,8 @@
 current
 ----------------------------------------
 
+* declare-step/pipeline need declared name attribute
+
 * sequence issue with input to choose
 
 * dont forget I changed p namespace and p1 namespace in util.xqm
