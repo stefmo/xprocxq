@@ -312,6 +312,42 @@ declare function u:add-ns-node(
 
 
 (: -------------------------------------------------------------------------- :)
+declare function u:deep-equal-seq($primary,$secondary,$strict) {
+
+if ($strict eq '1') then
+let $e1 := (for $child in $primary/*
+		 return
+			$child)
+			
+let $e2 := (for $child in $secondary/*
+			return
+				$child)
+				
+return
+
+every $i in 1 to max((count($e1),count($e2)))
+satisfies deep-equal($e1[$i],$e2[$i])
+
+
+else
+
+let $e1 := (for $child in $primary/*
+		 return
+			u:treewalker($child))
+			
+let $e2 := (for $child in $secondary/*
+			return
+				u:treewalker($child))
+				
+return
+
+every $i in 1 to max((count($e1),count($e2)))
+satisfies deep-equal($e1[$i],$e2[$i])
+
+
+};
+
+(: -------------------------------------------------------------------------- :)
 declare function u:treewalker($element) {
 element {node-name($element)}
    {$element/@*,

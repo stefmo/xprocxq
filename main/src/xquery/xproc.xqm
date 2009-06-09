@@ -378,6 +378,7 @@ declare function xproc:resolve-empty-binding(){
 (: -------------------------------------------------------------------------- :)
 declare function xproc:resolve-inline-binding($child){
 (: -------------------------------------------------------------------------- :)
+	(: TODO - should this return a document node ?:)
 	$child/*
 };
 

@@ -119,20 +119,11 @@ let $fail-if-not-equal := xs:boolean(u:get-option('fail-if-not-equal',$options,$
 let $result :=  if ($strict and count($v/*) eq 1) then
 		deep-equal($v,$alternate)
 
-else if (count($v) gt 1) then
+else if ($strict and count($v/*) gt 1) then
+	u:deep-equal-seq($v,$alternate,'1')
 
-let $e1 := (for $child in $primary
-		 return
-			u:treewalker($child))
-			
-let $e2 := (for $child in $secondary
-			return
-				u:treewalker($child))
-				
-return
-
-every $i in 1 to max((count($e1),count($e2)))
-satisfies deep-equal($e1[$i],$e2[$i])
+else if (count($v/*) gt 1) then
+	u:deep-equal-seq($v,$alternate,'0')
 
 else
 	deep-equal(u:treewalker($v/*),u:treewalker($alternate/*))
