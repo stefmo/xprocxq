@@ -42,6 +42,7 @@
         <zipfileset dir="src/xquery" includes="**/**/**.*" prefix="net/xproc/xprocxq/src/xquery"/>
         <zipfileset dir="etc" includes="**/**/*.*" prefix="net/xproc/xprocxq/etc"/>
       </zip>
+	  <copy file="lib/expath.jar" todir="${dist}"/>
     </target>
 
 
