@@ -101,7 +101,7 @@ components
 
 
 filter 1 * (one test should be error, the other is dynamically constructed select)
-insert 0 *
+insert 2 *
 label-elements 0 *
 pack 0 *
 rename 0 *

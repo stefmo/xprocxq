@@ -309,7 +309,11 @@ let $match := u:get-option('match',$options,$v)
 let $attribute := u:get-option('attribute',$options,$v)
 let $label := u:get-option('label',$options,$v)
 let $replace := u:get-option('replace',$options,$v)
-let $matchresult := u:evalXPATH(string($match), $v)
+let $query := if (contains($match,'/')) then
+				$match
+			  else
+				concat('//',$match)
+let $matchresult := u:evalXPATH($query, $v)
 return
 	u:label-matching-elements($v/*,$matchresult,$attribute,$label,$replace)
 };
@@ -383,7 +387,11 @@ return
 declare function std:rename($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
 let $match := u:get-option('match',$options,$v)
-let $matchresult := u:evalXPATH(string($match), $v)
+let $query := if (contains($match,'/')) then
+				$match
+			  else
+				concat('//',$match)
+let $matchresult := u:evalXPATH($query, $v)
 let $new-name := u:get-option('new-name',$options,$v)
 return
 	u:rename-matching-elements($v/*,$matchresult,$new-name)
@@ -394,7 +402,11 @@ return
 declare function std:replace($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
 let $match := u:get-option('match',$options,$v)
-let $matchresult := u:evalXPATH(string($match), $v)
+let $query := if (contains($match,'/')) then
+				$match
+			  else
+				concat('//',$match)
+let $matchresult := u:evalXPATH($query, $v)
 let $replacement := u:get-secondary('replacement',$secondary)
 return
 	u:replace-matching-elements($v/*,$matchresult,$replacement)
@@ -457,7 +469,11 @@ if($xproc:output-document eq 'true') then
 declare function std:string-replace($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
 let $match := u:get-option('match',$options,$v)
-let $matchresult := u:evalXPATH(string($match), $v)
+let $query := if (contains($match,'/')) then
+				$match
+			  else
+				concat('//',$match)
+let $matchresult := u:evalXPATH($query, $v)
 let $replace := string(u:get-option('replace',$options,$v))
 
 (:
@@ -491,7 +507,11 @@ return
 declare function std:wrap($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
 let $match := u:get-option('match',$options,$v)
-let $matchresult := u:evalXPATH(string($match), $v)
+let $query := if (contains($match,'/')) then
+				$match
+			  else
+				concat('//',$match)
+let $matchresult := u:evalXPATH($query, $v)
 let $wrapper := u:get-option('wrapper',$options,$v)
 let $group-adjacent := u:get-option('group-adjacent',$options,$v)
 return
@@ -515,7 +535,11 @@ return
 declare function std:unwrap($primary,$secondary,$options) {
 let $v := u:get-primary($primary)
 let $match := u:get-option('match',$options,$v)
-let $matchresult := u:evalXPATH(string($match), $v)
+let $query := if (contains($match,'/')) then
+				$match
+			  else
+				concat('//',$match)
+let $matchresult := u:evalXPATH($query, $v)
 return
 	u:unwrap-matching-elements($v/*,$matchresult)
 };
