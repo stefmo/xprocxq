@@ -1,23 +1,45 @@
 xquery version "1.0" encoding "UTF-8";
 
 declare namespace t="http://xproc.org/ns/testsuite";
+declare namespace c="http://www.w3.org/ns/xproc-step";
 
 import module namespace const = "http://xproc.net/xproc/const";
 import module namespace xproc = "http://xproc.net/xproc";
 import module namespace u = "http://xproc.net/xproc/util";
 import module namespace naming = "http://xproc.net/xproc/naming";
 
-let $file :=  request:get-parameter("test", ())
-let $files := file:directory-list('/Users/jimfuller/Source/Webcomposite/xprocxq-exist/main/test/tests.xproc.org/required/',$file)
+let $not :=  request:get-parameter("not", ())
+let $type :=  request:get-parameter("type", ())
+let $dir := concat('/Users/jimfuller/Source/Webcomposite/xprocxq-exist/main/test/tests.xproc.org/',$type)
+let $file :=  request:get-parameter("file", ())
+let $files := file:directory-list($dir,$file)
+let $result := for $file in $files/file:file[not(contains(@name,$not))]
+
+let $path := concat('file://',$dir,string($file/@name))
+
+let $stdin1 :=doc($path)/t:test
+
+let $stdin :=  if ($stdin1//t:pipeline/@href) then
+
+<t:test xmlns:t="http://xproc.org/ns/testsuite"
+        xmlns:p="http://www.w3.org/ns/xproc"
+        xmlns:c="http://www.w3.org/ns/xproc-step"
+        xmlns:err="http://www.w3.org/ns/xproc-error">
+
+{$stdin1//t:input}
+
+<t:pipeline>
+{let $doc := doc(concat('file://',$dir,$stdin1//t:pipeline/@href))
 return
+    $doc
+}
+</t:pipeline>
 
-<result>
-{
-for $file in $files/file:file
+{$stdin1//t:output}
+</t:test>
 
-let $path := concat('file:///Users/jimfuller/Source/Webcomposite/xprocxq-exist/main/test/tests.xproc.org/required/',string($file/@name))
-let $stdin :=doc($path)/t:test
-
+               else
+                 $stdin1
 
 let $pipeline := if (count($stdin//t:input) = 0) then
         doc('/db/examples/test-runner2.xml')
@@ -26,7 +48,7 @@ let $pipeline := if (count($stdin//t:input) = 0) then
     else
         doc('/db/examples/test-runner1.xml')
 
-let $runtime-debug := '0'
+let $runtime-debug := request:get-parameter("dbg", ())
     return
     <test file="{$file/@name}">
         {
@@ -36,6 +58,9 @@ let $runtime-debug := '0'
             util:catch('java.lang.Exception', xproc:run($pipeline,$stdin,$runtime-debug), 'fail')
          }
      </test>
-        }
+return
+
+<result pass="{count($result//c:result[.= 'true'])}" nopass="{count($result//c:result[.= 'false'])}" total="{count($result//test)}">
+    {$result}
 </result>
 
